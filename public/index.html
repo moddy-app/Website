@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moddy - Under Construction</title>
+    <link rel="icon" type="image/x-icon" href="https://moddy.app/favicon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            color: #202020;
+            position: relative;
+        }
+
+        /* Header Bar */
+        .header-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            z-index: 100;
+        }
+
+        .logo-container {
+            height: 40px;
+            width: auto;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-container img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .language-toggle {
+            background: #f7f7f7;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Sora', sans-serif;
+            color: #202020;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .language-toggle:hover {
+            background: #202020;
+            color: #ffffff;
+            border-color: #202020;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 120px 48px 80px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .content-wrapper {
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 28px;
+            color: #202020;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: #6e6e6e;
+            margin-bottom: 56px;
+            font-weight: 400;
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+        }
+
+        /* Buttons Container */
+        .buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* Button Styles */
+        .btn {
+            position: relative;
+            padding: 14px 28px;
+            background: #202020;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 1.5px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            letter-spacing: -0.01em;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            background: #10a37f;
+            border-color: #10a37f;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            transition: transform 0.1s;
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #202020;
+            border: 1.5px solid rgba(0, 0, 0, 0.12);
+        }
+
+        .btn-secondary:hover {
+            background: #202020;
+            color: #ffffff;
+            border-color: #202020;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Language specific content */
+        .content-en,
+        .content-fr {
+            display: none;
+        }
+
+        .content-en.active,
+        .content-fr.active {
+            display: block;
+            animation: fadeIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            padding: 32px 48px;
+            font-size: 0.8rem;
+            color: #a0a0a0;
+            font-weight: 300;
+            letter-spacing: 0.01em;
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        .footer a {
+            color: #6e6e6e;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            font-weight: 400;
+        }
+
+        .footer a strong {
+            font-weight: 600;
+            color: #202020;
+        }
+
+        .footer a:hover {
+            color: #10a37f;
+        }
+
+        .footer a:hover strong {
+            color: #10a37f;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-content {
+                padding: 120px 32px 80px;
+            }
+
+            .header-bar {
+                padding: 0 32px;
+            }
+
+            .footer {
+                padding: 28px 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-bar {
+                padding: 0 24px;
+                height: 64px;
+            }
+
+            .logo-container {
+                height: 32px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.125rem;
+                margin-bottom: 40px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+                max-width: 320px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .main-content {
+                padding: 100px 24px 60px;
+            }
+
+            .footer {
+                padding: 24px;
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 20px;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .btn {
+                font-size: 0.875rem;
+                padding: 12px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Bar -->
+    <header class="header-bar">
+        <div class="logo-container">
+            <img src="https://moddy.app/logo.png" alt="Moddy Logo">
+        </div>
+        <button class="language-toggle" id="langToggle">EN / FR</button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- English Content -->
+                <div class="content-en active">
+                    <h1>Under Construction</h1>
+                    <p class="subtitle">
+                        This site is currently under construction.<br>
+                        Moddy is in development and will be available soon.
+                    </p>
+                </div>
+
+                <!-- French Content -->
+                <div class="content-fr">
+                    <h1>En Construction</h1>
+                    <p class="subtitle">
+                        Ce site est actuellement en cours de construction.<br>
+                        Moddy est en développement et sera bientôt disponible.
+                    </p>
+                </div>
+
+                <!-- Buttons -->
+                <div class="buttons">
+                    <a href="https://moddy.app/support" class="btn">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+                        </svg>
+                        <span class="btn-text" data-en="Support Server" data-fr="Serveur Support">Support Server</span>
+                    </a>
+                    <a href="https://moddy.app/git" class="btn btn-secondary">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                        </svg>
+                        <span class="btn-text" data-en="GitHub" data-fr="GitHub">GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>
+            <span class="footer-text" data-en="© 2025 Moddy. All rights reserved. Developed by" data-fr="© 2025 Moddy. Tous droits réservés. Développé par">© 2025 Moddy. All rights reserved. Developed by</span>
+            <a href="https://juthing.xyz" target="_blank" rel="noopener noreferrer">@<strong>juthing</strong></a>
+        </p>
+    </footer>
+
+    <script>
+        const langToggle = document.getElementById('langToggle');
+        const contentEn = document.querySelector('.content-en');
+        const contentFr = document.querySelector('.content-fr');
+        const btnTexts = document.querySelectorAll('.btn-text');
+        const footerText = document.querySelector('.footer-text');
+        let isEnglish = true;
+
+        langToggle.addEventListener('click', function() {
+            isEnglish = !isEnglish;
+
+            if (isEnglish) {
+                // Switch to English
+                contentFr.classList.remove('active');
+                contentEn.classList.add('active');
+
+                btnTexts.forEach(btn => {
+                    btn.textContent = btn.getAttribute('data-en');
+                });
+
+                if (footerText) {
+                    footerText.textContent = footerText.getAttribute('data-en');
+                }
+            } else {
+                // Switch to French
+                contentEn.classList.remove('active');
+                contentFr.classList.add('active');
+
+                btnTexts.forEach(btn => {
+                    btn.textContent = btn.getAttribute('data-fr');
+                });
+
+                if (footerText) {
+                    footerText.textContent = footerText.getAttribute('data-fr');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
