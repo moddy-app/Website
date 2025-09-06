@@ -1,0 +1,161 @@
+/* app/globals.css */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-sora, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  color: #202020;
+  position: relative;
+}
+
+/* Header Bar */
+.header-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  z-index: 100;
+}
+
+.logo-container { height: 40px; width: auto; cursor: pointer; transition: transform 0.2s ease; }
+.logo-container:hover { transform: scale(1.05); }
+.logo-container img { height: 100%; width: auto; object-fit: contain; }
+
+.language-toggle {
+  background: #f7f7f7;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--font-sora, sans-serif);
+  color: #202020;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  letter-spacing: 0.3px;
+}
+.language-toggle:hover { background: #202020; color: #ffffff; border-color: #202020; }
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 120px 48px 80px;
+}
+
+.container { max-width: 1200px; width: 100%; margin: 0 auto; }
+.content-wrapper { max-width: 600px; }
+
+h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 28px;
+  color: #202020;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  font-family: var(--font-epilogue, var(--font-sora, sans-serif));
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: #6e6e6e;
+  margin-bottom: 56px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+/* Buttons Container */
+.buttons { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+/* Button Styles */
+.btn {
+  position: relative;
+  padding: 14px 28px;
+  background: #202020;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  gap: 10px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  letter-spacing: -0.01em;
+  overflow: hidden;
+}
+.btn::before {
+  content: '';
+  position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  background: #10a37f;
+  border-color: #10a37f;
+}
+.btn:hover::before { left: 100%; }
+.btn:active { transform: translateY(0); transition: transform 0.1s; }
+.btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+.btn.btn-secondary {
+  background: transparent;
+  color: #202020;
+  border: 1.5px solid rgba(0, 0, 0, 0.12);
+}
+.btn.btn-secondary:hover {
+  background: #202020; color: #ffffff; border-color: #202020;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Footer */
+.footer {
+  padding: 32px 48px;
+  font-size: 0.8rem;
+  color: #a0a0a0;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+.footer p { margin: 0; }
+.footer a { color: #6e6e6e; text-decoration: none; transition: color 0.2s ease; font-weight: 400; }
+.footer a strong { font-weight: 600; color: #202020; }
+.footer a:hover { color: #10a37f; }
+.footer a:hover strong { color: #10a37f; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .main-content { padding: 120px 32px 80px; }
+  .header-bar { padding: 0 32px; }
+  .footer { padding: 28px 32px; }
+}
+@media (max-width: 768px) {
+  .header-bar { padding: 0 24px; height: 64px; }
+  .logo-container { height: 32px; }
+  h1 { font-size: 2.5rem; }
+  .subtitle { font-size: 1.125rem; margin-bottom: 40px; }
+  .buttons { flex-direction: column; align-items: flex-start; width: 100%; max-width: 320px; }
+  .btn { width: 100%; }
+  .main-content { padding: 100px 24px 60px; }
+  .footer { padding: 24px; font-size: 0.75rem; }
+}
+@media (max-width: 480px) {
+  h1 { font-size: 2rem; margin-bottom: 20px; }
+  .subtitle { font-size: 1rem; }
+  .btn { font-size: 0.875rem; padding: 12px 24px; }
+}
