@@ -18,7 +18,7 @@ export const metadata = {
   description: 'Moddy is in development and will be available soon.',
   icons: {
     // Mets un favicon local dans /public/favicon.ico si tu veux
-    icon: 'https://moddy.app/favicon',
+    icon: 'https://moddy.app/favicon.png',
   },
 };
 
