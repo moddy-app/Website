@@ -212,7 +212,26 @@ export default function FormPage() {
       {/* Main Content */}
       <main className="main-content">
         <div className="container">
-          <div className="content-wrapper">
+          <div className="form-card">
+            {/* Badges */}
+            <div className="badges-container">
+              <span className="badge badge-official">
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                {isEnglish ? 'Official' : 'Officiel'}
+              </span>
+              <span className="badge badge-status-open">
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
+                </svg>
+                {isEnglish ? 'Open' : 'Ouvert'}
+              </span>
+            </div>
+
+            {/* Form Title */}
+            <h2 className="form-title">Moddy | Dev Application</h2>
+
             {/* Error message if present */}
             {typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('error') && (
               <div className="error-message">
@@ -225,10 +244,9 @@ export default function FormPage() {
             {/* English */}
             {isEnglish && (
               <div className="content-en active">
-                <h1>Form Authentication</h1>
+                <h1>Authentication Required</h1>
                 <p className="subtitle">
-                  To access the form, please log in with your Discord account.<br />
-                  This helps us verify your identity and prevent spam.
+                  To submit your developer application, please log in with your Discord account. This helps us verify your identity and contact you about your application.
                 </p>
               </div>
             )}
@@ -236,10 +254,9 @@ export default function FormPage() {
             {/* French */}
             {!isEnglish && (
               <div className="content-fr active">
-                <h1>Authentification du formulaire</h1>
+                <h1>Authentification requise</h1>
                 <p className="subtitle">
-                  Pour accéder au formulaire, veuillez vous connecter avec votre compte Discord.<br />
-                  Cela nous aide à vérifier votre identité et à prévenir le spam.
+                  Pour soumettre votre candidature de développeur, veuillez vous connecter avec votre compte Discord. Cela nous aide à vérifier votre identité et à vous contacter concernant votre candidature.
                 </p>
               </div>
             )}
@@ -268,8 +285,8 @@ export default function FormPage() {
             {/* Security note */}
             <p className="security-note">
               {isEnglish
-                ? '🔒 Your information is secure and will only be used to validate your submission.'
-                : '🔒 Vos informations sont sécurisées et ne seront utilisées que pour valider votre soumission.'}
+                ? '🔒 Your information is secure and will only be used to process your application.'
+                : '🔒 Vos informations sont sécurisées et ne seront utilisées que pour traiter votre candidature.'}
             </p>
           </div>
         </div>
