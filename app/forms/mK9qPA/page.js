@@ -35,10 +35,10 @@ export default function FormPage() {
             {/* Badges */}
             <div className="badges-container">
               <span className="badge badge-official">
-                ✓ {isEnglish ? 'Official' : 'Officiel'}
+                {isEnglish ? 'Official' : 'Officiel'}
               </span>
               <span className="badge badge-status-open">
-                • {isEnglish ? 'Open' : 'Ouvert'}
+                {isEnglish ? 'Open' : 'Ouvert'}
               </span>
             </div>
 
