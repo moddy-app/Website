@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 export default function FormPage() {
-  const discordOAuthURL = "https://discord.com/oauth2/authorize?client_id=1373916203814490194&response_type=code&redirect_uri=https%3A%2F%2Fmoddy.app%2Fforms%2FmK9qPA%2Fcallback&scope=identify+email+guilds+dm_channels.messages.write";
+  const discordOAuthURL = "https://discord.com/oauth2/authorize?client_id=1373916203814490194&response_type=code&redirect_uri=https%3A%2F%2Fmoddy.app%2Fforms%2FmK9qPA%2Fcallback&scope=identify+email+guilds";
 
   useEffect(() => {
     // Vérifie si on a une erreur dans l'URL
