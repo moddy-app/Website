@@ -14,5 +14,19 @@ export function middleware(request) {
     return NextResponse.redirect(redirects[pathname]);
   }
 
+  // Gestion du callback Discord
+  if (pathname === '/forms/mK9qPA/callback') {
+    // Le callback est géré par l'API route, on laisse passer
+    return NextResponse.next();
+  }
+
   return NextResponse.next();
 }
+
+// Configuration du middleware
+export const config = {
+  matcher: [
+    // Exclure les fichiers statiques et l'API
+    '/((?!_next/static|_next/image|favicon.ico|api).*)',
+  ],
+};
