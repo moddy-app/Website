@@ -74,7 +74,7 @@ export default function FormPage() {
         <div className="form-top-app-bar-container">
           <div className="form-logo-wrapper" onClick={() => (window.location.href = '/')}>
             <img
-              src="https://moddy.app/logo.png"
+              src={isDarkMode ? "https://www.moddy.app/logowhite.png" : "https://moddy.app/logo.png"}
               alt="Moddy Logo"
               className="form-logo"
             />

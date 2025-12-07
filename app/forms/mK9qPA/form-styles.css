@@ -80,20 +80,16 @@
   flex-wrap: wrap;
 }
 
-.form-badges md-assist-chip {
-  --md-assist-chip-outline-width: 0px;
-}
-
-/* Badge Official - Fond bleu pastel */
+/* Badge Official - Blue outlined */
 .form-badges md-assist-chip.badge-official {
-  --md-assist-chip-container-color: rgb(227, 242, 253);
-  --md-assist-chip-label-text-color: rgb(1, 87, 155);
+  --md-assist-chip-outline-color: rgb(25, 118, 210);
+  --md-assist-chip-label-text-color: rgb(25, 118, 210);
 }
 
-/* Badge Open - Fond vert pastel */
+/* Badge Open - Green outlined */
 .form-badges md-assist-chip.badge-open {
-  --md-assist-chip-container-color: rgb(232, 245, 233);
-  --md-assist-chip-label-text-color: rgb(27, 94, 32);
+  --md-assist-chip-outline-color: rgb(46, 125, 50);
+  --md-assist-chip-label-text-color: rgb(46, 125, 50);
 }
 
 /* === Typography === */

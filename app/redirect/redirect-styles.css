@@ -21,7 +21,6 @@
   border: 1px solid var(--md-sys-color-outline-variant);
   border-radius: var(--md-sys-shape-corner-extra-large);
   overflow: hidden;
-  box-shadow: var(--md-sys-elevation-level1);
 }
 
 .redirect-card md-linear-progress {
@@ -62,12 +61,6 @@
   color: var(--md-sys-color-on-surface-variant);
   margin: 0;
   line-height: 1.5;
-}
-
-.redirect-message strong {
-  color: var(--md-sys-color-primary);
-  font-size: 24px;
-  font-weight: 500;
 }
 
 /* === URL Display === */
@@ -137,9 +130,5 @@
 
   .redirect-icon {
     font-size: 36px;
-  }
-
-  .redirect-message strong {
-    font-size: 20px;
   }
 }

@@ -10,7 +10,6 @@ import './redirect-styles.css';
 export default function RedirectPage() {
   const [isEnglish, setIsEnglish] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [countdown, setCountdown] = useState(3);
   const [redirectUrl, setRedirectUrl] = useState('');
 
   // Initialize theme from localStorage
@@ -31,22 +30,15 @@ export default function RedirectPage() {
     }
   }, []);
 
-  // Countdown and redirect
+  // Redirect after 3 seconds
   useEffect(() => {
     if (!redirectUrl) return;
 
-    const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          window.location.href = redirectUrl;
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+    const timer = setTimeout(() => {
+      window.location.href = redirectUrl;
+    }, 3000);
 
-    return () => clearInterval(timer);
+    return () => clearTimeout(timer);
   }, [redirectUrl]);
 
   const toggleTheme = () => {
@@ -60,16 +52,14 @@ export default function RedirectPage() {
   const content = {
     en: {
       title: 'Redirecting...',
-      message: 'You will be redirected in',
-      seconds: 'seconds',
+      message: 'You will be redirected shortly',
       noUrl: 'No redirect URL provided',
       goHome: 'Go to Home',
       languageBtn: 'Français'
     },
     fr: {
       title: 'Redirection...',
-      message: 'Vous serez redirigé dans',
-      seconds: 'secondes',
+      message: 'Vous allez être redirigé',
       noUrl: 'Aucune URL de redirection fournie',
       goHome: "Aller à l'accueil",
       languageBtn: 'English'
@@ -85,7 +75,7 @@ export default function RedirectPage() {
         <div className="top-app-bar-container">
           <div className="logo-wrapper" onClick={() => (window.location.href = '/')}>
             <img
-              src="https://moddy.app/logo.png"
+              src={isDarkMode ? "https://www.moddy.app/logowhite.png" : "https://moddy.app/logo.png"}
               alt="Moddy Logo"
               className="logo"
             />
@@ -128,7 +118,7 @@ export default function RedirectPage() {
                 </h1>
 
                 <p className="redirect-message md-typescale-body-large">
-                  {t.message} <strong>{countdown}</strong> {t.seconds}
+                  {t.message}
                 </p>
 
                 <div className="redirect-url">
