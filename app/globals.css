@@ -185,18 +185,19 @@ body {
 .footer {
   background: var(--md-sys-color-surface);
   border-top: 1px solid var(--md-sys-color-outline-variant);
-  padding: 16px;
+  padding: 24px 16px;
 }
 
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
+  text-align: left;
 }
 
 .footer-text {
   color: var(--md-sys-color-on-surface-variant);
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 .footer-link {
@@ -275,4 +276,36 @@ body {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* === Material Web Button Fixes === */
+md-filled-button,
+md-outlined-button,
+md-filled-tonal-button {
+  /* Proper padding for buttons */
+  padding: 0 24px;
+}
+
+/* Fix icon alignment in buttons */
+md-filled-button::part(icon),
+md-outlined-button::part(icon),
+md-filled-tonal-button::part(icon) {
+  vertical-align: middle;
+}
+
+/* Ensure icons slot is properly aligned */
+md-filled-button [slot="icon"],
+md-outlined-button [slot="icon"],
+md-filled-tonal-button [slot="icon"] {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+/* SVG icons in buttons - proper alignment */
+md-filled-button svg,
+md-outlined-button svg,
+md-filled-tonal-button svg {
+  display: block;
+  vertical-align: middle;
 }
