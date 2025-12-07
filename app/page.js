@@ -58,7 +58,7 @@ export default function Home() {
         <div className="top-app-bar-container">
           <div className="logo-wrapper" onClick={() => (window.location.href = '/')}>
             <img
-              src="https://moddy.app/logo.png"
+              src={isDarkMode ? "https://www.moddy.app/logowhite.png" : "https://moddy.app/logo.png"}
               alt="Moddy Logo"
               className="logo"
             />
