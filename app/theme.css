@@ -1,126 +1,246 @@
-/* Material Design 3 Theme */
+/* Material Design 3 Theme - Modern & Clean */
 
 :root {
-  /* Material Design 3 Color Tokens - Light Theme */
-  --md-sys-color-primary: rgb(32, 32, 32);
+  /* === Primary Color - Deep Purple === */
+  --md-sys-color-primary: rgb(103, 80, 164);
   --md-sys-color-on-primary: rgb(255, 255, 255);
-  --md-sys-color-primary-container: rgb(232, 222, 248);
+  --md-sys-color-primary-container: rgb(234, 221, 255);
   --md-sys-color-on-primary-container: rgb(33, 0, 94);
 
+  /* === Secondary Color - Teal === */
   --md-sys-color-secondary: rgb(98, 91, 113);
   --md-sys-color-on-secondary: rgb(255, 255, 255);
   --md-sys-color-secondary-container: rgb(232, 222, 248);
   --md-sys-color-on-secondary-container: rgb(30, 25, 43);
 
-  --md-sys-color-tertiary: rgb(16, 163, 127);
+  /* === Tertiary Color - Accent === */
+  --md-sys-color-tertiary: rgb(125, 82, 96);
   --md-sys-color-on-tertiary: rgb(255, 255, 255);
-  --md-sys-color-tertiary-container: rgb(194, 249, 229);
-  --md-sys-color-on-tertiary-container: rgb(0, 54, 40);
+  --md-sys-color-tertiary-container: rgb(255, 217, 227);
+  --md-sys-color-on-tertiary-container: rgb(55, 11, 30);
 
+  /* === Error === */
   --md-sys-color-error: rgb(186, 26, 26);
   --md-sys-color-on-error: rgb(255, 255, 255);
   --md-sys-color-error-container: rgb(255, 218, 214);
   --md-sys-color-on-error-container: rgb(65, 0, 2);
 
-  --md-sys-color-background: rgb(255, 255, 255);
-  --md-sys-color-on-background: rgb(32, 32, 32);
-  --md-sys-color-surface: rgb(255, 255, 255);
-  --md-sys-color-on-surface: rgb(32, 32, 32);
+  /* === Neutral & Surface === */
+  --md-sys-color-background: rgb(254, 247, 255);
+  --md-sys-color-on-background: rgb(29, 27, 32);
+  --md-sys-color-surface: rgb(254, 247, 255);
+  --md-sys-color-on-surface: rgb(29, 27, 32);
   --md-sys-color-surface-variant: rgb(231, 224, 236);
   --md-sys-color-on-surface-variant: rgb(73, 69, 79);
 
+  /* === Outline === */
   --md-sys-color-outline: rgb(121, 116, 126);
   --md-sys-color-outline-variant: rgb(202, 196, 208);
 
+  /* === Surface Containers === */
   --md-sys-color-surface-container-lowest: rgb(255, 255, 255);
   --md-sys-color-surface-container-low: rgb(247, 242, 250);
   --md-sys-color-surface-container: rgb(243, 237, 247);
   --md-sys-color-surface-container-high: rgb(236, 230, 240);
   --md-sys-color-surface-container-highest: rgb(230, 224, 233);
 
-  /* Typography - Material Design 3 */
-  --md-sys-typescale-display-large-font: 'Roboto Flex', 'Roboto', system-ui;
-  --md-sys-typescale-display-medium-font: 'Roboto Flex', 'Roboto', system-ui;
-  --md-sys-typescale-display-small-font: 'Roboto Flex', 'Roboto', system-ui;
+  --md-sys-color-surface-dim: rgb(222, 216, 225);
+  --md-sys-color-surface-bright: rgb(254, 247, 255);
 
-  --md-sys-typescale-headline-large-font: 'Roboto', system-ui;
-  --md-sys-typescale-headline-medium-font: 'Roboto', system-ui;
-  --md-sys-typescale-headline-small-font: 'Roboto', system-ui;
+  /* === Inverse === */
+  --md-sys-color-inverse-surface: rgb(50, 47, 53);
+  --md-sys-color-inverse-on-surface: rgb(245, 239, 247);
+  --md-sys-color-inverse-primary: rgb(208, 188, 255);
 
-  --md-sys-typescale-body-large-font: 'Roboto', system-ui;
-  --md-sys-typescale-body-medium-font: 'Roboto', system-ui;
-  --md-sys-typescale-body-small-font: 'Roboto', system-ui;
+  /* === Typography - Material Design 3 === */
+  --md-sys-typescale-display-large-font: 'Roboto Flex', 'Roboto', system-ui, -apple-system, sans-serif;
+  --md-sys-typescale-display-large-size: 57px;
+  --md-sys-typescale-display-large-line-height: 64px;
+  --md-sys-typescale-display-large-weight: 400;
+  --md-sys-typescale-display-large-tracking: -0.25px;
 
-  --md-sys-typescale-label-large-font: 'Roboto', system-ui;
-  --md-sys-typescale-label-medium-font: 'Roboto', system-ui;
-  --md-sys-typescale-label-small-font: 'Roboto', system-ui;
+  --md-sys-typescale-display-medium-font: 'Roboto Flex', 'Roboto', system-ui, -apple-system, sans-serif;
+  --md-sys-typescale-display-medium-size: 45px;
+  --md-sys-typescale-display-medium-line-height: 52px;
+  --md-sys-typescale-display-medium-weight: 400;
+  --md-sys-typescale-display-medium-tracking: 0;
 
-  /* Shape - Material Design 3 */
+  --md-sys-typescale-display-small-font: 'Roboto Flex', 'Roboto', system-ui, -apple-system, sans-serif;
+  --md-sys-typescale-display-small-size: 36px;
+  --md-sys-typescale-display-small-line-height: 44px;
+  --md-sys-typescale-display-small-weight: 400;
+  --md-sys-typescale-display-small-tracking: 0;
+
+  --md-sys-typescale-headline-large-font: 'Roboto', system-ui, -apple-system, sans-serif;
+  --md-sys-typescale-headline-large-size: 32px;
+  --md-sys-typescale-headline-large-line-height: 40px;
+  --md-sys-typescale-headline-large-weight: 400;
+  --md-sys-typescale-headline-large-tracking: 0;
+
+  --md-sys-typescale-headline-medium-font: 'Roboto', system-ui, -apple-system, sans-serif;
+  --md-sys-typescale-headline-medium-size: 28px;
+  --md-sys-typescale-headline-medium-line-height: 36px;
+  --md-sys-typescale-headline-medium-weight: 400;
+  --md-sys-typescale-headline-medium-tracking: 0;
+
+  --md-sys-typescale-headline-small-font: 'Roboto', system-ui, -apple-system, sans-serif;
+  --md-sys-typescale-headline-small-size: 24px;
+  --md-sys-typescale-headline-small-line-height: 32px;
+  --md-sys-typescale-headline-small-weight: 400;
+  --md-sys-typescale-headline-small-tracking: 0;
+
+  --md-sys-typescale-body-large-font: 'Roboto', system-ui, -apple-system, sans-serif;
+  --md-sys-typescale-body-large-size: 16px;
+  --md-sys-typescale-body-large-line-height: 24px;
+  --md-sys-typescale-body-large-weight: 400;
+  --md-sys-typescale-body-large-tracking: 0.5px;
+
+  --md-sys-typescale-body-medium-font: 'Roboto', system-ui, -apple-system, sans-serif;
+  --md-sys-typescale-body-medium-size: 14px;
+  --md-sys-typescale-body-medium-line-height: 20px;
+  --md-sys-typescale-body-medium-weight: 400;
+  --md-sys-typescale-body-medium-tracking: 0.25px;
+
+  --md-sys-typescale-body-small-font: 'Roboto', system-ui, -apple-system, sans-serif;
+  --md-sys-typescale-body-small-size: 12px;
+  --md-sys-typescale-body-small-line-height: 16px;
+  --md-sys-typescale-body-small-weight: 400;
+  --md-sys-typescale-body-small-tracking: 0.4px;
+
+  --md-sys-typescale-label-large-font: 'Roboto', system-ui, -apple-system, sans-serif;
+  --md-sys-typescale-label-large-size: 14px;
+  --md-sys-typescale-label-large-line-height: 20px;
+  --md-sys-typescale-label-large-weight: 500;
+  --md-sys-typescale-label-large-tracking: 0.1px;
+
+  --md-sys-typescale-label-medium-font: 'Roboto', system-ui, -apple-system, sans-serif;
+  --md-sys-typescale-label-medium-size: 12px;
+  --md-sys-typescale-label-medium-line-height: 16px;
+  --md-sys-typescale-label-medium-weight: 500;
+  --md-sys-typescale-label-medium-tracking: 0.5px;
+
+  --md-sys-typescale-label-small-font: 'Roboto', system-ui, -apple-system, sans-serif;
+  --md-sys-typescale-label-small-size: 11px;
+  --md-sys-typescale-label-small-line-height: 16px;
+  --md-sys-typescale-label-small-weight: 500;
+  --md-sys-typescale-label-small-tracking: 0.5px;
+
+  /* === Shape - Material Design 3 === */
+  --md-sys-shape-corner-none: 0px;
   --md-sys-shape-corner-extra-small: 4px;
   --md-sys-shape-corner-small: 8px;
   --md-sys-shape-corner-medium: 12px;
   --md-sys-shape-corner-large: 16px;
   --md-sys-shape-corner-extra-large: 28px;
+  --md-sys-shape-corner-full: 9999px;
 
-  /* Elevation - Material Design 3 */
-  --md-sys-elevation-level0: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  /* === Elevation - Material Design 3 === */
+  --md-sys-elevation-level0: none;
   --md-sys-elevation-level1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
   --md-sys-elevation-level2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
   --md-sys-elevation-level3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.3);
   --md-sys-elevation-level4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
   --md-sys-elevation-level5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
+
+  /* === Motion - Material Design 3 === */
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-sys-motion-duration-short1: 50ms;
+  --md-sys-motion-duration-short2: 100ms;
+  --md-sys-motion-duration-short3: 150ms;
+  --md-sys-motion-duration-short4: 200ms;
+  --md-sys-motion-duration-medium1: 250ms;
+  --md-sys-motion-duration-medium2: 300ms;
+  --md-sys-motion-duration-medium3: 350ms;
+  --md-sys-motion-duration-medium4: 400ms;
+  --md-sys-motion-duration-long1: 450ms;
+  --md-sys-motion-duration-long2: 500ms;
+  --md-sys-motion-duration-long3: 550ms;
+  --md-sys-motion-duration-long4: 600ms;
 }
 
-/* Custom Material Web component styling */
+/* === Material Web Components Customization === */
+
+/* Filled Button */
 md-filled-button {
   --md-filled-button-container-color: var(--md-sys-color-primary);
   --md-filled-button-label-text-color: var(--md-sys-color-on-primary);
-  --md-filled-button-container-shape: 12px;
-  --md-filled-button-container-height: 48px;
+  --md-filled-button-container-shape: var(--md-sys-shape-corner-full);
+  --md-filled-button-container-height: 40px;
+  --md-filled-button-label-text-font: var(--md-sys-typescale-label-large-font);
+  --md-filled-button-label-text-size: var(--md-sys-typescale-label-large-size);
+  --md-filled-button-label-text-weight: var(--md-sys-typescale-label-large-weight);
 }
 
+/* Outlined Button */
 md-outlined-button {
-  --md-outlined-button-outline-color: rgba(0, 0, 0, 0.12);
+  --md-outlined-button-outline-color: var(--md-sys-color-outline);
   --md-outlined-button-label-text-color: var(--md-sys-color-primary);
-  --md-outlined-button-container-shape: 12px;
-  --md-outlined-button-container-height: 48px;
+  --md-outlined-button-container-shape: var(--md-sys-shape-corner-full);
+  --md-outlined-button-container-height: 40px;
+  --md-outlined-button-label-text-font: var(--md-sys-typescale-label-large-font);
+  --md-outlined-button-label-text-size: var(--md-sys-typescale-label-large-size);
+  --md-outlined-button-label-text-weight: var(--md-sys-typescale-label-large-weight);
 }
 
+/* Elevated Button */
 md-elevated-button {
   --md-elevated-button-container-color: var(--md-sys-color-surface-container-low);
   --md-elevated-button-label-text-color: var(--md-sys-color-primary);
-  --md-elevated-button-container-shape: 12px;
-  --md-elevated-button-container-height: 48px;
+  --md-elevated-button-container-shape: var(--md-sys-shape-corner-full);
+  --md-elevated-button-container-height: 40px;
+  --md-elevated-button-label-text-font: var(--md-sys-typescale-label-large-font);
+  --md-elevated-button-label-text-size: var(--md-sys-typescale-label-large-size);
+  --md-elevated-button-label-text-weight: var(--md-sys-typescale-label-large-weight);
 }
 
+/* Text Button */
+md-text-button {
+  --md-text-button-label-text-color: var(--md-sys-color-primary);
+  --md-text-button-container-height: 40px;
+  --md-text-button-label-text-font: var(--md-sys-typescale-label-large-font);
+  --md-text-button-label-text-size: var(--md-sys-typescale-label-large-size);
+  --md-text-button-label-text-weight: var(--md-sys-typescale-label-large-weight);
+}
+
+/* Filled Tonal Button */
 md-filled-tonal-button {
   --md-filled-tonal-button-container-color: var(--md-sys-color-secondary-container);
   --md-filled-tonal-button-label-text-color: var(--md-sys-color-on-secondary-container);
-  --md-filled-tonal-button-container-shape: 12px;
+  --md-filled-tonal-button-container-shape: var(--md-sys-shape-corner-full);
+  --md-filled-tonal-button-container-height: 40px;
 }
 
-md-text-button {
-  --md-text-button-label-text-color: var(--md-sys-color-primary);
-}
-
+/* Icon Button */
 md-icon-button {
   --md-icon-button-icon-color: var(--md-sys-color-on-surface-variant);
+  --md-icon-button-state-layer-shape: var(--md-sys-shape-corner-full);
 }
 
+/* FAB */
+md-fab {
+  --md-fab-container-color: var(--md-sys-color-primary-container);
+  --md-fab-icon-color: var(--md-sys-color-on-primary-container);
+  --md-fab-container-shape: var(--md-sys-shape-corner-large);
+}
+
+/* Chips */
 md-chip {
-  --md-chip-container-shape: 100px;
-  --md-chip-label-text-font: 'Roboto', system-ui;
+  --md-chip-container-shape: var(--md-sys-shape-corner-small);
+  --md-chip-label-text-font: var(--md-sys-typescale-label-large-font);
 }
 
 md-assist-chip {
   --md-assist-chip-container-height: 32px;
   --md-assist-chip-label-text-color: var(--md-sys-color-on-surface);
+  --md-assist-chip-outline-color: var(--md-sys-color-outline);
 }
 
-/* Top App Bar customization */
-.md-top-app-bar {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+/* Text Field */
+md-outlined-text-field,
+md-filled-text-field {
+  --md-outlined-text-field-container-shape: var(--md-sys-shape-corner-extra-small);
+  --md-filled-text-field-container-shape: var(--md-sys-shape-corner-extra-small);
 }
