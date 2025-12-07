@@ -39,6 +39,16 @@
   object-fit: contain;
 }
 
+.form-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-theme-toggle {
+  --md-icon-button-icon-size: 24px;
+}
+
 /* === Main Content === */
 .form-main-content {
   flex: 1;

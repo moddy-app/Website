@@ -1,0 +1,145 @@
+/* Redirect Page Styles - Material Design 3 */
+
+/* === Main Section === */
+.redirect-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 96px 16px 48px;
+  background: var(--md-sys-color-background);
+}
+
+.redirect-container {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* === Redirect Card === */
+.redirect-card {
+  background: var(--md-sys-color-surface-container);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-sys-shape-corner-extra-large);
+  overflow: hidden;
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.redirect-card md-linear-progress {
+  width: 100%;
+  --md-linear-progress-active-indicator-color: var(--md-sys-color-primary);
+  --md-linear-progress-track-color: var(--md-sys-color-surface-container-high);
+  --md-linear-progress-active-indicator-height: 4px;
+  --md-linear-progress-track-height: 4px;
+}
+
+.redirect-content {
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+/* === Icon === */
+.redirect-icon {
+  font-size: 48px;
+  color: var(--md-sys-color-primary);
+  margin-bottom: 8px;
+}
+
+.redirect-icon.error {
+  color: var(--md-sys-color-error);
+}
+
+/* === Typography === */
+.redirect-title {
+  color: var(--md-sys-color-on-surface);
+  margin: 0;
+}
+
+.redirect-message {
+  color: var(--md-sys-color-on-surface-variant);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.redirect-message strong {
+  color: var(--md-sys-color-primary);
+  font-size: 24px;
+  font-weight: 500;
+}
+
+/* === URL Display === */
+.redirect-url {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--md-sys-color-surface-container-high);
+  border-radius: var(--md-sys-shape-corner-medium);
+  margin-top: 8px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.redirect-url .material-symbols-outlined {
+  font-size: 20px;
+  color: var(--md-sys-color-on-surface-variant);
+  flex-shrink: 0;
+}
+
+.redirect-url-text {
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 14px;
+  font-family: 'Roboto Mono', monospace;
+  word-break: break-all;
+}
+
+/* === Home Button === */
+.redirect-home-btn {
+  margin-top: 8px;
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  .redirect-section {
+    padding: 80px 16px 32px;
+  }
+
+  .redirect-content {
+    padding: 40px 32px;
+  }
+
+  .redirect-title {
+    font-size: 24px !important;
+    line-height: 32px !important;
+  }
+
+  .redirect-message {
+    font-size: 14px !important;
+  }
+
+  .redirect-icon {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .redirect-content {
+    padding: 32px 24px;
+  }
+
+  .redirect-title {
+    font-size: 20px !important;
+    line-height: 28px !important;
+  }
+
+  .redirect-icon {
+    font-size: 36px;
+  }
+
+  .redirect-message strong {
+    font-size: 20px;
+  }
+}
