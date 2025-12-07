@@ -12,7 +12,17 @@ import '@material/web/ripple/ripple.js';
 
 export default function FormPage() {
   const [isEnglish, setIsEnglish] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const discordOAuthURL = "https://discord.com/oauth2/authorize?client_id=1373916203814490194&response_type=code&redirect_uri=https%3A%2F%2Fmoddy.app%2Fforms%2FmK9qPA%2Fcallback&scope=identify+email+guilds";
+
+  // Initialize theme from localStorage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+    setIsDarkMode(initialDark);
+    document.documentElement.setAttribute('data-theme', initialDark ? 'dark' : 'light');
+  }, []);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -21,6 +31,14 @@ export default function FormPage() {
       console.error('OAuth Error:', error);
     }
   }, []);
+
+  const toggleTheme = () => {
+    const newTheme = !isDarkMode;
+    setIsDarkMode(newTheme);
+    const themeValue = newTheme ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', themeValue);
+    localStorage.setItem('theme', themeValue);
+  };
 
   const content = {
     en: {
@@ -62,15 +80,23 @@ export default function FormPage() {
             />
           </div>
 
-          <md-filled-tonal-button
-            className="form-language-btn"
-            onClick={() => setIsEnglish(!isEnglish)}
-          >
-            <span className="material-symbols-outlined" slot="icon">
-              language
-            </span>
-            {t.languageBtn}
-          </md-filled-tonal-button>
+          <div className="form-header-actions">
+            <md-icon-button onClick={toggleTheme} className="form-theme-toggle">
+              <span className="material-symbols-outlined">
+                {isDarkMode ? 'light_mode' : 'dark_mode'}
+              </span>
+            </md-icon-button>
+
+            <md-filled-tonal-button
+              className="form-language-btn"
+              onClick={() => setIsEnglish(!isEnglish)}
+            >
+              <span className="material-symbols-outlined" slot="icon">
+                language
+              </span>
+              {t.languageBtn}
+            </md-filled-tonal-button>
+          </div>
         </div>
       </header>
 

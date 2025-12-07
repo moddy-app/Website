@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '@material/web/button/filled-button.js';
 import '@material/web/button/outlined-button.js';
 import '@material/web/button/filled-tonal-button.js';
@@ -9,6 +9,24 @@ import '@material/web/ripple/ripple.js';
 
 export default function Home() {
   const [isEnglish, setIsEnglish] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Initialize theme from localStorage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+    setIsDarkMode(initialDark);
+    document.documentElement.setAttribute('data-theme', initialDark ? 'dark' : 'light');
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = !isDarkMode;
+    setIsDarkMode(newTheme);
+    const themeValue = newTheme ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', themeValue);
+    localStorage.setItem('theme', themeValue);
+  };
 
   const content = {
     en: {
@@ -46,15 +64,23 @@ export default function Home() {
             />
           </div>
 
-          <md-filled-tonal-button
-            className="language-btn"
-            onClick={() => setIsEnglish(!isEnglish)}
-          >
-            <span className="material-symbols-outlined" slot="icon">
-              language
-            </span>
-            {t.languageBtn}
-          </md-filled-tonal-button>
+          <div className="header-actions">
+            <md-icon-button onClick={toggleTheme} className="theme-toggle">
+              <span className="material-symbols-outlined">
+                {isDarkMode ? 'light_mode' : 'dark_mode'}
+              </span>
+            </md-icon-button>
+
+            <md-filled-tonal-button
+              className="language-btn"
+              onClick={() => setIsEnglish(!isEnglish)}
+            >
+              <span className="material-symbols-outlined" slot="icon">
+                language
+              </span>
+              {t.languageBtn}
+            </md-filled-tonal-button>
+          </div>
         </div>
       </header>
 
