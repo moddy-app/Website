@@ -72,7 +72,8 @@ body {
 
 .language-btn {
   --md-filled-tonal-button-container-shape: var(--md-sys-shape-corner-full);
-  --md-filled-tonal-button-container-height: 36px;
+  --md-filled-tonal-button-container-height: 44px;
+  min-width: 140px;
 }
 
 /* === Hero Section === */
@@ -96,10 +97,10 @@ body {
 }
 
 .hero-content {
-  text-align: center;
+  text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 24px;
 }
 
@@ -167,7 +168,7 @@ body {
   gap: 16px;
   margin-top: 16px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   animation: fadeInUp 0.6s var(--md-sys-motion-easing-emphasized-decelerate) 0.4s backwards;
 }
 
@@ -203,7 +204,7 @@ body {
   border: 1px solid var(--md-sys-color-outline-variant);
   border-radius: var(--md-sys-shape-corner-large);
   padding: 32px 24px;
-  text-align: center;
+  text-align: left;
   transition: all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
   cursor: default;
 }
@@ -217,7 +218,7 @@ body {
 .feature-icon {
   width: 56px;
   height: 56px;
-  margin: 0 auto 16px;
+  margin: 0 0 16px 0;
   display: flex;
   align-items: center;
   justify-content: center;
