@@ -80,12 +80,10 @@ export default function FormPage() {
           <div className="form-card">
             {/* Status Badges */}
             <div className="form-badges">
-              <md-assist-chip label={t.badgeOfficial}>
-                <span className="material-symbols-outlined" slot="icon">verified</span>
+              <md-assist-chip label={t.badgeOfficial} className="badge-official">
                 {t.badgeOfficial}
               </md-assist-chip>
-              <md-assist-chip label={t.badgeOpen}>
-                <span className="material-symbols-outlined" slot="icon">check_circle</span>
+              <md-assist-chip label={t.badgeOpen} className="badge-open">
                 {t.badgeOpen}
               </md-assist-chip>
             </div>
