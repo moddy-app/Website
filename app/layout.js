@@ -1,17 +1,6 @@
 // app/layout.js
 import './globals.css';
-import { Sora, Epilogue } from 'next/font/google';
-
-const sora = Sora({
-  subsets: ['latin'],
-  variable: '--font-sora',
-  display: 'swap',
-});
-const epilogue = Epilogue({
-  subsets: ['latin'],
-  variable: '--font-epilogue',
-  display: 'swap',
-});
+import './theme.css';
 
 export const metadata = {
   title: 'Moddy - Under Construction',
@@ -24,7 +13,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${sora.variable} ${epilogue.variable}`}>
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Flex:wght@300;400;500;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+      </head>
       <body>{children}</body>
     </html>
   );
