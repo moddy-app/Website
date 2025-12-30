@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+_dev/
+_prod/
+build/
+lib/
+.wireit/
+
+# TypeScript
+tsconfig.tsbuildinfo
+
+# Note: site/about/*.md, site/components/*.md, and site/theming/*.md
+# are generated during build but MUST be committed to git for Vercel deployment
+# Eleventy needs these files to generate the documentation pages
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo

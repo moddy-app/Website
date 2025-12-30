@@ -1,2 +1,2 @@
-# Website
-Website of Moddy
+# docs
+Moddy documentation
