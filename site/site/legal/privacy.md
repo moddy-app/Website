@@ -99,7 +99,7 @@ Discord identifiers may be anonymized during transmission, but **the textual con
 
 **Some data sent to the OpenAI API may be used by OpenAI to train and improve its models**, in accordance with their terms of use.
 
-**Recommendation**: Never include personal, confidential, or sensitive information in your queries to translation, AI, or content processing services. This includes, but is not limited to: passwords, banking information, medical information, confidential professional or personal documents.
+> **Important:** Never include personal, confidential, or sensitive information in your queries to translation, AI, or content processing services. This includes, but is not limited to: passwords, banking information, medical information, confidential professional or personal documents.
 
 ## Data Retention Period
 
