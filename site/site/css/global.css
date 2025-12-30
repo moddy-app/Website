@@ -188,3 +188,26 @@ h6 {
 .toc ol li {
   margin-block: var(--catalog-spacing-m);
 }
+
+/* Drawer actions container */
+nav-drawer .drawer-actions {
+  position: absolute;
+  bottom: var(--catalog-spacing-l);
+  left: var(--catalog-spacing-l);
+  display: flex;
+  gap: var(--catalog-spacing-s);
+  padding: var(--catalog-spacing-s);
+  border-radius: var(--catalog-shape-l);
+  border: 1px solid var(--md-sys-color-outline);
+  background-color: var(--md-sys-color-surface-container-low);
+}
+
+nav-drawer .drawer-actions md-icon-button {
+  --md-icon-button-state-layer-shape: var(--catalog-shape-m);
+}
+
+nav-drawer .drawer-actions md-icon svg {
+  fill: var(--md-sys-color-on-surface);
+  width: 24px;
+  height: 24px;
+}
