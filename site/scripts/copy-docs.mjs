@@ -179,11 +179,11 @@ async function createSectionConfig(sectionName) {
   await writeFile(configPath, JSON.stringify(config, null, 2));
 }
 
-// Process files from /docs/ root into 'about' section
-const aboutFiles = await getReadmeFiles('.');
-console.log('Transforming about files...');
-await createSectionConfig('about');
-await transformReadmes(aboutFiles, 'about');
+// Process files from /docs/ root into 'guide' section
+const guideFiles = await getReadmeFiles('.');
+console.log('Transforming guide files...');
+await createSectionConfig('guide');
+await transformReadmes(guideFiles, 'guide');
 
 // Automatically process all subdirectories
 const subdirs = await getSubdirectories('docs');

@@ -66,8 +66,7 @@
 
         <main id="main-content" slot="app-content" tabindex="0">
           <!-- this is the content of the page -->
-          <!-- unrelated change to components -->
-          {% block content %}{{ content | mdMarkdown | safe }}{% endblock %}
+          {% block content %}{{ content | safe }}{% endblock %}
         </main>
         <md-list
             aria-label="List of pages"
