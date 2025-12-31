@@ -86,11 +86,45 @@
                   tabindex="{% if file.url == page.url %}0{% else %}-1{% endif %}"
                 >{{ file.data.name }}</md-list-item>
               {% endfor %}
-              {% if not loop.last %}
-                <md-divider role="separator"></md-divider>
-              {% endif %}
+              <md-divider role="separator"></md-divider>
             {% endif %}
           {% endfor %}
+
+          <!-- Redirections section -->
+          <md-item><div slot="headline">Redirections</div></md-item>
+          <md-list-item
+            href="https://discord.com/oauth2/authorize?client_id=1373916203814490194"
+            role="menuitem"
+            type="link"
+            target="_blank"
+            tabindex="-1"
+          >Add moddy</md-list-item>
+          <md-list-item
+            href="/status/"
+            role="menuitem"
+            type="link"
+            tabindex="-1"
+          >Status</md-list-item>
+          <md-list-item
+            href="https://docs.moddy.app"
+            role="menuitem"
+            type="link"
+            target="_blank"
+            tabindex="-1"
+          >Documentation</md-list-item>
+          <md-list-item
+            href="https://dashboard.moddy.app"
+            role="menuitem"
+            type="link"
+            target="_blank"
+            tabindex="-1"
+          >Dashboard</md-list-item>
+          <md-list-item
+            href="/support/"
+            role="menuitem"
+            type="link"
+            tabindex="-1"
+          >Support</md-list-item>
         </md-list>
 
         <div class="drawer-actions">
