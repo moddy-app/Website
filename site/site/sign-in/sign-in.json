@@ -1,5 +1,5 @@
 {
   "layout": "layouts/docs.html",
-  "tags": "auth",
-  "hasToc": false
+  "hasToc": false,
+  "eleventyExcludeFromCollections": true
 }

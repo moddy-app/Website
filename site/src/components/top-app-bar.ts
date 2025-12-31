@@ -63,15 +63,18 @@ export class TopAppBar extends SignalElement(LitElement) {
   }
 
   /**
-   * Handle logout
+   * Handle dashboard navigation
    */
-  private async handleLogout() {
-    const success = await logout();
-    if (success) {
-      this.isAuthenticated = false;
-      this.userInfo = null;
-      window.location.href = '/';
-    }
+  private handleDashboard() {
+    window.location.href = 'https://dashboard.moddy.app';
+  }
+
+  /**
+   * Handle sign out
+   */
+  private handleSignOut() {
+    const currentUrl = encodeURIComponent(window.location.href);
+    window.location.href = `https://api.moddy.app/auth/logout?url=${currentUrl}`;
   }
 
   render() {
@@ -148,14 +151,25 @@ export class TopAppBar extends SignalElement(LitElement) {
             menu-corner="end-start"
             anchor-corner="end-end"
             default-focus="none">
-            <md-menu-item disabled>
-              <div slot="headline">${this.userInfo.username}</div>
-              <div slot="supporting-text">${this.userInfo.email || 'No email'}</div>
-            </md-menu-item>
-            <md-menu-item @click=${this.handleLogout}>
-              <md-icon slot="start">logout</md-icon>
-              <div slot="headline">Logout</div>
-            </md-menu-item>
+            <div class="user-menu-content">
+              <div class="user-menu-header">
+                ${this.userInfo.avatar_url
+                  ? html`<img
+                      src="${this.userInfo.avatar_url}"
+                      alt="${this.userInfo.username}"
+                      class="user-menu-avatar" />`
+                  : html`<md-icon class="user-menu-avatar-icon">account_circle</md-icon>`}
+                <div class="user-menu-greeting">Hello @${this.userInfo.username}!</div>
+              </div>
+              <div class="user-menu-actions">
+                <md-filled-button @click=${this.handleDashboard}>
+                  Dashboard
+                </md-filled-button>
+                <md-filled-tonal-button @click=${this.handleSignOut}>
+                  Sign out
+                </md-filled-tonal-button>
+              </div>
+            </div>
           </md-menu>
         </div>
       `;
@@ -268,6 +282,52 @@ export class TopAppBar extends SignalElement(LitElement) {
 
     #user-menu-button {
       --md-icon-button-icon-size: 32px;
+    }
+
+    .user-menu-content {
+      padding: var(--catalog-spacing-l);
+      min-width: 280px;
+    }
+
+    .user-menu-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--catalog-spacing-m);
+      padding-bottom: var(--catalog-spacing-l);
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    .user-menu-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .user-menu-avatar-icon {
+      font-size: 64px;
+      width: 64px;
+      height: 64px;
+      color: var(--md-sys-color-primary);
+    }
+
+    .user-menu-greeting {
+      font-size: var(--catalog-body-l-font-size);
+      font-weight: 700;
+      color: var(--md-sys-color-on-surface);
+      text-align: center;
+    }
+
+    .user-menu-actions {
+      display: flex;
+      gap: var(--catalog-spacing-s);
+      padding-top: var(--catalog-spacing-l);
+    }
+
+    .user-menu-actions md-filled-button,
+    .user-menu-actions md-filled-tonal-button {
+      flex: 1;
     }
 
     #menu-island {
