@@ -175,9 +175,11 @@ export class TopAppBar extends SignalElement(LitElement) {
               </div>
               <div class="user-menu-actions">
                 <md-filled-button @click=${this.handleDashboard}>
+                  <md-icon slot="icon">dashboard</md-icon>
                   Dashboard
                 </md-filled-button>
                 <md-filled-tonal-button @click=${this.handleSignOut}>
+                  <md-icon slot="icon">logout</md-icon>
                   Sign out
                 </md-filled-tonal-button>
               </div>
