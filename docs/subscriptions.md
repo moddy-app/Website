@@ -1,7 +1,10 @@
 ---
 name: Abonnements
 title: Abonnements
-order: 1
+tags: navigation
+order: 2
+layout: layouts/docs.html
+hasToc: true
 ---
 
 # Abonnements
