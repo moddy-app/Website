@@ -257,6 +257,97 @@ NEXT_PUBLIC_DISCORD_CLIENT_ID=123456789012345678
 
 ---
 
+### 4. Récupérer les informations utilisateur complètes
+
+**Endpoint :** `GET /auth/user-info`
+
+**Description :** Récupère toutes les informations Discord de l'utilisateur connecté.
+
+**Headers requis :**
+```javascript
+{
+  "Cookie": "moddy_session=token" // Envoyé automatiquement
+}
+```
+
+**Réponse (200) :**
+```json
+{
+  "id": "123456789012345678",
+  "username": "JohnDoe",
+  "discriminator": "0001",
+  "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
+  "email": "john@example.com",
+  "verified": true,
+  "locale": "en-US",
+  "mfa_enabled": true,
+  "premium_type": 2,
+  "public_flags": 131072,
+  "avatar_url": "https://cdn.discordapp.com/avatars/123456789012345678/a_d5efa99b3eeaa7dd43acca82f5692432.gif"
+}
+```
+
+**Champs disponibles :**
+
+| Champ | Type | Description |
+|-------|------|-------------|
+| `id` | string | Discord ID (identifiant unique) |
+| `username` | string | Nom d'utilisateur Discord |
+| `discriminator` | string | Discriminateur (ex: "0001") |
+| `avatar` | string\|null | Hash de l'avatar |
+| `email` | string\|null | Email de l'utilisateur |
+| `verified` | boolean\|null | Email vérifié sur Discord |
+| `locale` | string\|null | Langue (ex: "en-US", "fr") |
+| `mfa_enabled` | boolean\|null | Authentification 2FA activée |
+| `premium_type` | int\|null | Nitro (0=None, 1=Classic, 2=Full) |
+| `public_flags` | int\|null | Badges/flags publics |
+| `avatar_url` | string\|null | URL complète de l'avatar |
+
+**Comportement :**
+1. Vérifie le cookie de session
+2. Utilise le **refresh token** pour obtenir un nouvel **access token** Discord
+3. Met à jour le refresh token si Discord en renvoie un nouveau
+4. Récupère les infos depuis Discord API (`GET /users/@me`)
+5. Construit automatiquement l'URL de l'avatar (PNG ou GIF si animé)
+6. ⚠️ **Si le refresh échoue, supprime la session** (l'utilisateur doit se reconnecter)
+
+**Erreurs :**
+- `401 Unauthorized` - Non authentifié ou refresh token invalide/révoqué
+- `500 Internal Server Error` - Erreur lors de la récupération
+
+**⚠️ Important :**
+- L'endpoint utilise automatiquement le refresh token stocké en DB
+- Si Discord révoque le refresh token, la session sera supprimée
+- L'access token est rafraîchi à chaque appel (pas de cache)
+- L'avatar_url est construit automatiquement (GIF si hash commence par "a_")
+
+**Usage Frontend :**
+```javascript
+async function getUserInfo() {
+  const response = await fetch('https://api.moddy.app/auth/user-info', {
+    credentials: 'include'
+  });
+
+  if (response.status === 401) {
+    // Session invalide ou refresh token révoqué
+    console.log('Please sign in again');
+    window.location.href = '/login';
+    return null;
+  }
+
+  const userInfo = await response.json();
+
+  console.log('Discord ID:', userInfo.id);
+  console.log('Username:', userInfo.username);
+  console.log('Avatar:', userInfo.avatar_url);
+  console.log('Has Nitro:', userInfo.premium_type > 0);
+
+  return userInfo;
+}
+```
+
+---
+
 ## Gestion des cookies
 
 ### Cookie de session : `moddy_session`
