@@ -11,6 +11,10 @@ lib/
 # TypeScript
 tsconfig.tsbuildinfo
 
+# Environment variables
+.env
+.env.local
+
 # Note: site/about/*.md, site/components/*.md, and site/theming/*.md
 # are generated during build but MUST be committed to git for Vercel deployment
 # Eleventy needs these files to generate the documentation pages

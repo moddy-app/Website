@@ -8,6 +8,8 @@ import '@material/web/focus/md-focus-ring.js';
 import '@material/web/icon/icon.js';
 import '@material/web/iconbutton/icon-button.js';
 import '@material/web/button/filled-tonal-button.js';
+import '@material/web/menu/menu.js';
+import '@material/web/menu/menu-item.js';
 
 import type {MdIconButton} from '@material/web/iconbutton/icon-button.js';
 import {css, html, LitElement} from 'lit';
@@ -18,12 +20,59 @@ import {drawerOpenSignal} from '../signals/drawer-open-state.js';
 import {inertContentSignal, inertSidebarSignal} from '../signals/inert.js';
 import {SignalElement} from '../signals/signal-element.js';
 import {moddyLogo} from '../svg/moddy-logo.js';
+import {verifySession, getUserInfo, logout, type UserInfo} from '../utils/auth.js';
 
 /**
  * Top app bar of the catalog.
  */
 @customElement('top-app-bar')
 export class TopAppBar extends SignalElement(LitElement) {
+  @state()
+  private isAuthenticated = false;
+
+  @state()
+  private userInfo: UserInfo | null = null;
+
+  @state()
+  private isLoading = true;
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.checkAuthentication();
+  }
+
+  /**
+   * Check if user is authenticated and load their info
+   */
+  private async checkAuthentication() {
+    try {
+      const session = await verifySession();
+
+      if (session.valid) {
+        this.isAuthenticated = true;
+        const info = await getUserInfo();
+        if (info) {
+          this.userInfo = info;
+        }
+      }
+    } catch (error) {
+      console.error('Error checking authentication:', error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  /**
+   * Handle logout
+   */
+  private async handleLogout() {
+    const success = await logout();
+    if (success) {
+      this.isAuthenticated = false;
+      this.userInfo = null;
+      window.location.href = '/';
+    }
+  }
 
   render() {
     return html`
@@ -63,10 +112,7 @@ export class TopAppBar extends SignalElement(LitElement) {
           </a>
 
           <section class="end">
-            <md-filled-tonal-button
-              @click=${this.onSignInClick}>
-              Sign In
-            </md-filled-tonal-button>
+            ${this.renderAuthSection()}
           </section>
         </div>
         <slot></slot>
@@ -75,11 +121,59 @@ export class TopAppBar extends SignalElement(LitElement) {
   }
 
   /**
+   * Renders the authentication section (Sign In button or user avatar)
+   */
+  private renderAuthSection() {
+    if (this.isLoading) {
+      return html``;
+    }
+
+    if (this.isAuthenticated && this.userInfo) {
+      return html`
+        <div class="user-menu-container">
+          <md-icon-button
+            id="user-menu-button"
+            aria-label="User menu"
+            title="${this.userInfo.username}">
+            ${this.userInfo.avatar_url
+              ? html`<img
+                  src="${this.userInfo.avatar_url}"
+                  alt="${this.userInfo.username}"
+                  class="user-avatar" />`
+              : html`<md-icon>account_circle</md-icon>`}
+          </md-icon-button>
+          <md-menu
+            id="user-menu"
+            anchor="user-menu-button"
+            menu-corner="end-start"
+            anchor-corner="end-end"
+            default-focus="none">
+            <md-menu-item disabled>
+              <div slot="headline">${this.userInfo.username}</div>
+              <div slot="supporting-text">${this.userInfo.email || 'No email'}</div>
+            </md-menu-item>
+            <md-menu-item @click=${this.handleLogout}>
+              <md-icon slot="start">logout</md-icon>
+              <div slot="headline">Logout</div>
+            </md-menu-item>
+          </md-menu>
+        </div>
+      `;
+    }
+
+    return html`
+      <md-filled-tonal-button @click=${this.onSignInClick}>
+        Sign In
+      </md-filled-tonal-button>
+    `;
+  }
+
+  /**
    * Redirects to the sign in page with the current URL as a parameter.
    */
   private onSignInClick() {
     const currentUrl = encodeURIComponent(window.location.href);
-    window.location.href = `https://moddy.app/sign-in?url=${currentUrl}`;
+    window.location.href = `/sign-in?url=${currentUrl}`;
   }
 
   /**
@@ -158,6 +252,22 @@ export class TopAppBar extends SignalElement(LitElement) {
       flex-grow: 1;
       display: flex;
       justify-content: flex-end;
+      align-items: center;
+    }
+
+    .user-menu-container {
+      position: relative;
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    #user-menu-button {
+      --md-icon-button-icon-size: 32px;
     }
 
     #menu-island {

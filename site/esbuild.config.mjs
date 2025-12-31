@@ -10,6 +10,10 @@ import {copyFileSync} from 'fs';
 import {createRequire} from 'node:module';
 import {join} from 'path';
 import tinyGlob from 'tiny-glob';
+import {config as dotenvConfig} from 'dotenv';
+
+// Load environment variables from .env file
+dotenvConfig();
 
 // dev mode build
 const DEV = process.env.NODE_ENV === 'DEV';
@@ -41,6 +45,9 @@ let config = {
   write: true,
   sourcemap: true,
   splitting: true,
+  define: {
+    'import.meta.env.A_API_KEY': JSON.stringify(process.env.A_API_KEY || ''),
+  },
 };
 
 let componentsBuild = Promise.resolve();
@@ -65,6 +72,9 @@ if (DEV) {
     format: 'esm',
     treeShaking: true,
     legalComments: 'external',
+    define: {
+      'import.meta.env.A_API_KEY': JSON.stringify(process.env.A_API_KEY || ''),
+    },
     plugins: [
       // This plugin currently breaks certain css props for SVGs
       // (circularprogress) minifyHTMLLiteralsPlugin({
