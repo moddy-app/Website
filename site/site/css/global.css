@@ -204,10 +204,35 @@ nav-drawer .drawer-actions {
 
 nav-drawer .drawer-actions md-icon-button {
   --md-icon-button-state-layer-shape: var(--catalog-shape-m);
+  --md-icon-button-icon-color: var(--md-sys-color-on-surface-variant);
 }
 
 nav-drawer .drawer-actions md-icon svg {
-  fill: var(--md-sys-color-on-surface);
+  fill: var(--md-sys-color-on-surface-variant);
   width: 24px;
   height: 24px;
+}
+
+/* Page footer */
+.page-footer {
+  margin-top: var(--catalog-spacing-xl);
+  padding-top: var(--catalog-spacing-l);
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  text-align: center;
+}
+
+.page-footer p {
+  font-size: 12px;
+  color: var(--md-sys-color-on-surface-variant);
+  margin: 0;
+  opacity: 0.7;
+}
+
+.page-footer a {
+  color: var(--md-sys-color-on-surface-variant);
+  text-decoration: none;
+}
+
+.page-footer a:hover {
+  text-decoration: underline;
 }

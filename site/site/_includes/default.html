@@ -67,6 +67,10 @@
         <main id="main-content" slot="app-content" tabindex="0">
           <!-- this is the content of the page -->
           {% block content %}{{ content | safe }}{% endblock %}
+
+          <footer class="page-footer">
+            <p>© 2025 Moddy. All rights reserved. Developed by <a href="https://github.com/juthing/" target="_blank">@<strong>juthing</strong></a> • <a href="https://docs.moddy.app/legal/privacy">Privacy Policy</a> • <a href="https://docs.moddy.app/legal/tos">Terms of Service</a></p>
+          </footer>
         </main>
         <md-list
             aria-label="List of pages"
@@ -135,7 +139,7 @@
             <md-icon-button
               title="GitHub repository"
               aria-label="GitHub repository"
-              href="https://github.com/moddy-app/docs"
+              href="https://github.com/moddy-app"
               target="_blank">
               <md-icon>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98 96">
