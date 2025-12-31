@@ -7,6 +7,7 @@
 import '@material/web/focus/md-focus-ring.js';
 import '@material/web/icon/icon.js';
 import '@material/web/iconbutton/icon-button.js';
+import '@material/web/button/filled-button.js';
 import '@material/web/button/filled-tonal-button.js';
 import '@material/web/menu/menu.js';
 import '@material/web/menu/menu-item.js';
@@ -298,6 +299,11 @@ export class TopAppBar extends SignalElement(LitElement) {
     .user-menu-content {
       padding: var(--catalog-spacing-l);
       min-width: 280px;
+      border-radius: var(--catalog-shape-xl);
+    }
+
+    #user-menu {
+      --md-menu-container-shape: var(--catalog-shape-xl);
     }
 
     .user-menu-header {

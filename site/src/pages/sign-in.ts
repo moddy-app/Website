@@ -8,6 +8,7 @@
  * Sign-in page logic
  */
 
+import '@material/web/progress/circular-progress.js';
 import { signInWithDiscord, verifySession } from '../utils/auth.js';
 
 /**
