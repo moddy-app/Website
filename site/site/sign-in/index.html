@@ -1,0 +1,49 @@
+---
+name: Sign In
+title: Sign In with Discord
+order: 1
+---
+
+{% extends 'default.html' %}
+
+{% block head %}
+  <link rel="stylesheet" href="/css/sign-in-page.css">
+  <script type="module" src="/js/pages/sign-in.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="sign-in-container">
+  <div class="sign-in-card">
+    <div class="sign-in-header">
+      <h1>Welcome to Moddy App</h1>
+      <p class="subtitle">Sign in with your Discord account to get started</p>
+    </div>
+
+    <div class="sign-in-content">
+      <div id="loading-state" class="loading-state">
+        <md-circular-progress indeterminate></md-circular-progress>
+        <p>Connecting to Discord...</p>
+      </div>
+
+      <div id="error-state" class="error-state" style="display: none;">
+        <md-icon class="error-icon">error</md-icon>
+        <h3>Authentication Error</h3>
+        <p id="error-message">An error occurred during authentication.</p>
+        <md-filled-button id="retry-button">
+          Try Again
+        </md-filled-button>
+      </div>
+    </div>
+
+    <div class="sign-in-footer">
+      <p>
+        By signing in, you agree to our
+        <a href="/legal/terms-of-service/">Terms of Service</a> and
+        <a href="/legal/privacy-policy/">Privacy Policy</a>.
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
