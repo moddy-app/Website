@@ -44,8 +44,33 @@ function sortKeys(obj: any): any {
 }
 
 /**
+ * Serializes object to JSON string matching Python's json.dumps() format
+ * This adds spaces after : and , to match Python's default separators=(', ', ': ')
+ */
+function jsonDumps(obj: any): string {
+  function serialize(val: any): string {
+    if (val === null) return 'null';
+    if (typeof val === 'boolean') return val.toString();
+    if (typeof val === 'number') return val.toString();
+    if (typeof val === 'string') return JSON.stringify(val);
+    if (Array.isArray(val)) {
+      const items = val.map(v => serialize(v)).join(', ');
+      return `[${items}]`;
+    }
+    if (typeof val === 'object') {
+      const keys = Object.keys(val).sort();
+      const items = keys.map(k => `${JSON.stringify(k)}: ${serialize(val[k])}`);
+      return `{${items.join(', ')}}`;
+    }
+    return '';
+  }
+
+  return serialize(obj);
+}
+
+/**
  * Generates HMAC-SHA256 signature for API requests
- * IMPORTANT: Keys are sorted alphabetically to match backend behavior (Python's sort_keys=True)
+ * IMPORTANT: Must match Python backend's json.dumps(sort_keys=True) format exactly
  */
 export async function generateSignature(requestId: string, body: any = {}): Promise<string> {
   // Create the payload object
@@ -54,9 +79,16 @@ export async function generateSignature(requestId: string, body: any = {}): Prom
     body: body
   };
 
-  // Sort all keys recursively (matches Python's json.dumps(sort_keys=True))
+  // Sort all keys recursively and serialize with Python-compatible format
   const sortedPayload = sortKeys(payloadObj);
-  const payload = JSON.stringify(sortedPayload);
+  const payload = jsonDumps(sortedPayload);
+
+  // Debug logs (remove in production)
+  console.log('🔍 HMAC Debug:');
+  console.log('  Request ID:', requestId);
+  console.log('  Body:', JSON.stringify(body));
+  console.log('  Payload to sign:', payload);
+  console.log('  API Key (first 10):', API_KEY.substring(0, 10));
 
   // Convert API_KEY string to Uint8Array
   const encoder = new TextEncoder();
@@ -78,6 +110,8 @@ export async function generateSignature(requestId: string, body: any = {}): Prom
   // Convert signature to hex string
   const hashArray = Array.from(new Uint8Array(signature));
   const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+  console.log('  Signature:', hashHex);
 
   return hashHex;
 }
