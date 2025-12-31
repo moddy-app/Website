@@ -28,13 +28,35 @@ export function generateRequestId(): string {
 }
 
 /**
+ * Recursively sorts all object keys alphabetically
+ * This ensures consistent JSON serialization for HMAC signing
+ */
+function sortKeys(obj: any): any {
+  if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
+    return obj;
+  }
+  return Object.keys(obj)
+    .sort()
+    .reduce((result: any, key: string) => {
+      result[key] = sortKeys(obj[key]);
+      return result;
+    }, {});
+}
+
+/**
  * Generates HMAC-SHA256 signature for API requests
+ * IMPORTANT: Keys are sorted alphabetically to match backend behavior (Python's sort_keys=True)
  */
 export async function generateSignature(requestId: string, body: any = {}): Promise<string> {
-  const payload = JSON.stringify({
+  // Create the payload object
+  const payloadObj = {
     request_id: requestId,
     body: body
-  });
+  };
+
+  // Sort all keys recursively (matches Python's json.dumps(sort_keys=True))
+  const sortedPayload = sortKeys(payloadObj);
+  const payload = JSON.stringify(sortedPayload);
 
   // Convert API_KEY string to Uint8Array
   const encoder = new TextEncoder();
