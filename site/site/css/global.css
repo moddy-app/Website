@@ -204,10 +204,11 @@ nav-drawer .drawer-actions {
 
 nav-drawer .drawer-actions md-icon-button {
   --md-icon-button-state-layer-shape: var(--catalog-shape-m);
+  --md-icon-button-icon-color: var(--md-sys-color-on-surface-variant);
 }
 
 nav-drawer .drawer-actions md-icon svg {
-  fill: var(--md-sys-color-on-surface);
+  fill: var(--md-sys-color-on-surface-variant);
   width: 24px;
   height: 24px;
 }
