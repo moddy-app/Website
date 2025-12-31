@@ -50,14 +50,14 @@ function applyColorThemeListeners() {
 }
 
 /**
- * Sets color and mode to '#81ea6c' and 'auto' respectively if there is no
+ * Sets color and mode to '#003BCC' (blue) and 'auto' respectively if there is no
  * material theme saved to localStorage. This is the case in initial navigation
  * to the catalog.
  */
 function initializeTheme() {
   if (!getCurrentThemeString()) {
-    // Generates a primary color close to GM3 baseline primary color.
-    changeColorAndMode('#ECAA2E', 'auto');
+    // Generates a blue primary color theme.
+    changeColorAndMode('#003BCC', 'auto');
   }
 }
 
