@@ -63,6 +63,16 @@ export class TopAppBar extends SignalElement(LitElement) {
   }
 
   /**
+   * Toggle user menu
+   */
+  private toggleUserMenu() {
+    const menu = this.shadowRoot?.querySelector('#user-menu') as any;
+    if (menu) {
+      menu.open = !menu.open;
+    }
+  }
+
+  /**
    * Handle dashboard navigation
    */
   private handleDashboard() {
@@ -137,7 +147,8 @@ export class TopAppBar extends SignalElement(LitElement) {
           <md-icon-button
             id="user-menu-button"
             aria-label="User menu"
-            title="${this.userInfo.username}">
+            title="${this.userInfo.username}"
+            @click=${this.toggleUserMenu}>
             ${this.userInfo.avatar_url
               ? html`<img
                   src="${this.userInfo.avatar_url}"
