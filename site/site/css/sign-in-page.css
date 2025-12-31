@@ -8,126 +8,13 @@
  * Styles for the sign-in page
  */
 
-.sign-in-container {
+.sign-in-loading {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - var(--catalog-top-app-bar-height));
-  padding: var(--catalog-spacing-xl);
 }
 
-.sign-in-card {
-  background-color: var(--md-sys-color-surface-container-low);
-  border-radius: var(--catalog-shape-xl);
-  border: 1px solid var(--md-sys-color-outline-variant);
-  padding: var(--catalog-spacing-xl);
-  max-width: 500px;
-  width: 100%;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.sign-in-header {
-  text-align: center;
-  margin-bottom: var(--catalog-spacing-xl);
-}
-
-.sign-in-header h1 {
-  font-size: var(--catalog-display-m-font-size);
-  margin: 0 0 var(--catalog-spacing-m) 0;
-  color: var(--md-sys-color-on-surface);
-}
-
-.sign-in-header .subtitle {
-  font-size: var(--catalog-body-l-font-size);
-  color: var(--md-sys-color-on-surface-variant);
-  margin: 0;
-}
-
-.sign-in-content {
-  margin-bottom: var(--catalog-spacing-xl);
-}
-
-.loading-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--catalog-spacing-l);
-  padding: var(--catalog-spacing-xl) 0;
-}
-
-.loading-state md-circular-progress {
+.sign-in-loading md-circular-progress {
   --md-circular-progress-size: 48px;
-}
-
-.loading-state p {
-  font-size: var(--catalog-body-l-font-size);
-  color: var(--md-sys-color-on-surface-variant);
-  margin: 0;
-}
-
-.error-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--catalog-spacing-m);
-  padding: var(--catalog-spacing-xl) 0;
-  text-align: center;
-}
-
-.error-state .error-icon {
-  font-size: 48px;
-  color: var(--md-sys-color-error);
-  width: 48px;
-  height: 48px;
-}
-
-.error-state h3 {
-  font-size: var(--catalog-title-l-font-size);
-  color: var(--md-sys-color-error);
-  margin: 0;
-}
-
-.error-state p {
-  font-size: var(--catalog-body-m-font-size);
-  color: var(--md-sys-color-on-surface-variant);
-  margin: 0;
-}
-
-.error-state md-filled-button {
-  margin-top: var(--catalog-spacing-m);
-}
-
-.sign-in-footer {
-  text-align: center;
-  padding-top: var(--catalog-spacing-l);
-  border-top: 1px solid var(--md-sys-color-outline-variant);
-}
-
-.sign-in-footer p {
-  font-size: var(--catalog-body-m-font-size);
-  color: var(--md-sys-color-on-surface-variant);
-  margin: 0;
-}
-
-.sign-in-footer a {
-  color: var(--md-sys-color-primary);
-  text-decoration: none;
-}
-
-.sign-in-footer a:hover {
-  text-decoration: underline;
-}
-
-@media screen and (max-width: 600px) {
-  .sign-in-container {
-    padding: var(--catalog-spacing-m);
-  }
-
-  .sign-in-card {
-    padding: var(--catalog-spacing-l);
-  }
-
-  .sign-in-header h1 {
-    font-size: var(--catalog-title-l-font-size);
-  }
 }
