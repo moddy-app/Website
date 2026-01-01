@@ -221,10 +221,22 @@ nav-drawer .drawer-actions md-icon svg {
   background-color: transparent;
 }
 
-/* On desktop, add extra margin to separate from container */
+/* On desktop, position footer at the bottom of the page */
 @media screen and (min-width: 601px) {
   .page-footer {
-    margin-top: calc(var(--catalog-spacing-xl) * 2);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-top: 0;
+    background-color: var(--md-sys-color-surface-container);
+    padding: var(--catalog-spacing-m);
+    z-index: 1;
+  }
+
+  /* Add padding to main content to prevent overlap */
+  #main-content {
+    padding-bottom: 60px;
   }
 }
 
