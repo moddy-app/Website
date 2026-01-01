@@ -17,8 +17,7 @@
     "build:type-check": "wireit",
     "build:prod": "wireit",
     "build:prod:eleventy": "wireit",
-    "build:prod:ts": "wireit",
-    "build:copy-docs": "wireit"
+    "build:prod:ts": "wireit"
   },
   "wireit": {
     "build:dev": {
@@ -40,8 +39,7 @@
         "_dev"
       ],
       "dependencies": [
-        "build:dev:ts",
-        "build:copy-docs"
+        "build:dev:ts"
       ]
     },
     "build:dev:ts": {
@@ -85,8 +83,7 @@
         "_prod/"
       ],
       "dependencies": [
-        "build:prod:ts",
-        "build:copy-docs"
+        "build:prod:ts"
       ]
     },
     "build:prod:ts": {
@@ -98,16 +95,6 @@
       ],
       "output": [
         "build"
-      ]
-    },
-    "build:copy-docs": {
-      "command": "node scripts/copy-docs.mjs",
-      "files": [
-        "../docs/**/*.md",
-        "scripts/copy-docs.mjs"
-      ],
-      "output": [
-        "site/**/*.md"
       ]
     },
     "serve:dev": {
