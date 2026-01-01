@@ -3,29 +3,301 @@ name: Home
 title: Home
 tags: navigation
 order: 1
+layout: default.html
+hasToc: false
 ---
 
-{% extends 'default.html' %}
+<style>
+  .home-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--catalog-spacing-xl);
+  }
 
-{% block head %}
-  <link rel="stylesheet" href="/css/home-page.css">
-{% endblock %}
+  .hero-section {
+    margin-bottom: calc(var(--catalog-spacing-xl) * 3);
+    padding: calc(var(--catalog-spacing-xl) * 2) 0;
+  }
 
-{% block content %}
+  .hero-section h1 {
+    font-size: var(--catalog-display-xl-font-size);
+    font-weight: 500;
+    margin-bottom: var(--catalog-spacing-m);
+    text-align: left;
+    color: var(--md-sys-color-on-surface);
+  }
 
-<h1>Welcome to Moddy App</h1>
-<div class="subtitle">
-  <p>
-    Moddy is your all-in-one Discord bot solution for server management and moderation.
-  </p>
+  .hero-section .tagline {
+    font-size: var(--catalog-title-l-font-size);
+    color: var(--md-sys-color-on-surface-variant);
+    margin-bottom: calc(var(--catalog-spacing-xl) * 2);
+    text-align: left;
+    max-width: 800px;
+  }
 
-  <p>
-    Get started by signing in to access your dashboard and configure your bot settings.
-  </p>
+  .hero-actions {
+    display: flex;
+    gap: var(--catalog-spacing-m);
+    flex-wrap: wrap;
+    margin-bottom: calc(var(--catalog-spacing-xl) * 2);
+  }
 
-  <p>
-    If you have any questions or need support, you can reach us on our <a href="https://moddy.app/support/" target="_blank"><strong>support server</strong></a> or by email at <strong><a href="mailto:hello@moddy.app">hello@moddy.app</a></strong>.
-  </p>
-</div>
+  .hero-actions md-filled-button,
+  .hero-actions md-outlined-button {
+    --md-filled-button-container-height: 56px;
+    --md-outlined-button-container-height: 56px;
+    --md-filled-button-label-text-size: 16px;
+    --md-outlined-button-label-text-size: 16px;
+    font-weight: 500;
+    padding: 0 32px;
+  }
 
-{% endblock %}
+  .features-section {
+    margin-bottom: calc(var(--catalog-spacing-xl) * 3);
+  }
+
+  .features-section h2 {
+    font-size: var(--catalog-display-m-font-size);
+    font-weight: 500;
+    margin-bottom: var(--catalog-spacing-xl);
+    text-align: left;
+    color: var(--md-sys-color-on-surface);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--catalog-spacing-xl);
+    margin-bottom: calc(var(--catalog-spacing-xl) * 2);
+  }
+
+  .feature-card {
+    background-color: var(--md-sys-color-surface-container-low);
+    border-radius: var(--catalog-shape-xl);
+    padding: calc(var(--catalog-spacing-xl) * 1.5);
+    border: 1px solid var(--md-sys-color-outline-variant);
+  }
+
+  .feature-card h3 {
+    font-size: var(--catalog-title-l-font-size);
+    font-weight: 500;
+    margin-bottom: var(--catalog-spacing-m);
+    text-align: left;
+    color: var(--md-sys-color-on-surface);
+    display: flex;
+    align-items: center;
+    gap: var(--catalog-spacing-m);
+  }
+
+  .feature-card .feature-icon {
+    color: var(--md-sys-color-primary);
+    font-size: 28px;
+  }
+
+  .feature-card p {
+    font-size: var(--catalog-body-l-font-size);
+    color: var(--md-sys-color-on-surface-variant);
+    text-align: left;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .cta-section {
+    background-color: var(--md-sys-color-surface-container-low);
+    border-radius: var(--catalog-shape-xl);
+    padding: calc(var(--catalog-spacing-xl) * 2);
+    text-align: left;
+    border: 2px solid var(--md-sys-color-primary);
+  }
+
+  .cta-section h2 {
+    font-size: var(--catalog-display-m-font-size);
+    font-weight: 500;
+    margin-bottom: var(--catalog-spacing-m);
+    color: var(--md-sys-color-on-surface);
+  }
+
+  .cta-section p {
+    font-size: var(--catalog-body-l-font-size);
+    color: var(--md-sys-color-on-surface-variant);
+    margin-bottom: var(--catalog-spacing-xl);
+    max-width: 700px;
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: var(--catalog-spacing-m);
+    flex-wrap: wrap;
+  }
+
+  .cta-actions md-filled-button {
+    --md-filled-button-container-height: 56px;
+    --md-filled-button-label-text-size: 16px;
+    font-weight: 500;
+    padding: 0 32px;
+  }
+
+  .support-section {
+    margin-top: calc(var(--catalog-spacing-xl) * 3);
+    padding: var(--catalog-spacing-xl);
+    background-color: var(--md-sys-color-surface-container);
+    border-radius: var(--catalog-shape-l);
+    text-align: left;
+  }
+
+  .support-section h3 {
+    font-size: var(--catalog-title-l-font-size);
+    font-weight: 500;
+    margin-bottom: var(--catalog-spacing-m);
+    color: var(--md-sys-color-on-surface);
+  }
+
+  .support-section p {
+    font-size: var(--catalog-body-l-font-size);
+    color: var(--md-sys-color-on-surface-variant);
+    margin-bottom: 0;
+  }
+
+  .support-section a {
+    color: var(--md-sys-color-primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .support-section a:hover {
+    text-decoration: underline;
+  }
+
+  @media screen and (max-width: 600px) {
+    .home-page {
+      padding: var(--catalog-spacing-l);
+    }
+
+    .hero-section h1 {
+      font-size: var(--catalog-display-m-font-size);
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-actions,
+    .cta-actions {
+      flex-direction: column;
+    }
+
+    .hero-actions md-filled-button,
+    .hero-actions md-outlined-button,
+    .cta-actions md-filled-button {
+      width: 100%;
+    }
+  }
+</style>
+
+<lit-island on:visible import="/js/hydration-entrypoints/form-controls.js">
+  <div class="home-page">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1>Welcome to Moddy</h1>
+      <p class="tagline">
+        Your all-in-one Discord bot solution for server management, moderation, and community engagement.
+      </p>
+      <div class="hero-actions">
+        <md-filled-button href="https://discord.com/oauth2/authorize?client_id=1373916203814490194" target="_blank">
+          Add to Discord
+        </md-filled-button>
+        <md-outlined-button href="https://dashboard.moddy.app" target="_blank">
+          Open Dashboard
+        </md-outlined-button>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+      <h2>Why Choose Moddy?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>
+            <span class="material-symbols-outlined feature-icon">shield</span>
+            Powerful Moderation
+          </h3>
+          <p>
+            Keep your server safe with advanced moderation tools, automated filters, and customizable rules.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>
+            <span class="material-symbols-outlined feature-icon">psychology</span>
+            AI-Powered Features
+          </h3>
+          <p>
+            Leverage cutting-edge AI to enhance member interactions, automate tasks, and improve community management.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>
+            <span class="material-symbols-outlined feature-icon">dashboard</span>
+            Easy Dashboard
+          </h3>
+          <p>
+            Configure your bot with an intuitive web dashboard. No complex commands needed—just point, click, and customize.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>
+            <span class="material-symbols-outlined feature-icon">speed</span>
+            Fast & Reliable
+          </h3>
+          <p>
+            Built for performance with 99.9% uptime. Your server runs smoothly with instant command responses.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>
+            <span class="material-symbols-outlined feature-icon">auto_awesome</span>
+            Regular Updates
+          </h3>
+          <p>
+            Get access to new features and improvements regularly. We're constantly evolving based on community feedback.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>
+            <span class="material-symbols-outlined feature-icon">support_agent</span>
+            24/7 Support
+          </h3>
+          <p>
+            Our dedicated support team is always ready to help you get the most out of Moddy.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <h2>Ready to enhance your Discord server?</h2>
+      <p>
+        Join thousands of servers already using Moddy. Get started for free, or upgrade to Moddy Max for premium features.
+      </p>
+      <div class="cta-actions">
+        <md-filled-button href="https://discord.com/oauth2/authorize?client_id=1373916203814490194" target="_blank">
+          Add Moddy Now
+        </md-filled-button>
+      </div>
+    </section>
+
+    <!-- Support Section -->
+    <section class="support-section">
+      <h3>Need Help?</h3>
+      <p>
+        Join our <a href="/support/" target="_blank">support server</a> or reach us at
+        <a href="mailto:hello@moddy.app">hello@moddy.app</a>
+      </p>
+    </section>
+  </div>
+</lit-island>
