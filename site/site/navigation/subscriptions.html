@@ -3,11 +3,10 @@ name: Abonnements
 title: Abonnements
 tags: navigation
 order: 2
+layout: default.html
+hasToc: false
 ---
 
-{% extends 'default.html' %}
-
-{% block head %}
 <script type="module">
   import '@material/web/switch/switch.js';
   import '@material/web/button/filled-button.js';
@@ -161,35 +160,6 @@ order: 2
   }
 </style>
 
-<script type="module">
-  // Wait for the component to be defined before setting up listeners
-  customElements.whenDefined('md-switch').then(() => {
-    const pricingSwitch = document.getElementById('pricing-switch');
-    const priceAmount = document.getElementById('price-amount');
-    const pricePeriod = document.getElementById('price-period');
-    const savingsBadge = document.getElementById('savings-badge');
-
-    function updatePricing() {
-      const isYearly = pricingSwitch.selected;
-
-      if (isYearly) {
-        priceAmount.textContent = '9.99';
-        pricePeriod.textContent = 'per year';
-        savingsBadge.style.display = 'inline-block';
-      } else {
-        priceAmount.textContent = '1.99';
-        pricePeriod.textContent = 'per month';
-        savingsBadge.style.display = 'none';
-      }
-    }
-
-    pricingSwitch.addEventListener('change', updatePricing);
-    updatePricing();
-  });
-</script>
-{% endblock %}
-
-{% block content %}
 <div class="subscriptions-page">
   <div class="subscriptions-header">
     <h1>Choose Your Plan</h1>
@@ -246,4 +216,30 @@ order: 2
     </div>
   </div>
 </div>
-{% endblock %}
+
+<script type="module">
+  // Wait for the component to be defined before setting up listeners
+  customElements.whenDefined('md-switch').then(() => {
+    const pricingSwitch = document.getElementById('pricing-switch');
+    const priceAmount = document.getElementById('price-amount');
+    const pricePeriod = document.getElementById('price-period');
+    const savingsBadge = document.getElementById('savings-badge');
+
+    function updatePricing() {
+      const isYearly = pricingSwitch.selected;
+
+      if (isYearly) {
+        priceAmount.textContent = '9.99';
+        pricePeriod.textContent = 'per year';
+        savingsBadge.style.display = 'inline-block';
+      } else {
+        priceAmount.textContent = '1.99';
+        pricePeriod.textContent = 'per month';
+        savingsBadge.style.display = 'none';
+      }
+    }
+
+    pricingSwitch.addEventListener('change', updatePricing);
+    updatePricing();
+  });
+</script>
