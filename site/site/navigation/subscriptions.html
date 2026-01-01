@@ -206,7 +206,7 @@ hasToc: false
       </ul>
 
       <div class="subscription-action">
-        <md-filled-button href="https://api.moddy.app/pay/max/init" target="_blank">
+        <md-filled-button id="subscribe-button" href="https://api.moddy.app/pay/max/init?type=year" target="_blank">
           Subscribe Now
         </md-filled-button>
       </div>
@@ -221,6 +221,7 @@ hasToc: false
     const priceAmount = document.getElementById('price-amount');
     const pricePeriod = document.getElementById('price-period');
     const savingsBadge = document.getElementById('savings-badge');
+    const subscribeButton = document.getElementById('subscribe-button');
 
     function updatePricing() {
       const isYearly = pricingSwitch.selected;
@@ -229,10 +230,12 @@ hasToc: false
         priceAmount.textContent = '9.99';
         pricePeriod.textContent = 'per year';
         savingsBadge.style.display = 'inline-block';
+        subscribeButton.href = 'https://api.moddy.app/pay/max/init?type=year';
       } else {
         priceAmount.textContent = '1.99';
         pricePeriod.textContent = 'per month';
         savingsBadge.style.display = 'none';
+        subscribeButton.href = 'https://api.moddy.app/pay/max/init?type=month';
       }
     }
 
