@@ -215,10 +215,17 @@ nav-drawer .drawer-actions md-icon svg {
 
 /* Page footer */
 .page-footer {
-  margin-top: calc(var(--catalog-spacing-xl) * 3);
+  margin-top: var(--catalog-spacing-l);
   padding: var(--catalog-spacing-l) var(--catalog-spacing-m);
   text-align: center;
   background-color: transparent;
+}
+
+/* On desktop, add extra margin to separate from container */
+@media screen and (min-width: 601px) {
+  .page-footer {
+    margin-top: calc(var(--catalog-spacing-xl) * 2);
+  }
 }
 
 .page-footer p {
