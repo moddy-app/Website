@@ -60,9 +60,9 @@ hasToc: false
   .stats-section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--catalog-spacing-xl);
+    gap: var(--catalog-spacing-l);
     margin-bottom: calc(var(--catalog-spacing-xl) * 2);
-    padding: var(--catalog-spacing-xl);
+    padding: calc(var(--catalog-spacing-xl) + var(--catalog-spacing-m));
     background-color: var(--md-sys-color-surface-container-low);
     border-radius: var(--catalog-shape-xl);
     border: 1px solid var(--md-sys-color-outline-variant);
@@ -127,7 +127,7 @@ hasToc: false
   .feature-card {
     background-color: var(--md-sys-color-surface-container-low);
     border-radius: var(--catalog-shape-xl);
-    padding: var(--catalog-spacing-xl);
+    padding: calc(var(--catalog-spacing-xl) + var(--catalog-spacing-s));
     border: 1px solid var(--md-sys-color-outline-variant);
   }
 
@@ -164,7 +164,7 @@ hasToc: false
   .premium-section {
     background: linear-gradient(135deg, var(--md-sys-color-primary-container) 0%, var(--md-sys-color-secondary-container) 100%);
     border-radius: var(--catalog-shape-xl);
-    padding: var(--catalog-spacing-xl);
+    padding: calc(var(--catalog-spacing-xl) + var(--catalog-spacing-m));
     margin-bottom: calc(var(--catalog-spacing-xl) * 2);
     border: 1px solid var(--md-sys-color-outline-variant);
   }
@@ -226,7 +226,7 @@ hasToc: false
   .cta-section {
     background-color: var(--md-sys-color-surface-container-low);
     border-radius: var(--catalog-shape-xl);
-    padding: var(--catalog-spacing-xl);
+    padding: calc(var(--catalog-spacing-xl) + var(--catalog-spacing-m));
     text-align: left;
     border: 2px solid var(--md-sys-color-primary);
     margin-bottom: calc(var(--catalog-spacing-xl) * 2);
@@ -265,7 +265,7 @@ hasToc: false
 
   /* Support Section */
   .support-section {
-    padding: var(--catalog-spacing-xl);
+    padding: calc(var(--catalog-spacing-xl) + var(--catalog-spacing-s));
     background-color: var(--md-sys-color-surface-container);
     border-radius: var(--catalog-shape-l);
     text-align: left;
@@ -331,18 +331,25 @@ hasToc: false
 
     .stats-section {
       grid-template-columns: repeat(2, 1fr);
-      padding: var(--catalog-spacing-l);
+      gap: var(--catalog-spacing-m);
+      padding: var(--catalog-spacing-xl);
     }
 
     .premium-features {
       grid-template-columns: 1fr;
     }
 
-    .feature-card,
+    .feature-card {
+      padding: var(--catalog-spacing-xl);
+    }
+
     .premium-section,
-    .cta-section,
+    .cta-section {
+      padding: var(--catalog-spacing-xl);
+    }
+
     .support-section {
-      padding: var(--catalog-spacing-l);
+      padding: calc(var(--catalog-spacing-l) + var(--catalog-spacing-m));
     }
   }
 </style>
