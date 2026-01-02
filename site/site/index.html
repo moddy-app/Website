@@ -24,13 +24,13 @@ hasToc: false
     font-size: var(--catalog-display-xl-font-size);
     font-weight: 700;
     -webkit-font-smoothing: antialiased;
-    margin-bottom: var(--catalog-spacing-m);
+    margin-bottom: var(--catalog-spacing-l);
     text-align: left;
     color: var(--md-sys-color-on-surface);
     line-height: 1.1;
   }
 
-  .hero-section .tagline {
+  .hero-section .subtitle {
     font-size: var(--catalog-title-l-font-size);
     font-weight: 400;
     color: var(--md-sys-color-on-surface-variant);
@@ -60,9 +60,9 @@ hasToc: false
   .stats-section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--catalog-spacing-l);
+    gap: calc(var(--catalog-spacing-xl) * 1.5);
     margin-bottom: calc(var(--catalog-spacing-xl) * 2);
-    padding: var(--catalog-spacing-xl);
+    padding: calc(var(--catalog-spacing-xl) * 1.75);
     background-color: var(--md-sys-color-surface-container-low);
     border-radius: var(--catalog-shape-xl);
     border: 1px solid var(--md-sys-color-outline-variant);
@@ -77,7 +77,7 @@ hasToc: false
     font-weight: 700;
     -webkit-font-smoothing: antialiased;
     color: var(--md-sys-color-primary);
-    margin-bottom: var(--catalog-spacing-xs);
+    margin-bottom: var(--catalog-spacing-s);
     line-height: 1;
   }
 
@@ -111,7 +111,7 @@ hasToc: false
   .feature-card {
     background-color: var(--md-sys-color-surface-container-low);
     border-radius: var(--catalog-shape-xl);
-    padding: var(--catalog-spacing-xl);
+    padding: calc(var(--catalog-spacing-xl) * 1.5);
     border: 1px solid var(--md-sys-color-outline-variant);
   }
 
@@ -124,13 +124,14 @@ hasToc: false
     color: var(--md-sys-color-on-surface);
     display: flex;
     align-items: center;
-    gap: var(--catalog-spacing-m);
+    gap: var(--catalog-spacing-s);
     line-height: 1.3;
   }
 
   .feature-card .feature-icon {
     color: var(--md-sys-color-primary);
     font-size: 28px;
+    flex-shrink: 0;
     font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   }
 
@@ -140,13 +141,14 @@ hasToc: false
     text-align: left;
     line-height: 1.6;
     margin: 0;
+    padding-left: calc(28px + var(--catalog-spacing-s));
   }
 
   /* Premium Section */
   .premium-section {
     background: linear-gradient(135deg, var(--md-sys-color-primary-container) 0%, var(--md-sys-color-secondary-container) 100%);
     border-radius: var(--catalog-shape-xl);
-    padding: var(--catalog-spacing-xl);
+    padding: calc(var(--catalog-spacing-xl) * 1.75);
     margin-bottom: calc(var(--catalog-spacing-xl) * 2);
     border: 1px solid var(--md-sys-color-outline-variant);
   }
@@ -155,7 +157,7 @@ hasToc: false
     font-size: var(--catalog-display-m-font-size);
     font-weight: 700;
     -webkit-font-smoothing: antialiased;
-    margin-bottom: var(--catalog-spacing-m);
+    margin-bottom: var(--catalog-spacing-l);
     color: var(--md-sys-color-on-primary-container);
     text-align: left;
     line-height: 1.2;
@@ -164,7 +166,7 @@ hasToc: false
   .premium-section p {
     font-size: var(--catalog-body-l-font-size);
     color: var(--md-sys-color-on-primary-container);
-    margin-bottom: var(--catalog-spacing-l);
+    margin-bottom: var(--catalog-spacing-xl);
     text-align: left;
     line-height: 1.5;
   }
@@ -173,7 +175,7 @@ hasToc: false
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: var(--catalog-spacing-m);
-    margin-bottom: var(--catalog-spacing-l);
+    margin-bottom: var(--catalog-spacing-xl);
   }
 
   .premium-feature {
@@ -185,9 +187,9 @@ hasToc: false
   }
 
   .premium-feature .check-icon {
-    color: var(--md-sys-color-on-secondary-container);
+    color: var(--md-sys-color-on-primary-container);
     font-size: 20px;
-    opacity: 0.9;
+    flex-shrink: 0;
   }
 
   .premium-actions {
@@ -207,7 +209,7 @@ hasToc: false
   .cta-section {
     background-color: var(--md-sys-color-surface-container-low);
     border-radius: var(--catalog-shape-xl);
-    padding: var(--catalog-spacing-xl);
+    padding: calc(var(--catalog-spacing-xl) * 1.75);
     text-align: left;
     border: 2px solid var(--md-sys-color-primary);
     margin-bottom: calc(var(--catalog-spacing-xl) * 2);
@@ -217,7 +219,7 @@ hasToc: false
     font-size: var(--catalog-display-m-font-size);
     font-weight: 700;
     -webkit-font-smoothing: antialiased;
-    margin-bottom: var(--catalog-spacing-m);
+    margin-bottom: var(--catalog-spacing-l);
     color: var(--md-sys-color-on-surface);
     line-height: 1.2;
   }
@@ -225,7 +227,7 @@ hasToc: false
   .cta-section p {
     font-size: var(--catalog-body-l-font-size);
     color: var(--md-sys-color-on-surface-variant);
-    margin-bottom: var(--catalog-spacing-l);
+    margin-bottom: var(--catalog-spacing-xl);
     max-width: 700px;
     line-height: 1.5;
   }
@@ -245,7 +247,7 @@ hasToc: false
 
   /* Support Section */
   .support-section {
-    padding: var(--catalog-spacing-xl);
+    padding: calc(var(--catalog-spacing-xl) * 1.5);
     background-color: var(--md-sys-color-surface-container);
     border-radius: var(--catalog-shape-l);
     text-align: left;
@@ -288,7 +290,7 @@ hasToc: false
       font-size: 55px;
     }
 
-    .hero-section .tagline {
+    .hero-section .subtitle {
       font-size: var(--catalog-body-l-font-size);
     }
 
@@ -311,7 +313,7 @@ hasToc: false
 
     .stats-section {
       grid-template-columns: repeat(2, 1fr);
-      padding: var(--catalog-spacing-l);
+      padding: var(--catalog-spacing-xl);
     }
 
     .premium-features {
@@ -322,7 +324,7 @@ hasToc: false
     .premium-section,
     .cta-section,
     .support-section {
-      padding: var(--catalog-spacing-l);
+      padding: var(--catalog-spacing-xl);
     }
   }
 </style>
@@ -331,9 +333,9 @@ hasToc: false
   <div class="home-page">
     <!-- Hero Section -->
     <section class="hero-section">
-      <h1>Welcome to Moddy</h1>
-      <p class="tagline">
-        Moddy, the only bot you need.
+      <h1>Moddy, the only bot you need.</h1>
+      <p class="subtitle">
+        Your all-in-one Discord bot solution for server management, moderation, and community engagement.
       </p>
       <div class="hero-actions">
         <md-filled-button href="https://discord.com/oauth2/authorize?client_id=1373916203814490194" target="_blank">
@@ -372,60 +374,60 @@ hasToc: false
         <div class="feature-card">
           <h3>
             <span class="material-symbols-outlined feature-icon">shield</span>
-            Powerful Moderation
+            Moderation on Autopilot
           </h3>
           <p>
-            Keep your server safe with advanced moderation tools, automated filters, and customizable rules.
+            Ban the trolls before they even think about causing trouble. Smart filters, custom rules, and zero tolerance for chaos.
           </p>
         </div>
 
         <div class="feature-card">
           <h3>
             <span class="material-symbols-outlined feature-icon">psychology</span>
-            AI-Powered Features
+            AI That Actually Works
           </h3>
           <p>
-            Leverage cutting-edge AI to enhance member interactions, automate tasks, and improve community management.
+            Stop copy-pasting commands. Our AI handles the boring stuff so you can focus on what matters: your community.
           </p>
         </div>
 
         <div class="feature-card">
           <h3>
             <span class="material-symbols-outlined feature-icon">dashboard</span>
-            Easy Dashboard
+            Dashboard, Not Rocket Science
           </h3>
           <p>
-            Configure your bot with an intuitive web dashboard. No complex commands needed—just point, click, and customize.
+            Configure everything from your browser. No PhD required—just click, type, done. Even your grandma could use it.
           </p>
         </div>
 
         <div class="feature-card">
           <h3>
             <span class="material-symbols-outlined feature-icon">speed</span>
-            Fast & Reliable
+            Faster Than Your Wi-Fi
           </h3>
           <p>
-            Built for performance with 99% uptime. Your server runs smoothly with instant command responses.
+            99% uptime means we're basically never down. Commands run instantly. Your server never skips a beat.
           </p>
         </div>
 
         <div class="feature-card">
           <h3>
             <span class="material-symbols-outlined feature-icon">auto_awesome</span>
-            Regular Updates
+            Always Getting Better
           </h3>
           <p>
-            Get access to new features and improvements regularly. We're constantly evolving based on community feedback.
+            We ship new features every week. Your feedback actually matters here—tell us what you want and we'll build it.
           </p>
         </div>
 
         <div class="feature-card">
           <h3>
             <span class="material-symbols-outlined feature-icon">support_agent</span>
-            24/7 Support
+            Humans, Not Bots
           </h3>
           <p>
-            Our dedicated support team is always ready to help you get the most out of Moddy.
+            Real support from real people, 24/7. Stuck? Message us. We'll actually respond (usually in minutes, not days).
           </p>
         </div>
       </div>
@@ -433,61 +435,61 @@ hasToc: false
 
     <!-- Premium Section -->
     <section class="premium-section">
-      <h2>Unlock the Full Potential with Moddy Max</h2>
+      <h2>Go Max or Go Home</h2>
       <p>
-        Upgrade to Moddy Max and get access to premium features that take your server to the next level.
+        Moddy Max isn't just "premium features"—it's the whole upgrade package. Five servers, unlimited AI, early access to the good stuff.
       </p>
       <div class="premium-features">
         <div class="premium-feature">
           <span class="material-symbols-outlined check-icon">check_circle</span>
-          <span>Premium features on up to 5 servers</span>
+          <span>5 servers with premium unlocked</span>
         </div>
         <div class="premium-feature">
           <span class="material-symbols-outlined check-icon">check_circle</span>
-          <span>Higher AI usage limits</span>
+          <span>AI limits? What limits?</span>
         </div>
         <div class="premium-feature">
           <span class="material-symbols-outlined check-icon">check_circle</span>
-          <span>Early access to new features</span>
+          <span>First in line for new features</span>
         </div>
         <div class="premium-feature">
           <span class="material-symbols-outlined check-icon">check_circle</span>
-          <span>Premium badge & role</span>
+          <span>Flex with a premium badge</span>
         </div>
         <div class="premium-feature">
           <span class="material-symbols-outlined check-icon">check_circle</span>
-          <span>Priority support</span>
+          <span>VIP support lane (skip the queue)</span>
         </div>
         <div class="premium-feature">
           <span class="material-symbols-outlined check-icon">check_circle</span>
-          <span>Advanced customization options</span>
+          <span>Customize literally everything</span>
         </div>
       </div>
       <div class="premium-actions">
         <md-filled-button href="/navigation/subscriptions/">
-          View Pricing
+          See Pricing
         </md-filled-button>
       </div>
     </section>
 
     <!-- CTA Section -->
     <section class="cta-section">
-      <h2>Ready to enhance your Discord server?</h2>
+      <h2>Join the 10,000+ servers that already get it</h2>
       <p>
-        Join thousands of servers already using Moddy. Get started for free, or upgrade to Moddy Max for premium features.
+        Start free. Upgrade when you're ready. Cancel anytime (but you won't want to).
       </p>
       <div class="cta-actions">
         <md-filled-button href="https://discord.com/oauth2/authorize?client_id=1373916203814490194" target="_blank">
-          Add Moddy Now
+          Add Moddy to Discord
         </md-filled-button>
       </div>
     </section>
 
     <!-- Support Section -->
     <section class="support-section">
-      <h3>Need Help?</h3>
+      <h3>Questions? We got you.</h3>
       <p>
-        Join our <a href="/support/">support server</a> or reach us at
+        Join our <a href="/support/">Discord server</a> or shoot us an email at
         <a href="mailto:hello@moddy.app">hello@moddy.app</a>
       </p>
     </section>
