@@ -1,0 +1,164 @@
+---
+name: Page Not Found
+title: 404
+layout: default.html
+hasToc: false
+permalink: 404.html
+---
+
+<style>
+  .error-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--catalog-spacing-l);
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .error-icon-container {
+    position: relative;
+    margin-bottom: var(--catalog-spacing-xl);
+  }
+
+  .error-icon {
+    font-size: 120px;
+    color: var(--md-sys-color-primary);
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 48;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .error-code {
+    font-size: 140px;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    color: var(--md-sys-color-primary);
+    line-height: 1;
+    margin-bottom: var(--catalog-spacing-m);
+    opacity: 0.9;
+  }
+
+  .error-title {
+    font-size: var(--catalog-display-m-font-size);
+    font-weight: 600;
+    -webkit-font-smoothing: antialiased;
+    color: var(--md-sys-color-on-surface);
+    margin: 0 0 var(--catalog-spacing-l) 0;
+    line-height: 1.2;
+  }
+
+  .error-message {
+    font-size: var(--catalog-title-l-font-size);
+    color: var(--md-sys-color-on-surface-variant);
+    margin: 0 0 calc(var(--catalog-spacing-xl) * 1.5) 0;
+    max-width: 500px;
+    line-height: 1.5;
+  }
+
+  .error-hint {
+    font-size: var(--catalog-body-l-font-size);
+    color: var(--md-sys-color-on-surface-variant);
+    margin: 0 0 var(--catalog-spacing-xl) 0;
+    padding: var(--catalog-spacing-l);
+    background-color: var(--md-sys-color-surface-container-low);
+    border-radius: var(--catalog-shape-l);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    max-width: 400px;
+  }
+
+  .error-actions {
+    display: flex;
+    gap: var(--catalog-spacing-m);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .error-actions md-filled-button,
+  .error-actions md-outlined-button {
+    --md-filled-button-container-height: 56px;
+    --md-outlined-button-container-height: 56px;
+    --md-filled-button-label-text-size: var(--catalog-body-l-font-size);
+    --md-outlined-button-label-text-size: var(--catalog-body-l-font-size);
+    font-weight: 500;
+    padding: 0 var(--catalog-spacing-xl);
+  }
+
+  /* Responsive */
+  @media screen and (max-width: 600px) {
+    .error-page {
+      padding: var(--catalog-spacing-m);
+      min-height: 50vh;
+    }
+
+    .error-code {
+      font-size: 100px;
+    }
+
+    .error-icon {
+      font-size: 80px;
+    }
+
+    .error-title {
+      font-size: 28px;
+    }
+
+    .error-message {
+      font-size: var(--catalog-body-l-font-size);
+    }
+
+    .error-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .error-actions md-filled-button,
+    .error-actions md-outlined-button {
+      width: 100%;
+    }
+  }
+</style>
+
+<lit-island on:visible import="/js/hydration-entrypoints/form-controls.js">
+  <div class="error-page">
+    <div class="error-icon-container">
+      <span class="material-symbols-outlined error-icon">explore_off</span>
+    </div>
+
+    <div class="error-code">404</div>
+
+    <h1 class="error-title">Oups, cette page a disparu !</h1>
+
+    <p class="error-message">
+      On dirait que cette page a pris des vacances sans nous prevenir.
+      Elle est peut-etre partie explorer d'autres serveurs Discord...
+    </p>
+
+    <div class="error-hint">
+      <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px; color: var(--md-sys-color-primary);">lightbulb</span>
+      <strong>Conseil :</strong> Verifie l'URL ou retourne a l'accueil pour retrouver ton chemin !
+    </div>
+
+    <div class="error-actions">
+      <md-filled-button href="/">
+        <span class="material-symbols-outlined" slot="icon">home</span>
+        Retour a l'accueil
+      </md-filled-button>
+      <md-outlined-button href="/support/">
+        <span class="material-symbols-outlined" slot="icon">support_agent</span>
+        Besoin d'aide ?
+      </md-outlined-button>
+    </div>
+  </div>
+</lit-island>
