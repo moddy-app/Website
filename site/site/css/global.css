@@ -235,6 +235,10 @@ nav-drawer .drawer-copyright {
   font-weight: 400;
 }
 
+nav-drawer .copyright-symbol {
+  font-family: Arial, sans-serif;
+}
+
 nav-drawer .drawer-legal-links {
   display: flex;
   gap: var(--catalog-spacing-xs);
