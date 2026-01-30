@@ -227,7 +227,7 @@ nav-drawer .drawer-separator {
   height: 32px;
   background-color: var(--md-sys-color-outline-variant);
   flex-shrink: 0;
-  margin-inline: var(--catalog-spacing-xs) var(--catalog-spacing-m);
+  margin-inline: var(--catalog-spacing-xs) var(--catalog-spacing-s);
 }
 
 /* Drawer legal container */
