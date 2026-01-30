@@ -195,7 +195,7 @@ nav-drawer .drawer-footer {
   bottom: var(--catalog-spacing-l);
   left: var(--catalog-spacing-l);
   padding: var(--catalog-spacing-s);
-  border-radius: var(--catalog-shape-xl);
+  border-radius: 20px;
   border: 1px solid var(--md-sys-color-outline);
   background-color: var(--md-sys-color-surface-container-low);
 }
