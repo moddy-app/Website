@@ -57,6 +57,9 @@ module.exports = function (eleventyConfig) {
   // list of our transforms that we want to apply to markdown links.
   mdMarkdown(eleventyConfig, []);
 
+  // Add current year filter
+  eleventyConfig.addShortcode('year', () => new Date().getFullYear().toString());
+
   // install transforms
   minifyHTML(eleventyConfig, DEV);
 
