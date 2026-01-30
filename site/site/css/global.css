@@ -200,6 +200,13 @@ nav-drawer .drawer-footer {
   background-color: var(--md-sys-color-surface-container-low);
 }
 
+@media (max-width: 1500px) {
+  nav-drawer .drawer-footer {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
 nav-drawer .drawer-footer lit-island,
 nav-drawer .drawer-footer #drawer-menu-island {
   display: flex;
