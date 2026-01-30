@@ -128,11 +128,11 @@
         </md-list>
 
         <div class="drawer-footer">
-          <div class="drawer-actions">
-            <lit-island
-              on:interaction="pointerenter,focusin,pointerdown"
-              import="/js/hydration-entrypoints/drawer-menu.js"
-              id="drawer-menu-island">
+          <lit-island
+            on:interaction="pointerenter,focusin,pointerdown"
+            import="/js/hydration-entrypoints/drawer-menu.js"
+            id="drawer-menu-island">
+            <div class="drawer-actions">
               <md-icon-button
                 title="GitHub repository"
                 aria-label="GitHub repository"
@@ -163,14 +163,17 @@
                 aria-label="Page color theme controls">
                 <theme-changer></theme-changer>
               </md-menu>
-            </lit-island>
-          </div>
-          <div class="drawer-legal">
-            <span>&copy; Moddy</span>
-            <a href="https://docs.moddy.app/legal" target="_blank">Mentions légales</a>
-            <span>-</span>
-            <a href="https://docs.moddy.app/privacy" target="_blank">Privacy policy</a>
-          </div>
+            </div>
+            <div class="drawer-separator"></div>
+            <div class="drawer-legal">
+              <span class="drawer-copyright">&copy; Moddy</span>
+              <div class="drawer-legal-links">
+                <a href="https://docs.moddy.app/legal" target="_blank">Mentions légales</a>
+                <span>-</span>
+                <a href="https://docs.moddy.app/privacy" target="_blank">Privacy</a>
+              </div>
+            </div>
+          </lit-island>
         </div>
       </nav-drawer>
     </lit-island>
