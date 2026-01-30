@@ -227,18 +227,18 @@ nav-drawer .drawer-legal {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  font-size: var(--catalog-label-s-font-size);
+  font-size: 12px;
   color: var(--md-sys-color-on-surface-variant);
 }
 
 nav-drawer .drawer-copyright {
-  font-weight: 500;
+  font-weight: 400;
 }
 
 nav-drawer .drawer-legal-links {
   display: flex;
   gap: var(--catalog-spacing-xs);
-  font-size: 10px;
+  font-size: 11px;
   opacity: 0.8;
 }
 
@@ -260,6 +260,10 @@ nav-drawer .drawer-actions md-icon svg {
   fill: var(--md-sys-color-on-surface-variant);
   width: 24px;
   height: 24px;
+}
+
+nav-drawer .drawer-actions md-icon.filled {
+  font-variation-settings: 'FILL' 1;
 }
 
 /* Theme menu rounded corners */
