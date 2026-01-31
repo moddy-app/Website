@@ -133,7 +133,7 @@ nav-drawer md-list.nav {
 }
 
 nav-drawer md-list.nav md-list-item[href] {
-  margin-block: var(--catalog-spacing-m);
+  margin-block: var(--catalog-spacing-s);
   display: block;
   --md-focus-ring-shape: var(--catalog-shape-xl);
   border-radius: var(--catalog-shape-xl);
@@ -189,17 +189,79 @@ h6 {
   margin-block: var(--catalog-spacing-m);
 }
 
-/* Drawer actions container */
-nav-drawer .drawer-actions {
+/* Drawer footer container */
+nav-drawer .drawer-footer {
   position: absolute;
   bottom: var(--catalog-spacing-l);
   left: var(--catalog-spacing-l);
-  display: flex;
-  gap: var(--catalog-spacing-s);
   padding: var(--catalog-spacing-s);
-  border-radius: var(--catalog-shape-l);
+  border-radius: 20px;
   border: 1px solid var(--md-sys-color-outline);
   background-color: var(--md-sys-color-surface-container-low);
+}
+
+@media (max-width: 1500px) {
+  nav-drawer .drawer-footer {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+nav-drawer .drawer-footer lit-island,
+nav-drawer .drawer-footer #drawer-menu-island {
+  display: flex;
+  gap: 0;
+  align-items: center;
+}
+
+/* Drawer actions container */
+nav-drawer .drawer-actions {
+  display: flex;
+  gap: var(--catalog-spacing-xs);
+  align-items: center;
+}
+
+/* Drawer separator */
+nav-drawer .drawer-separator {
+  width: 1px;
+  height: 32px;
+  background-color: var(--md-sys-color-outline-variant);
+  flex-shrink: 0;
+  margin-inline-start: 6px;
+}
+
+/* Drawer legal container */
+nav-drawer .drawer-legal {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+  color: var(--md-sys-color-on-surface-variant);
+  padding-inline: 11px 6px;
+}
+
+nav-drawer .drawer-copyright {
+  font-weight: 400;
+}
+
+nav-drawer .copyright-symbol {
+  font-family: Arial, sans-serif;
+}
+
+nav-drawer .drawer-legal-links {
+  display: flex;
+  gap: var(--catalog-spacing-xs);
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+nav-drawer .drawer-legal a {
+  color: var(--md-sys-color-on-surface-variant);
+  text-decoration: none;
+}
+
+nav-drawer .drawer-legal a:hover {
+  text-decoration: underline;
 }
 
 nav-drawer .drawer-actions md-icon-button {
@@ -211,4 +273,13 @@ nav-drawer .drawer-actions md-icon svg {
   fill: var(--md-sys-color-on-surface-variant);
   width: 24px;
   height: 24px;
+}
+
+nav-drawer .drawer-actions md-icon.filled {
+  font-variation-settings: 'FILL' 1;
+}
+
+/* Theme menu rounded corners */
+#drawer-theme-menu {
+  --md-menu-container-shape: var(--catalog-shape-xl);
 }

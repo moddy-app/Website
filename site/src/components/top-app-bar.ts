@@ -175,7 +175,7 @@ export class TopAppBar extends SignalElement(LitElement) {
               </div>
               <div class="user-menu-actions">
                 <md-filled-button @click=${this.handleDashboard}>
-                  <md-icon slot="icon">dashboard</md-icon>
+                  <md-icon slot="icon" class="filled">dashboard</md-icon>
                   Dashboard
                 </md-filled-button>
                 <md-filled-tonal-button @click=${this.handleSignOut}>
@@ -347,6 +347,10 @@ export class TopAppBar extends SignalElement(LitElement) {
     .user-menu-actions md-filled-button,
     .user-menu-actions md-filled-tonal-button {
       flex: 1;
+    }
+
+    .user-menu-actions md-icon.filled {
+      font-variation-settings: 'FILL' 1;
     }
 
     #menu-island {
