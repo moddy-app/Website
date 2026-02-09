@@ -1,21 +1,19 @@
 ---
 name: Page Not Found
 title: 404
-layout: default.html
+layout: layouts/fullpage.html
 hasToc: false
 permalink: 404.html
 ---
 
 <style>
-  .error-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 65vh;
-    padding: var(--catalog-spacing-xl);
-    max-width: 600px;
-    margin: 0 auto;
+  .error-card {
+    background-color: var(--md-sys-color-surface-container-low);
+    border-radius: var(--catalog-shape-xl);
+    padding: calc(var(--catalog-spacing-xl) * 2);
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
   }
 
   .error-code {
@@ -35,7 +33,6 @@ permalink: 404.html
     color: var(--md-sys-color-on-surface);
     margin: 0 0 var(--catalog-spacing-m) 0;
     line-height: 1.2;
-    text-align: center;
   }
 
   .error-subtitle {
@@ -44,7 +41,6 @@ permalink: 404.html
     margin: 0 0 calc(var(--catalog-spacing-xl) + var(--catalog-spacing-s)) 0;
     line-height: 1.6;
     text-align: left;
-    max-width: 460px;
   }
 
   .error-actions {
@@ -59,11 +55,10 @@ permalink: 404.html
   }
 
   .error-hint {
-    margin-top: calc(var(--catalog-spacing-xl) * 2);
-    padding: var(--catalog-spacing-l) var(--catalog-spacing-xl);
-    background-color: var(--md-sys-color-surface-container-low);
-    border-radius: var(--catalog-shape-xl);
-    border: 1px solid var(--md-sys-color-outline-variant);
+    margin-top: calc(var(--catalog-spacing-xl) + var(--catalog-spacing-s));
+    padding: var(--catalog-spacing-m) var(--catalog-spacing-l);
+    background-color: var(--md-sys-color-surface-container);
+    border-radius: var(--catalog-shape-l);
     font-size: var(--catalog-body-m-font-size);
     color: var(--md-sys-color-on-surface-variant);
     display: inline-flex;
@@ -74,12 +69,18 @@ permalink: 404.html
 
   .error-hint md-icon.filled {
     font-variation-settings: 'FILL' 1;
-    font-size: 20px;
+    font-size: 18px;
     color: var(--md-sys-color-on-surface-variant);
     flex-shrink: 0;
   }
 
   @media screen and (max-width: 600px) {
+    .error-card {
+      padding: var(--catalog-spacing-xl);
+      border-radius: 0;
+      max-width: none;
+    }
+
     .error-code {
       font-size: 120px;
     }
@@ -101,7 +102,7 @@ permalink: 404.html
 </style>
 
 <lit-island on:visible import="/js/hydration-entrypoints/form-controls.js">
-  <div class="error-page">
+  <div class="error-card">
     <div class="error-code">404</div>
 
     <h1 class="error-title">Well, this is awkward.</h1>
