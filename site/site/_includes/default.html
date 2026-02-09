@@ -179,5 +179,135 @@
         </div>
       </nav-drawer>
     </lit-island>
+    <!-- Development Status Popup -->
+    <div id="dev-status-popup" class="dev-status-scrim">
+      <div class="dev-status-popup">
+        <div class="dev-status-header">
+          <span class="material-symbols-outlined dev-status-icon">construction</span>
+          <h2 class="dev-status-title">Under Development</h2>
+          <md-icon-button id="dev-status-close" aria-label="Close popup">
+            <md-icon>close</md-icon>
+          </md-icon-button>
+        </div>
+        <p class="dev-status-body">
+          Moddy is currently under active development and will likely not be ready before <strong>June 2026</strong>. Stay tuned for updates!
+        </p>
+        <div class="dev-status-actions">
+          <md-filled-button href="https://moddy.app/support" target="_blank">
+            Join Support Server
+            <md-icon slot="icon">discord</md-icon>
+          </md-filled-button>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .dev-status-scrim {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        animation: dev-scrim-in 0.2s ease forwards;
+      }
+
+      .dev-status-scrim.closing {
+        animation: dev-scrim-out 0.15s ease forwards;
+      }
+
+      .dev-status-popup {
+        background-color: var(--md-sys-color-surface-container-high);
+        color: var(--md-sys-color-on-surface);
+        border-radius: var(--catalog-shape-xl);
+        padding: 24px;
+        max-width: 400px;
+        width: calc(100% - 48px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        transform: scale(0.9);
+        animation: dev-popup-in 0.25s cubic-bezier(0, 0, 0.2, 1) forwards;
+      }
+
+      .dev-status-scrim.closing .dev-status-popup {
+        animation: dev-popup-out 0.15s ease forwards;
+      }
+
+      .dev-status-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .dev-status-icon {
+        color: var(--md-sys-color-primary);
+        font-size: 24px;
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+
+      .dev-status-title {
+        flex: 1;
+        margin: 0;
+        font-size: var(--catalog-title-l-font-size);
+        font-weight: 600;
+        -webkit-font-smoothing: antialiased;
+        color: var(--md-sys-color-on-surface);
+      }
+
+      .dev-status-body {
+        margin: 0 0 20px 0;
+        font-size: var(--catalog-body-l-font-size);
+        line-height: 1.5;
+        color: var(--md-sys-color-on-surface-variant);
+      }
+
+      .dev-status-actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      @keyframes dev-scrim-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes dev-scrim-out {
+        from { opacity: 1; }
+        to { opacity: 0; }
+      }
+
+      @keyframes dev-popup-in {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+      }
+
+      @keyframes dev-popup-out {
+        from { transform: scale(1); opacity: 1; }
+        to { transform: scale(0.9); opacity: 0; }
+      }
+    </style>
+
+    <script>
+      (function() {
+        var popup = document.getElementById('dev-status-popup');
+        if (localStorage.getItem('dev-status-dismissed')) {
+          popup.remove();
+          return;
+        }
+        function closePopup() {
+          popup.classList.add('closing');
+          popup.addEventListener('animationend', function() {
+            popup.remove();
+          });
+          localStorage.setItem('dev-status-dismissed', '1');
+        }
+        document.getElementById('dev-status-close').addEventListener('click', closePopup);
+        popup.addEventListener('click', function(e) {
+          if (e.target === popup) closePopup();
+        });
+      })();
+    </script>
   </body>
 </html>
