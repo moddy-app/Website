@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"
+    />
+    {% if isComponent %}
+      {% set pageTitle = title or name %}
+    {% else %}
+      {% set pageTitle = title %}
+    {% endif %}
+    <title>Moddy App{% if pageTitle %} - {{ pageTitle }}{% endif %}</title>
+    <meta name="theme-color" content="#251f16" />
+    <link href="/images/favicon.svg" rel="icon" sizes="any" type="image/svg+xml">
+    {% inlinecss "global.css" %}
+    <script type="module" src="/js/ssr-utils/lit-hydrate-support.js"></script>
+    <script type="module" src="/js/ssr-utils/lit-island.js"></script>
+    {% inlinejs "inline/apply-saved-theme.js" %}
+    <script type="module" src="/js/pages/global.js"></script>
+    <noscript>
+      <link rel="stylesheet" href="/css/no-js.css" />
+    </noscript>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+    />
+    <style>
+      body[dsd-pending] {
+        display: none;
+      }
+    </style>
+    <noscript
+      ><style>
+        body[dsd-pending] {
+          display: block !important;
+        }
+      </style>
+    </noscript>
+    <style>
+      .fullpage-layout {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .fullpage-topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      /* Hide hamburger menu since there's no drawer */
+      .fullpage-topbar top-app-bar::part(menu-button) {
+        display: none;
+      }
+
+      .fullpage-content {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--catalog-spacing-xl);
+      }
+    </style>
+    {% block head %}{% endblock %}
+  </head>
+  <body dsd-pending>
+    {% inlinejs "ssr-utils/dsd-polyfill.js" %}
+    <div class="fullpage-layout">
+      <div class="fullpage-topbar">
+        <lit-island on:visible import="/js/hydration-entrypoints/navigation.js">
+          <top-app-bar baseURI="/">
+            {% block topappbar %}{{ topappbar | safe }}{% endblock %}
+          </top-app-bar>
+        </lit-island>
+      </div>
+
+      <main class="fullpage-content" id="main-content" tabindex="0">
+        {% block content %}{{ content | safe }}{% endblock %}
+      </main>
+    </div>
+    <!-- Development Status Popup -->
+    <div id="dev-status-popup" class="dev-status-scrim">
+      <div class="dev-status-popup">
+        <div class="dev-status-header">
+          <span class="material-symbols-outlined dev-status-icon">construction</span>
+          <h2 class="dev-status-title">Under Development</h2>
+          <md-icon-button id="dev-status-close" aria-label="Close popup">
+            <md-icon>close</md-icon>
+          </md-icon-button>
+        </div>
+        <p class="dev-status-body">
+          Moddy is currently under active development and will likely not be ready before <strong>June 2026</strong>. Stay tuned for updates!
+        </p>
+        <div class="dev-status-actions">
+          <md-filled-button href="https://moddy.app/support" target="_blank">
+            Join Support Server
+            <md-icon slot="icon"><svg viewBox="0 -28.5 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z" fill="currentColor" fill-rule="nonzero"/></svg></md-icon>
+          </md-filled-button>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .dev-status-scrim {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        animation: dev-scrim-in 0.2s ease forwards;
+      }
+
+      .dev-status-scrim.closing {
+        animation: dev-scrim-out 0.15s ease forwards;
+      }
+
+      .dev-status-popup {
+        background-color: var(--md-sys-color-surface-container-high);
+        color: var(--md-sys-color-on-surface);
+        border-radius: var(--catalog-shape-xl);
+        padding: 24px;
+        max-width: 400px;
+        width: calc(100% - 48px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        transform: scale(0.9);
+        animation: dev-popup-in 0.25s cubic-bezier(0, 0, 0.2, 1) forwards;
+      }
+
+      .dev-status-scrim.closing .dev-status-popup {
+        animation: dev-popup-out 0.15s ease forwards;
+      }
+
+      .dev-status-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .dev-status-icon {
+        color: var(--md-sys-color-primary);
+        font-size: 24px;
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+
+      .dev-status-title {
+        flex: 1;
+        margin: 0;
+        font-size: var(--catalog-title-l-font-size);
+        font-weight: 600;
+        -webkit-font-smoothing: antialiased;
+        color: var(--md-sys-color-on-surface);
+      }
+
+      .dev-status-body {
+        margin: 0 0 20px 0;
+        font-size: var(--catalog-body-l-font-size);
+        line-height: 1.5;
+        color: var(--md-sys-color-on-surface-variant);
+      }
+
+      .dev-status-actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      @keyframes dev-scrim-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes dev-scrim-out {
+        from { opacity: 1; }
+        to { opacity: 0; }
+      }
+
+      @keyframes dev-popup-in {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+      }
+
+      @keyframes dev-popup-out {
+        from { transform: scale(1); opacity: 1; }
+        to { transform: scale(0.9); opacity: 0; }
+      }
+    </style>
+
+    <script>
+      (function() {
+        var popup = document.getElementById('dev-status-popup');
+        if (localStorage.getItem('dev-status-dismissed')) {
+          popup.remove();
+          return;
+        }
+        function closePopup() {
+          popup.classList.add('closing');
+          popup.addEventListener('animationend', function() {
+            popup.remove();
+          });
+          localStorage.setItem('dev-status-dismissed', '1');
+        }
+        document.getElementById('dev-status-close').addEventListener('click', closePopup);
+        popup.addEventListener('click', function(e) {
+          if (e.target === popup) closePopup();
+        });
+      })();
+    </script>
+  </body>
+</html>

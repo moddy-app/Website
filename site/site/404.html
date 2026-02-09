@@ -1,27 +1,19 @@
 ---
 name: Page Not Found
 title: 404
-layout: default.html
+layout: layouts/fullpage.html
 hasToc: false
 permalink: 404.html
 ---
 
 <style>
-  .error-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 65vh;
+  .error-card {
+    background-color: var(--md-sys-color-surface-container-low);
+    border-radius: var(--catalog-shape-xl);
+    padding: calc(var(--catalog-spacing-xl) * 2);
+    max-width: 520px;
+    width: 100%;
     text-align: center;
-    padding: var(--catalog-spacing-xl);
-    gap: 0;
-  }
-
-  .error-illustration {
-    position: relative;
-    margin-bottom: var(--catalog-spacing-l);
-    user-select: none;
   }
 
   .error-code {
@@ -31,18 +23,7 @@ permalink: 404.html
     color: var(--md-sys-color-primary);
     line-height: 1;
     letter-spacing: -4px;
-    opacity: 0.12;
-  }
-
-  .error-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 64px;
-    color: var(--md-sys-color-primary);
-    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 48;
-    animation: error-float 3s ease-in-out infinite;
+    margin-bottom: var(--catalog-spacing-m);
   }
 
   .error-title {
@@ -50,16 +31,16 @@ permalink: 404.html
     font-weight: 600;
     -webkit-font-smoothing: antialiased;
     color: var(--md-sys-color-on-surface);
-    margin: 0 0 var(--catalog-spacing-s) 0;
+    margin: 0 0 var(--catalog-spacing-m) 0;
     line-height: 1.2;
   }
 
   .error-subtitle {
     font-size: var(--catalog-body-l-font-size);
     color: var(--md-sys-color-on-surface-variant);
-    margin: 0 0 var(--catalog-spacing-xl) 0;
-    max-width: 400px;
-    line-height: 1.5;
+    margin: 0 0 calc(var(--catalog-spacing-xl) + var(--catalog-spacing-s)) 0;
+    line-height: 1.6;
+    text-align: left;
   }
 
   .error-actions {
@@ -69,48 +50,39 @@ permalink: 404.html
     justify-content: center;
   }
 
-  .error-actions md-filled-button {
-    --md-filled-button-container-height: 48px;
-    --md-filled-button-label-text-size: var(--catalog-body-l-font-size);
-  }
-
-  .error-actions md-outlined-button {
-    --md-outlined-button-container-height: 48px;
-    --md-outlined-button-label-text-size: var(--catalog-body-l-font-size);
+  .error-actions md-icon.filled {
+    font-variation-settings: 'FILL' 1;
   }
 
   .error-hint {
-    margin-top: calc(var(--catalog-spacing-xl) * 1.5);
-    padding: var(--catalog-spacing-l) var(--catalog-spacing-xl);
-    background-color: var(--md-sys-color-surface-container-low);
-    border-radius: var(--catalog-shape-xl);
-    border: 1px solid var(--md-sys-color-outline-variant);
+    margin-top: calc(var(--catalog-spacing-xl) + var(--catalog-spacing-s));
+    padding: var(--catalog-spacing-m) var(--catalog-spacing-l);
+    background-color: var(--md-sys-color-surface-container);
+    border-radius: var(--catalog-shape-l);
     font-size: var(--catalog-body-m-font-size);
     color: var(--md-sys-color-on-surface-variant);
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: var(--catalog-spacing-s);
+    line-height: 1.4;
   }
 
-  .error-hint .hint-icon {
-    font-size: 20px;
+  .error-hint md-icon.filled {
+    font-variation-settings: 'FILL' 1;
+    font-size: 18px;
     color: var(--md-sys-color-on-surface-variant);
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
     flex-shrink: 0;
   }
 
-  @keyframes error-float {
-    0%, 100% { transform: translate(-50%, -50%); }
-    50% { transform: translate(-50%, calc(-50% - 8px)); }
-  }
-
   @media screen and (max-width: 600px) {
-    .error-code {
-      font-size: 120px;
+    .error-card {
+      padding: var(--catalog-spacing-xl);
+      border-radius: 0;
+      max-width: none;
     }
 
-    .error-icon {
-      font-size: 48px;
+    .error-code {
+      font-size: 120px;
     }
 
     .error-title {
@@ -126,39 +98,32 @@ permalink: 404.html
     .error-actions md-outlined-button {
       width: 100%;
     }
-
-    .error-hint {
-      text-align: left;
-    }
   }
 </style>
 
 <lit-island on:visible import="/js/hydration-entrypoints/form-controls.js">
-  <div class="error-page">
-    <div class="error-illustration">
-      <div class="error-code">404</div>
-      <span class="material-symbols-outlined error-icon">explore_off</span>
-    </div>
+  <div class="error-card">
+    <div class="error-code">404</div>
 
     <h1 class="error-title">Well, this is awkward.</h1>
     <p class="error-subtitle">
-      The page you're looking for doesn't exist, got moved, or is just hiding from you.
+      The page you're looking for doesn't exist, got moved, or is just hiding from you. Either way, there's nothing here.
     </p>
 
     <div class="error-actions">
       <md-filled-button href="/">
-        <span class="material-symbols-outlined" slot="icon">home</span>
+        <md-icon slot="icon" class="filled">home</md-icon>
         Back to Home
       </md-filled-button>
       <md-outlined-button href="/support/">
-        <span class="material-symbols-outlined" slot="icon">support_agent</span>
+        <md-icon slot="icon" class="filled">support_agent</md-icon>
         Get Help
       </md-outlined-button>
     </div>
 
     <div class="error-hint">
-      <span class="material-symbols-outlined hint-icon">lightbulb</span>
-      <span>Pro tip: if you typed the URL manually, double-check for typos.</span>
+      <md-icon class="filled">lightbulb</md-icon>
+      <span>If you typed the URL manually, double-check for typos.</span>
     </div>
   </div>
 </lit-island>
