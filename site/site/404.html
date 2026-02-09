@@ -10,18 +10,13 @@ permalink: 404.html
   .error-page {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     min-height: 65vh;
-    text-align: center;
+    text-align: right;
     padding: var(--catalog-spacing-xl);
-    gap: 0;
-  }
-
-  .error-illustration {
-    position: relative;
-    margin-bottom: var(--catalog-spacing-l);
-    user-select: none;
+    max-width: 900px;
+    margin: 0 auto;
   }
 
   .error-code {
@@ -31,18 +26,7 @@ permalink: 404.html
     color: var(--md-sys-color-primary);
     line-height: 1;
     letter-spacing: -4px;
-    opacity: 0.12;
-  }
-
-  .error-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 64px;
-    color: var(--md-sys-color-primary);
-    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 48;
-    animation: error-float 3s ease-in-out infinite;
+    margin-bottom: var(--catalog-spacing-s);
   }
 
   .error-title {
@@ -58,7 +42,7 @@ permalink: 404.html
     font-size: var(--catalog-body-l-font-size);
     color: var(--md-sys-color-on-surface-variant);
     margin: 0 0 var(--catalog-spacing-xl) 0;
-    max-width: 400px;
+    max-width: 420px;
     line-height: 1.5;
   }
 
@@ -66,17 +50,19 @@ permalink: 404.html
     display: flex;
     gap: var(--catalog-spacing-m);
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-end;
   }
 
-  .error-actions md-filled-button {
+  .error-actions md-filled-button,
+  .error-actions md-outlined-button {
     --md-filled-button-container-height: 48px;
     --md-filled-button-label-text-size: var(--catalog-body-l-font-size);
-  }
-
-  .error-actions md-outlined-button {
     --md-outlined-button-container-height: 48px;
     --md-outlined-button-label-text-size: var(--catalog-body-l-font-size);
+  }
+
+  .error-actions md-icon {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   }
 
   .error-hint {
@@ -92,25 +78,21 @@ permalink: 404.html
     gap: var(--catalog-spacing-s);
   }
 
-  .error-hint .hint-icon {
+  .error-hint md-icon {
     font-size: 20px;
     color: var(--md-sys-color-on-surface-variant);
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 20;
     flex-shrink: 0;
   }
 
-  @keyframes error-float {
-    0%, 100% { transform: translate(-50%, -50%); }
-    50% { transform: translate(-50%, calc(-50% - 8px)); }
-  }
-
   @media screen and (max-width: 600px) {
-    .error-code {
-      font-size: 120px;
+    .error-page {
+      align-items: flex-start;
+      text-align: left;
     }
 
-    .error-icon {
-      font-size: 48px;
+    .error-code {
+      font-size: 120px;
     }
 
     .error-title {
@@ -120,6 +102,7 @@ permalink: 404.html
     .error-actions {
       flex-direction: column;
       width: 100%;
+      justify-content: flex-start;
     }
 
     .error-actions md-filled-button,
@@ -135,10 +118,7 @@ permalink: 404.html
 
 <lit-island on:visible import="/js/hydration-entrypoints/form-controls.js">
   <div class="error-page">
-    <div class="error-illustration">
-      <div class="error-code">404</div>
-      <span class="material-symbols-outlined error-icon">explore_off</span>
-    </div>
+    <div class="error-code">404</div>
 
     <h1 class="error-title">Well, this is awkward.</h1>
     <p class="error-subtitle">
@@ -147,17 +127,17 @@ permalink: 404.html
 
     <div class="error-actions">
       <md-filled-button href="/">
-        <span class="material-symbols-outlined" slot="icon">home</span>
+        <md-icon slot="icon">home</md-icon>
         Back to Home
       </md-filled-button>
       <md-outlined-button href="/support/">
-        <span class="material-symbols-outlined" slot="icon">support_agent</span>
+        <md-icon slot="icon">support_agent</md-icon>
         Get Help
       </md-outlined-button>
     </div>
 
     <div class="error-hint">
-      <span class="material-symbols-outlined hint-icon">lightbulb</span>
+      <md-icon>lightbulb</md-icon>
       <span>Pro tip: if you typed the URL manually, double-check for typos.</span>
     </div>
   </div>
