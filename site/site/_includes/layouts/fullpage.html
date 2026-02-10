@@ -52,11 +52,6 @@
         z-index: 10;
       }
 
-      /* Hide hamburger menu since there's no drawer */
-      .fullpage-topbar top-app-bar::part(menu-button) {
-        display: none;
-      }
-
       .fullpage-content {
         flex: 1;
         display: flex;
@@ -77,6 +72,18 @@
           </top-app-bar>
         </lit-island>
       </div>
+
+      <script>
+        // Hide the hamburger menu button inside top-app-bar shadow DOM
+        // since this layout has no nav-drawer
+        customElements.whenDefined('top-app-bar').then(function() {
+          var topBar = document.querySelector('top-app-bar');
+          if (topBar && topBar.shadowRoot) {
+            var btn = topBar.shadowRoot.querySelector('.menu-button');
+            if (btn) btn.style.display = 'none';
+          }
+        });
+      </script>
 
       <main class="fullpage-content" id="main-content" tabindex="0">
         {% block content %}{{ content | safe }}{% endblock %}

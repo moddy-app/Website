@@ -10,10 +10,13 @@ permalink: 404.html
   .error-card {
     background-color: var(--md-sys-color-surface-container-low);
     border-radius: var(--catalog-shape-xl);
-    padding: calc(var(--catalog-spacing-xl) * 2);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    padding: calc(var(--catalog-spacing-xl) * 2) calc(var(--catalog-spacing-xl) * 2) calc(var(--catalog-spacing-xl) * 1.5);
     max-width: 520px;
     width: 100%;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .error-code {
@@ -23,7 +26,7 @@ permalink: 404.html
     color: var(--md-sys-color-primary);
     line-height: 1;
     letter-spacing: -4px;
-    margin-bottom: var(--catalog-spacing-m);
+    margin-bottom: var(--catalog-spacing-l);
   }
 
   .error-title {
@@ -31,16 +34,18 @@ permalink: 404.html
     font-weight: 600;
     -webkit-font-smoothing: antialiased;
     color: var(--md-sys-color-on-surface);
-    margin: 0 0 var(--catalog-spacing-m) 0;
+    margin: 0 0 var(--catalog-spacing-l) 0;
     line-height: 1.2;
+    text-align: center;
   }
 
   .error-subtitle {
     font-size: var(--catalog-body-l-font-size);
     color: var(--md-sys-color-on-surface-variant);
-    margin: 0 0 calc(var(--catalog-spacing-xl) + var(--catalog-spacing-s)) 0;
+    margin: 0 0 calc(var(--catalog-spacing-xl) + var(--catalog-spacing-m)) 0;
     line-height: 1.6;
     text-align: left;
+    align-self: stretch;
   }
 
   .error-actions {
@@ -48,6 +53,7 @@ permalink: 404.html
     gap: var(--catalog-spacing-m);
     flex-wrap: wrap;
     justify-content: center;
+    align-self: stretch;
   }
 
   .error-actions svg[slot="icon"] {
@@ -57,7 +63,7 @@ permalink: 404.html
   }
 
   .error-hint {
-    margin-top: calc(var(--catalog-spacing-xl) + var(--catalog-spacing-s));
+    margin-top: calc(var(--catalog-spacing-xl) + var(--catalog-spacing-m));
     padding: var(--catalog-spacing-m) var(--catalog-spacing-l);
     background-color: var(--md-sys-color-surface-container);
     border-radius: var(--catalog-shape-l);
@@ -78,8 +84,8 @@ permalink: 404.html
 
   @media screen and (max-width: 600px) {
     .error-card {
-      padding: var(--catalog-spacing-xl);
-      border-radius: 0;
+      padding: calc(var(--catalog-spacing-xl) * 1.5) var(--catalog-spacing-xl) var(--catalog-spacing-xl);
+      border-radius: var(--catalog-shape-xl);
       max-width: none;
     }
 
@@ -88,12 +94,11 @@ permalink: 404.html
     }
 
     .error-title {
-      font-size: var(--catalog-title-l-font-size);
+      font-size: 28px;
     }
 
     .error-actions {
       flex-direction: column;
-      width: 100%;
     }
 
     .error-actions md-filled-button,
