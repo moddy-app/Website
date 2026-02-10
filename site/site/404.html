@@ -11,38 +11,39 @@ permalink: 404.html
     background-color: var(--md-sys-color-surface-container-low);
     border-radius: var(--catalog-shape-xl);
     border: 1px solid var(--md-sys-color-outline-variant);
-    padding: calc(var(--catalog-spacing-xl) * 2) calc(var(--catalog-spacing-xl) * 2) calc(var(--catalog-spacing-xl) * 1.5);
+    padding: 48px;
     max-width: 520px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
   }
 
   .error-code {
-    font-size: 160px;
+    font-size: 140px;
     font-weight: 700;
     -webkit-font-smoothing: antialiased;
     color: var(--md-sys-color-primary);
     line-height: 1;
     letter-spacing: -4px;
-    margin-bottom: var(--catalog-spacing-l);
+    margin-bottom: 12px;
   }
 
   .error-title {
-    font-size: var(--catalog-display-m-font-size);
+    font-size: 36px;
     font-weight: 600;
     -webkit-font-smoothing: antialiased;
     color: var(--md-sys-color-on-surface);
-    margin: 0 0 var(--catalog-spacing-l) 0;
+    margin: 0 0 12px 0;
     line-height: 1.2;
     text-align: center;
   }
 
   .error-subtitle {
-    font-size: var(--catalog-body-l-font-size);
+    font-size: 16px;
     color: var(--md-sys-color-on-surface-variant);
-    margin: 0 0 calc(var(--catalog-spacing-xl) + var(--catalog-spacing-m)) 0;
+    margin: 0 0 28px 0;
     line-height: 1.6;
     text-align: left;
     align-self: stretch;
@@ -50,8 +51,7 @@ permalink: 404.html
 
   .error-actions {
     display: flex;
-    gap: var(--catalog-spacing-m);
-    flex-wrap: wrap;
+    gap: 12px;
     justify-content: center;
     align-self: stretch;
   }
@@ -63,16 +63,16 @@ permalink: 404.html
   }
 
   .error-hint {
-    margin-top: calc(var(--catalog-spacing-xl) + var(--catalog-spacing-m));
-    padding: var(--catalog-spacing-m) var(--catalog-spacing-l);
+    margin-top: 28px;
+    padding: 10px 16px;
     background-color: var(--md-sys-color-surface-container);
     border: 1px solid var(--md-sys-color-outline-variant);
-    border-radius: var(--catalog-shape-l);
-    font-size: var(--catalog-body-m-font-size);
+    border-radius: 12px;
+    font-size: 13px;
     color: var(--md-sys-color-on-surface-variant);
     display: inline-flex;
     align-items: center;
-    gap: var(--catalog-spacing-s);
+    gap: 8px;
     line-height: 1.4;
   }
 
@@ -83,41 +83,57 @@ permalink: 404.html
     flex-shrink: 0;
   }
 
-  @media screen and (max-width: 600px) {
+  /* Tablet */
+  @media screen and (max-width: 768px) {
     .error-card {
-      padding: var(--catalog-spacing-xl) var(--catalog-spacing-l);
-      border-radius: var(--catalog-shape-l);
+      padding: 36px 28px 28px;
+      max-width: 440px;
+    }
+
+    .error-code {
+      font-size: 110px;
+      letter-spacing: -3px;
+    }
+
+    .error-title {
+      font-size: 28px;
+    }
+  }
+
+  /* Mobile */
+  @media screen and (max-width: 480px) {
+    .error-card {
+      padding: 28px 20px 20px;
+      border-radius: 20px;
+      border: none;
       max-width: none;
     }
 
     .error-code {
-      font-size: 80px;
+      font-size: 72px;
       letter-spacing: -2px;
-      margin-bottom: var(--catalog-spacing-s);
+      margin-bottom: 8px;
     }
 
     .error-title {
       font-size: 22px;
-      margin-bottom: var(--catalog-spacing-s);
+      margin-bottom: 8px;
     }
 
     .error-subtitle {
-      font-size: var(--catalog-body-m-font-size);
-      margin-bottom: var(--catalog-spacing-xl);
+      font-size: 14px;
+      margin-bottom: 20px;
     }
 
     .error-actions {
       flex-direction: column;
-    }
-
-    .error-actions md-filled-button,
-    .error-actions md-outlined-button {
-      width: 100%;
+      gap: 10px;
     }
 
     .error-hint {
-      margin-top: var(--catalog-spacing-xl);
+      margin-top: 20px;
       align-self: stretch;
+      font-size: 12px;
     }
   }
 </style>

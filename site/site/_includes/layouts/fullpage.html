@@ -57,12 +57,19 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: var(--catalog-spacing-xl);
+        padding: 24px;
       }
 
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 768px) {
         .fullpage-content {
-          padding: var(--catalog-spacing-l);
+          padding: 16px;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        .fullpage-content {
+          align-items: flex-start;
+          padding: 12px;
         }
       }
     </style>
