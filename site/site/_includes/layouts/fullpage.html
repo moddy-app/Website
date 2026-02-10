@@ -52,17 +52,25 @@
         z-index: 10;
       }
 
-      /* Hide hamburger menu since there's no drawer */
-      .fullpage-topbar top-app-bar::part(menu-button) {
-        display: none;
-      }
-
       .fullpage-content {
         flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: var(--catalog-spacing-xl);
+        padding: 24px;
+      }
+
+      @media screen and (max-width: 768px) {
+        .fullpage-content {
+          padding: 16px;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        .fullpage-content {
+          align-items: flex-start;
+          padding: 12px;
+        }
       }
     </style>
     {% block head %}{% endblock %}
@@ -77,6 +85,19 @@
           </top-app-bar>
         </lit-island>
       </div>
+
+      <script>
+        // Hide the hamburger menu button and always show the logo
+        // since this layout has no nav-drawer.
+        customElements.whenDefined('top-app-bar').then(function() {
+          var topBar = document.querySelector('top-app-bar');
+          if (topBar && topBar.shadowRoot) {
+            var s = document.createElement('style');
+            s.textContent = '.menu-button { display: none !important; } .start .logo-link { display: flex !important; }';
+            topBar.shadowRoot.appendChild(s);
+          }
+        });
+      </script>
 
       <main class="fullpage-content" id="main-content" tabindex="0">
         {% block content %}{{ content | safe }}{% endblock %}
