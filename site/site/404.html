@@ -66,6 +66,7 @@ permalink: 404.html
     margin-top: calc(var(--catalog-spacing-xl) + var(--catalog-spacing-m));
     padding: var(--catalog-spacing-m) var(--catalog-spacing-l);
     background-color: var(--md-sys-color-surface-container);
+    border: 1px solid var(--md-sys-color-outline-variant);
     border-radius: var(--catalog-shape-l);
     font-size: var(--catalog-body-m-font-size);
     color: var(--md-sys-color-on-surface-variant);
@@ -84,17 +85,25 @@ permalink: 404.html
 
   @media screen and (max-width: 600px) {
     .error-card {
-      padding: calc(var(--catalog-spacing-xl) * 1.5) var(--catalog-spacing-xl) var(--catalog-spacing-xl);
-      border-radius: var(--catalog-shape-xl);
+      padding: var(--catalog-spacing-xl) var(--catalog-spacing-l);
+      border-radius: var(--catalog-shape-l);
       max-width: none;
     }
 
     .error-code {
-      font-size: 120px;
+      font-size: 80px;
+      letter-spacing: -2px;
+      margin-bottom: var(--catalog-spacing-s);
     }
 
     .error-title {
-      font-size: 28px;
+      font-size: 22px;
+      margin-bottom: var(--catalog-spacing-s);
+    }
+
+    .error-subtitle {
+      font-size: var(--catalog-body-m-font-size);
+      margin-bottom: var(--catalog-spacing-xl);
     }
 
     .error-actions {
@@ -104,6 +113,11 @@ permalink: 404.html
     .error-actions md-filled-button,
     .error-actions md-outlined-button {
       width: 100%;
+    }
+
+    .error-hint {
+      margin-top: var(--catalog-spacing-xl);
+      align-self: stretch;
     }
   }
 </style>

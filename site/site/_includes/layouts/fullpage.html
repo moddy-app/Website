@@ -59,6 +59,12 @@
         justify-content: center;
         padding: var(--catalog-spacing-xl);
       }
+
+      @media screen and (max-width: 600px) {
+        .fullpage-content {
+          padding: var(--catalog-spacing-l);
+        }
+      }
     </style>
     {% block head %}{% endblock %}
   </head>
@@ -75,12 +81,14 @@
 
       <script>
         // Hide the hamburger menu button inside top-app-bar shadow DOM
-        // since this layout has no nav-drawer
+        // since this layout has no nav-drawer.
+        // Inject a <style> so it applies even before the button renders.
         customElements.whenDefined('top-app-bar').then(function() {
           var topBar = document.querySelector('top-app-bar');
           if (topBar && topBar.shadowRoot) {
-            var btn = topBar.shadowRoot.querySelector('.menu-button');
-            if (btn) btn.style.display = 'none';
+            var s = document.createElement('style');
+            s.textContent = '.menu-button { display: none !important; }';
+            topBar.shadowRoot.appendChild(s);
           }
         });
       </script>
