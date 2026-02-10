@@ -50,8 +50,10 @@ permalink: 404.html
     justify-content: center;
   }
 
-  .error-actions md-icon.filled {
-    font-variation-settings: 'FILL' 1;
+  .error-actions svg[slot="icon"] {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
   }
 
   .error-hint {
@@ -67,10 +69,10 @@ permalink: 404.html
     line-height: 1.4;
   }
 
-  .error-hint md-icon.filled {
-    font-variation-settings: 'FILL' 1;
-    font-size: 18px;
-    color: var(--md-sys-color-on-surface-variant);
+  .error-hint svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--md-sys-color-on-surface-variant);
     flex-shrink: 0;
   }
 
@@ -112,17 +114,17 @@ permalink: 404.html
 
     <div class="error-actions">
       <md-filled-button href="/">
-        <md-icon slot="icon" class="filled">home</md-icon>
+        <svg slot="icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
         Back to Home
       </md-filled-button>
       <md-outlined-button href="/support/">
-        <md-icon slot="icon" class="filled">support_agent</md-icon>
+        <svg slot="icon" viewBox="0 0 24 24"><path d="M21 12.22C21 6.73 16.74 3 12 3c-4.69 0-9 3.65-9 9.28-.6.34-1 .98-1 1.72v2c0 1.1.9 2 2 2h1v-6.1c0-3.87 3.13-7 7-7s7 3.13 7 7V19h-8v2h8c1.1 0 2-.9 2-2v-1.22c.59-.31 1-.92 1-1.64v-2.3c0-.7-.41-1.31-1-1.62z"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/><path d="M18 11.03C17.52 8.18 15.04 6 12.05 6c-3.03 0-6.29 2.51-6.03 6.45 2.47-1.01 4.33-3.21 4.86-5.89 1.31 2.63 4 4.44 7.12 4.47z"/></svg>
         Get Help
       </md-outlined-button>
     </div>
 
     <div class="error-hint">
-      <md-icon class="filled">lightbulb</md-icon>
+      <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
       <span>If you typed the URL manually, double-check for typos.</span>
     </div>
   </div>
