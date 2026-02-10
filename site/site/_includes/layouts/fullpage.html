@@ -80,14 +80,13 @@
       </div>
 
       <script>
-        // Hide the hamburger menu button inside top-app-bar shadow DOM
+        // Hide the hamburger menu button and always show the logo
         // since this layout has no nav-drawer.
-        // Inject a <style> so it applies even before the button renders.
         customElements.whenDefined('top-app-bar').then(function() {
           var topBar = document.querySelector('top-app-bar');
           if (topBar && topBar.shadowRoot) {
             var s = document.createElement('style');
-            s.textContent = '.menu-button { display: none !important; }';
+            s.textContent = '.menu-button { display: none !important; } .start .logo-link { display: flex !important; }';
             topBar.shadowRoot.appendChild(s);
           }
         });
