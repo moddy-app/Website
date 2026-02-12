@@ -16,17 +16,22 @@ import { signInWithDiscord, verifySession } from '../utils/auth.js';
  */
 async function initSignIn() {
   try {
+    // Extract redirect URL from query parameter if present
+    const params = new URLSearchParams(window.location.search);
+    const redirectUrl = params.get('url');
+
     // First, check if user is already authenticated
     const session = await verifySession();
 
     if (session.valid) {
-      // User is already authenticated, redirect to home
-      window.location.href = '/';
+      // User is already authenticated, redirect to specified URL or home
+      window.location.href = redirectUrl || '/';
       return;
     }
 
     // User is not authenticated, start Discord OAuth flow
-    await signInWithDiscord();
+    // Pass the redirect URL to be stored in the OAuth state
+    await signInWithDiscord(redirectUrl || undefined);
   } catch (error) {
     console.error('Sign-in error:', error);
     // On error, just redirect to home
