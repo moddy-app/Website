@@ -290,6 +290,21 @@
     </style>
 
     <script>
+      // Prevent pages from being loaded inside iframes (e.g., from status page)
+      // This fixes the issue where clicking the logo in the Instatus iframe
+      // loads the homepage inside the iframe instead of redirecting the parent page
+      (function() {
+        if (window.self !== window.top) {
+          try {
+            window.top.location.href = window.location.href;
+          } catch (e) {
+            // Cross-origin iframe - can't redirect parent
+            console.warn('Cannot redirect parent frame due to cross-origin restrictions');
+          }
+        }
+      })();
+
+      // Development status popup
       (function() {
         var popup = document.getElementById('dev-status-popup');
         if (localStorage.getItem('dev-status-dismissed')) {
