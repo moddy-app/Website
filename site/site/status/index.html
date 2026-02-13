@@ -3,26 +3,52 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Moddy Services Status</title>
+    <title>Redirecting to Moddy Status...</title>
+    <meta http-equiv="refresh" content="0; url=https://status.moddy.app" />
     <link href="/images/favicon.svg" rel="icon" sizes="any" type="image/svg+xml">
     <style>
       body {
         margin: 0;
         padding: 0;
-        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
       }
-      iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: none;
+      .redirect-message {
+        text-align: center;
+        padding: 2rem;
+      }
+      .redirect-message h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      .redirect-message p {
+        margin-bottom: 1.5rem;
+        color: #666;
+      }
+      .redirect-message a {
+        color: #1976d2;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .redirect-message a:hover {
+        text-decoration: underline;
       }
     </style>
+    <script>
+      // Immediate redirect via JavaScript (backup to meta refresh)
+      window.location.replace('https://status.moddy.app');
+    </script>
   </head>
   <body>
-    <iframe src="https://jules-x2as8.instatus.com/" title="Moddy Services Status"></iframe>
+    <div class="redirect-message">
+      <h1>Redirecting to Moddy Status...</h1>
+      <p>If you are not redirected automatically, please click the link below:</p>
+      <a href="https://status.moddy.app">https://status.moddy.app</a>
+    </div>
   </body>
 </html>
