@@ -1,2 +1,3 @@
-# docs
-Moddy documentation
+# Moddy website
+---
+/!\ under active development 
