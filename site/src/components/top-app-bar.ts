@@ -117,7 +117,7 @@ export class TopAppBar extends SignalElement(LitElement) {
           </section>
 
           <a href="/" id="home-link">
-            Moddy App
+            Moddy
             <md-focus-ring for="home-link"></md-focus-ring>
           </a>
 
