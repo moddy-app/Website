@@ -9,7 +9,7 @@
  */
 
 import '@material/web/progress/circular-progress.js';
-import { signInWithDiscord, verifySession } from '../utils/auth.js';
+import { signInWithDiscord, getMe } from '../utils/auth.js';
 
 /**
  * Initialize the sign-in page
@@ -20,21 +20,19 @@ async function initSignIn() {
     const params = new URLSearchParams(window.location.search);
     const redirectUrl = params.get('url');
 
-    // First, check if user is already authenticated
-    const session = await verifySession();
+    // Check if user is already authenticated
+    const user = await getMe();
 
-    if (session.valid) {
-      // User is already authenticated, redirect to specified URL or home
+    if (user) {
+      // Already logged in — go to the requested URL or home
       window.location.href = redirectUrl || '/';
       return;
     }
 
-    // User is not authenticated, start Discord OAuth flow
-    // Pass the redirect URL to be stored in the OAuth state
-    await signInWithDiscord(redirectUrl || undefined);
+    // Not logged in — redirect to backend Discord OAuth
+    signInWithDiscord();
   } catch (error) {
     console.error('Sign-in error:', error);
-    // On error, just redirect to home
     window.location.href = '/';
   }
 }

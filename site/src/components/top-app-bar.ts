@@ -21,7 +21,7 @@ import {drawerOpenSignal} from '../signals/drawer-open-state.js';
 import {inertContentSignal, inertSidebarSignal} from '../signals/inert.js';
 import {SignalElement} from '../signals/signal-element.js';
 import {moddyLogo} from '../svg/moddy-logo.js';
-import {verifySession, getUserInfo, logout, type UserInfo} from '../utils/auth.js';
+import {getMe, logout, getAvatarUrl, type User} from '../utils/auth.js';
 
 /**
  * Top app bar of the catalog.
@@ -32,7 +32,7 @@ export class TopAppBar extends SignalElement(LitElement) {
   private isAuthenticated = false;
 
   @state()
-  private userInfo: UserInfo | null = null;
+  private userInfo: User | null = null;
 
   @state()
   private isLoading = true;
@@ -47,14 +47,10 @@ export class TopAppBar extends SignalElement(LitElement) {
    */
   private async checkAuthentication() {
     try {
-      const session = await verifySession();
-
-      if (session.valid) {
+      const user = await getMe();
+      if (user) {
         this.isAuthenticated = true;
-        const info = await getUserInfo();
-        if (info) {
-          this.userInfo = info;
-        }
+        this.userInfo = user;
       }
     } catch (error) {
       console.error('Error checking authentication:', error);
@@ -83,9 +79,9 @@ export class TopAppBar extends SignalElement(LitElement) {
   /**
    * Handle sign out
    */
-  private handleSignOut() {
-    const currentUrl = encodeURIComponent(window.location.href);
-    window.location.href = `https://api.moddy.app/auth/logout?url=${currentUrl}`;
+  private async handleSignOut() {
+    await logout();
+    window.location.href = '/';
   }
 
   render() {
@@ -150,12 +146,10 @@ export class TopAppBar extends SignalElement(LitElement) {
             aria-label="User menu"
             title="${this.userInfo.username}"
             @click=${this.toggleUserMenu}>
-            ${this.userInfo.avatar_url
-              ? html`<img
-                  src="${this.userInfo.avatar_url}"
-                  alt="${this.userInfo.username}"
-                  class="user-avatar" />`
-              : html`<md-icon>account_circle</md-icon>`}
+            <img
+              src="${getAvatarUrl(this.userInfo.user_id, this.userInfo.avatar)}"
+              alt="${this.userInfo.username}"
+              class="user-avatar" />
           </md-icon-button>
           <md-menu
             id="user-menu"
@@ -165,12 +159,10 @@ export class TopAppBar extends SignalElement(LitElement) {
             default-focus="none">
             <div class="user-menu-content">
               <div class="user-menu-header">
-                ${this.userInfo.avatar_url
-                  ? html`<img
-                      src="${this.userInfo.avatar_url}"
-                      alt="${this.userInfo.username}"
-                      class="user-menu-avatar" />`
-                  : html`<md-icon class="user-menu-avatar-icon">account_circle</md-icon>`}
+                <img
+                  src="${getAvatarUrl(this.userInfo.user_id, this.userInfo.avatar)}"
+                  alt="${this.userInfo.username}"
+                  class="user-menu-avatar" />
                 <div class="user-menu-greeting">Hello @${this.userInfo.username}!</div>
               </div>
               <div class="user-menu-actions">
