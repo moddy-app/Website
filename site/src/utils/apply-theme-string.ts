@@ -71,23 +71,33 @@ export function applyThemeString(
 }
 
 /**
- * Converts an rgb color string to HSL, clamps lightness to [0.50, 0.62],
- * and returns the adjusted rgb string. This keeps the hue vivid while
+ * Converts a hex or rgb color string to HSL, clamps lightness to [0.50, 0.62],
+ * and returns the adjusted hex string. This keeps the hue vivid while
  * avoiding the near-black primaries that MD3 generates for light themes.
  */
 function liftToMidtone(color: string): string {
-  const m = color.match(/\d+/g);
-  if (!m || m.length < 3) return color;
-  let r = Number(m[0]) / 255;
-  let g = Number(m[1]) / 255;
-  let b = Number(m[2]) / 255;
+  let r: number, g: number, b: number;
+
+  const hex = color.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
+  const rgb = color.match(/rgb\(\s*(\d+)\s*[, ]\s*(\d+)\s*[, ]\s*(\d+)\s*\)/);
+
+  if (hex) {
+    r = parseInt(hex[1], 16) / 255;
+    g = parseInt(hex[2], 16) / 255;
+    b = parseInt(hex[3], 16) / 255;
+  } else if (rgb) {
+    r = Number(rgb[1]) / 255;
+    g = Number(rgb[2]) / 255;
+    b = Number(rgb[3]) / 255;
+  } else {
+    return color;
+  }
 
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
   const d = max - min;
   const l = (max + min) / 2;
 
-  // Already in the target range — return as-is.
   if (l >= 0.5 && l <= 0.62) return color;
 
   let h = 0;
@@ -100,7 +110,7 @@ function liftToMidtone(color: string): string {
       : ((r - g) / d + 4) / 6;
   }
 
-  const tl = l < 0.5 ? 0.5 : 0.62; // lift dark, cap bright
+  const tl = l < 0.5 ? 0.5 : 0.62;
   const q = tl < 0.5 ? tl * (1 + s) : tl + s - tl * s;
   const p = 2 * tl - q;
 
@@ -113,11 +123,11 @@ function liftToMidtone(color: string): string {
     return p;
   };
 
-  const toInt = (x: number) => Math.round(x * 255);
+  const toHex = (x: number) => Math.round(x * 255).toString(16).padStart(2, '0');
 
   if (s === 0) {
-    const v = toInt(tl);
-    return `rgb(${v} ${v} ${v})`;
+    const v = toHex(tl);
+    return `#${v}${v}${v}`;
   }
-  return `rgb(${toInt(hue2rgb(h + 1 / 3))} ${toInt(hue2rgb(h))} ${toInt(hue2rgb(h - 1 / 3))})`;
+  return `#${toHex(hue2rgb(h + 1 / 3))}${toHex(hue2rgb(h))}${toHex(hue2rgb(h - 1 / 3))}`;
 }

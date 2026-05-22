@@ -360,10 +360,6 @@ export class TopAppBar extends SignalElement(LitElement) {
     }
 
     @media (max-width: 1500px) {
-      .start .logo-link {
-        display: none;
-      }
-
       .start .menu-button {
         display: flex;
       }
