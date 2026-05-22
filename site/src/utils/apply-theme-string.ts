@@ -49,4 +49,20 @@ export function applyThemeString(
 
   sheet.replaceSync(themeString);
   localStorage.setItem(ssName, themeString);
+
+  // Update favicon color to match the theme's primary color
+  if ((doc as Document).nodeType === 9) {
+    const primaryColor = themeString.match(/--md-sys-color-primary:\s*(.+?);/)?.[1]?.trim();
+    if (primaryColor) {
+      const faviconSvg = `<svg width="190" height="190" viewBox="0 0 190 190" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M142.39 0H94.9335L47.4565 47.4564H0V94.9129H94.9335L142.39 47.4564V0Z" fill="${primaryColor}"/><path d="M94.9335 94.9129L47.4568 142.39V189.846H94.9339L142.39 142.39H189.847V94.9128L94.9335 94.9129Z" fill="${primaryColor}"/></svg>`;
+      const blob = new Blob([faviconSvg], {type: 'image/svg+xml'});
+      const url = URL.createObjectURL(blob);
+      const faviconEl = document.querySelector('link[rel="icon"]') as HTMLLinkElement | null;
+      if (faviconEl) {
+        const oldUrl = faviconEl.href;
+        faviconEl.href = url;
+        if (oldUrl.startsWith('blob:')) URL.revokeObjectURL(oldUrl);
+      }
+    }
+  }
 }

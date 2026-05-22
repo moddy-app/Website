@@ -112,11 +112,6 @@ export class TopAppBar extends SignalElement(LitElement) {
             </a>
           </section>
 
-          <a href="/" id="home-link">
-            Moddy
-            <md-focus-ring for="home-link"></md-focus-ring>
-          </a>
-
           <a id="skip-to-main" href="#main-content" tabindex="0">
             Skip to main content
           </a>
@@ -255,12 +250,12 @@ export class TopAppBar extends SignalElement(LitElement) {
       align-items: center;
       padding: 0;
       margin-top: -3px;
-      height: 32px;
+      height: 36px;
     }
 
     .logo-link svg {
-      width: 32px;
-      height: 32px;
+      height: 36px;
+      width: auto;
       color: var(--md-sys-color-primary);
     }
 
