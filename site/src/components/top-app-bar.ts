@@ -263,6 +263,12 @@ export class TopAppBar extends SignalElement(LitElement) {
       display: none;
     }
 
+    .start {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
     .end {
       flex-grow: 1;
       display: flex;
