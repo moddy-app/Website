@@ -80,8 +80,10 @@ export async function getMe(): Promise<User | null> {
  * Redirects the browser to the backend Discord OAuth login.
  * The backend handles the full OAuth flow and sets the session cookie.
  */
-export function signInWithDiscord(): void {
-  window.location.href = `${API_URL}/auth/login`;
+export function signInWithDiscord(redirectUrl?: string): void {
+  const url = new URL(`${API_URL}/auth/login`);
+  if (redirectUrl) url.searchParams.set('redirect', redirectUrl);
+  window.location.href = url.toString();
 }
 
 /**

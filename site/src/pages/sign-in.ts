@@ -30,7 +30,7 @@ async function initSignIn() {
     }
 
     // Not logged in — redirect to backend Discord OAuth
-    signInWithDiscord();
+    signInWithDiscord(redirectUrl ?? undefined);
   } catch (error) {
     console.error('Sign-in error:', error);
     window.location.href = '/';
