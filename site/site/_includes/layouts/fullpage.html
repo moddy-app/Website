@@ -99,6 +99,8 @@
         });
       </script>
 
+      {% include "partials/site-banner.html" %}
+
       <main class="fullpage-content" id="main-content" tabindex="0">
         {% block content %}{{ content | safe }}{% endblock %}
       </main>
