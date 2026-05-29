@@ -1,9 +1,16 @@
 <div id="site-banner" style="display:none;" role="alert" aria-live="polite"></div>
 
 <style>
+  :root {
+    --site-banner-height: 0px;
+  }
+
   #site-banner {
-    position: relative;
-    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 13; /* above top-app-bar (z-index: 12) */
     box-sizing: border-box;
     align-items: center;
     justify-content: center;
@@ -13,6 +20,20 @@
     line-height: 1.5;
     text-align: center;
     -webkit-font-smoothing: antialiased;
+  }
+
+  /* Push the fixed top-app-bar below the banner */
+  top-app-bar {
+    top: var(--site-banner-height) !important;
+  }
+
+  /* Push the fullpage layout (sticky topbar + content) below the banner */
+  .fullpage-layout {
+    padding-top: var(--site-banner-height);
+  }
+
+  .fullpage-topbar {
+    top: var(--site-banner-height);
   }
 
   #site-banner-message {
@@ -86,6 +107,7 @@
 (function() {
   var API_URL = 'https://api.moddy.app';
   var banner = document.getElementById('site-banner');
+  var _origCatalogH = null;
 
   var TYPE_CFG = {
     announcement: { icon: 'campaign',      bg: 'var(--md-sys-color-secondary-container)', fg: 'var(--md-sys-color-on-secondary-container)' },
@@ -105,14 +127,43 @@
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
   }
 
+  function applyOffset(h) {
+    document.documentElement.style.setProperty('--site-banner-height', h + 'px');
+    // Also shift --catalog-top-app-bar-height so the nav-drawer content
+    // area starts below both the top-app-bar and the banner.
+    if (_origCatalogH === null) {
+      _origCatalogH = parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue('--catalog-top-app-bar-height')
+      ) || 0;
+    }
+    if (_origCatalogH > 0) {
+      document.documentElement.style.setProperty(
+        '--catalog-top-app-bar-height',
+        (_origCatalogH + h) + 'px'
+      );
+    }
+  }
+
+  function clearOffset() {
+    document.documentElement.style.setProperty('--site-banner-height', '0px');
+    if (_origCatalogH !== null && _origCatalogH > 0) {
+      document.documentElement.style.setProperty('--catalog-top-app-bar-height', _origCatalogH + 'px');
+    }
+  }
+
+  function hideBanner() {
+    banner.style.display = 'none';
+    clearOffset();
+  }
+
   function render(data) {
     if (!data || !data.show_website) {
-      banner.style.display = 'none';
+      hideBanner();
       return;
     }
 
     if (sessionStorage.getItem('site-banner-dismissed') === String(data.id)) {
-      banner.style.display = 'none';
+      hideBanner();
       return;
     }
 
@@ -157,7 +208,7 @@
     closeBtn.appendChild(closeIcon);
     closeBtn.addEventListener('click', function() {
       sessionStorage.setItem('site-banner-dismissed', String(data.id));
-      banner.style.display = 'none';
+      hideBanner();
     });
 
     if (iconEl.textContent || iconEl.innerHTML) {
@@ -165,7 +216,12 @@
     }
     banner.appendChild(messageEl);
     banner.appendChild(closeBtn);
+
     banner.style.display = 'flex';
+    // Read height after paint so offsetHeight is accurate
+    requestAnimationFrame(function() {
+      applyOffset(banner.offsetHeight);
+    });
   }
 
   function fetchBanner() {
