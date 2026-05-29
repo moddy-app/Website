@@ -2,12 +2,13 @@
 
 <style>
   #site-banner {
+    position: relative;
     width: 100%;
     box-sizing: border-box;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 10px 16px;
+    padding: 10px 40px 10px 16px;
     font-size: 14px;
     line-height: 1.5;
     text-align: center;
@@ -51,6 +52,34 @@
     width: 20px;
     height: 20px;
   }
+
+  #site-banner-close {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    opacity: 0.7;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  #site-banner-close:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  #site-banner-close .material-symbols-outlined {
+    font-size: 18px;
+  }
 </style>
 
 <script>
@@ -78,6 +107,11 @@
 
   function render(data) {
     if (!data || !data.show_website) {
+      banner.style.display = 'none';
+      return;
+    }
+
+    if (sessionStorage.getItem('site-banner-dismissed') === String(data.id)) {
       banner.style.display = 'none';
       return;
     }
@@ -113,10 +147,24 @@
 
     messageEl.innerHTML = md(data.message || '');
 
+    var closeBtn = document.createElement('button');
+    closeBtn.id = 'site-banner-close';
+    closeBtn.setAttribute('aria-label', 'Fermer le bandeau');
+    var closeIcon = document.createElement('span');
+    closeIcon.className = 'material-symbols-outlined';
+    closeIcon.setAttribute('aria-hidden', 'true');
+    closeIcon.textContent = 'close';
+    closeBtn.appendChild(closeIcon);
+    closeBtn.addEventListener('click', function() {
+      sessionStorage.setItem('site-banner-dismissed', String(data.id));
+      banner.style.display = 'none';
+    });
+
     if (iconEl.textContent || iconEl.innerHTML) {
       banner.appendChild(iconEl);
     }
     banner.appendChild(messageEl);
+    banner.appendChild(closeBtn);
     banner.style.display = 'flex';
   }
 
