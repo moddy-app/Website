@@ -6,6 +6,20 @@ hasToc: false
 permalink: 404.html
 ---
 
+<script>
+(function() {
+  var path = window.location.pathname;
+  fetch('https://api.moddy.app/redirects/lookup?domain=moddy.app&path=' + encodeURIComponent(path))
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data && typeof data.path === 'string' && data.path) {
+        window.location.replace(data.path);
+      }
+    })
+    .catch(function() {});
+})();
+</script>
+
 <style>
   .error-container {
     display: flex;

@@ -65,6 +65,7 @@
         {% endif %}
 
         <main id="main-content" slot="app-content" tabindex="0">
+          {% include "partials/site-banner.html" %}
           <!-- this is the content of the page -->
           {% block content %}{{ content | safe }}{% endblock %}
         </main>

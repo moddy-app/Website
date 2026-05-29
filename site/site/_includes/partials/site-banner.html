@@ -1,0 +1,129 @@
+<div id="site-banner" style="display:none;" role="alert" aria-live="polite"></div>
+
+<style>
+  #site-banner {
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #site-banner-message {
+    flex: 1;
+  }
+
+  #site-banner-message a {
+    color: inherit;
+    font-weight: 600;
+  }
+
+  #site-banner-message strong {
+    font-weight: 700;
+  }
+
+  #site-banner-message code {
+    font-family: monospace;
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.12);
+  }
+
+  .site-banner-type-icon {
+    font-size: 20px;
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .site-banner-custom-icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .site-banner-custom-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+</style>
+
+<script>
+(function() {
+  var API_URL = 'https://api.moddy.app';
+  var banner = document.getElementById('site-banner');
+
+  var TYPE_CFG = {
+    announcement: { icon: 'campaign',      bg: 'var(--md-sys-color-secondary-container)', fg: 'var(--md-sys-color-on-secondary-container)' },
+    incident:     { icon: 'error',         bg: 'var(--md-sys-color-error-container)',      fg: 'var(--md-sys-color-on-error-container)' },
+    maintenance:  { icon: 'construction',  bg: 'var(--md-sys-color-tertiary-container)',   fg: 'var(--md-sys-color-on-tertiary-container)' },
+    information:  { icon: 'info',          bg: 'var(--md-sys-color-primary-container)',    fg: 'var(--md-sys-color-on-primary-container)' },
+    warning:      { icon: 'warning',       bg: 'var(--md-sys-color-error-container)',      fg: 'var(--md-sys-color-on-error-container)' },
+    resolved:     { icon: 'check_circle',  bg: 'var(--md-sys-color-secondary-container)', fg: 'var(--md-sys-color-on-secondary-container)' }
+  };
+
+  function md(text) {
+    return text
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/`(.+?)`/g, '<code>$1</code>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  }
+
+  function render(data) {
+    if (!data || !data.show_website) {
+      banner.style.display = 'none';
+      return;
+    }
+
+    // Reset state
+    banner.style.borderLeft = '';
+    banner.innerHTML = '';
+
+    var iconEl = document.createElement('span');
+    var messageEl = document.createElement('div');
+    messageEl.id = 'site-banner-message';
+    messageEl.className = 'site-banner-message';
+
+    if (data.type) {
+      var cfg = TYPE_CFG[data.type] || TYPE_CFG.information;
+      banner.style.backgroundColor = cfg.bg;
+      banner.style.color = cfg.fg;
+      iconEl.className = 'material-symbols-outlined site-banner-type-icon';
+      iconEl.setAttribute('aria-hidden', 'true');
+      iconEl.textContent = cfg.icon;
+    } else {
+      var accent = data.color || 'var(--md-sys-color-primary)';
+      banner.style.backgroundColor = 'var(--md-sys-color-surface-container)';
+      banner.style.color = 'var(--md-sys-color-on-surface)';
+      banner.style.borderLeft = '4px solid ' + accent;
+      if (data.icon_svg) {
+        iconEl.className = 'site-banner-custom-icon';
+        iconEl.style.color = accent;
+        iconEl.setAttribute('aria-hidden', 'true');
+        iconEl.innerHTML = data.icon_svg;
+      }
+    }
+
+    messageEl.innerHTML = md(data.message || '');
+
+    if (iconEl.textContent || iconEl.innerHTML) {
+      banner.appendChild(iconEl);
+    }
+    banner.appendChild(messageEl);
+    banner.style.display = 'flex';
+  }
+
+  function fetchBanner() {
+    fetch(API_URL + '/banners/active')
+      .then(function(r) { return r.json(); })
+      .then(render)
+      .catch(function() {});
+  }
+
+  fetchBanner();
+  setInterval(fetchBanner, 60000);
+})();
+</script>
