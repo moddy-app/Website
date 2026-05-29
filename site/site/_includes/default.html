@@ -53,6 +53,7 @@
   <body dsd-pending>
     <!-- Inlines the declarative shadow dom polyfill for FF since it's performance sensitive -->
     {% inlinejs "ssr-utils/dsd-polyfill.js" %}
+    {% include "partials/site-banner.html" %}
     <!-- Changed from on:idle to on:visible for instant navigation load and prevent FOUC -->
     <lit-island on:visible import="/js/hydration-entrypoints/navigation.js">
       <nav-drawer page-title="{{name}}" {% if hasToc %}has-toc{% endif %}>
@@ -65,7 +66,6 @@
         {% endif %}
 
         <main id="main-content" slot="app-content" tabindex="0">
-          {% include "partials/site-banner.html" %}
           <!-- this is the content of the page -->
           {% block content %}{{ content | safe }}{% endblock %}
         </main>
