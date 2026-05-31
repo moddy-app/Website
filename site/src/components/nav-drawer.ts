@@ -265,7 +265,7 @@ export class NavDrawer extends SignalElement(LitElement) {
       /* Removed transition for instant drawer open/close */
       position: fixed;
       isolation: isolate;
-      inset: var(--catalog-top-app-bar-height) 0 0 0;
+      inset: calc(var(--catalog-top-app-bar-height) + var(--site-banner-height, 0px)) 0 0 0;
       z-index: 12;
       background-color: var(--md-sys-color-surface-container);
       overflow: hidden;

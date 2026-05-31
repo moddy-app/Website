@@ -207,7 +207,10 @@ export class TopAppBar extends SignalElement(LitElement) {
 
     header {
       position: fixed;
-      inset: 0 0 auto 0;
+      top: var(--site-banner-height, 0px);
+      right: 0;
+      bottom: auto;
+      left: 0;
       display: flex;
       align-items: center;
       box-sizing: border-box;
