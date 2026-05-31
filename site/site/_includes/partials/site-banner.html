@@ -6,19 +6,17 @@
   }
 
   #site-banner {
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
     z-index: 13; /* above top-app-bar (z-index: 12) */
+    width: 100%;
     box-sizing: border-box;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 10px 40px 10px 16px;
+    padding: 10px 40px;
     font-size: 14px;
     line-height: 1.5;
-    text-align: center;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -27,17 +25,13 @@
     top: var(--site-banner-height) !important;
   }
 
-  /* Push the fullpage layout (sticky topbar + content) below the banner */
-  .fullpage-layout {
-    padding-top: var(--site-banner-height);
-  }
-
+  /* Push the fullpage sticky topbar below the banner */
   .fullpage-topbar {
     top: var(--site-banner-height);
   }
 
   #site-banner-message {
-    flex: 1;
+    text-align: center;
   }
 
   #site-banner-message a {
