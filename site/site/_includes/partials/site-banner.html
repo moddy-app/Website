@@ -8,7 +8,7 @@
   #site-banner {
     position: sticky;
     top: 0;
-    z-index: 13; /* above top-app-bar (z-index: 12) */
+    z-index: 13;
     width: 100%;
     box-sizing: border-box;
     align-items: center;
@@ -20,12 +20,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Push the fixed top-app-bar below the banner */
-  top-app-bar {
-    top: var(--site-banner-height) !important;
-  }
-
-  /* Push the fullpage sticky topbar below the banner */
+  /* Fullpage layout: push sticky topbar below the banner */
   .fullpage-topbar {
     top: var(--site-banner-height);
   }
@@ -101,7 +96,6 @@
 (function() {
   var API_URL = 'https://api.moddy.app';
   var banner = document.getElementById('site-banner');
-  var _origCatalogH = null;
 
   var TYPE_CFG = {
     announcement: { icon: 'campaign',      bg: 'var(--md-sys-color-secondary-container)', fg: 'var(--md-sys-color-on-secondary-container)' },
@@ -121,47 +115,15 @@
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
   }
 
-  function applyOffset(h) {
-    document.documentElement.style.setProperty('--site-banner-height', h + 'px');
-    // Also shift --catalog-top-app-bar-height so the nav-drawer content
-    // area starts below both the top-app-bar and the banner.
-    if (_origCatalogH === null) {
-      _origCatalogH = parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue('--catalog-top-app-bar-height')
-      ) || 0;
-    }
-    if (_origCatalogH > 0) {
-      document.documentElement.style.setProperty(
-        '--catalog-top-app-bar-height',
-        (_origCatalogH + h) + 'px'
-      );
-    }
-  }
-
-  function clearOffset() {
-    document.documentElement.style.setProperty('--site-banner-height', '0px');
-    if (_origCatalogH !== null && _origCatalogH > 0) {
-      document.documentElement.style.setProperty('--catalog-top-app-bar-height', _origCatalogH + 'px');
-    }
-  }
-
   function hideBanner() {
     banner.style.display = 'none';
-    clearOffset();
+    document.documentElement.style.setProperty('--site-banner-height', '0px');
   }
 
   function render(data) {
-    if (!data || !data.show_website) {
-      hideBanner();
-      return;
-    }
+    if (!data || !data.show_website) { hideBanner(); return; }
+    if (sessionStorage.getItem('site-banner-dismissed') === String(data.id)) { hideBanner(); return; }
 
-    if (sessionStorage.getItem('site-banner-dismissed') === String(data.id)) {
-      hideBanner();
-      return;
-    }
-
-    // Reset state
     banner.style.borderLeft = '';
     banner.innerHTML = '';
 
@@ -205,15 +167,13 @@
       hideBanner();
     });
 
-    if (iconEl.textContent || iconEl.innerHTML) {
-      banner.appendChild(iconEl);
-    }
+    if (iconEl.textContent || iconEl.innerHTML) banner.appendChild(iconEl);
     banner.appendChild(messageEl);
     banner.appendChild(closeBtn);
     banner.style.display = 'flex';
-    // Read height after paint so offsetHeight is accurate
+
     requestAnimationFrame(function() {
-      applyOffset(banner.offsetHeight);
+      document.documentElement.style.setProperty('--site-banner-height', banner.offsetHeight + 'px');
     });
   }
 
