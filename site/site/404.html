@@ -6,21 +6,33 @@ hasToc: false
 permalink: 404.html
 ---
 
-<script>
-(function() {
-  var path = window.location.pathname;
-  fetch('https://api.moddy.app/redirects/lookup?domain=moddy.app&path=' + encodeURIComponent(path))
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      if (data && typeof data.target === 'string' && data.target) {
-        window.location.replace(data.target);
-      }
-    })
-    .catch(function() {});
-})();
-</script>
-
 <style>
+  #redirect-checking {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 48px 24px;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--md-sys-color-surface-variant);
+    border-top-color: var(--md-sys-color-primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  #error-content {
+    display: none;
+  }
+
   .error-container {
     display: flex;
     flex-direction: column;
@@ -66,11 +78,49 @@ permalink: 404.html
   }
 </style>
 
-<lit-island on:visible import="/js/hydration-entrypoints/form-controls.js">
-  <div class="error-container">
-    <span class="error-code">404</span>
-    <h1 class="error-title">Page not found</h1>
-    <p class="error-desc">The page you're looking for doesn't exist.</p>
-    <md-filled-button href="/">Go home</md-filled-button>
-  </div>
-</lit-island>
+<div id="redirect-checking">
+  <div class="spinner"></div>
+</div>
+
+<div id="error-content">
+  <lit-island on:visible import="/js/hydration-entrypoints/form-controls.js">
+    <div class="error-container">
+      <span class="error-code">404</span>
+      <h1 class="error-title">Page not found</h1>
+      <p class="error-desc">The page you&#39;re looking for doesn&#39;t exist.</p>
+      <md-filled-button href="/">Go home</md-filled-button>
+    </div>
+  </lit-island>
+</div>
+
+<script>
+(function() {
+  function show404() {
+    document.getElementById('redirect-checking').style.display = 'none';
+    document.getElementById('error-content').style.display = 'block';
+  }
+
+  var timeout = setTimeout(show404, 5000);
+
+  var path = window.location.pathname;
+  var controller = new AbortController();
+
+  fetch(
+    'https://api.moddy.app/redirects/lookup?domain=moddy.app&path=' + encodeURIComponent(path),
+    { signal: controller.signal }
+  )
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      clearTimeout(timeout);
+      if (data && typeof data.target === 'string' && data.target) {
+        window.location.replace(data.target);
+      } else {
+        show404();
+      }
+    })
+    .catch(function() {
+      clearTimeout(timeout);
+      show404();
+    });
+})();
+</script>
