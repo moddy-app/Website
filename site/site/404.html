@@ -12,8 +12,8 @@ permalink: 404.html
   fetch('https://api.moddy.app/redirects/lookup?domain=moddy.app&path=' + encodeURIComponent(path))
     .then(function(r) { return r.json(); })
     .then(function(data) {
-      if (data && typeof data.path === 'string' && data.path) {
-        window.location.replace(data.path);
+      if (data && typeof data.target === 'string' && data.target) {
+        window.location.replace(data.target);
       }
     })
     .catch(function() {});
