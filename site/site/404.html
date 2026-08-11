@@ -105,7 +105,11 @@ permalink: 404.html
     .then(function(data) {
       clearTimeout(timeout);
       if (data && typeof data.target === 'string' && data.target) {
-        window.location.replace(data.target);
+        var target = data.target;
+        if (!/^[a-z][a-z0-9+.-]*:/i.test(target) && target.indexOf('//') !== 0) {
+          target = 'https://' + target;
+        }
+        window.location.replace(target);
       } else {
         show404();
       }
