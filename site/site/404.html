@@ -104,9 +104,19 @@ permalink: 404.html
     .then(function(r) { return r.json(); })
     .then(function(data) {
       clearTimeout(timeout);
-      if (data && typeof data.target === 'string' && data.target) {
-        window.location.replace(data.target);
-      } else {
+      if (!data || typeof data.target !== 'string' || !data.target) {
+        show404();
+        return;
+      }
+
+      try {
+        var target = new URL(data.target, window.location.origin);
+        if (target.protocol !== 'https:' && target.protocol !== 'http:') {
+          show404();
+          return;
+        }
+        window.location.replace(target.href);
+      } catch (_) {
         show404();
       }
     })

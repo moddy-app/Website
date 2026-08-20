@@ -1,5 +1,10 @@
 # Guide d'intégration Frontend - Moddy Backend API
 
+> **Important :** ce site statique ne signe aucune requête. Une clé HMAC ne
+> doit jamais être placée dans une variable `NEXT_PUBLIC_`, `VITE_` ou dans le
+> bundle. L'authentification actuelle passe directement par `/auth/login` et
+> une session `HttpOnly` gérée par le backend.
+
 Documentation complète pour intégrer l'authentification Discord et la gestion de session sur le frontend.
 
 ## 📋 Table des matières
@@ -48,7 +53,6 @@ Créer un fichier `.env` ou `.env.local` :
 ```bash
 # API Backend
 NEXT_PUBLIC_API_URL=https://api.moddy.app
-NEXT_PUBLIC_API_KEY=your-shared-api-key-here
 
 # Discord OAuth
 NEXT_PUBLIC_DISCORD_CLIENT_ID=123456789012345678
@@ -56,7 +60,7 @@ NEXT_PUBLIC_DISCORD_CLIENT_ID=123456789012345678
 
 ### ⚠️ Sécurité importante
 
-- ✅ `NEXT_PUBLIC_API_KEY` - Peut être exposée au frontend (utilisée pour HMAC)
+- ❌ Aucune clé API ou HMAC ne peut être exposée au frontend
 - ✅ `NEXT_PUBLIC_DISCORD_CLIENT_ID` - Publique (visible dans l'URL OAuth)
 - ❌ **NE JAMAIS** exposer `DISCORD_CLIENT_SECRET` côté frontend
 - ❌ **NE JAMAIS** exposer `DATABASE_URL` côté frontend
@@ -70,9 +74,9 @@ NEXT_PUBLIC_DISCORD_CLIENT_ID=123456789012345678
 ```
 1. User clique "Sign in with Discord"
    ↓
-2. Frontend → POST /api/website/auth/init (avec HMAC)
+2. Frontend → GET /auth/login?redirect=<destination validée>
    ↓
-3. Backend → Génère un state token, retourne {state: "uuid"}
+3. Backend → Génère le state OAuth et redirige vers Discord
    ↓
 4. Frontend → Redirige vers Discord OAuth avec state
    ↓
@@ -549,13 +553,14 @@ interface User {
 
 ## Exemples de code
 
-### Configuration HMAC
+### HMAC réservé aux services serveur
 
 ```typescript
 // lib/hmac.ts
 import crypto from 'crypto'
 
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY!
+// Ce code doit vivre dans un service serveur, jamais dans le site statique.
+const API_KEY = process.env.API_KEY!
 
 export function generateSignature(requestId: string, body: any = {}): string {
   const payload = JSON.stringify({

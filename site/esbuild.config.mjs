@@ -45,9 +45,6 @@ let config = {
   write: true,
   sourcemap: true,
   splitting: true,
-  define: {
-    'import.meta.env.A_API_KEY': JSON.stringify(process.env.A_API_KEY || ''),
-  },
 };
 
 let componentsBuild = Promise.resolve();
@@ -72,9 +69,6 @@ if (DEV) {
     format: 'esm',
     treeShaking: true,
     legalComments: 'external',
-    define: {
-      'import.meta.env.A_API_KEY': JSON.stringify(process.env.A_API_KEY || ''),
-    },
     plugins: [
       // This plugin currently breaks certain css props for SVGs
       // (circularprogress) minifyHTMLLiteralsPlugin({

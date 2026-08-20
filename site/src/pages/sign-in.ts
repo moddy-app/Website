@@ -10,6 +10,7 @@
 
 import '@material/web/progress/circular-progress.js';
 import { signInWithDiscord, getMe } from '../utils/auth.js';
+import {safeRedirectUrl} from '../utils/safe-redirect.js';
 
 /**
  * Initialize the sign-in page
@@ -18,14 +19,14 @@ async function initSignIn() {
   try {
     // Extract redirect URL from query parameter if present
     const params = new URLSearchParams(window.location.search);
-    const redirectUrl = params.get('url');
+    const redirectUrl = safeRedirectUrl(params.get('url'));
 
     // Check if user is already authenticated
     const user = await getMe();
 
     if (user) {
       // Already logged in — go to the requested URL or home
-      window.location.href = redirectUrl || '/';
+      window.location.assign(redirectUrl || '/');
       return;
     }
 

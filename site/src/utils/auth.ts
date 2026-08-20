@@ -11,6 +11,7 @@
  */
 
 import { API_URL } from './config.js';
+import {safeRedirectUrl} from './safe-redirect.js';
 
 export interface Guild {
   id: number;
@@ -82,8 +83,9 @@ export async function getMe(): Promise<User | null> {
  */
 export function signInWithDiscord(redirectUrl?: string): void {
   const url = new URL(`${API_URL}/auth/login`);
-  if (redirectUrl) url.searchParams.set('redirect', redirectUrl);
-  window.location.href = url.toString();
+  const safeRedirect = safeRedirectUrl(redirectUrl);
+  if (safeRedirect) url.searchParams.set('redirect', safeRedirect);
+  window.location.assign(url.toString());
 }
 
 /**

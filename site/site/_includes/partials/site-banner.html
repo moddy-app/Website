@@ -106,13 +106,103 @@
     resolved:     { icon: 'check_circle',  bg: 'var(--md-sys-color-secondary-container)', fg: 'var(--md-sys-color-on-secondary-container)' }
   };
 
-  function md(text) {
-    return text
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.+?)\*/g, '<em>$1</em>')
-      .replace(/`(.+?)`/g, '<code>$1</code>')
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  function safeLink(value) {
+    try {
+      var url = new URL(value, window.location.origin);
+      return url.protocol === 'https:' || url.protocol === 'http:' ? url.href : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function renderMessage(element, text) {
+    var source = String(text || '');
+    var token = /(\*\*([^*]+)\*\*|\*([^*]+)\*|`([^`]+)`|\[([^\]]+)\]\(([^)\s]+)\))/g;
+    var cursor = 0;
+    var match;
+
+    element.replaceChildren();
+    while ((match = token.exec(source)) !== null) {
+      element.appendChild(document.createTextNode(source.slice(cursor, match.index)));
+      var node;
+      if (match[2] !== undefined) {
+        node = document.createElement('strong');
+        node.textContent = match[2];
+      } else if (match[3] !== undefined) {
+        node = document.createElement('em');
+        node.textContent = match[3];
+      } else if (match[4] !== undefined) {
+        node = document.createElement('code');
+        node.textContent = match[4];
+      } else {
+        var href = safeLink(match[6]);
+        if (href) {
+          node = document.createElement('a');
+          node.href = href;
+          node.target = '_blank';
+          node.rel = 'noopener noreferrer';
+          node.textContent = match[5];
+        } else {
+          node = document.createTextNode(match[5]);
+        }
+      }
+      element.appendChild(node);
+      cursor = token.lastIndex;
+    }
+    element.appendChild(document.createTextNode(source.slice(cursor)));
+  }
+
+  function renderSafeSvg(element, source) {
+    if (typeof source !== 'string' || source.length > 20000) return false;
+
+    var allowedTags = new Set([
+      'svg', 'g', 'path', 'circle', 'ellipse', 'line', 'polyline', 'polygon',
+      'rect', 'title', 'desc'
+    ]);
+    var allowedAttributes = new Set([
+      'viewBox', 'width', 'height', 'x', 'y', 'x1', 'x2', 'y1', 'y2', 'cx',
+      'cy', 'r', 'rx', 'ry', 'd', 'points', 'fill', 'fill-rule', 'stroke',
+      'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'opacity',
+      'transform', 'role', 'aria-hidden', 'focusable'
+    ]);
+
+    try {
+      var parsed = new DOMParser().parseFromString(source, 'image/svg+xml');
+      var root = parsed.documentElement;
+      if (root.localName !== 'svg' || parsed.querySelector('parsererror')) return false;
+
+      function cloneSafe(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          return document.createTextNode(node.textContent || '');
+        }
+        if (node.nodeType !== Node.ELEMENT_NODE || !allowedTags.has(node.localName)) {
+          return null;
+        }
+
+        var copy = document.createElementNS('http://www.w3.org/2000/svg', node.localName);
+        for (var i = 0; i < node.attributes.length; i++) {
+          var attribute = node.attributes[i];
+          var isExternalPaint =
+            (attribute.name === 'fill' || attribute.name === 'stroke') &&
+            attribute.value.toLowerCase().includes('url(');
+          if (allowedAttributes.has(attribute.name) && !isExternalPaint) {
+            copy.setAttribute(attribute.name, attribute.value);
+          }
+        }
+        for (var j = 0; j < node.childNodes.length; j++) {
+          var child = cloneSafe(node.childNodes[j]);
+          if (child) copy.appendChild(child);
+        }
+        return copy;
+      }
+
+      var safeRoot = cloneSafe(root);
+      if (!safeRoot) return false;
+      element.replaceChildren(safeRoot);
+      return true;
+    } catch (_) {
+      return false;
+    }
   }
 
   function hideBanner() {
@@ -125,7 +215,7 @@
     if (sessionStorage.getItem('site-banner-dismissed') === String(data.id)) { hideBanner(); return; }
 
     banner.style.borderLeft = '';
-    banner.innerHTML = '';
+    banner.replaceChildren();
 
     var iconEl = document.createElement('span');
     var messageEl = document.createElement('div');
@@ -148,11 +238,11 @@
         iconEl.className = 'site-banner-custom-icon';
         iconEl.style.color = accent;
         iconEl.setAttribute('aria-hidden', 'true');
-        iconEl.innerHTML = data.icon_svg;
+        renderSafeSvg(iconEl, data.icon_svg);
       }
     }
 
-    messageEl.innerHTML = md(data.message || '');
+    renderMessage(messageEl, data.message);
 
     var closeBtn = document.createElement('button');
     closeBtn.id = 'site-banner-close';
@@ -167,7 +257,7 @@
       hideBanner();
     });
 
-    if (iconEl.textContent || iconEl.innerHTML) banner.appendChild(iconEl);
+    if (iconEl.hasChildNodes() || iconEl.textContent) banner.appendChild(iconEl);
     banner.appendChild(messageEl);
     banner.appendChild(closeBtn);
     banner.style.display = 'flex';

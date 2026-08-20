@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-const htmlMinifier = require('html-minifier');
+const htmlMinifier = require('html-minifier-terser');
 
 /**
  * Minifies HTML in production mode. Does nothing in dev mode for a faster build
@@ -14,13 +14,13 @@ const htmlMinifier = require('html-minifier');
  * @param isDev {boolean} Whether or not the build is in development mode.
  */
 function minifyHTML(eleventyConfig, isDev) {
-  eleventyConfig.addTransform('htmlMinify', function (content, outputPath) {
+  eleventyConfig.addTransform('htmlMinify', async function (content, outputPath) {
     // return the normal content in dev moe.
     if (isDev || !outputPath.endsWith('.html')) {
       return content;
     }
     // minify the html in Prod mode
-    const minified = htmlMinifier.minify(content, {
+    const minified = await htmlMinifier.minify(content, {
       useShortDoctype: true,
       removeComments: true,
       collapseWhitespace: true,
