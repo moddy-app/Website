@@ -95,6 +95,8 @@
 <script>
 (function() {
   var API_URL = 'https://api.moddy.app';
+  var STATUS_API_URL = 'https://health.moddy.app';
+  var STATUS_SERVICE_ID = 'Website';
   var banner = document.getElementById('site-banner');
 
   var TYPE_CFG = {
@@ -104,6 +106,13 @@
     information:  { icon: 'info',          bg: 'var(--md-sys-color-primary-container)',    fg: 'var(--md-sys-color-on-primary-container)' },
     warning:      { icon: 'warning',       bg: 'var(--md-sys-color-error-container)',      fg: 'var(--md-sys-color-on-error-container)' },
     resolved:     { icon: 'check_circle',  bg: 'var(--md-sys-color-secondary-container)', fg: 'var(--md-sys-color-on-secondary-container)' }
+  };
+
+  var STATUS_LEVEL_CFG = {
+    degraded_performance: { icon: 'warning',      bg: 'var(--md-sys-color-error-container)',    fg: 'var(--md-sys-color-on-error-container)' },
+    partial_outage:       { icon: 'error',        bg: 'var(--md-sys-color-error-container)',    fg: 'var(--md-sys-color-on-error-container)' },
+    major_outage:         { icon: 'error',        bg: 'var(--md-sys-color-error-container)',    fg: 'var(--md-sys-color-on-error-container)' },
+    maintenance:          { icon: 'construction', bg: 'var(--md-sys-color-tertiary-container)', fg: 'var(--md-sys-color-on-tertiary-container)' }
   };
 
   function md(text) {
@@ -177,11 +186,72 @@
     });
   }
 
+  function renderStatus(data) {
+    var dismissId = 'status:' + (data.url || data.level);
+    if (sessionStorage.getItem('site-banner-dismissed') === dismissId) { hideBanner(); return; }
+
+    banner.style.borderLeft = '';
+    banner.innerHTML = '';
+
+    var iconEl = document.createElement('span');
+    var messageEl = document.createElement('div');
+    messageEl.id = 'site-banner-message';
+    messageEl.className = 'site-banner-message';
+
+    var cfg = STATUS_LEVEL_CFG[data.level] || STATUS_LEVEL_CFG.partial_outage;
+    banner.style.backgroundColor = cfg.bg;
+    banner.style.color = cfg.fg;
+    iconEl.className = 'material-symbols-outlined site-banner-type-icon';
+    iconEl.setAttribute('aria-hidden', 'true');
+    iconEl.textContent = cfg.icon;
+
+    messageEl.innerHTML = md(data.message || '');
+
+    var closeBtn = document.createElement('button');
+    closeBtn.id = 'site-banner-close';
+    closeBtn.setAttribute('aria-label', 'Fermer le bandeau');
+    var closeIcon = document.createElement('span');
+    closeIcon.className = 'material-symbols-outlined';
+    closeIcon.setAttribute('aria-hidden', 'true');
+    closeIcon.textContent = 'close';
+    closeBtn.appendChild(closeIcon);
+    closeBtn.addEventListener('click', function() {
+      sessionStorage.setItem('site-banner-dismissed', dismissId);
+      hideBanner();
+    });
+
+    banner.appendChild(iconEl);
+    banner.appendChild(messageEl);
+    banner.appendChild(closeBtn);
+    banner.style.display = 'flex';
+
+    requestAnimationFrame(function() {
+      document.documentElement.style.setProperty('--site-banner-height', banner.offsetHeight + 'px');
+    });
+  }
+
+  function fetchStatusBanner() {
+    return fetch(STATUS_API_URL + '/v1/status/banner?service=' + encodeURIComponent(STATUS_SERVICE_ID))
+      .then(function(r) { return r.ok ? r.json() : null; })
+      .catch(function() { return null; });
+  }
+
+  function fetchSiteBanner() {
+    return fetch(API_URL + '/banners/active')
+      .then(function(r) { return r.ok ? r.json() : null; })
+      .catch(function() { return null; });
+  }
+
   function fetchBanner() {
-    fetch(API_URL + '/banners/active')
-      .then(function(r) { return r.json(); })
-      .then(render)
-      .catch(function() {});
+    // The status banner (incidents/maintenance from health.moddy.app) always
+    // takes priority over the regular site banner when there's something to show.
+    fetchStatusBanner().then(function(status) {
+      if (status && status.level && status.level !== 'operational') {
+        renderStatus(status);
+        return;
+      }
+      fetchSiteBanner().then(render);
+    });
   }
 
   fetchBanner();
