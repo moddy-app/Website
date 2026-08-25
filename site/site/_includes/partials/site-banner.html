@@ -232,13 +232,13 @@
 
   function fetchStatusBanner() {
     return fetch(STATUS_API_URL + '/v1/status/banner?service=' + encodeURIComponent(STATUS_SERVICE_ID))
-      .then(function(r) { return r.json(); })
+      .then(function(r) { return r.ok ? r.json() : null; })
       .catch(function() { return null; });
   }
 
   function fetchSiteBanner() {
     return fetch(API_URL + '/banners/active')
-      .then(function(r) { return r.json(); })
+      .then(function(r) { return r.ok ? r.json() : null; })
       .catch(function() { return null; });
   }
 
