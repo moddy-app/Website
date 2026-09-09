@@ -3,5 +3,12 @@
   "outputDirectory": "_prod",
   "installCommand": "npm install --legacy-peer-deps",
   "framework": null,
-  "devCommand": "npm run dev"
+  "devCommand": "npm run dev",
+  "redirects": [
+    {
+      "source": "/install",
+      "destination": "https://api.moddy.app/install",
+      "permanent": false
+    }
+  ]
 }

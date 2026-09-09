@@ -2,5 +2,12 @@
   "buildCommand": "cd site && npm run build:prod",
   "outputDirectory": "site/_prod",
   "installCommand": "cd site && npm install --legacy-peer-deps",
-  "framework": null
+  "framework": null,
+  "redirects": [
+    {
+      "source": "/install",
+      "destination": "https://api.moddy.app/install",
+      "permanent": false
+    }
+  ]
 }
