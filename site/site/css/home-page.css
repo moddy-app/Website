@@ -1,11 +1,624 @@
 /**
- * @license
- * Copyright 2023 Google LLC
- * SPDX-License-Identifier: Apache-2.0
+ * Home page: a bento grid of simple cards.
+ *
+ * Colors come only from the Material theme tokens (--md-sys-color-*), so the
+ * page follows the site's theme in light and dark mode. The page background is
+ * surface-container (set on :root in global.css); cards sit one step lighter.
  */
 
- h1,
-.subtitle {
-  text-align: left;
-  margin-block-start: 0;
+.home {
+  --home-card-radius: 32px;
+  --home-card-padding: 32px;
+  --home-gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-block: var(--catalog-spacing-m) var(--catalog-spacing-xl);
+}
+
+.bento {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--home-gap);
+}
+
+.card {
+  position: relative;
+  grid-column: span 12;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--home-card-padding);
+  border-radius: var(--home-card-radius);
+  background-color: var(--md-sys-color-surface-container-lowest);
+  color: var(--md-sys-color-on-surface);
+  overflow: hidden;
+}
+
+.card.span-6 {
+  grid-column: span 6;
+}
+
+.card.span-7 {
+  grid-column: span 7;
+}
+
+.card.span-5 {
+  grid-column: span 5;
+}
+
+/* Two columns inside a full-width card: text on one side, visual on the other. */
+.card.split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--home-card-padding);
+  align-items: center;
+}
+
+.card.split.reverse .card-visual {
+  order: -1;
+}
+
+.card-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+}
+
+.card h1,
+.card h2 {
+  margin: 24px 0 16px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.2;
+}
+
+.card h1 {
+  font-size: clamp(34px, 5vw, 52px);
+}
+
+.card h2 {
+  font-size: 28px;
+}
+
+.card p {
+  margin: 0 0 12px;
+  max-width: 540px;
+  font-size: var(--catalog-body-l-font-size);
+  line-height: 1.5;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.card code {
+  font-family: 'Google Sans Mono', monospace;
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--catalog-spacing-m);
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.card-actions.end {
+  justify-content: flex-end;
+}
+
+.card-visual {
+  min-width: 0;
+}
+
+.card > .card-visual {
+  margin-top: 24px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Icon shapes: a filled Material Symbol on an abstract rounded shape.
+ * The shape is a masked ::before so the icon itself is never clipped.
+ * ------------------------------------------------------------------------- */
+
+.shape {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.shape::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--md-sys-color-primary-container);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.shape .material-symbols-outlined,
+.shape svg {
+  position: relative;
+}
+
+.shape .material-symbols-outlined {
+  font-size: 28px;
+  font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+}
+
+.shape.small {
+  width: 36px;
+  height: 36px;
+}
+
+.shape.small .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.shape.tone-secondary {
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.shape.tone-secondary::before {
+  background-color: var(--md-sys-color-secondary-container);
+}
+
+.shape.tone-tertiary {
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+.shape.tone-tertiary::before {
+  background-color: var(--md-sys-color-tertiary-container);
+}
+
+.shape.tone-solid {
+  color: var(--md-sys-color-on-primary);
+}
+
+.shape.tone-solid::before {
+  background-color: var(--md-sys-color-primary);
+}
+
+.shape.logo svg {
+  width: 30px;
+  height: 30px;
+}
+
+.shape-square::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M98.0 73.0 C98.0 86.8 86.8 98.0 73.0 98.0 L27.0 98.0 C13.2 98.0 2.0 86.8 2.0 73.0 L2.0 27.0 C2.0 13.2 13.2 2.0 27.0 2.0 L73.0 2.0 C86.8 2.0 98.0 13.2 98.0 27.0 Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M98.0 73.0 C98.0 86.8 86.8 98.0 73.0 98.0 L27.0 98.0 C13.2 98.0 2.0 86.8 2.0 73.0 L2.0 27.0 C2.0 13.2 13.2 2.0 27.0 2.0 L73.0 2.0 C86.8 2.0 98.0 13.2 98.0 27.0 Z'/%3E%3C/svg%3E");
+}
+
+.shape-diamond::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M38.5 13.5 C44.8 7.2 55.2 7.2 61.5 13.5 L86.5 38.5 C92.8 44.8 92.8 55.2 86.5 61.5 L61.5 86.5 C55.2 92.8 44.8 92.8 38.5 86.5 L13.5 61.5 C7.2 55.2 7.2 44.8 13.5 38.5 Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M38.5 13.5 C44.8 7.2 55.2 7.2 61.5 13.5 L86.5 38.5 C92.8 44.8 92.8 55.2 86.5 61.5 L61.5 86.5 C55.2 92.8 44.8 92.8 38.5 86.5 L13.5 61.5 C7.2 55.2 7.2 44.8 13.5 38.5 Z'/%3E%3C/svg%3E");
+}
+
+.shape-pentagon::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M37.5 13.4 C44.4 8.4 55.6 8.4 62.5 13.4 L85.5 30.2 C92.4 35.1 95.9 45.8 93.2 53.9 L84.4 81.0 C81.8 89.0 72.7 95.7 64.2 95.7 L35.8 95.7 C27.3 95.7 18.2 89.0 15.6 81.0 L6.8 53.9 C4.1 45.8 7.6 35.1 14.5 30.2 Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M37.5 13.4 C44.4 8.4 55.6 8.4 62.5 13.4 L85.5 30.2 C92.4 35.1 95.9 45.8 93.2 53.9 L84.4 81.0 C81.8 89.0 72.7 95.7 64.2 95.7 L35.8 95.7 C27.3 95.7 18.2 89.0 15.6 81.0 L6.8 53.9 C4.1 45.8 7.6 35.1 14.5 30.2 Z'/%3E%3C/svg%3E");
+}
+
+.shape-hexagon::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M91.8 39.2 C95.2 45.1 95.2 54.9 91.8 60.8 L80.2 80.8 C76.8 86.7 68.4 91.6 61.5 91.6 L38.5 91.6 C31.6 91.6 23.2 86.7 19.8 80.8 L8.2 60.8 C4.8 54.9 4.8 45.1 8.2 39.2 L19.8 19.2 C23.2 13.3 31.6 8.4 38.5 8.4 L61.5 8.4 C68.4 8.4 76.8 13.3 80.2 19.2 Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M91.8 39.2 C95.2 45.1 95.2 54.9 91.8 60.8 L80.2 80.8 C76.8 86.7 68.4 91.6 61.5 91.6 L38.5 91.6 C31.6 91.6 23.2 86.7 19.8 80.8 L8.2 60.8 C4.8 54.9 4.8 45.1 8.2 39.2 L19.8 19.2 C23.2 13.3 31.6 8.4 38.5 8.4 L61.5 8.4 C68.4 8.4 76.8 13.3 80.2 19.2 Z'/%3E%3C/svg%3E");
+}
+
+.shape-heptagon::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M40.0 8.0 C45.5 5.4 54.5 5.4 60.0 8.0 L78.5 16.9 C84.0 19.6 89.6 26.6 91.0 32.6 L95.5 52.6 C96.9 58.5 94.9 67.3 91.1 72.1 L78.3 88.1 C74.5 92.9 66.4 96.8 60.3 96.8 L39.7 96.8 C33.6 96.8 25.5 92.9 21.7 88.1 L8.9 72.1 C5.1 67.3 3.1 58.5 4.5 52.6 L9.0 32.6 C10.4 26.6 16.0 19.6 21.5 16.9 Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M40.0 8.0 C45.5 5.4 54.5 5.4 60.0 8.0 L78.5 16.9 C84.0 19.6 89.6 26.6 91.0 32.6 L95.5 52.6 C96.9 58.5 94.9 67.3 91.1 72.1 L78.3 88.1 C74.5 92.9 66.4 96.8 60.3 96.8 L39.7 96.8 C33.6 96.8 25.5 92.9 21.7 88.1 L8.9 72.1 C5.1 67.3 3.1 58.5 4.5 52.6 L9.0 32.6 C10.4 26.6 16.0 19.6 21.5 16.9 Z'/%3E%3C/svg%3E");
+}
+
+.shape-octagon::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M98.0 60.3 C98.0 65.6 95.0 72.9 91.3 76.6 L76.6 91.3 C72.9 95.0 65.6 98.0 60.3 98.0 L39.7 98.0 C34.4 98.0 27.1 95.0 23.4 91.3 L8.7 76.6 C5.0 72.9 2.0 65.6 2.0 60.3 L2.0 39.7 C2.0 34.4 5.0 27.1 8.7 23.4 L23.4 8.7 C27.1 5.0 34.4 2.0 39.7 2.0 L60.3 2.0 C65.6 2.0 72.9 5.0 76.6 8.7 L91.3 23.4 C95.0 27.1 98.0 34.4 98.0 39.7 Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M98.0 60.3 C98.0 65.6 95.0 72.9 91.3 76.6 L76.6 91.3 C72.9 95.0 65.6 98.0 60.3 98.0 L39.7 98.0 C34.4 98.0 27.1 95.0 23.4 91.3 L8.7 76.6 C5.0 72.9 2.0 65.6 2.0 60.3 L2.0 39.7 C2.0 34.4 5.0 27.1 8.7 23.4 L23.4 8.7 C27.1 5.0 34.4 2.0 39.7 2.0 L60.3 2.0 C65.6 2.0 72.9 5.0 76.6 8.7 L91.3 23.4 C95.0 27.1 98.0 34.4 98.0 39.7 Z'/%3E%3C/svg%3E");
+}
+
+/* ---------------------------------------------------------------------------
+ * Visuals drawn in HTML (no image asset needed).
+ * ------------------------------------------------------------------------- */
+
+/* A list of rows, like a live activity feed; the last rows fade out. */
+.feed {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
+  mask-image: linear-gradient(to bottom, #000 70%, transparent);
+}
+
+.feed li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.feed li:last-child {
+  border-bottom: none;
+}
+
+.feed .feed-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.feed .feed-title {
+  font-size: 17px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.feed .feed-sub {
+  font-size: var(--catalog-body-m-font-size);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.feed .feed-time {
+  font-size: var(--catalog-body-m-font-size);
+  color: var(--md-sys-color-on-surface-variant);
+  white-space: nowrap;
+}
+
+/* Rows of chips that scroll off both edges of the card. */
+.chip-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-inline: calc(var(--home-card-padding) * -1);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+.chip-row {
+  display: flex;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.chip-rows .chip-row:nth-child(2) {
+  margin-left: -48px;
+}
+
+.chip-rows .chip-row:nth-child(3) {
+  margin-left: -16px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  height: 36px;
+  padding-inline: 12px 16px;
+  box-sizing: border-box;
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: var(--catalog-shape-s);
+  font-size: var(--catalog-body-m-font-size);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.chip .material-symbols-outlined {
+  font-size: 18px;
+  color: var(--md-sys-color-primary);
+  font-variation-settings: 'FILL' 1;
+}
+
+.chip.command {
+  padding-inline: 16px;
+  font-family: 'Google Sans Mono', monospace;
+}
+
+/* Moderation cases, drawn as small stacked cards. */
+.cases {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.case {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: var(--catalog-shape-l);
+  background-color: var(--md-sys-color-surface-container);
+}
+
+.case-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.case-ref {
+  font-family: 'Google Sans Mono', monospace;
+  font-size: var(--catalog-body-m-font-size);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.case-title {
+  font-size: 16px;
+}
+
+.case-status {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  white-space: nowrap;
+}
+
+.case-status.open {
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+/* A soft inner panel: the AutoMod example, the ticket panel. */
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  border-radius: 24px;
+  background-color: var(--md-sys-color-surface-container);
+}
+
+.ticket-panel .chip-row {
+  flex-wrap: wrap;
+}
+
+.automod-message {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.automod-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background-color: var(--md-sys-color-secondary-container);
+}
+
+.automod-author {
+  font-size: var(--catalog-body-m-font-size);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.automod-content {
+  font-size: 16px;
+  text-decoration: line-through;
+  text-decoration-color: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.automod-verdict {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--catalog-shape-l);
+  background-color: var(--md-sys-color-surface-container-lowest);
+}
+
+.automod-verdict .material-symbols-outlined {
+  color: var(--md-sys-color-primary);
+  font-variation-settings: 'FILL' 1;
+}
+
+.automod-verdict strong {
+  font-weight: 500;
+}
+
+.automod-verdict span.detail {
+  display: block;
+  font-size: var(--catalog-body-m-font-size);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+/* Social platforms as colored tiles. */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 112px;
+  padding: 16px 18px;
+  border-radius: 24px;
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.tile:nth-child(2) {
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+.tile:nth-child(3) {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.tile:nth-child(4) {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+.tile-meta {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.tile-name {
+  font-size: 24px;
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* One big number. */
+.big-number {
+  margin-top: 8px;
+  font-size: clamp(72px, 10vw, 120px);
+  font-weight: 700;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  color: var(--md-sys-color-primary);
+}
+
+.big-number-label {
+  font-size: var(--catalog-body-l-font-size);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+/* Where an image or dashboard screenshot will go. */
+.asset-slot {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  border-radius: 24px;
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: var(--catalog-body-m-font-size);
+  text-align: center;
+}
+
+.asset-slot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+/* Moddy Max: the one card with a soft glow, built from theme containers. */
+.card.glow {
+  background:
+    radial-gradient(
+      120% 90% at 100% 100%,
+      var(--md-sys-color-tertiary-container),
+      transparent 60%
+    ),
+    radial-gradient(
+      90% 80% at 0% 0%,
+      var(--md-sys-color-primary-container),
+      transparent 55%
+    ),
+    var(--md-sys-color-surface-container-lowest);
+}
+
+.perks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.perks li {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px;
+  border-radius: 24px;
+  background-color: var(--md-sys-color-surface-container-lowest);
+}
+
+.perks .material-symbols-outlined {
+  color: var(--md-sys-color-primary);
+  font-variation-settings: 'FILL' 1;
+}
+
+.perks strong {
+  font-weight: 500;
+}
+
+.perks span.detail {
+  font-size: var(--catalog-body-m-font-size);
+  color: var(--md-sys-color-on-surface-variant);
+  line-height: 1.4;
+}
+
+/* Final call to action. */
+.card.cta {
+  align-items: center;
+  text-align: center;
+  padding-block: 56px;
+}
+
+.card.cta p {
+  margin-inline: auto;
+}
+
+.card.cta .card-actions {
+  justify-content: center;
+  margin-top: 8px;
+}
+
+/* ------------------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .card.span-6,
+  .card.span-7,
+  .card.span-5 {
+    grid-column: span 12;
+  }
+
+  .card.split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .card.split.reverse .card-visual {
+    order: 0;
+  }
+
+  .perks {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .home {
+    --home-card-radius: 24px;
+    --home-card-padding: 20px;
+    --home-gap: 16px;
+  }
+
+  .card h2 {
+    font-size: 24px;
+  }
+
+  .feed .feed-time {
+    display: none;
+  }
 }

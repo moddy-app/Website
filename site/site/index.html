@@ -7,6 +7,363 @@ layout: default.html
 hasToc: false
 ---
 
-<div class="home-page">
-  <!-- New home page content goes here -->
-</div>
+{% inlinecss "home-page.css" %}
+
+<lit-island on:visible import="/js/hydration-entrypoints/form-controls.js">
+  <div class="home">
+    <div class="bento">
+
+      <!-- Hero -->
+      <section class="card split">
+        <div class="card-text">
+          <span class="shape shape-octagon tone-solid logo" aria-hidden="true">
+            <svg viewBox="27 55 191 191" fill="currentColor">
+              <path d="M170.21 55.7626H122.754L75.2768 103.219H27.8203V150.675H122.754L170.21 103.219V55.7626Z" />
+              <path d="M122.754 150.675L75.2771 198.152V245.609H122.754L170.211 198.152H217.667V150.675L122.754 150.675Z" />
+            </svg>
+          </span>
+          <h1>Moddy, the only bot you need.</h1>
+          <p>
+            AI-powered moderation, social notifications, welcome messages and
+            everyday utilities for your Discord server, all in one bot.
+          </p>
+          <div class="card-actions">
+            <md-filled-button href="/install" target="_blank">
+              Add to Discord
+            </md-filled-button>
+            <md-outlined-button href="https://dashboard.moddy.app" target="_blank">
+              Open dashboard
+            </md-outlined-button>
+          </div>
+        </div>
+        <div class="card-visual">
+          <ul class="feed" aria-label="Example of what Moddy does in a server">
+            <li>
+              <span class="shape small shape-square" aria-hidden="true"><span class="material-symbols-outlined">shield</span></span>
+              <span class="feed-text"><span class="feed-title">Spam link removed</span><span class="feed-sub">AutoMod · #general</span></span>
+              <span class="feed-time">just now</span>
+            </li>
+            <li>
+              <span class="shape small shape-hexagon tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">waving_hand</span></span>
+              <span class="feed-text"><span class="feed-title">Welcome, Alex!</span><span class="feed-sub">Welcome messages · #welcome</span></span>
+              <span class="feed-time">2 min ago</span>
+            </li>
+            <li>
+              <span class="shape small shape-pentagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">live_tv</span></span>
+              <span class="feed-text"><span class="feed-title">Now live on Twitch</span><span class="feed-sub">Social notifications · #streams</span></span>
+              <span class="feed-time">6 min ago</span>
+            </li>
+            <li>
+              <span class="shape small shape-octagon" aria-hidden="true"><span class="material-symbols-outlined">gavel</span></span>
+              <span class="feed-text"><span class="feed-title">Case A7F2K9 opened</span><span class="feed-sub">Moderation · Warn</span></span>
+              <span class="feed-time">9 min ago</span>
+            </li>
+            <li>
+              <span class="shape small shape-square tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">notifications_active</span></span>
+              <span class="feed-text"><span class="feed-title">Time to bump!</span><span class="feed-sub">Bump reminder · #bump</span></span>
+              <span class="feed-time">12 min ago</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- AutoMod AI -->
+      <section class="card split reverse">
+        <div class="card-text">
+          <span class="shape shape-square tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">smart_toy</span></span>
+          <h2>Moderation that never sleeps</h2>
+          <p>
+            AutoMod AI reads the room. It spots harmful messages in real time
+            and warns, mutes or bans before the damage is done, with no rules
+            to fine-tune by hand.
+          </p>
+          <div class="card-actions end">
+            <md-filled-button trailing-icon href="https://docs.moddy.app/moderation/automod" target="_blank">
+              Learn about AutoMod
+              <md-icon slot="icon">arrow_forward</md-icon>
+            </md-filled-button>
+          </div>
+        </div>
+        <div class="card-visual">
+          <div class="panel" aria-hidden="true">
+            <div class="automod-message">
+              <span class="automod-avatar"></span>
+              <div>
+                <div class="automod-author">troublemaker · today at 21:04</div>
+                <div class="automod-content">Free nitro for everyone, click this link now!!</div>
+              </div>
+            </div>
+            <div class="automod-verdict">
+              <span class="material-symbols-outlined">shield</span>
+              <div>
+                <strong>Message removed · Warn applied</strong>
+                <span class="detail">Scam link detected by AutoMod AI, case A7F2K9 opened</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Moderation cases -->
+      <section class="card span-6">
+        <span class="shape shape-pentagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">gavel</span></span>
+        <h2>Every sanction, on the record</h2>
+        <p>
+          Each warn, mute or ban becomes a case with its own reference code, a
+          full timeline and built-in appeals.
+        </p>
+        <div class="card-visual">
+          <div class="cases" aria-hidden="true">
+            <div class="case">
+              <span class="shape small shape-hexagon"><span class="material-symbols-outlined">warning</span></span>
+              <span class="case-body"><span class="case-ref">A7F2K9</span><span class="case-title">Warn · Spam links</span></span>
+              <span class="case-status open">Active</span>
+            </div>
+            <div class="case">
+              <span class="shape small shape-hexagon tone-tertiary"><span class="material-symbols-outlined">timer</span></span>
+              <span class="case-body"><span class="case-ref">Q3M8ZT</span><span class="case-title">Mute · 1 hour</span></span>
+              <span class="case-status">Expired</span>
+            </div>
+            <div class="case">
+              <span class="shape small shape-hexagon tone-secondary"><span class="material-symbols-outlined">block</span></span>
+              <span class="case-body"><span class="case-ref">L9D4RW</span><span class="case-title">Ban · Raid</span></span>
+              <span class="case-status">Appeal</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Social notifications -->
+      <section class="card span-6">
+        <span class="shape shape-hexagon" aria-hidden="true"><span class="material-symbols-outlined">campaign</span></span>
+        <h2>Your creators, in your server</h2>
+        <p>
+          Post an update the moment a YouTube channel uploads, a Twitch
+          streamer goes live, a Bluesky account posts or an RSS feed publishes.
+        </p>
+        <div class="card-visual">
+          <div class="tiles" aria-hidden="true">
+            <div class="tile"><span class="tile-meta">New upload</span><span class="tile-name">YouTube</span></div>
+            <div class="tile"><span class="tile-meta">Live now</span><span class="tile-name">Twitch</span></div>
+            <div class="tile"><span class="tile-meta">New post</span><span class="tile-name">Bluesky</span></div>
+            <div class="tile"><span class="tile-meta">New article</span><span class="tile-name">RSS</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modules -->
+      <section class="card split">
+        <div class="card-text">
+          <span class="shape shape-octagon tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">extension</span></span>
+          <h2>One bot, every module</h2>
+          <p>
+            Turn on only what your server needs, and configure each module in
+            a couple of clicks. From welcome messages to tickets, Moddy grows
+            with your community.
+          </p>
+          <div class="card-actions">
+            <md-outlined-button trailing-icon href="https://docs.moddy.app/modules/overview" target="_blank">
+              Browse modules
+              <md-icon slot="icon">arrow_forward</md-icon>
+            </md-outlined-button>
+          </div>
+        </div>
+        <div class="card-visual">
+          <div class="chip-rows" aria-label="Some of Moddy's modules">
+            <div class="chip-row">
+              <span class="chip"><span class="material-symbols-outlined">waving_hand</span>Welcome messages</span>
+              <span class="chip"><span class="material-symbols-outlined">mail</span>Welcome DM</span>
+              <span class="chip"><span class="material-symbols-outlined">badge</span>Auto role</span>
+              <span class="chip"><span class="material-symbols-outlined">history</span>Auto-restore roles</span>
+              <span class="chip"><span class="material-symbols-outlined">star</span>Starboard</span>
+            </div>
+            <div class="chip-row">
+              <span class="chip"><span class="material-symbols-outlined">speed</span>Adaptive slowmode</span>
+              <span class="chip"><span class="material-symbols-outlined">hub</span>Inter-server</span>
+              <span class="chip"><span class="material-symbols-outlined">graphic_eq</span>Voice transcription</span>
+              <span class="chip"><span class="material-symbols-outlined">palette</span>Bot customization</span>
+              <span class="chip"><span class="material-symbols-outlined">verified_user</span>AltGuard</span>
+            </div>
+            <div class="chip-row">
+              <span class="chip"><span class="material-symbols-outlined">receipt_long</span>Server logs</span>
+              <span class="chip"><span class="material-symbols-outlined">confirmation_number</span>Tickets</span>
+              <span class="chip"><span class="material-symbols-outlined">notifications_active</span>Bump reminder</span>
+              <span class="chip"><span class="material-symbols-outlined">how_to_reg</span>Member applications</span>
+              <span class="chip"><span class="material-symbols-outlined">campaign</span>Social notifications</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Server logs -->
+      <section class="card span-5">
+        <span class="shape shape-square tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">receipt_long</span></span>
+        <h2>Nothing slips by</h2>
+        <p>
+          Server logs post a clear entry seconds after anything happens: an
+          edited message, a new role, a ban, a permission change.
+        </p>
+        <div class="card-visual">
+          <div class="big-number">163</div>
+          <div class="big-number-label">events watched, none filtered by guesswork</div>
+        </div>
+      </section>
+
+      <!-- Tickets -->
+      <section class="card span-7">
+        <span class="shape shape-heptagon" aria-hidden="true"><span class="material-symbols-outlined">confirmation_number</span></span>
+        <h2>A real support desk</h2>
+        <p>
+          Members open a private ticket with a button or a dropdown. You decide
+          where each request goes, which roles can see it and who claims it.
+        </p>
+        <div class="card-visual">
+          <div class="panel ticket-panel" aria-hidden="true">
+            <strong>Need help?</strong>
+            <div class="chip-row">
+              <span class="chip"><span class="material-symbols-outlined">flag</span>Report a member</span>
+              <span class="chip"><span class="material-symbols-outlined">handshake</span>Partnership</span>
+              <span class="chip"><span class="material-symbols-outlined">help</span>Other question</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Utilities -->
+      <section class="card span-6">
+        <span class="shape shape-diamond tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">construction</span></span>
+        <h2>Handy tools, everywhere</h2>
+        <p>
+          Translate, set reminders, fix or summarize text, roll dice. Most
+          commands work anywhere, even in your DMs.
+        </p>
+        <div class="card-visual">
+          <div class="chip-rows" aria-label="Some of Moddy's commands">
+            <div class="chip-row">
+              <span class="chip command">/translate</span>
+              <span class="chip command">/reminder</span>
+              <span class="chip command">/fix</span>
+              <span class="chip command">/rephrase</span>
+              <span class="chip command">/summarize</span>
+            </div>
+            <div class="chip-row">
+              <span class="chip command">/roll</span>
+              <span class="chip command">/user</span>
+              <span class="chip command">/avatar</span>
+              <span class="chip command">/banner</span>
+              <span class="chip command">/emoji</span>
+              <span class="chip command">/ping</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions end">
+          <md-outlined-button trailing-icon href="https://docs.moddy.app/commands/overview" target="_blank">
+            All commands
+            <md-icon slot="icon">arrow_forward</md-icon>
+          </md-outlined-button>
+        </div>
+      </section>
+
+      <!-- AltGuard -->
+      <section class="card span-6">
+        <span class="shape shape-pentagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">verified_user</span></span>
+        <h2>Alt accounts stay out</h2>
+        <p>
+          AltGuard checks new members as they join and acts on suspected
+          alternate accounts, so a ban really means gone for good.
+        </p>
+        <div class="card-visual">
+          <div class="cases" aria-hidden="true">
+            <div class="case">
+              <span class="shape small shape-square"><span class="material-symbols-outlined">check_circle</span></span>
+              <span class="case-body"><span class="case-ref">new member</span><span class="case-title">Verification passed</span></span>
+              <span class="case-status">Verified</span>
+            </div>
+            <div class="case">
+              <span class="shape small shape-square tone-tertiary"><span class="material-symbols-outlined">person_off</span></span>
+              <span class="case-body"><span class="case-ref">new member</span><span class="case-title">Suspected alt of a banned member</span></span>
+              <span class="case-status open">Blocked</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions end">
+          <md-outlined-button trailing-icon href="https://docs.moddy.app/modules/altguard" target="_blank">
+            About AltGuard
+            <md-icon slot="icon">arrow_forward</md-icon>
+          </md-outlined-button>
+        </div>
+      </section>
+
+      <!-- Dashboard -->
+      <section class="card split reverse">
+        <div class="card-text">
+          <span class="shape shape-hexagon" aria-hidden="true"><span class="material-symbols-outlined">dashboard</span></span>
+          <h2>Configure from your browser</h2>
+          <p>
+            Enable modules, review cases and customize the bot from the web
+            dashboard, no command to remember.
+          </p>
+          <div class="card-actions end">
+            <md-filled-button trailing-icon href="https://dashboard.moddy.app" target="_blank">
+              Open dashboard
+              <md-icon slot="icon">arrow_forward</md-icon>
+            </md-filled-button>
+          </div>
+        </div>
+        <div class="card-visual">
+          <!-- TODO: replace with a dashboard screenshot -->
+          <div class="asset-slot">Dashboard screenshot</div>
+        </div>
+      </section>
+
+      <!-- Moddy Max -->
+      <section class="card glow">
+        <span class="shape shape-octagon tone-solid" aria-hidden="true"><span class="material-symbols-outlined">workspace_premium</span></span>
+        <h2>Go further with Moddy Max</h2>
+        <p>
+          Moderation, AutoMod AI and welcome messages are free on every server.
+          Moddy Max adds a few extras on the servers you care about most.
+        </p>
+        <ul class="perks">
+          <li>
+            <span class="material-symbols-outlined">dns</span>
+            <strong>5 premium servers</strong>
+            <span class="detail">Pick them from your dashboard and switch at any time.</span>
+          </li>
+          <li>
+            <span class="material-symbols-outlined">palette</span>
+            <strong>Full bot customization</strong>
+            <span class="detail">Nickname, avatar, banner and bio that match your community.</span>
+          </li>
+          <li>
+            <span class="material-symbols-outlined">bolt</span>
+            <strong>Faster notifications</strong>
+            <span class="detail">Quicker polling and up to 5 accounts per platform.</span>
+          </li>
+        </ul>
+        <div class="card-actions end">
+          <md-filled-button trailing-icon href="https://docs.moddy.app/premium/overview" target="_blank">
+            Discover Moddy Max
+            <md-icon slot="icon">arrow_forward</md-icon>
+          </md-filled-button>
+        </div>
+      </section>
+
+      <!-- Final call to action -->
+      <section class="card cta">
+        <span class="shape shape-hexagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">rocket_launch</span></span>
+        <h2>Ready to meet Moddy?</h2>
+        <p>Add it to your server in a few clicks and turn on your first module.</p>
+        <div class="card-actions">
+          <md-filled-button href="/install" target="_blank">
+            Add to Discord
+          </md-filled-button>
+          <md-outlined-button href="/support" target="_blank">
+            Join the support server
+          </md-outlined-button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</lit-island>

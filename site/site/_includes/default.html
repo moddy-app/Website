@@ -87,6 +87,8 @@
         <!-- this is the content of the page -->
         {% block content %}{{ content | safe }}{% endblock %}
       </main>
+
+      {% include "partials/site-footer.html" %}
     </div>
     <!-- Development Status Popup -->
     <div id="dev-status-popup" class="dev-status-scrim">
