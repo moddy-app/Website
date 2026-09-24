@@ -1,1 +1,122 @@
-{}
+{
+  "meta": {
+    "title": "Modules",
+    "description": "AutoMod AI, AltGuard, server logs, tickets, welcome messages, social notifications and more. Explore every Moddy module and set it up from the web dashboard."
+  },
+  "hero": {
+    "eyebrow": "Modules",
+    "title": "Everything your server needs. Nothing it doesn’t.",
+    "description": "Turn on only the modules you want and set them up from the web dashboard or with <code>/config</code> in Discord. Moddy never needs the Administrator permission."
+  },
+  "nav": {
+    "label": "Module categories"
+  },
+  "groups": {
+    "moderation": {
+      "name": "Moderation",
+      "title": "Safety, handled.",
+      "description": "AI that reads context, a case for every sanction and a log of everything that happens."
+    },
+    "welcome": {
+      "name": "Welcome & roles",
+      "title": "A warm welcome, every time.",
+      "description": "Greet newcomers in public or in private, hand out the right roles and review applications without leaving Discord."
+    },
+    "community": {
+      "name": "Community",
+      "title": "Keep the conversation going.",
+      "description": "Support tickets, highlights, creator updates and voice messages everyone can read."
+    },
+    "customization": {
+      "name": "Customization & tools",
+      "title": "Make it yours.",
+      "description": "Give Moddy your server’s look and keep everyday tools one command away."
+    }
+  },
+  "items": {
+    "automod": {
+      "name": "AutoMod AI",
+      "description": "Detect harmful messages in real time, with context, and warn, mute or ban automatically."
+    },
+    "cases": {
+      "name": "Moderation Cases",
+      "description": "Track every sanction as a case with a reference code, a full timeline and built-in appeals."
+    },
+    "altguard": {
+      "name": "AltGuard",
+      "description": "Gate new members behind a consent-based check that flags suspected alt accounts dodging your bans."
+    },
+    "logs": {
+      "name": "Server Logs",
+      "description": "Record 163 events across 18 categories in the channels you choose, with who did what."
+    },
+    "adaptiveSlowmode": {
+      "name": "Adaptive Slowmode",
+      "description": "Raise and lower slowmode automatically as a channel heats up and calms down."
+    },
+    "welcome": {
+      "name": "Welcome Messages",
+      "description": "Greet new members with custom messages and styled cards in up to 5 channels."
+    },
+    "welcomeDm": {
+      "name": "Welcome DM",
+      "description": "Send each new member a private welcome message, with placeholders and an optional embed."
+    },
+    "autoRole": {
+      "name": "Auto Role",
+      "description": "Give roles automatically on join, with separate lists for members and bots."
+    },
+    "autoRestoreRoles": {
+      "name": "Auto-Restore Roles",
+      "description": "Remember a member’s roles when they leave and give them back if they return."
+    },
+    "memberApplications": {
+      "name": "Member Applications",
+      "description": "Review Discord’s Apply to Join applications from a channel, with Approve and Reject buttons."
+    },
+    "tickets": {
+      "name": "Tickets",
+      "description": "Let members open private support tickets from a panel, with categories and per-role permissions."
+    },
+    "socialNotifications": {
+      "name": "Social Notifications",
+      "description": "Announce YouTube uploads, Twitch streams, Bluesky posts and RSS updates in your server."
+    },
+    "starboard": {
+      "name": "Starboard",
+      "description": "Re-post popular messages to a highlight channel once they reach a set number of reactions."
+    },
+    "voiceTranscription": {
+      "name": "Voice Transcription",
+      "description": "Add a Transcribe button under voice messages, or transcribe them automatically."
+    },
+    "bumpReminder": {
+      "name": "Bump Reminder",
+      "description": "Thank whoever bumps your server, then call the channel back as soon as the next bump is ready."
+    },
+    "interserver": {
+      "name": "Inter-Server",
+      "description": "Bridge a channel with channels in other servers for real-time, cross-community chat."
+    },
+    "botCustomization": {
+      "name": "Bot Customization",
+      "description": "Style Moddy’s name for free, or give it its own nickname, avatar, banner and bio with Moddy Max."
+    },
+    "utilities": {
+      "name": "Utilities",
+      "description": "Translate text, set reminders, extract text from images, generate timestamps or roll dice."
+    }
+  },
+  "card": {
+    "learnMore": "Learn more",
+    "learnMoreAbout": "Learn more about {name}",
+    "premium": "Moddy Max",
+    "paused": "Temporarily paused"
+  },
+  "cta": {
+    "title": "Up and running in minutes.",
+    "description": "Add Moddy to your server, then turn on your first module from the dashboard.",
+    "install": "Add Moddy to your server",
+    "dashboard": "Open the dashboard"
+  }
+}

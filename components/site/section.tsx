@@ -74,7 +74,7 @@ function SectionHeader({
         className
       )}
     >
-      {eyebrow && <p className="text-sm font-medium text-primary">{eyebrow}</p>}
+      {eyebrow && <p className="text-sm font-medium text-brand">{eyebrow}</p>}
       <Heading
         className={cn(
           "font-heading font-semibold tracking-tight text-balance",

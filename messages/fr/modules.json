@@ -1,1 +1,122 @@
-{}
+{
+  "meta": {
+    "title": "Modules",
+    "description": "AutoMod IA, AltGuard, journaux de serveur, tickets, messages de bienvenue, notifications sociales et plus encore. Découvrez tous les modules de Moddy."
+  },
+  "hero": {
+    "eyebrow": "Modules",
+    "title": "Tout ce qu’il faut à votre serveur. Rien de superflu.",
+    "description": "Activez uniquement les modules qui vous intéressent et configurez-les depuis le tableau de bord web ou avec <code>/config</code> dans Discord. Moddy n’a jamais besoin de la permission Administrateur."
+  },
+  "nav": {
+    "label": "Catégories de modules"
+  },
+  "groups": {
+    "moderation": {
+      "name": "Modération",
+      "title": "Votre serveur, sous bonne garde.",
+      "description": "Une IA qui comprend le contexte, un dossier pour chaque sanction et un journal de tout ce qui se passe."
+    },
+    "welcome": {
+      "name": "Accueil et rôles",
+      "title": "Un accueil soigné, à chaque arrivée.",
+      "description": "Accueillez les nouveaux venus en public ou en privé, attribuez les bons rôles et examinez les candidatures sans quitter Discord."
+    },
+    "community": {
+      "name": "Communauté",
+      "title": "Faites vivre la conversation.",
+      "description": "Des tickets de support, des messages mis en avant, les actus de vos créateurs et des vocaux que tout le monde peut lire."
+    },
+    "customization": {
+      "name": "Personnalisation et outils",
+      "title": "À votre image.",
+      "description": "Donnez à Moddy l’apparence de votre serveur et gardez les outils du quotidien à portée de commande."
+    }
+  },
+  "items": {
+    "automod": {
+      "name": "AutoMod IA",
+      "description": "Repérez les messages nuisibles en temps réel, contexte compris, et sanctionnez automatiquement leurs auteurs."
+    },
+    "cases": {
+      "name": "Dossiers de modération",
+      "description": "Suivez chaque sanction dans un dossier avec code de référence, chronologie complète et appels intégrés."
+    },
+    "altguard": {
+      "name": "AltGuard",
+      "description": "Filtrez les arrivants avec une vérification consentie qui repère les comptes secondaires suspects."
+    },
+    "logs": {
+      "name": "Journaux de serveur",
+      "description": "Enregistrez 163 événements répartis en 18 catégories dans les salons de votre choix, avec qui a fait quoi."
+    },
+    "adaptiveSlowmode": {
+      "name": "Slowmode adaptatif",
+      "description": "Augmentez et réduisez le slowmode automatiquement quand un salon s’échauffe puis se calme."
+    },
+    "welcome": {
+      "name": "Messages de bienvenue",
+      "description": "Accueillez les nouveaux membres avec des messages et des cartes personnalisés, sur 5 salons maximum."
+    },
+    "welcomeDm": {
+      "name": "MP de bienvenue",
+      "description": "Envoyez à chaque nouveau membre un message privé de bienvenue, avec des variables et un embed facultatif."
+    },
+    "autoRole": {
+      "name": "Auto Role",
+      "description": "Attribuez des rôles automatiquement à l’arrivée, avec une liste distincte pour les membres et les bots."
+    },
+    "autoRestoreRoles": {
+      "name": "Restauration automatique des rôles",
+      "description": "Mémorisez les rôles d’un membre à son départ et rendez-les-lui automatiquement s’il revient."
+    },
+    "memberApplications": {
+      "name": "Candidatures",
+      "description": "Examinez les candidatures « Postuler pour rejoindre » depuis un salon, avec des boutons Accepter et Refuser."
+    },
+    "tickets": {
+      "name": "Tickets",
+      "description": "Laissez les membres ouvrir des tickets privés depuis un panneau, avec catégories et permissions par rôle."
+    },
+    "socialNotifications": {
+      "name": "Notifications sociales",
+      "description": "Annoncez les vidéos YouTube, les lives Twitch, les posts Bluesky et les nouveautés RSS dans votre serveur."
+    },
+    "starboard": {
+      "name": "Starboard",
+      "description": "Republiez les messages populaires dans un salon dédié dès qu’ils atteignent un certain nombre de réactions."
+    },
+    "voiceTranscription": {
+      "name": "Transcription vocale",
+      "description": "Ajoutez un bouton Transcrire sous les messages vocaux, ou transcrivez-les automatiquement."
+    },
+    "bumpReminder": {
+      "name": "Bump Reminder",
+      "description": "Remerciez celui qui bump votre serveur, puis rappelez le salon dès que le prochain bump est possible."
+    },
+    "interserver": {
+      "name": "Inter-Serveur",
+      "description": "Reliez un salon à ceux d’autres serveurs pour discuter entre communautés en temps réel."
+    },
+    "botCustomization": {
+      "name": "Personnalisation du bot",
+      "description": "Stylisez le nom de Moddy gratuitement, ou donnez-lui pseudo, avatar, bannière et bio avec Moddy Max."
+    },
+    "utilities": {
+      "name": "Utilitaires",
+      "description": "Traduisez du texte, créez des rappels, extrayez le texte d’images, générez des horodatages ou lancez des dés."
+    }
+  },
+  "card": {
+    "learnMore": "En savoir plus",
+    "learnMoreAbout": "En savoir plus : {name}",
+    "premium": "Moddy Max",
+    "paused": "En pause pour l’instant"
+  },
+  "cta": {
+    "title": "Opérationnel en quelques minutes.",
+    "description": "Ajoutez Moddy à votre serveur, puis activez votre premier module depuis le tableau de bord.",
+    "install": "Ajouter Moddy à votre serveur",
+    "dashboard": "Ouvrir le tableau de bord"
+  }
+}
