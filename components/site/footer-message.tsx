@@ -22,7 +22,7 @@ const TYPING_MS = 1400
  * moment, then the message lands. The message is always in the DOM (SEO,
  * screen readers, no-JS); the sequence only toggles a data attribute.
  */
-function FooterMessage({ children }: { children?: React.ReactNode }) {
+function FooterMessage() {
   const t = useTranslations("common.footer")
   const ref = React.useRef<HTMLDivElement>(null)
 
@@ -59,35 +59,28 @@ function FooterMessage({ children }: { children?: React.ReactNode }) {
 
   return (
     <div ref={ref} data-phase="sent" className="group/signature relative">
-      <Marker className="absolute top-0 left-0 hidden group-data-[phase=typing]/signature:flex">
+      <Marker className="absolute inset-y-0 left-0 hidden text-xs group-data-[phase=typing]/signature:flex">
         <MarkerContent className="shimmer">{t("typing")}</MarkerContent>
       </Marker>
       <Message
         align="start"
-        className="gap-4 transition-[opacity,translate] duration-500 ease-out group-data-[phase=typing]/signature:translate-y-2 group-data-[phase=typing]/signature:opacity-0 group-data-[phase=waiting]/signature:translate-y-2 group-data-[phase=waiting]/signature:opacity-0"
+        className="gap-3 transition-[opacity,translate] duration-500 ease-out group-data-[phase=typing]/signature:translate-y-1 group-data-[phase=typing]/signature:opacity-0 group-data-[phase=waiting]/signature:translate-y-1 group-data-[phase=waiting]/signature:opacity-0"
       >
         <MessageAvatar className="self-start">
-          <Avatar size="lg">
+          <Avatar>
             <AvatarImage src="/brand/moddy-avatar.svg" alt={t("author")} />
             <AvatarFallback>M</AvatarFallback>
           </Avatar>
         </MessageAvatar>
-        <MessageContent className="gap-1.5">
-          <MessageHeader className="gap-2 px-0">
-            <span className="text-sm font-semibold text-foreground">
-              {t("author")}
-            </span>
+        <MessageContent className="gap-0.5">
+          <MessageHeader className="gap-1.5 px-0">
+            <span className="text-foreground">{t("author")}</span>
             <Badge>{t("appBadge")}</Badge>
             <MessageTime />
           </MessageHeader>
           <Bubble variant="ghost">
-            <BubbleContent>
-              <p className="font-heading text-3xl leading-tight font-semibold tracking-tight text-balance text-foreground sm:text-5xl sm:leading-[1.08]">
-                {t("baseline")}
-              </p>
-            </BubbleContent>
+            <BubbleContent>{t("baseline")}</BubbleContent>
           </Bubble>
-          {children}
         </MessageContent>
       </Message>
     </div>
@@ -109,6 +102,7 @@ function MessageTime() {
 
   return (
     <time dateTime={date.toISOString()} className="font-normal">
+      <span aria-hidden="true">· </span>
       {t("today", {
         time: format.dateTime(date, { hour: "numeric", minute: "2-digit" }),
       })}

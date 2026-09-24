@@ -1,1 +1,72 @@
-{}
+{
+  "meta": {
+    "description": "Moddy est le bot Discord tout-en-un : modération par IA, AltGuard, logs, tickets, messages de bienvenue et notifications sociales, configurés depuis un dashboard web."
+  },
+  "hero": {
+    "title": "Built to let you focus on your community",
+    "cta": "Commencer",
+    "trustedBy": "Déjà adopté par {count, plural, one {# serveur} other {# serveurs}}",
+    "showcaseLabel": "Quelques serveurs qui utilisent Moddy",
+    "members": "{count, plural, one {# membre} other {# membres}}",
+    "appIconAlt": "Moddy"
+  },
+  "bento": {
+    "title": "Tout au même endroit.",
+    "dashboard": {
+      "title": "Un dashboard web pour configurer AltGuard sur votre serveur sans ouvrir Discord.",
+      "cta": "Ouvrir le dashboard"
+    },
+    "modules": {
+      "title": "{count} modules, et ce n’est pas fini.",
+      "cta": "Découvrir les modules"
+    },
+    "assistant": {
+      "title": "Décrivez.\nValidez.\nC’est configuré !"
+    },
+    "mock": {
+      "altguard": {
+        "title": "AltGuard",
+        "description": "Empêchez les comptes alternatifs de contourner vos bannissements.",
+        "enabled": "Activé",
+        "channel": "Salon de vérification",
+        "channelValue": "#vérification",
+        "unverified": "Rôle non vérifié",
+        "unverifiedValue": "@Non vérifié",
+        "verified": "Rôle vérifié",
+        "verifiedValue": "@Membre",
+        "logs": "Salon de logs",
+        "logsValue": "#logs-modération",
+        "save": "Enregistrer"
+      },
+      "chat": {
+        "you": "Vous",
+        "request": "Mets en place des tickets avec une catégorie « Support » dans #aide.",
+        "proposal": "Je vais créer un panneau « Support » dans #aide, avec une catégorie visible par vos modérateurs.",
+        "validate": "Valider",
+        "done": "Tickets configurés"
+      }
+    }
+  },
+  "stats": {
+    "title": "Quelques chiffres…",
+    "languages": {
+      "value": "{count}",
+      "label": "langues parlées par Moddy."
+    },
+    "users": {
+      "label": "utilisateurs dans le monde."
+    },
+    "servers": {
+      "label": "serveurs équipés."
+    },
+    "uptime": {
+      "label": "de disponibilité sur les 90 derniers jours."
+    }
+  },
+  "cta": {
+    "title": "Prêt quand vous l’êtes.",
+    "description": "Ajoutez Moddy à votre serveur et configurez-le en quelques minutes.",
+    "primary": "Ajouter à Discord",
+    "secondary": "Découvrir les modules"
+  }
+}

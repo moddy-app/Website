@@ -48,12 +48,8 @@
     "appBadge": "APP",
     "today": "Aujourd’hui à {time}",
     "typing": "Moddy est en train d’écrire…",
-    "status": {
-      "operational": "Tous les systèmes sont opérationnels",
-      "degraded": "Certains services sont perturbés",
-      "maintenance": "Maintenance en cours"
-    },
     "copyright": "© {year} Moddy",
-    "notAffiliated": "Non affilié à Discord Inc."
+    "notAffiliated": "Non affilié à Discord Inc.",
+    "statusTitle": "Statut des services Moddy"
   }
 }

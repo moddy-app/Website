@@ -19,6 +19,8 @@ export const siteConfig = {
     privacy: "https://docs.moddy.app/legal/privacy",
     license: "https://docs.moddy.app/legal/license",
   },
+  /** Languages Moddy speaks in Discord (API: /guilds/{id}/settings/language). */
+  botLanguages: ["en-US", "fr", "es-ES", "pt-BR", "de"],
 } as const
 
 /**

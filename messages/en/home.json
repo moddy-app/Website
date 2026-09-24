@@ -1,1 +1,72 @@
-{}
+{
+  "meta": {
+    "description": "Moddy is the all-in-one Discord bot: AI moderation, AltGuard, logs, tickets, welcome messages and social notifications, configured from a web dashboard."
+  },
+  "hero": {
+    "title": "Built to let you focus on your community",
+    "cta": "Get started",
+    "trustedBy": "Trusted by {count, plural, one {# server} other {# servers}}",
+    "showcaseLabel": "Some of the servers using Moddy",
+    "members": "{count, plural, one {# member} other {# members}}",
+    "appIconAlt": "Moddy"
+  },
+  "bento": {
+    "title": "Everything in one place.",
+    "dashboard": {
+      "title": "A web dashboard to configure AltGuard on your server without opening Discord.",
+      "cta": "Open the dashboard"
+    },
+    "modules": {
+      "title": "{count} modules, and counting.",
+      "cta": "Explore modules"
+    },
+    "assistant": {
+      "title": "Describe.\nValidate.\nIt’s configured!"
+    },
+    "mock": {
+      "altguard": {
+        "title": "AltGuard",
+        "description": "Stop alternate accounts from bypassing bans.",
+        "enabled": "Enabled",
+        "channel": "Verification channel",
+        "channelValue": "#verify",
+        "unverified": "Unverified role",
+        "unverifiedValue": "@Unverified",
+        "verified": "Verified role",
+        "verifiedValue": "@Member",
+        "logs": "Log channel",
+        "logsValue": "#mod-logs",
+        "save": "Save"
+      },
+      "chat": {
+        "you": "You",
+        "request": "Set up tickets with a “Support” category in #help.",
+        "proposal": "I’ll create a “Support” panel in #help with one category, visible to your moderators.",
+        "validate": "Validate",
+        "done": "Tickets configured"
+      }
+    }
+  },
+  "stats": {
+    "title": "A few numbers…",
+    "languages": {
+      "value": "{count}",
+      "label": "languages spoken by Moddy."
+    },
+    "users": {
+      "label": "users around the world."
+    },
+    "servers": {
+      "label": "servers equipped."
+    },
+    "uptime": {
+      "label": "availability over the last 90 days."
+    }
+  },
+  "cta": {
+    "title": "Ready when you are.",
+    "description": "Add Moddy to your server and set it up in minutes.",
+    "primary": "Add to Discord",
+    "secondary": "Explore modules"
+  }
+}
