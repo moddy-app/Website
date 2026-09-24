@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { DesktopIcon, MoonIcon, SunIcon } from "@phosphor-icons/react"
+import { ComputerIcon, DarkModeIcon, LightModeIcon } from "@/components/icons"
 import { useTranslations } from "next-intl"
 import { useTheme } from "next-themes"
 
@@ -17,9 +17,9 @@ import {
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 
 const themes = [
-  { value: "light", icon: SunIcon },
-  { value: "dark", icon: MoonIcon },
-  { value: "system", icon: DesktopIcon },
+  { value: "light", icon: LightModeIcon },
+  { value: "dark", icon: DarkModeIcon },
+  { value: "system", icon: ComputerIcon },
 ] as const
 
 /** next-themes only knows the theme once mounted in the browser. */
@@ -41,8 +41,8 @@ function ThemeMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
-          <SunIcon className="dark:hidden" />
-          <MoonIcon className="hidden dark:block" />
+          <LightModeIcon className="dark:hidden" />
+          <DarkModeIcon className="hidden dark:block" />
           <span className="sr-only">{t("label")}</span>
         </Button>
       </DropdownMenuTrigger>

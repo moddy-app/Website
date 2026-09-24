@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ArrowUpRightIcon, ListIcon } from "@phosphor-icons/react"
+import { ArrowOutwardIcon, MenuIcon } from "@/components/icons"
 import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
@@ -27,7 +27,7 @@ function MobileNav() {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon" className="md:hidden">
-          <ListIcon />
+          <MenuIcon />
           <span className="sr-only">{t("nav.openMenu")}</span>
         </Button>
       </SheetTrigger>
@@ -50,7 +50,7 @@ function MobileNav() {
               {item.external ? (
                 <a href={item.href} target="_blank" rel="noopener noreferrer">
                   {t(`nav.${item.labelKey}`)}
-                  <ArrowUpRightIcon data-icon="inline-end" />
+                  <ArrowOutwardIcon data-icon="inline-end" />
                 </a>
               ) : (
                 <Link href={item.href} onClick={() => setOpen(false)}>

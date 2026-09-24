@@ -1,9 +1,9 @@
 import { cn } from "cn"
-import { SpinnerIcon } from "@phosphor-icons/react"
+import { ProgressActivityIcon } from "@/components/icons"
 
 function Spinner({ className, ...props }: React.ComponentProps<"svg">) {
   return (
-    <SpinnerIcon
+    <ProgressActivityIcon
       data-slot="spinner"
       role="status"
       aria-label="Loading"

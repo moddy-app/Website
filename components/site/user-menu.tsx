@@ -1,11 +1,7 @@
 "use client"
 
 import * as React from "react"
-import {
-  DiscordLogoIcon,
-  SignOutIcon,
-  SquaresFourIcon,
-} from "@phosphor-icons/react"
+import { DashboardIcon, DiscordIcon, LogoutIcon } from "@/components/icons"
 import { useTranslations } from "next-intl"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -80,7 +76,7 @@ function UserMenu() {
     return (
       <Button asChild size="sm" className="animate-in duration-300 fade-in-0">
         <a href={loginUrl}>
-          <DiscordLogoIcon data-icon="inline-start" weight="fill" />
+          <DiscordIcon data-icon="inline-start" />
           {t("signIn")}
         </a>
       </Button>
@@ -122,7 +118,7 @@ function UserMenu() {
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
             <a href={siteConfig.links.dashboard}>
-              <SquaresFourIcon />
+              <DashboardIcon />
               {t("dashboard")}
             </a>
           </DropdownMenuItem>
@@ -136,7 +132,7 @@ function UserMenu() {
               window.location.reload()
             }}
           >
-            <SignOutIcon />
+            <LogoutIcon />
             {t("signOut")}
           </DropdownMenuItem>
         </DropdownMenuGroup>

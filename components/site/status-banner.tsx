@@ -2,15 +2,15 @@
 
 import * as React from "react"
 import {
+  BuildIcon,
+  CampaignIcon,
   CheckCircleIcon,
+  CloseIcon,
+  ErrorIcon,
   InfoIcon,
-  MegaphoneIcon,
-  WarningCircleIcon,
   WarningIcon,
-  WrenchIcon,
-  XIcon,
   type Icon,
-} from "@phosphor-icons/react"
+} from "@/components/icons"
 import { useTranslations } from "next-intl"
 
 import { Alert, AlertAction, AlertTitle } from "@/components/ui/alert"
@@ -54,15 +54,15 @@ type Banner = {
 }
 
 const typeIcons: Record<string, { icon: Icon; destructive: boolean }> = {
-  announcement: { icon: MegaphoneIcon, destructive: false },
+  announcement: { icon: CampaignIcon, destructive: false },
   information: { icon: InfoIcon, destructive: false },
-  maintenance: { icon: WrenchIcon, destructive: false },
+  maintenance: { icon: BuildIcon, destructive: false },
   resolved: { icon: CheckCircleIcon, destructive: false },
   warning: { icon: WarningIcon, destructive: true },
-  incident: { icon: WarningCircleIcon, destructive: true },
+  incident: { icon: ErrorIcon, destructive: true },
   degraded_performance: { icon: WarningIcon, destructive: true },
-  partial_outage: { icon: WarningCircleIcon, destructive: true },
-  major_outage: { icon: WarningCircleIcon, destructive: true },
+  partial_outage: { icon: ErrorIcon, destructive: true },
+  major_outage: { icon: ErrorIcon, destructive: true },
 }
 
 async function fetchJson<T>(url: string): Promise<T | null> {
@@ -149,7 +149,7 @@ function StatusBanner() {
         className="animate-in duration-500 fade-in-0 slide-in-from-top-2"
       >
         {Icon ? (
-          <Icon weight="fill" />
+          <Icon />
         ) : banner.iconSvg ? (
           // Rendered as an image so a custom SVG can never run scripts.
           // eslint-disable-next-line @next/next/no-img-element
@@ -181,7 +181,7 @@ function StatusBanner() {
               setDismissed(banner.id)
             }}
           >
-            <XIcon />
+            <CloseIcon />
             <span className="sr-only">{t("dismiss")}</span>
           </Button>
         </AlertAction>

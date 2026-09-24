@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { GlobeIcon } from "@phosphor-icons/react"
+import { LanguageIcon } from "@/components/icons"
 import { useLocale, useTranslations } from "next-intl"
 import { useParams } from "next/navigation"
 
@@ -58,7 +58,7 @@ function LocaleMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" disabled={isPending}>
-          <GlobeIcon />
+          <LanguageIcon />
           <span className="sr-only">{t("label")}</span>
         </Button>
       </DropdownMenuTrigger>
@@ -85,7 +85,7 @@ function LocaleSelect({ id }: { id?: string }) {
   return (
     <Select value={locale} onValueChange={switchLocale} disabled={isPending}>
       <SelectTrigger id={id} size="sm" aria-label={t("label")}>
-        <GlobeIcon />
+        <LanguageIcon />
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
