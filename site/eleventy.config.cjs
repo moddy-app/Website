@@ -15,6 +15,7 @@ const permalinks = require('./eleventy-helpers/plugins/permalinks.cjs');
 const filterToc = require('./eleventy-helpers/filters/filter-toc.cjs');
 const filterSort = require('./eleventy-helpers/filters/filter-sort.cjs');
 const mdMarkdown = require('./eleventy-helpers/filters/md-markdown.cjs');
+const i18n = require('./eleventy-helpers/filters/i18n.cjs');
 const copyCodeButtonPlugin = require('./eleventy-helpers/plugins/copy-code-button.cjs');
 const markdownIt = require('markdown-it');
 const { compress } = require('eleventy-plugin-compress');
@@ -54,6 +55,7 @@ module.exports = function (eleventyConfig) {
   // install filters
   filterSort(eleventyConfig);
   filterToc(eleventyConfig);
+  i18n(eleventyConfig);
   // list of our transforms that we want to apply to markdown links.
   mdMarkdown(eleventyConfig, []);
 

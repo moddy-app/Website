@@ -1,0 +1,178 @@
+{
+  "topbar": {
+    "home": "Início",
+    "skipToMain": "Ir para o conteúdo principal",
+    "signIn": "Entrar",
+    "userMenu": "Menu do usuário",
+    "hello": "Olá, @{username}!",
+    "dashboard": "Painel",
+    "signOut": "Sair"
+  },
+  "popup": {
+    "title": "Em desenvolvimento",
+    "body": "O Moddy está em pleno desenvolvimento e provavelmente não estará pronto antes de <strong>junho de 2026</strong>. Fique ligado!",
+    "join": "Entrar no servidor de suporte",
+    "close": "Fechar janela"
+  },
+  "footer": {
+    "navLabel": "Rodapé",
+    "product": "Produto",
+    "addToDiscord": "Adicionar ao Discord",
+    "dashboard": "Painel",
+    "moddyMax": "Moddy Max",
+    "status": "Status",
+    "resources": "Recursos",
+    "documentation": "Documentação",
+    "commands": "Comandos",
+    "changelog": "Novidades",
+    "supportServer": "Servidor de suporte",
+    "legal": "Legal",
+    "terms": "Termos de Serviço",
+    "privacy": "Política de Privacidade",
+    "license": "Licença",
+    "logoLabel": "Início do Moddy",
+    "github": "Moddy no GitHub",
+    "language": "Idioma"
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "description": "A página que você procura não existe.",
+    "home": "Voltar ao início"
+  },
+  "subscriptions": {
+    "pageTitle": "Assinatura",
+    "title": "Escolha seu plano",
+    "subtitle": "Desbloqueie recursos premium e leve seu servidor do Discord a outro nível",
+    "monthly": "Mensal",
+    "yearly": "Anual",
+    "save": "Economize 58%",
+    "perYear": "por ano",
+    "perMonth": "por mês",
+    "features": {
+      "servers": "Aproveite os recursos premium em até 5 servidores",
+      "options": "Acesse as opções premium direto no app do Moddy",
+      "ai": "Tenha limites de uso maiores nas ferramentas de IA",
+      "earlyAccess": "Ganhe acesso antecipado a alguns recursos novos",
+      "badge": "Receba um emblema premium no Discord",
+      "role": "Ganhe um cargo premium no servidor do Discord"
+    },
+    "subscribe": "Assinar agora"
+  },
+  "home": {
+    "pageTitle": "Início",
+    "hero": {
+      "title": "Moddy, o único bot de que você precisa.",
+      "text": "Moderação com IA, notificações sociais, mensagens de boas-vindas e utilidades do dia a dia para o seu servidor do Discord, tudo em um só bot.",
+      "add": "Adicionar ao Discord",
+      "dashboard": "Abrir o painel",
+      "feedLabel": "Exemplo do que o Moddy faz em um servidor",
+      "feed": {
+        "spam": { "title": "Link de spam removido", "sub": "AutoMod · #geral", "time": "agora mesmo" },
+        "welcome": { "title": "Boas-vindas, Alex!", "sub": "Mensagens de boas-vindas · #boas-vindas", "time": "há 2 min" },
+        "live": { "title": "Ao vivo na Twitch", "sub": "Notificações sociais · #streams", "time": "há 6 min" },
+        "case": { "title": "Caso A7F2K9 aberto", "sub": "Moderação · Advertência", "time": "há 9 min" },
+        "bump": { "title": "Hora do bump!", "sub": "Lembrete de bump · #bump", "time": "há 12 min" }
+      }
+    },
+    "automod": {
+      "title": "Uma moderação que nunca dorme",
+      "text": "O AutoMod IA entende o contexto. Ele identifica mensagens nocivas em tempo real e adverte, silencia ou bane antes que o estrago aconteça, sem regras para ajustar na mão.",
+      "cta": "Conhecer o AutoMod",
+      "author": "encrenqueiro · hoje às 21:04",
+      "message": "Nitro grátis pra todo mundo, clica nesse link agora!!",
+      "verdict": "Mensagem removida · Advertência aplicada",
+      "detail": "Link de golpe detectado pelo AutoMod IA, caso A7F2K9 aberto"
+    },
+    "cases": {
+      "title": "Toda punição, registrada",
+      "text": "Cada advertência, silenciamento ou banimento vira um caso com código de referência próprio, histórico completo e recursos integrados.",
+      "warn": "Advertência · Links de spam",
+      "mute": "Silenciamento · 1 hora",
+      "ban": "Banimento · Raid",
+      "active": "Ativo",
+      "expired": "Expirado",
+      "appeal": "Recurso"
+    },
+    "social": {
+      "title": "Seus criadores, no seu servidor",
+      "text": "Publique um aviso assim que um canal do YouTube posta um vídeo, um streamer da Twitch entra ao vivo, uma conta do Bluesky publica ou um feed RSS lança um artigo.",
+      "newUpload": "Novo vídeo",
+      "liveNow": "Ao vivo",
+      "newPost": "Nova publicação",
+      "newArticle": "Novo artigo"
+    },
+    "modules": {
+      "title": "Um bot, todos os módulos",
+      "text": "Ative só o que o seu servidor precisa e configure cada módulo em poucos cliques. Das mensagens de boas-vindas aos tickets, o Moddy cresce com a sua comunidade.",
+      "cta": "Ver os módulos",
+      "label": "Alguns módulos do Moddy",
+      "names": {
+        "welcome": "Mensagens de boas-vindas",
+        "welcomeDm": "Boas-vindas por DM",
+        "autoRole": "Cargo automático",
+        "autoRestore": "Restaurar cargos",
+        "starboard": "Starboard",
+        "slowmode": "Modo lento adaptativo",
+        "interserver": "Interservidor",
+        "transcription": "Transcrição de voz",
+        "customization": "Personalização do bot",
+        "altguard": "AltGuard",
+        "logs": "Registros do servidor",
+        "tickets": "Tickets",
+        "bump": "Lembrete de bump",
+        "applications": "Solicitações de entrada",
+        "social": "Notificações sociais"
+      }
+    },
+    "logs": {
+      "title": "Nada passa despercebido",
+      "text": "Os registros do servidor publicam uma entrada clara segundos depois de qualquer coisa: uma mensagem editada, um cargo novo, um banimento, uma permissão alterada.",
+      "label": "eventos monitorados, nenhum filtrado no chute"
+    },
+    "tickets": {
+      "title": "Um suporte de verdade",
+      "text": "Os membros abrem um ticket privado com um botão ou um menu. Você decide para onde vai cada pedido, quais cargos o veem e quem assume.",
+      "panel": "Precisa de ajuda?",
+      "report": "Denunciar um membro",
+      "partnership": "Parceria",
+      "other": "Outra pergunta"
+    },
+    "utilities": {
+      "title": "Ferramentas úteis, em todo lugar",
+      "text": "Traduza, crie lembretes, corrija ou resuma textos, role dados. A maioria dos comandos funciona em qualquer lugar, até na sua DM.",
+      "label": "Alguns comandos do Moddy",
+      "cta": "Todos os comandos",
+      "commands": ["traduzir", "lembrete-adicionar", "corrigir", "reformular", "resumir", "dado", "usuário", "avatar", "banner", "emoji", "ping"]
+    },
+    "altguard": {
+      "title": "Contas alternativas ficam de fora",
+      "text": "O AltGuard verifica os novos membros na entrada e age contra contas alternativas suspeitas, para que um banimento seja mesmo para sempre.",
+      "cta": "Sobre o AltGuard",
+      "member": "novo membro",
+      "passed": "Verificação aprovada",
+      "suspected": "Possível conta alternativa de um membro banido",
+      "verified": "Verificado",
+      "blocked": "Bloqueado"
+    },
+    "dashboard": {
+      "title": "Configure pelo navegador",
+      "text": "Ative módulos, revise casos e personalize o bot pelo painel web, sem comando para decorar.",
+      "cta": "Abrir o painel",
+      "asset": "Captura do painel"
+    },
+    "max": {
+      "title": "Vá além com o Moddy Max",
+      "text": "Moderação, AutoMod IA e mensagens de boas-vindas são gratuitos em todos os servidores. O Moddy Max adiciona alguns extras nos servidores que mais importam para você.",
+      "servers": { "title": "5 servidores premium", "detail": "Escolha-os pelo painel e troque quando quiser." },
+      "customization": { "title": "Personalização completa", "detail": "Apelido, avatar, banner e bio com a cara da sua comunidade." },
+      "notifications": { "title": "Notificações mais rápidas", "detail": "Verificações mais frequentes e até 5 contas por plataforma." },
+      "cta": "Conhecer o Moddy Max"
+    },
+    "final": {
+      "title": "Pronto para conhecer o Moddy?",
+      "text": "Adicione-o ao seu servidor em poucos cliques e ative seu primeiro módulo.",
+      "add": "Adicionar ao Discord",
+      "support": "Entrar no servidor de suporte"
+    }
+  }
+}

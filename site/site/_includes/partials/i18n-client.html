@@ -1,0 +1,63 @@
+{#-
+  Client-side translation for the few pages that exist once for every
+  language (the 404 page is served by Vercel for any unknown path, so it
+  cannot have a copy per locale).
+
+  The page is rendered in English with `data-i18n="key"` on each element
+  (`data-i18n-html` when the string contains markup, `data-i18n-aria-label`
+  for the aria-label). This script picks the language (the one chosen in the
+  footer, else the browser's) and swaps the strings in. Include it after the
+  translated elements.
+-#}
+<script>
+  (function () {
+    var locales = {{ locales | dump | safe }};
+    var strings = {{ ['topbar', 'popup', 'notFound'] | i18nClient | dump | safe }};
+    var code = null;
+
+    try {
+      code = localStorage.getItem('moddy-locale');
+    } catch (e) {}
+
+    if (!strings[code]) {
+      code = 'en';
+      var languages = navigator.languages || [navigator.language || 'en'];
+      outer: for (var i = 0; i < languages.length; i++) {
+        var lang = String(languages[i]).toLowerCase();
+        for (var j = 0; j < locales.length; j++) {
+          var candidate = locales[j].code.toLowerCase();
+          if (lang === candidate || lang.split('-')[0] === candidate.split('-')[0]) {
+            code = locales[j].code;
+            break outer;
+          }
+        }
+      }
+    }
+
+    var dict = strings[code];
+    var locale = locales.filter(function (l) { return l.code === code; })[0];
+    document.documentElement.lang = locale.lang;
+
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      el.textContent = dict[el.dataset.i18n];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+      el.innerHTML = dict[el.dataset.i18nHtml];
+    });
+    document.querySelectorAll('[data-i18n-aria-label]').forEach(function (el) {
+      el.setAttribute('aria-label', dict[el.dataset.i18nAriaLabel]);
+    });
+
+    var labels = {};
+    Object.keys(dict).forEach(function (key) {
+      if (key.indexOf('topbar.') === 0) labels[key.slice(7)] = dict[key];
+    });
+    document.querySelectorAll('top-app-bar').forEach(function (bar) {
+      bar.setAttribute('labels', JSON.stringify(labels));
+      bar.setAttribute('home-href', locale.prefix + '/');
+    });
+    document.querySelectorAll('[data-i18n-home]').forEach(function (el) {
+      el.setAttribute('href', locale.prefix + '/');
+    });
+  })();
+</script>

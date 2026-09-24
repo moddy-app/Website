@@ -13,7 +13,7 @@ import '@material/web/menu/menu.js';
 import '@material/web/menu/menu-item.js';
 
 import {css, html, LitElement} from 'lit';
-import {customElement, query, state} from 'lit/decorators.js';
+import {customElement, property, query, state} from 'lit/decorators.js';
 
 import {SignalElement} from '../signals/signal-element.js';
 import {moddyLogo} from '../svg/moddy-logo.js';
@@ -22,6 +22,31 @@ import {getMe, logout, getAvatarUrl, type User} from '../utils/auth.js';
 /**
  * Top app bar of the catalog.
  */
+/**
+ * Text shown by the top app bar. The page passes the translated strings as a
+ * JSON `labels` attribute (see site/_data/i18n); English is the fallback.
+ */
+export interface TopAppBarLabels {
+  home: string;
+  skipToMain: string;
+  signIn: string;
+  userMenu: string;
+  /** `{username}` is replaced with the signed-in user's name. */
+  hello: string;
+  dashboard: string;
+  signOut: string;
+}
+
+const DEFAULT_LABELS: TopAppBarLabels = {
+  home: 'Home',
+  skipToMain: 'Skip to main content',
+  signIn: 'Sign In',
+  userMenu: 'User menu',
+  hello: 'Hello @{username}!',
+  dashboard: 'Dashboard',
+  signOut: 'Sign out',
+};
+
 @customElement('top-app-bar')
 export class TopAppBar extends SignalElement(LitElement) {
   @state()
@@ -32,6 +57,15 @@ export class TopAppBar extends SignalElement(LitElement) {
 
   @state()
   private isLoading = true;
+
+  @property({type: Object}) labels: Partial<TopAppBarLabels> = {};
+
+  /** Where the logo leads: the home page in the current language. */
+  @property({attribute: 'home-href'}) homeHref = '/';
+
+  private get text(): TopAppBarLabels {
+    return {...DEFAULT_LABELS, ...this.labels};
+  }
 
   connectedCallback() {
     super.connectedCallback();
@@ -86,16 +120,16 @@ export class TopAppBar extends SignalElement(LitElement) {
         <div class="default-content">
           <section class="start">
             <a
-              href="/"
+              href=${this.homeHref}
               class="logo-link"
-              title="Home"
-              aria-label="Home">
+              title=${this.text.home}
+              aria-label=${this.text.home}>
               ${moddyLogo}
             </a>
           </section>
 
           <a id="skip-to-main" href="#main-content" tabindex="0">
-            Skip to main content
+            ${this.text.skipToMain}
           </a>
 
           <section class="end">
@@ -120,7 +154,7 @@ export class TopAppBar extends SignalElement(LitElement) {
         <div class="user-menu-container">
           <md-icon-button
             id="user-menu-button"
-            aria-label="User menu"
+            aria-label=${this.text.userMenu}
             title="${this.userInfo.username}"
             @click=${this.toggleUserMenu}>
             <img
@@ -140,16 +174,18 @@ export class TopAppBar extends SignalElement(LitElement) {
                   src="${getAvatarUrl(this.userInfo.user_id, this.userInfo.avatar)}"
                   alt="${this.userInfo.username}"
                   class="user-menu-avatar" />
-                <div class="user-menu-greeting">Hello @${this.userInfo.username}!</div>
+                <div class="user-menu-greeting">
+                  ${this.text.hello.replace('{username}', this.userInfo.username)}
+                </div>
               </div>
               <div class="user-menu-actions">
                 <md-filled-button @click=${this.handleDashboard}>
                   <md-icon slot="icon" class="filled">dashboard</md-icon>
-                  Dashboard
+                  ${this.text.dashboard}
                 </md-filled-button>
                 <md-filled-tonal-button @click=${this.handleSignOut}>
                   <md-icon slot="icon">logout</md-icon>
-                  Sign out
+                  ${this.text.signOut}
                 </md-filled-tonal-button>
               </div>
             </div>
@@ -160,7 +196,7 @@ export class TopAppBar extends SignalElement(LitElement) {
 
     return html`
       <md-filled-tonal-button @click=${this.onSignInClick}>
-        Sign In
+        ${this.text.signIn}
       </md-filled-tonal-button>
     `;
   }

@@ -1,0 +1,7 @@
+[
+  {"code": "en", "lang": "en", "prefix": "", "label": "English", "docs": ""},
+  {"code": "fr", "lang": "fr", "prefix": "/fr", "label": "Français", "docs": "/fr"},
+  {"code": "es", "lang": "es", "prefix": "/es", "label": "Español", "docs": "/es"},
+  {"code": "pt-BR", "lang": "pt-BR", "prefix": "/pt-br", "label": "Português (Brasil)", "docs": ""},
+  {"code": "de", "lang": "de", "prefix": "/de", "label": "Deutsch", "docs": ""}
+]

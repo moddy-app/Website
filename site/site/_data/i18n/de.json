@@ -1,0 +1,178 @@
+{
+  "topbar": {
+    "home": "Startseite",
+    "skipToMain": "Zum Hauptinhalt springen",
+    "signIn": "Anmelden",
+    "userMenu": "Benutzermenü",
+    "hello": "Hallo @{username}!",
+    "dashboard": "Dashboard",
+    "signOut": "Abmelden"
+  },
+  "popup": {
+    "title": "In Entwicklung",
+    "body": "Moddy befindet sich in aktiver Entwicklung und wird voraussichtlich nicht vor <strong>Juni 2026</strong> fertig sein. Bleib dran!",
+    "join": "Support-Server beitreten",
+    "close": "Fenster schließen"
+  },
+  "footer": {
+    "navLabel": "Fußzeile",
+    "product": "Produkt",
+    "addToDiscord": "Zu Discord hinzufügen",
+    "dashboard": "Dashboard",
+    "moddyMax": "Moddy Max",
+    "status": "Status",
+    "resources": "Ressourcen",
+    "documentation": "Dokumentation",
+    "commands": "Befehle",
+    "changelog": "Changelog",
+    "supportServer": "Support-Server",
+    "legal": "Rechtliches",
+    "terms": "Nutzungsbedingungen",
+    "privacy": "Datenschutzerklärung",
+    "license": "Lizenz",
+    "logoLabel": "Moddy-Startseite",
+    "github": "Moddy auf GitHub",
+    "language": "Sprache"
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "description": "Die gesuchte Seite existiert nicht.",
+    "home": "Zur Startseite"
+  },
+  "subscriptions": {
+    "pageTitle": "Abonnement",
+    "title": "Wähle deinen Plan",
+    "subtitle": "Schalte Premium-Funktionen frei und bring deinen Discord-Server aufs nächste Level",
+    "monthly": "Monatlich",
+    "yearly": "Jährlich",
+    "save": "58 % sparen",
+    "perYear": "pro Jahr",
+    "perMonth": "pro Monat",
+    "features": {
+      "servers": "Premium-Funktionen auf bis zu 5 Servern",
+      "options": "Premium-Optionen direkt in der Moddy-App",
+      "ai": "Höhere Nutzungslimits für die KI-Tools",
+      "earlyAccess": "Frühzugang zu ausgewählten neuen Funktionen",
+      "badge": "Ein Premium-Abzeichen auf Discord",
+      "role": "Eine Premium-Rolle auf dem Discord-Server"
+    },
+    "subscribe": "Jetzt abonnieren"
+  },
+  "home": {
+    "pageTitle": "Startseite",
+    "hero": {
+      "title": "Moddy, der einzige Bot, den du brauchst.",
+      "text": "KI-gestützte Moderation, Social-Benachrichtigungen, Willkommensnachrichten und praktische Tools für deinen Discord-Server, alles in einem Bot.",
+      "add": "Zu Discord hinzufügen",
+      "dashboard": "Dashboard öffnen",
+      "feedLabel": "Beispiel dafür, was Moddy auf einem Server macht",
+      "feed": {
+        "spam": { "title": "Spam-Link entfernt", "sub": "AutoMod · #allgemein", "time": "gerade eben" },
+        "welcome": { "title": "Willkommen, Alex!", "sub": "Willkommensnachrichten · #willkommen", "time": "vor 2 Min." },
+        "live": { "title": "Jetzt live auf Twitch", "sub": "Social-Benachrichtigungen · #streams", "time": "vor 6 Min." },
+        "case": { "title": "Fall A7F2K9 eröffnet", "sub": "Moderation · Verwarnung", "time": "vor 9 Min." },
+        "bump": { "title": "Zeit zum Bumpen!", "sub": "Bump-Erinnerung · #bump", "time": "vor 12 Min." }
+      }
+    },
+    "automod": {
+      "title": "Moderation, die nie schläft",
+      "text": "AutoMod KI versteht den Kontext. Sie erkennt schädliche Nachrichten in Echtzeit und verwarnt, stummschaltet oder bannt, bevor Schaden entsteht, ganz ohne Regeln, die du von Hand feintunen musst.",
+      "cta": "Mehr über AutoMod",
+      "author": "unruhestifter · heute um 21:04",
+      "message": "Gratis Nitro für alle, klickt sofort auf diesen Link!!",
+      "verdict": "Nachricht entfernt · Verwarnung erteilt",
+      "detail": "Betrugslink von AutoMod KI erkannt, Fall A7F2K9 eröffnet"
+    },
+    "cases": {
+      "title": "Jede Sanktion, lückenlos dokumentiert",
+      "text": "Jede Verwarnung, Stummschaltung oder Sperre wird zu einem Fall mit eigenem Referenzcode, vollständigem Verlauf und integriertem Einspruch.",
+      "warn": "Verwarnung · Spam-Links",
+      "mute": "Stummschaltung · 1 Stunde",
+      "ban": "Bann · Raid",
+      "active": "Aktiv",
+      "expired": "Abgelaufen",
+      "appeal": "Einspruch"
+    },
+    "social": {
+      "title": "Deine Creator, auf deinem Server",
+      "text": "Poste ein Update, sobald ein YouTube-Kanal ein Video hochlädt, ein Twitch-Streamer live geht, ein Bluesky-Konto postet oder ein RSS-Feed einen Artikel veröffentlicht.",
+      "newUpload": "Neues Video",
+      "liveNow": "Jetzt live",
+      "newPost": "Neuer Post",
+      "newArticle": "Neuer Artikel"
+    },
+    "modules": {
+      "title": "Ein Bot, alle Module",
+      "text": "Aktiviere nur, was dein Server braucht, und richte jedes Modul mit wenigen Klicks ein. Von Willkommensnachrichten bis zu Tickets wächst Moddy mit deiner Community.",
+      "cta": "Module ansehen",
+      "label": "Einige Module von Moddy",
+      "names": {
+        "welcome": "Willkommensnachrichten",
+        "welcomeDm": "Willkommens-DM",
+        "autoRole": "Automatische Rolle",
+        "autoRestore": "Rollen wiederherstellen",
+        "starboard": "Starboard",
+        "slowmode": "Adaptiver Slowmode",
+        "interserver": "Inter-Server",
+        "transcription": "Sprachtranskription",
+        "customization": "Bot-Anpassung",
+        "altguard": "AltGuard",
+        "logs": "Server-Logs",
+        "tickets": "Tickets",
+        "bump": "Bump-Erinnerung",
+        "applications": "Beitrittsanfragen",
+        "social": "Social-Benachrichtigungen"
+      }
+    },
+    "logs": {
+      "title": "Dir entgeht nichts",
+      "text": "Server-Logs posten Sekunden nach jedem Ereignis einen klaren Eintrag: eine bearbeitete Nachricht, eine neue Rolle, ein Bann, eine geänderte Berechtigung.",
+      "label": "überwachte Ereignisse, keins nach Gefühl gefiltert"
+    },
+    "tickets": {
+      "title": "Ein echter Support",
+      "text": "Mitglieder öffnen per Button oder Dropdown ein privates Ticket. Du legst fest, wohin jede Anfrage geht, welche Rollen sie sehen und wer sie übernimmt.",
+      "panel": "Brauchst du Hilfe?",
+      "report": "Mitglied melden",
+      "partnership": "Partnerschaft",
+      "other": "Andere Frage"
+    },
+    "utilities": {
+      "title": "Praktische Tools, überall",
+      "text": "Übersetzen, Erinnerungen setzen, Texte korrigieren oder zusammenfassen, würfeln. Die meisten Befehle funktionieren überall, sogar in deinen DMs.",
+      "label": "Einige Befehle von Moddy",
+      "cta": "Alle Befehle",
+      "commands": ["übersetzen", "erinnerung-hinzufügen", "korrigieren", "umformulieren", "zusammenfassen", "würfeln", "benutzer", "avatar", "banner", "emoji", "ping"]
+    },
+    "altguard": {
+      "title": "Zweitaccounts bleiben draußen",
+      "text": "AltGuard prüft neue Mitglieder beim Beitritt und geht gegen verdächtige Zweitaccounts vor, damit ein Bann wirklich endgültig ist.",
+      "cta": "Über AltGuard",
+      "member": "neues Mitglied",
+      "passed": "Verifizierung bestanden",
+      "suspected": "Vermutlich Zweitaccount eines gebannten Mitglieds",
+      "verified": "Verifiziert",
+      "blocked": "Blockiert"
+    },
+    "dashboard": {
+      "title": "Konfiguration im Browser",
+      "text": "Aktiviere Module, prüfe Fälle und passe den Bot im Web-Dashboard an, ganz ohne Befehle, die du dir merken musst.",
+      "cta": "Dashboard öffnen",
+      "asset": "Screenshot des Dashboards"
+    },
+    "max": {
+      "title": "Mehr drin mit Moddy Max",
+      "text": "Moderation, AutoMod KI und Willkommensnachrichten sind auf jedem Server kostenlos. Moddy Max bringt ein paar Extras auf die Server, die dir am wichtigsten sind.",
+      "servers": { "title": "5 Premium-Server", "detail": "Wähle sie im Dashboard aus und wechsle jederzeit." },
+      "customization": { "title": "Volle Bot-Anpassung", "detail": "Nickname, Avatar, Banner und Bio passend zu deiner Community." },
+      "notifications": { "title": "Schnellere Benachrichtigungen", "detail": "Häufigere Abfragen und bis zu 5 Konten pro Plattform." },
+      "cta": "Moddy Max entdecken"
+    },
+    "final": {
+      "title": "Bereit für Moddy?",
+      "text": "Füge ihn mit wenigen Klicks zu deinem Server hinzu und aktiviere dein erstes Modul.",
+      "add": "Zu Discord hinzufügen",
+      "support": "Support-Server beitreten"
+    }
+  }
+}

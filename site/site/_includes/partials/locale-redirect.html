@@ -1,0 +1,40 @@
+<script>
+  // Sends the visitor to their language. A language picked in the footer is
+  // remembered ("moddy-locale") and always wins; otherwise, only the English
+  // pages redirect, based on the browser's languages. Crawlers report English
+  // and are never redirected.
+  (function () {
+    var locales = {{ locales | dump | safe }};
+    var current = {{ loc.code | dump | safe }};
+    var basePath = {{ basePath | dump | safe }};
+    var wanted = null;
+
+    try {
+      wanted = localStorage.getItem('moddy-locale');
+    } catch (e) {}
+
+    if (!wanted && current === 'en') {
+      var languages = navigator.languages || [navigator.language || 'en'];
+      for (var i = 0; i < languages.length && !wanted; i++) {
+        var lang = String(languages[i]).toLowerCase();
+        for (var j = 0; j < locales.length; j++) {
+          var code = locales[j].code.toLowerCase();
+          if (lang === code || lang.split('-')[0] === code.split('-')[0]) {
+            wanted = locales[j].code;
+            break;
+          }
+        }
+      }
+    }
+
+    if (!wanted || wanted === current) return;
+    for (var k = 0; k < locales.length; k++) {
+      if (locales[k].code === wanted) {
+        window.location.replace(
+          locales[k].prefix + basePath + window.location.search + window.location.hash
+        );
+        return;
+      }
+    }
+  })();
+</script>

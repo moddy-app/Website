@@ -1,11 +1,19 @@
 ---
 name: Home
-title: Home
-tags: navigation
-order: 1
+titleKey: home.pageTitle
 layout: default.html
 hasToc: false
+basePath: /
+pagination:
+  data: locales
+  size: 1
+  alias: locale
+permalink: "{{ locale.prefix }}/index.html"
 ---
+
+{#- Every string comes from site/_data/i18n/<locale>.json; this page is
+    rendered once per locale (see `pagination` above). -#}
+{% set c = locale.code %}
 
 {% inlinecss "home-page.css" %}
 
@@ -22,47 +30,36 @@ hasToc: false
               <path d="M122.754 150.675L75.2771 198.152V245.609H122.754L170.211 198.152H217.667V150.675L122.754 150.675Z" />
             </svg>
           </span>
-          <h1>Moddy, the only bot you need.</h1>
-          <p>
-            AI-powered moderation, social notifications, welcome messages and
-            everyday utilities for your Discord server, all in one bot.
-          </p>
+          <h1>{{ 'home.hero.title' | t(c) }}</h1>
+          <p>{{ 'home.hero.text' | t(c) }}</p>
           <div class="card-actions">
             <md-filled-button href="/install" target="_blank">
-              Add to Discord
+              {{ 'home.hero.add' | t(c) }}
             </md-filled-button>
             <md-outlined-button href="https://dashboard.moddy.app" target="_blank">
-              Open dashboard
+              {{ 'home.hero.dashboard' | t(c) }}
             </md-outlined-button>
           </div>
         </div>
         <div class="card-visual">
-          <ul class="feed" aria-label="Example of what Moddy does in a server">
-            <li>
-              <span class="shape small shape-square" aria-hidden="true"><span class="material-symbols-outlined">shield</span></span>
-              <span class="feed-text"><span class="feed-title">Spam link removed</span><span class="feed-sub">AutoMod · #general</span></span>
-              <span class="feed-time">just now</span>
-            </li>
-            <li>
-              <span class="shape small shape-hexagon tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">waving_hand</span></span>
-              <span class="feed-text"><span class="feed-title">Welcome, Alex!</span><span class="feed-sub">Welcome messages · #welcome</span></span>
-              <span class="feed-time">2 min ago</span>
-            </li>
-            <li>
-              <span class="shape small shape-pentagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">live_tv</span></span>
-              <span class="feed-text"><span class="feed-title">Now live on Twitch</span><span class="feed-sub">Social notifications · #streams</span></span>
-              <span class="feed-time">6 min ago</span>
-            </li>
-            <li>
-              <span class="shape small shape-octagon" aria-hidden="true"><span class="material-symbols-outlined">gavel</span></span>
-              <span class="feed-text"><span class="feed-title">Case A7F2K9 opened</span><span class="feed-sub">Moderation · Warn</span></span>
-              <span class="feed-time">9 min ago</span>
-            </li>
-            <li>
-              <span class="shape small shape-square tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">notifications_active</span></span>
-              <span class="feed-text"><span class="feed-title">Time to bump!</span><span class="feed-sub">Bump reminder · #bump</span></span>
-              <span class="feed-time">12 min ago</span>
-            </li>
+          <ul class="feed" aria-label="{{ 'home.hero.feedLabel' | t(c) }}">
+            {% set feed = [
+              ['spam', 'shape-square', '', 'shield'],
+              ['welcome', 'shape-hexagon', 'tone-tertiary', 'waving_hand'],
+              ['live', 'shape-pentagon', 'tone-secondary', 'live_tv'],
+              ['case', 'shape-octagon', '', 'gavel'],
+              ['bump', 'shape-square', 'tone-tertiary', 'notifications_active']
+            ] %}
+            {% for item in feed %}
+              <li>
+                <span class="shape small {{ item[1] }} {{ item[2] }}" aria-hidden="true"><span class="material-symbols-outlined">{{ item[3] }}</span></span>
+                <span class="feed-text">
+                  <span class="feed-title">{{ ('home.hero.feed.' + item[0] + '.title') | t(c) }}</span>
+                  <span class="feed-sub">{{ ('home.hero.feed.' + item[0] + '.sub') | t(c) }}</span>
+                </span>
+                <span class="feed-time">{{ ('home.hero.feed.' + item[0] + '.time') | t(c) }}</span>
+              </li>
+            {% endfor %}
           </ul>
         </div>
       </section>
@@ -71,15 +68,11 @@ hasToc: false
       <section class="card split reverse">
         <div class="card-text">
           <span class="shape shape-square tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">smart_toy</span></span>
-          <h2>Moderation that never sleeps</h2>
-          <p>
-            AutoMod AI reads the room. It spots harmful messages in real time
-            and warns, mutes or bans before the damage is done, with no rules
-            to fine-tune by hand.
-          </p>
+          <h2>{{ 'home.automod.title' | t(c) }}</h2>
+          <p>{{ 'home.automod.text' | t(c) }}</p>
           <div class="card-actions end">
-            <md-filled-button trailing-icon href="https://docs.moddy.app/moderation/automod" target="_blank">
-              Learn about AutoMod
+            <md-filled-button trailing-icon href="{{ '/moderation/automod' | docsUrl(c) }}" target="_blank">
+              {{ 'home.automod.cta' | t(c) }}
               <md-icon slot="icon">arrow_forward</md-icon>
             </md-filled-button>
           </div>
@@ -89,15 +82,15 @@ hasToc: false
             <div class="automod-message">
               <span class="automod-avatar"></span>
               <div>
-                <div class="automod-author">troublemaker · today at 21:04</div>
-                <div class="automod-content">Free nitro for everyone, click this link now!!</div>
+                <div class="automod-author">{{ 'home.automod.author' | t(c) }}</div>
+                <div class="automod-content">{{ 'home.automod.message' | t(c) }}</div>
               </div>
             </div>
             <div class="automod-verdict">
               <span class="material-symbols-outlined">shield</span>
               <div>
-                <strong>Message removed · Warn applied</strong>
-                <span class="detail">Scam link detected by AutoMod AI, case A7F2K9 opened</span>
+                <strong>{{ 'home.automod.verdict' | t(c) }}</strong>
+                <span class="detail">{{ 'home.automod.detail' | t(c) }}</span>
               </div>
             </div>
           </div>
@@ -107,27 +100,24 @@ hasToc: false
       <!-- Moderation cases -->
       <section class="card span-6">
         <span class="shape shape-pentagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">gavel</span></span>
-        <h2>Every sanction, on the record</h2>
-        <p>
-          Each warn, mute or ban becomes a case with its own reference code, a
-          full timeline and built-in appeals.
-        </p>
+        <h2>{{ 'home.cases.title' | t(c) }}</h2>
+        <p>{{ 'home.cases.text' | t(c) }}</p>
         <div class="card-visual">
           <div class="cases" aria-hidden="true">
             <div class="case">
               <span class="shape small shape-hexagon"><span class="material-symbols-outlined">warning</span></span>
-              <span class="case-body"><span class="case-ref">A7F2K9</span><span class="case-title">Warn · Spam links</span></span>
-              <span class="case-status open">Active</span>
+              <span class="case-body"><span class="case-ref">A7F2K9</span><span class="case-title">{{ 'home.cases.warn' | t(c) }}</span></span>
+              <span class="case-status open">{{ 'home.cases.active' | t(c) }}</span>
             </div>
             <div class="case">
               <span class="shape small shape-hexagon tone-tertiary"><span class="material-symbols-outlined">timer</span></span>
-              <span class="case-body"><span class="case-ref">Q3M8ZT</span><span class="case-title">Mute · 1 hour</span></span>
-              <span class="case-status">Expired</span>
+              <span class="case-body"><span class="case-ref">Q3M8ZT</span><span class="case-title">{{ 'home.cases.mute' | t(c) }}</span></span>
+              <span class="case-status">{{ 'home.cases.expired' | t(c) }}</span>
             </div>
             <div class="case">
               <span class="shape small shape-hexagon tone-secondary"><span class="material-symbols-outlined">block</span></span>
-              <span class="case-body"><span class="case-ref">L9D4RW</span><span class="case-title">Ban · Raid</span></span>
-              <span class="case-status">Appeal</span>
+              <span class="case-body"><span class="case-ref">L9D4RW</span><span class="case-title">{{ 'home.cases.ban' | t(c) }}</span></span>
+              <span class="case-status">{{ 'home.cases.appeal' | t(c) }}</span>
             </div>
           </div>
         </div>
@@ -136,17 +126,14 @@ hasToc: false
       <!-- Social notifications -->
       <section class="card span-6">
         <span class="shape shape-hexagon" aria-hidden="true"><span class="material-symbols-outlined">campaign</span></span>
-        <h2>Your creators, in your server</h2>
-        <p>
-          Post an update the moment a YouTube channel uploads, a Twitch
-          streamer goes live, a Bluesky account posts or an RSS feed publishes.
-        </p>
+        <h2>{{ 'home.social.title' | t(c) }}</h2>
+        <p>{{ 'home.social.text' | t(c) }}</p>
         <div class="card-visual">
           <div class="tiles" aria-hidden="true">
-            <div class="tile"><span class="tile-meta">New upload</span><span class="tile-name">YouTube</span></div>
-            <div class="tile"><span class="tile-meta">Live now</span><span class="tile-name">Twitch</span></div>
-            <div class="tile"><span class="tile-meta">New post</span><span class="tile-name">Bluesky</span></div>
-            <div class="tile"><span class="tile-meta">New article</span><span class="tile-name">RSS</span></div>
+            <div class="tile"><span class="tile-meta">{{ 'home.social.newUpload' | t(c) }}</span><span class="tile-name">YouTube</span></div>
+            <div class="tile"><span class="tile-meta">{{ 'home.social.liveNow' | t(c) }}</span><span class="tile-name">Twitch</span></div>
+            <div class="tile"><span class="tile-meta">{{ 'home.social.newPost' | t(c) }}</span><span class="tile-name">Bluesky</span></div>
+            <div class="tile"><span class="tile-meta">{{ 'home.social.newArticle' | t(c) }}</span><span class="tile-name">RSS</span></div>
           </div>
         </div>
       </section>
@@ -155,42 +142,29 @@ hasToc: false
       <section class="card split">
         <div class="card-text">
           <span class="shape shape-octagon tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">extension</span></span>
-          <h2>One bot, every module</h2>
-          <p>
-            Turn on only what your server needs, and configure each module in
-            a couple of clicks. From welcome messages to tickets, Moddy grows
-            with your community.
-          </p>
+          <h2>{{ 'home.modules.title' | t(c) }}</h2>
+          <p>{{ 'home.modules.text' | t(c) }}</p>
           <div class="card-actions">
-            <md-outlined-button trailing-icon href="https://docs.moddy.app/modules/overview" target="_blank">
-              Browse modules
+            <md-outlined-button trailing-icon href="{{ '/modules/overview' | docsUrl(c) }}" target="_blank">
+              {{ 'home.modules.cta' | t(c) }}
               <md-icon slot="icon">arrow_forward</md-icon>
             </md-outlined-button>
           </div>
         </div>
         <div class="card-visual">
-          <div class="chip-rows" aria-label="Some of Moddy's modules">
-            <div class="chip-row">
-              <span class="chip"><span class="material-symbols-outlined">waving_hand</span>Welcome messages</span>
-              <span class="chip"><span class="material-symbols-outlined">mail</span>Welcome DM</span>
-              <span class="chip"><span class="material-symbols-outlined">badge</span>Auto role</span>
-              <span class="chip"><span class="material-symbols-outlined">history</span>Auto-restore roles</span>
-              <span class="chip"><span class="material-symbols-outlined">star</span>Starboard</span>
-            </div>
-            <div class="chip-row">
-              <span class="chip"><span class="material-symbols-outlined">speed</span>Adaptive slowmode</span>
-              <span class="chip"><span class="material-symbols-outlined">hub</span>Inter-server</span>
-              <span class="chip"><span class="material-symbols-outlined">graphic_eq</span>Voice transcription</span>
-              <span class="chip"><span class="material-symbols-outlined">palette</span>Bot customization</span>
-              <span class="chip"><span class="material-symbols-outlined">verified_user</span>AltGuard</span>
-            </div>
-            <div class="chip-row">
-              <span class="chip"><span class="material-symbols-outlined">receipt_long</span>Server logs</span>
-              <span class="chip"><span class="material-symbols-outlined">confirmation_number</span>Tickets</span>
-              <span class="chip"><span class="material-symbols-outlined">notifications_active</span>Bump reminder</span>
-              <span class="chip"><span class="material-symbols-outlined">how_to_reg</span>Member applications</span>
-              <span class="chip"><span class="material-symbols-outlined">campaign</span>Social notifications</span>
-            </div>
+          {% set moduleRows = [
+            [['welcome', 'waving_hand'], ['welcomeDm', 'mail'], ['autoRole', 'badge'], ['autoRestore', 'history'], ['starboard', 'star']],
+            [['slowmode', 'speed'], ['interserver', 'hub'], ['transcription', 'graphic_eq'], ['customization', 'palette'], ['altguard', 'verified_user']],
+            [['logs', 'receipt_long'], ['tickets', 'confirmation_number'], ['bump', 'notifications_active'], ['applications', 'how_to_reg'], ['social', 'campaign']]
+          ] %}
+          <div class="chip-rows" aria-label="{{ 'home.modules.label' | t(c) }}">
+            {% for row in moduleRows %}
+              <div class="chip-row">
+                {% for module in row %}
+                  <span class="chip"><span class="material-symbols-outlined">{{ module[1] }}</span>{{ ('home.modules.names.' + module[0]) | t(c) }}</span>
+                {% endfor %}
+              </div>
+            {% endfor %}
           </div>
         </div>
       </section>
@@ -198,32 +172,26 @@ hasToc: false
       <!-- Server logs -->
       <section class="card span-5">
         <span class="shape shape-square tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">receipt_long</span></span>
-        <h2>Nothing slips by</h2>
-        <p>
-          Server logs post a clear entry seconds after anything happens: an
-          edited message, a new role, a ban, a permission change.
-        </p>
+        <h2>{{ 'home.logs.title' | t(c) }}</h2>
+        <p>{{ 'home.logs.text' | t(c) }}</p>
         <div class="card-visual">
           <div class="big-number">163</div>
-          <div class="big-number-label">events watched, none filtered by guesswork</div>
+          <div class="big-number-label">{{ 'home.logs.label' | t(c) }}</div>
         </div>
       </section>
 
       <!-- Tickets -->
       <section class="card span-7">
         <span class="shape shape-heptagon" aria-hidden="true"><span class="material-symbols-outlined">confirmation_number</span></span>
-        <h2>A real support desk</h2>
-        <p>
-          Members open a private ticket with a button or a dropdown. You decide
-          where each request goes, which roles can see it and who claims it.
-        </p>
+        <h2>{{ 'home.tickets.title' | t(c) }}</h2>
+        <p>{{ 'home.tickets.text' | t(c) }}</p>
         <div class="card-visual">
           <div class="panel ticket-panel" aria-hidden="true">
-            <strong>Need help?</strong>
+            <strong>{{ 'home.tickets.panel' | t(c) }}</strong>
             <div class="chip-row">
-              <span class="chip"><span class="material-symbols-outlined">flag</span>Report a member</span>
-              <span class="chip"><span class="material-symbols-outlined">handshake</span>Partnership</span>
-              <span class="chip"><span class="material-symbols-outlined">help</span>Other question</span>
+              <span class="chip"><span class="material-symbols-outlined">flag</span>{{ 'home.tickets.report' | t(c) }}</span>
+              <span class="chip"><span class="material-symbols-outlined">handshake</span>{{ 'home.tickets.partnership' | t(c) }}</span>
+              <span class="chip"><span class="material-symbols-outlined">help</span>{{ 'home.tickets.other' | t(c) }}</span>
             </div>
           </div>
         </div>
@@ -232,33 +200,28 @@ hasToc: false
       <!-- Utilities -->
       <section class="card span-6">
         <span class="shape shape-diamond tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">construction</span></span>
-        <h2>Handy tools, everywhere</h2>
-        <p>
-          Translate, set reminders, fix or summarize text, roll dice. Most
-          commands work anywhere, even in your DMs.
-        </p>
+        <h2>{{ 'home.utilities.title' | t(c) }}</h2>
+        <p>{{ 'home.utilities.text' | t(c) }}</p>
         <div class="card-visual">
-          <div class="chip-rows" aria-label="Some of Moddy's commands">
+          {#- Command names as Discord shows them in this language (from the
+              bot's locales/commands/<locale>.json). -#}
+          {% set commands = 'home.utilities.commands' | tObject(c) %}
+          <div class="chip-rows" aria-label="{{ 'home.utilities.label' | t(c) }}">
             <div class="chip-row">
-              <span class="chip command">/translate</span>
-              <span class="chip command">/reminder</span>
-              <span class="chip command">/fix</span>
-              <span class="chip command">/rephrase</span>
-              <span class="chip command">/summarize</span>
+              {% for command in commands.slice(0, 5) %}
+                <span class="chip command">/{{ command }}</span>
+              {% endfor %}
             </div>
             <div class="chip-row">
-              <span class="chip command">/roll</span>
-              <span class="chip command">/user</span>
-              <span class="chip command">/avatar</span>
-              <span class="chip command">/banner</span>
-              <span class="chip command">/emoji</span>
-              <span class="chip command">/ping</span>
+              {% for command in commands.slice(5) %}
+                <span class="chip command">/{{ command }}</span>
+              {% endfor %}
             </div>
           </div>
         </div>
         <div class="card-actions end">
-          <md-outlined-button trailing-icon href="https://docs.moddy.app/commands/overview" target="_blank">
-            All commands
+          <md-outlined-button trailing-icon href="{{ '/commands/overview' | docsUrl(c) }}" target="_blank">
+            {{ 'home.utilities.cta' | t(c) }}
             <md-icon slot="icon">arrow_forward</md-icon>
           </md-outlined-button>
         </div>
@@ -267,28 +230,25 @@ hasToc: false
       <!-- AltGuard -->
       <section class="card span-6">
         <span class="shape shape-pentagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">verified_user</span></span>
-        <h2>Alt accounts stay out</h2>
-        <p>
-          AltGuard checks new members as they join and acts on suspected
-          alternate accounts, so a ban really means gone for good.
-        </p>
+        <h2>{{ 'home.altguard.title' | t(c) }}</h2>
+        <p>{{ 'home.altguard.text' | t(c) }}</p>
         <div class="card-visual">
           <div class="cases" aria-hidden="true">
             <div class="case">
               <span class="shape small shape-square"><span class="material-symbols-outlined">check_circle</span></span>
-              <span class="case-body"><span class="case-ref">new member</span><span class="case-title">Verification passed</span></span>
-              <span class="case-status">Verified</span>
+              <span class="case-body"><span class="case-ref">{{ 'home.altguard.member' | t(c) }}</span><span class="case-title">{{ 'home.altguard.passed' | t(c) }}</span></span>
+              <span class="case-status">{{ 'home.altguard.verified' | t(c) }}</span>
             </div>
             <div class="case">
               <span class="shape small shape-square tone-tertiary"><span class="material-symbols-outlined">person_off</span></span>
-              <span class="case-body"><span class="case-ref">new member</span><span class="case-title">Suspected alt of a banned member</span></span>
-              <span class="case-status open">Blocked</span>
+              <span class="case-body"><span class="case-ref">{{ 'home.altguard.member' | t(c) }}</span><span class="case-title">{{ 'home.altguard.suspected' | t(c) }}</span></span>
+              <span class="case-status open">{{ 'home.altguard.blocked' | t(c) }}</span>
             </div>
           </div>
         </div>
         <div class="card-actions end">
-          <md-outlined-button trailing-icon href="https://docs.moddy.app/modules/altguard" target="_blank">
-            About AltGuard
+          <md-outlined-button trailing-icon href="{{ '/modules/altguard' | docsUrl(c) }}" target="_blank">
+            {{ 'home.altguard.cta' | t(c) }}
             <md-icon slot="icon">arrow_forward</md-icon>
           </md-outlined-button>
         </div>
@@ -298,52 +258,38 @@ hasToc: false
       <section class="card split reverse">
         <div class="card-text">
           <span class="shape shape-hexagon" aria-hidden="true"><span class="material-symbols-outlined">dashboard</span></span>
-          <h2>Configure from your browser</h2>
-          <p>
-            Enable modules, review cases and customize the bot from the web
-            dashboard, no command to remember.
-          </p>
+          <h2>{{ 'home.dashboard.title' | t(c) }}</h2>
+          <p>{{ 'home.dashboard.text' | t(c) }}</p>
           <div class="card-actions end">
             <md-filled-button trailing-icon href="https://dashboard.moddy.app" target="_blank">
-              Open dashboard
+              {{ 'home.dashboard.cta' | t(c) }}
               <md-icon slot="icon">arrow_forward</md-icon>
             </md-filled-button>
           </div>
         </div>
         <div class="card-visual">
           <!-- TODO: replace with a dashboard screenshot -->
-          <div class="asset-slot">Dashboard screenshot</div>
+          <div class="asset-slot">{{ 'home.dashboard.asset' | t(c) }}</div>
         </div>
       </section>
 
       <!-- Moddy Max -->
       <section class="card glow">
         <span class="shape shape-octagon tone-solid" aria-hidden="true"><span class="material-symbols-outlined">workspace_premium</span></span>
-        <h2>Go further with Moddy Max</h2>
-        <p>
-          Moderation, AutoMod AI and welcome messages are free on every server.
-          Moddy Max adds a few extras on the servers you care about most.
-        </p>
+        <h2>{{ 'home.max.title' | t(c) }}</h2>
+        <p>{{ 'home.max.text' | t(c) }}</p>
         <ul class="perks">
-          <li>
-            <span class="material-symbols-outlined">dns</span>
-            <strong>5 premium servers</strong>
-            <span class="detail">Pick them from your dashboard and switch at any time.</span>
-          </li>
-          <li>
-            <span class="material-symbols-outlined">palette</span>
-            <strong>Full bot customization</strong>
-            <span class="detail">Nickname, avatar, banner and bio that match your community.</span>
-          </li>
-          <li>
-            <span class="material-symbols-outlined">bolt</span>
-            <strong>Faster notifications</strong>
-            <span class="detail">Quicker polling and up to 5 accounts per platform.</span>
-          </li>
+          {% for perk in [['servers', 'dns'], ['customization', 'palette'], ['notifications', 'bolt']] %}
+            <li>
+              <span class="material-symbols-outlined">{{ perk[1] }}</span>
+              <strong>{{ ('home.max.' + perk[0] + '.title') | t(c) }}</strong>
+              <span class="detail">{{ ('home.max.' + perk[0] + '.detail') | t(c) }}</span>
+            </li>
+          {% endfor %}
         </ul>
         <div class="card-actions end">
-          <md-filled-button trailing-icon href="https://docs.moddy.app/premium/overview" target="_blank">
-            Discover Moddy Max
+          <md-filled-button trailing-icon href="{{ '/premium/overview' | docsUrl(c) }}" target="_blank">
+            {{ 'home.max.cta' | t(c) }}
             <md-icon slot="icon">arrow_forward</md-icon>
           </md-filled-button>
         </div>
@@ -352,14 +298,14 @@ hasToc: false
       <!-- Final call to action -->
       <section class="card cta">
         <span class="shape shape-hexagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">rocket_launch</span></span>
-        <h2>Ready to meet Moddy?</h2>
-        <p>Add it to your server in a few clicks and turn on your first module.</p>
+        <h2>{{ 'home.final.title' | t(c) }}</h2>
+        <p>{{ 'home.final.text' | t(c) }}</p>
         <div class="card-actions">
           <md-filled-button href="/install" target="_blank">
-            Add to Discord
+            {{ 'home.final.add' | t(c) }}
           </md-filled-button>
           <md-outlined-button href="/support" target="_blank">
-            Join the support server
+            {{ 'home.final.support' | t(c) }}
           </md-outlined-button>
         </div>
       </section>

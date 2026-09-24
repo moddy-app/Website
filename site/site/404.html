@@ -79,9 +79,9 @@ permalink: 404.html
   <lit-island on:visible import="/js/hydration-entrypoints/form-controls.js">
     <div class="error-container">
       <span class="error-code">404</span>
-      <h1 class="error-title">Page not found</h1>
-      <p class="error-desc">The page you&#39;re looking for doesn&#39;t exist.</p>
-      <md-filled-button href="/">Go home</md-filled-button>
+      <h1 class="error-title" data-i18n="notFound.title">{{ 'notFound.title' | t }}</h1>
+      <p class="error-desc" data-i18n="notFound.description">{{ 'notFound.description' | t }}</p>
+      <md-filled-button href="/" data-i18n-home><span data-i18n="notFound.home">{{ 'notFound.home' | t }}</span></md-filled-button>
     </div>
   </lit-island>
 </div>
