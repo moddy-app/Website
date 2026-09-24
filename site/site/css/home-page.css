@@ -347,6 +347,7 @@
 
 /* Example people: Memoji-style avatars (/images/avatars), each already on
    its own colored disc. */
+img.ticket-avatar,
 .avatar-3d {
   border-radius: 50%;
   object-fit: cover;
@@ -1481,20 +1482,7 @@
   color: var(--md-sys-color-on-surface-variant);
 }
 
-.ticket-avatar.bot {
-  background-color: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-}
 
-.ticket-avatar.bot svg {
-  width: 15px;
-  height: 15px;
-}
-
-.ticket-avatar.staff {
-  background-color: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
-}
 
 .ticket-body {
   display: flex;
