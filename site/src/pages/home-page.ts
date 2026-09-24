@@ -68,31 +68,44 @@ function countTo(el: HTMLElement, target: number) {
  * happened. Time labels stay in place so the top row always reads "just now".
  * ----------------------------------------------------------------------- */
 
-function rotateFeed() {
-  const feed = document.querySelector<HTMLElement>('.home .feed');
-  if (!feed) return;
-  const times = [...feed.querySelectorAll('.feed-time')].map(
-    (time) => time.textContent,
-  );
+/**
+ * Brings the last item of a list back on top every few seconds, as if it had
+ * just happened (live activity, log channel). Labels matching `fixed` stay
+ * in place, so the top row always reads "just now".
+ */
+function rotateList(selector: string, every: number, fixed?: string) {
+  const list = document.querySelector<HTMLElement>(selector);
+  if (!list) return;
+  const labels = fixed
+    ? [...list.querySelectorAll(fixed)].map((label) => label.textContent)
+    : [];
 
-  loopWhileVisible(feed, async () => {
-    await wait(3000);
-    const last = feed.lastElementChild as HTMLElement | null;
+  loopWhileVisible(list, async () => {
+    await wait(every);
+    const last = list.lastElementChild as HTMLElement | null;
     if (!last) return;
-    const rowHeight = last.getBoundingClientRect().height;
+    const gap = parseFloat(getComputedStyle(list).rowGap) || 0;
+    const shift = last.getBoundingClientRect().height + gap;
 
-    feed.classList.remove('sliding');
-    feed.style.transform = `translateY(-${rowHeight}px)`;
-    feed.prepend(last);
-    feed.querySelectorAll('.feed-time').forEach((time, index) => {
-      time.textContent = times[index];
-    });
+    list.classList.remove('sliding');
+    list.style.transform = `translateY(-${shift}px)`;
+    list.prepend(last);
+    if (fixed) {
+      list.querySelectorAll(fixed).forEach((label, index) => {
+        label.textContent = labels[index];
+      });
+    }
     last.classList.remove('entering');
-    void feed.offsetHeight; // apply the jump before the transition
+    void list.offsetHeight; // apply the jump before the transition
     last.classList.add('entering');
-    feed.classList.add('sliding');
-    feed.style.transform = '';
+    list.classList.add('sliding');
+    list.style.transform = '';
   });
+}
+
+function rotateFeed() {
+  rotateList('.home .feed', 3000, '.feed-time');
+  rotateList('.home .log-list', 2400);
 }
 
 /* -------------------------------------------------------------------------
@@ -359,6 +372,8 @@ function playBrocoli() {
     ];
     for (const [step, delay] of timeline) {
       show(step);
+      // Steps 5-6: the confirmation stands in for the message box.
+      chat.classList.toggle('confirming', step === 5 || step === 6);
       await wait(delay);
     }
 

@@ -34,7 +34,8 @@
     "github": "Moddy on GitHub",
     "language": "Language",
     "theme": "Change colors",
-    "made": "Made for Discord communities"
+    "made": "Made for Discord communities",
+    "madeBy": "Made by"
   },
   "notFound": {
     "title": "Page not found",
@@ -159,8 +160,23 @@
     "logs": {
       "title": "Nothing slips by",
       "text": "Server logs post a clear entry seconds after anything happens: an edited message, a new role, a ban, a permission change.",
-      "label": "events watched, none filtered by guesswork",
-      "cta": "About server logs"
+      "cta": "About server logs",
+      "demo": {
+        "channel": "server-logs",
+        "events": "163 events",
+        "edit": "Message edited",
+        "editWhere": "#general · alex",
+        "before": "see you tomorow",
+        "after": "see you tomorrow",
+        "role": "Role created",
+        "roleWhat": "@Event team",
+        "ban": "Member banned",
+        "banWhat": "troublemaker · by Sam",
+        "perms": "Permissions changed",
+        "permsWhat": "#announcements · Send messages denied",
+        "join": "Member joined",
+        "joinWhat": "alex · account 2 years old"
+      }
     },
     "tickets": {
       "title": "A real support desk",

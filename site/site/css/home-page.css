@@ -12,7 +12,10 @@
 
 .home {
   --home-card-radius: 32px;
+  /* THE spacing of a card: its padding, and the space between its blocks
+     (text, illustration, buttons). One value, so every margin matches. */
   --home-card-padding: 32px;
+  --space: var(--home-card-padding);
   /* Same value as the page margin (--page-gap in default.html). */
   --home-gap: var(--page-gap, 20px);
   --ease: cubic-bezier(0.2, 0, 0, 1);
@@ -80,10 +83,10 @@
   order: -1;
 }
 
-/* In a two-column card the text is centred against the illustration and
-   its buttons follow it, instead of sinking to the bottom. */
+/* In a two-column card the text starts at the top, like every other card,
+   and its buttons follow it one --space below. */
 .card.split .card-text {
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .card.split .card-actions {
@@ -97,10 +100,12 @@
   height: 100%;
 }
 
+/* Inside the text block: shape, then title, then text, always the same
+   small steps. */
 .card h1,
 .card h2,
 .card h3 {
-  margin: 20px 0 12px;
+  margin: 20px 0 10px;
   font-weight: 600;
   line-height: 1.15;
   -webkit-font-smoothing: antialiased;
@@ -127,7 +132,7 @@
 }
 
 .card p {
-  margin: 0 0 12px;
+  margin: 0;
   max-width: 560px;
   font-size: var(--catalog-body-l-font-size);
   line-height: 1.5;
@@ -143,7 +148,7 @@
   flex-wrap: wrap;
   gap: var(--catalog-spacing-m);
   margin-top: auto;
-  padding-top: 24px;
+  padding-top: var(--space);
 }
 
 .card-actions.end {
@@ -154,40 +159,71 @@
   min-width: 0;
 }
 
-/* In a stacked card the illustration takes the room left between the text
-   and the buttons, centred, so cards of one row end up without holes. */
+/* In a stacked card the illustration sits one --space under the text and
+   one --space above the buttons (or the card's edge), and grows to fill
+   the room left, so cards of one row end up equal without holes. */
 .card > .card-visual {
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 16px;
+  margin-top: var(--space);
+}
+
+.card > .card-visual > .panel,
+.card > .card-visual > .rows,
+.card > .card-visual > .tiles {
+  flex: 1;
+}
+
+.card > .card-visual > .panel {
   justify-content: center;
-  margin-top: 24px;
+}
+
+.card > .card-visual > .command-demo {
+  flex: 0 0 auto;
+}
+
+.card > .card-visual > .chip-rows {
+  flex: 1;
+  justify-content: center;
+}
+
+.rows > .row {
+  flex: 1;
+}
+
+.tiles {
+  grid-auto-rows: 1fr;
+}
+
+/* In a two-column card the visual is a column of the grid, not a block
+   under the text. */
+.card.split > .card-visual {
+  margin-top: 0;
 }
 
 .card-head {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 8px;
 }
 
 .card-head h3 {
   margin: 0;
 }
 
-/* The hero: the baseline and the calls to action. */
-.card.hero {
-  justify-content: center;
-  padding: 48px;
+/* The hero: the baseline at the top like every card, the calls to action
+   at the bottom. */
+.card.hero .card-actions {
+  margin-top: auto;
 }
 
 .card.hero p {
   font-size: 18px;
 }
 
-.card.hero .card-actions {
-  margin-top: 0;
-}
+
 
 /* ---------------------------------------------------------------------------
  * Icon shapes: a filled Material Symbol on a rounded polygon.
@@ -351,6 +387,30 @@
   font-variation-settings: 'FILL' 1;
 }
 
+/* Module chips open that module's page in the docs. */
+.chip-link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.chip-link:hover,
+.chip-link:focus-visible {
+  text-decoration: none;
+}
+
+.chip-link:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}
+
+.chip .chip-go {
+  width: 0;
+  margin-left: -8px;
+  overflow: hidden;
+  opacity: 0;
+  color: inherit;
+}
+
 .chip.command {
   padding-inline: 16px;
   font-family: 'Google Sans Mono', monospace;
@@ -416,7 +476,7 @@
   position: relative;
   flex: 1;
   min-height: 330px;
-  margin-top: 8px;
+  margin-top: 16px;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent);
   mask-image: linear-gradient(to bottom, #000 72%, transparent);
@@ -474,11 +534,10 @@
 
 .card.stat {
   gap: 4px;
-  padding: 24px;
 }
 
 .stat .shape {
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .stat-value {
@@ -523,7 +582,7 @@
   justify-content: space-between;
   flex-shrink: 0;
   box-sizing: border-box;
-  width: 260px;
+  width: var(--tile-width, 240px);
   height: 132px;
   padding: 16px 18px;
   border-radius: 28px;
@@ -679,9 +738,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 10px 12px;
-  border-radius: 16px;
-  background-color: var(--md-sys-color-surface-container-lowest);
+  padding: 2px 4px;
 }
 
 .chat-step {
@@ -718,16 +775,40 @@
   display: none;
 }
 
-/* The confirmation card Brocoli shows before sensitive changes. */
+/* The message box and the confirmation share one spot: the confirmation
+   replaces the box while Brocoli waits for an answer. */
+.chat-bottom {
+  display: grid;
+  align-items: end;
+}
+
+.chat-bottom > * {
+  grid-area: 1 / 1;
+}
+
 .chat-confirm {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 12px 14px;
-  border-radius: 16px;
-  border: 1px solid var(--md-sys-color-outline-variant);
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 12px;
+  padding: 10px 10px 10px 18px;
+  border-radius: 24px;
   background-color: var(--md-sys-color-surface-container-lowest);
   font-size: 14px;
+  font-weight: 600;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.chat.confirming .chat-confirm {
+  visibility: visible;
+  opacity: 1;
+}
+
+.chat.confirming .chat-input {
+  visibility: hidden;
+  opacity: 0;
 }
 
 .chat-confirm-actions {
@@ -926,11 +1007,18 @@
   font-weight: 600;
 }
 
+.tile-arrow {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 20px;
+  opacity: 0;
+}
+
 
 /* A command and Moddy's reply, like in Discord. */
 .command-demo {
   gap: 10px;
-  margin-top: 12px;
 }
 
 .command-call {
@@ -970,20 +1058,127 @@
 }
 
 /* ---------------------------------------------------------------------------
- * Server logs: one big number
+ * Server logs: a log channel receiving entries (home-page.ts)
  * ------------------------------------------------------------------------- */
 
-.big-number {
-  font-size: clamp(80px, 9vw, 120px);
-  font-weight: 600;
-  line-height: 1;
-  color: var(--md-sys-color-primary);
-  font-variant-numeric: tabular-nums;
+.log-demo {
+  gap: 12px;
 }
 
-.big-number-label {
-  font-size: var(--catalog-body-m-font-size);
+.log-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.log-head > .material-symbols-outlined {
+  font-size: 18px;
   color: var(--md-sys-color-on-surface-variant);
+}
+
+.log-channel {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.log-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  background-color: var(--md-sys-color-surface-container-lowest);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.log-window {
+  flex: 1;
+  min-height: 230px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
+  mask-image: linear-gradient(to bottom, #000 70%, transparent);
+}
+
+.log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* An entry: a colored edge and icon per kind of event. */
+.log-entry {
+  --log-color: var(--md-sys-color-primary);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-left: 3px solid var(--log-color);
+  border-radius: 4px 14px 14px 4px;
+  background-color: var(--md-sys-color-surface-container-lowest);
+}
+
+.log-entry > .material-symbols-outlined {
+  font-size: 18px;
+  color: var(--log-color);
+  font-variation-settings: 'FILL' 1;
+}
+
+.log-entry.tone-role { --log-color: var(--md-sys-color-tertiary); }
+.log-entry.tone-ban { --log-color: var(--md-sys-color-error); }
+.log-entry.tone-perms { --log-color: var(--md-sys-color-secondary); }
+.log-entry.tone-join { --log-color: var(--md-sys-color-tertiary); }
+
+.log-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  font-size: 13px;
+}
+
+.log-body strong {
+  font-size: 14px;
+}
+
+.log-meta {
+  color: var(--md-sys-color-on-surface-variant);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.log-diff {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin-top: 4px;
+}
+
+.log-diff del,
+.log-diff ins {
+  padding: 1px 6px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.log-diff del {
+  background-color: color-mix(in srgb, var(--md-sys-color-error-container) 60%, transparent);
+  color: var(--md-sys-color-on-error-container);
+  text-decoration: line-through;
+}
+
+.log-diff ins {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary-container) 30%, transparent);
+  color: var(--md-sys-color-on-surface);
 }
 
 /* ---------------------------------------------------------------------------
@@ -1485,7 +1680,6 @@
 .card.cta {
   align-items: center;
   text-align: center;
-  padding-block: 64px;
 }
 
 .card.cta p {
@@ -1494,7 +1688,6 @@
 
 .card.cta .card-actions {
   justify-content: center;
-  margin-top: 8px;
 }
 
 /* ---------------------------------------------------------------------------
@@ -1526,13 +1719,7 @@
     --home-card-padding: 20px;
   }
 
-  .card.hero {
-    padding: 28px 20px;
-  }
 
-  .card.stat {
-    padding: 18px;
-  }
 
   .card h2 {
     font-size: 24px;
@@ -1562,6 +1749,61 @@
 
 @media (prefers-reduced-motion: no-preference) {
   /* ---- Hover: only on things that react to the pointer ------------------ */
+
+  /* Module chips are links: the chip fills in, its icon turns and an arrow
+     slides out; the marquee stops (below) so they can be clicked. */
+  .chip-link,
+  .chip-link .material-symbols-outlined {
+    transition:
+      background-color 250ms var(--ease),
+      border-color 250ms var(--ease),
+      color 250ms var(--ease),
+      rotate 400ms var(--ease),
+      scale 300ms var(--ease),
+      width 300ms var(--ease),
+      margin 300ms var(--ease),
+      opacity 250ms var(--ease),
+      translate 300ms var(--ease);
+  }
+
+  .chip-link:hover,
+  .chip-link:focus-visible {
+    border-color: transparent;
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    translate: 0 -2px;
+  }
+
+  .chip-link:hover .material-symbols-outlined:first-child,
+  .chip-link:focus-visible .material-symbols-outlined:first-child {
+    color: var(--md-sys-color-on-primary);
+    rotate: -12deg;
+    scale: 1.15;
+  }
+
+  .chip-link:hover .chip-go,
+  .chip-link:focus-visible .chip-go {
+    width: 18px;
+    margin-left: 0;
+    opacity: 1;
+  }
+
+  /* Social tiles lift and show an arrow. */
+  .tile,
+  .tile-arrow {
+    transition:
+      transform 350ms var(--ease),
+      opacity 250ms var(--ease);
+  }
+
+  .tile:hover {
+    transform: translateY(-4px) rotate(-1.5deg);
+  }
+
+  .tile:hover .tile-arrow {
+    opacity: 1;
+    transform: translate(2px, -2px);
+  }
 
   /* The dashboard replica's rows (their switches can be flipped). */
   .mock-module {
@@ -1599,8 +1841,24 @@
     animation-duration: 200s;
   }
 
-  .chip-rows:hover .chip-row {
+  .chip-rows:hover .chip-row,
+  .chip-rows:focus-within .chip-row {
     animation-play-state: paused;
+  }
+
+  /* Log channel: home-page.ts slides the list down as an entry arrives. */
+  .log-list.sliding {
+    transition: transform 700ms var(--ease);
+  }
+
+  .log-entry.entering {
+    animation: log-in 900ms var(--ease);
+  }
+
+  @keyframes log-in {
+    0% { opacity: 0; scale: 0.96; }
+    35% { opacity: 1; background-color: color-mix(in srgb, var(--log-color) 18%, var(--md-sys-color-surface-container-lowest)); }
+    100% { scale: 1; }
   }
 
   @keyframes marquee {
@@ -1683,6 +1941,22 @@
 
   .fake-button {
     transition: scale 150ms var(--ease), background-color 200ms var(--ease);
+  }
+
+  .chat-confirm,
+  .chat-input {
+    transition:
+      opacity 300ms var(--ease),
+      visibility 300ms,
+      translate 350ms var(--ease);
+  }
+
+  .chat-confirm {
+    translate: 0 8px;
+  }
+
+  .chat.confirming .chat-confirm {
+    translate: 0 0;
   }
 
   .fake-button.pressed {

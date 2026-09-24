@@ -34,7 +34,8 @@
     "github": "Moddy no GitHub",
     "language": "Idioma",
     "theme": "Mudar as cores",
-    "made": "Feito para as comunidades do Discord"
+    "made": "Feito para as comunidades do Discord",
+    "madeBy": "Feito por"
   },
   "notFound": {
     "title": "Página não encontrada",
@@ -159,8 +160,23 @@
     "logs": {
       "title": "Nada passa despercebido",
       "text": "Os registros do servidor publicam uma entrada clara segundos depois de qualquer coisa: uma mensagem editada, um cargo novo, um banimento, uma permissão alterada.",
-      "label": "eventos monitorados, nenhum filtrado no chute",
-      "cta": "Sobre os registros"
+      "cta": "Sobre os registros",
+      "demo": {
+        "channel": "registros",
+        "events": "163 eventos",
+        "edit": "Mensagem editada",
+        "editWhere": "#geral · alex",
+        "before": "até amanha",
+        "after": "até amanhã",
+        "role": "Cargo criado",
+        "roleWhat": "@Equipe de eventos",
+        "ban": "Membro banido",
+        "banWhat": "encrenqueiro · por Sam",
+        "perms": "Permissões alteradas",
+        "permsWhat": "#anúncios · Enviar mensagens negado",
+        "join": "Membro entrou",
+        "joinWhat": "alex · conta de 2 anos"
+      }
     },
     "tickets": {
       "title": "Um suporte de verdade",

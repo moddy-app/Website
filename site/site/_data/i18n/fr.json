@@ -34,7 +34,8 @@
     "github": "Moddy sur GitHub",
     "language": "Langue",
     "theme": "Changer les couleurs",
-    "made": "Fait pour les communautés Discord"
+    "made": "Fait pour les communautés Discord",
+    "madeBy": "Fait par"
   },
   "notFound": {
     "title": "Page introuvable",
@@ -159,8 +160,23 @@
     "logs": {
       "title": "Rien ne vous échappe",
       "text": "Les logs du serveur publient une entrée claire quelques secondes après chaque événement : un message modifié, un nouveau rôle, un bannissement, une permission changée.",
-      "label": "événements surveillés, aucun filtré au hasard",
-      "cta": "À propos des logs"
+      "cta": "À propos des logs",
+      "demo": {
+        "channel": "logs-serveur",
+        "events": "163 événements",
+        "edit": "Message modifié",
+        "editWhere": "#général · alex",
+        "before": "à demain sans fautte",
+        "after": "à demain sans faute",
+        "role": "Rôle créé",
+        "roleWhat": "@Équipe events",
+        "ban": "Membre banni",
+        "banWhat": "fauteurdetrouble · par Sam",
+        "perms": "Permissions modifiées",
+        "permsWhat": "#annonces · Envoyer des messages refusé",
+        "join": "Membre arrivé",
+        "joinWhat": "alex · compte créé il y a 2 ans"
+      }
     },
     "tickets": {
       "title": "Un vrai support",

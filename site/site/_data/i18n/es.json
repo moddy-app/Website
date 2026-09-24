@@ -34,7 +34,8 @@
     "github": "Moddy en GitHub",
     "language": "Idioma",
     "theme": "Cambiar los colores",
-    "made": "Hecho para las comunidades de Discord"
+    "made": "Hecho para las comunidades de Discord",
+    "madeBy": "Hecho por"
   },
   "notFound": {
     "title": "Página no encontrada",
@@ -159,8 +160,23 @@
     "logs": {
       "title": "Nada se te escapa",
       "text": "Los registros del servidor publican una entrada clara segundos después de cualquier cambio: un mensaje editado, un rol nuevo, un baneo, un permiso modificado.",
-      "label": "eventos vigilados, ninguno filtrado al azar",
-      "cta": "Sobre los registros"
+      "cta": "Sobre los registros",
+      "demo": {
+        "channel": "registros",
+        "events": "163 eventos",
+        "edit": "Mensaje editado",
+        "editWhere": "#general · alex",
+        "before": "nos vemos manana",
+        "after": "nos vemos mañana",
+        "role": "Rol creado",
+        "roleWhat": "@Equipo de eventos",
+        "ban": "Miembro baneado",
+        "banWhat": "alborotador · por Sam",
+        "perms": "Permisos cambiados",
+        "permsWhat": "#anuncios · Enviar mensajes denegado",
+        "join": "Miembro nuevo",
+        "joinWhat": "alex · cuenta de hace 2 años"
+      }
     },
     "tickets": {
       "title": "Un soporte de verdad",

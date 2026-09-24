@@ -36,6 +36,14 @@ function initials(name) {
   );
 }
 
+/** A width that looks random but stays the same for a server between
+ *  builds (hash of its name), so the marquee has an uneven rhythm. */
+function tileWidth(name) {
+  let hash = 0;
+  for (const char of String(name)) hash = (hash * 31 + char.codePointAt(0)) >>> 0;
+  return 190 + (hash % 7) * 20; // 190 to 310 px
+}
+
 module.exports = async function () {
   const [stats, top] = await Promise.all([
     getJson('/public/stats'),
@@ -46,6 +54,7 @@ module.exports = async function () {
     name: String(guild.name),
     initials: initials(guild.name),
     members: Number(guild.member_count) || 0,
+    width: tileWidth(guild.name),
     // Only Discord's CDN, at a size fit for a 36px avatar.
     icon:
       typeof guild.icon_url === 'string' && guild.icon_url.startsWith(ICON_ORIGIN)

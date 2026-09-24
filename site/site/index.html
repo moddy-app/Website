@@ -101,7 +101,7 @@ permalink: "{{ locale.prefix }}/index.html"
                 <div class="guild-lane"><div class="chip-row">
                   {% for copy in [false, true] %}
                     {% for guild in part %}
-                      <span class="guild-tile tone-{{ loop.index0 % 4 }}"{% if copy %} aria-hidden="true"{% endif %}>
+                      <span class="guild-tile tone-{{ loop.index0 % 4 }}" style="--tile-width: {{ guild.width }}px"{% if copy %} aria-hidden="true"{% endif %}>
                         {% if guild.icon %}
                           <img class="guild-bg" src="{{ guild.icon }}" alt="" loading="lazy" crossorigin="anonymous" />
                         {% endif %}
@@ -158,13 +158,6 @@ permalink: "{{ locale.prefix }}/index.html"
                   {% endfor %}
                 </div>
               </div>
-              <div class="chat-confirm" data-at="5">
-                {{ 'home.ai.confirm' | t(c) }}
-                <div class="chat-confirm-actions">
-                  <span class="fake-button filled" data-press-at="6">{{ 'home.ai.apply' | t(c) }}</span>
-                  <span class="fake-button">{{ 'home.ai.cancel' | t(c) }}</span>
-                </div>
-              </div>
               <div class="chat-msg ai" data-at="7">
                 <div class="bubble">{{ 'home.ai.answer' | t(c) }}</div>
               </div>
@@ -173,9 +166,21 @@ permalink: "{{ locale.prefix }}/index.html"
                 {{ 'home.ai.applied' | t(c) }}
               </span>
             </div>
-            <div class="chat-input">
-              <span class="chat-input-text" data-placeholder="{{ 'home.ai.placeholder' | t(c) }}" data-prompt="{{ 'home.ai.prompt' | t(c) }}"></span>
-              <span class="chat-send"><span class="material-symbols-outlined">arrow_upward</span></span>
+            {#- The confirmation takes the place of the message box while
+                Brocoli waits for an answer (class "confirming", set by
+                home-page.ts). -#}
+            <div class="chat-bottom">
+              <div class="chat-input">
+                <span class="chat-input-text" data-placeholder="{{ 'home.ai.placeholder' | t(c) }}" data-prompt="{{ 'home.ai.prompt' | t(c) }}"></span>
+                <span class="chat-send"><span class="material-symbols-outlined">arrow_upward</span></span>
+              </div>
+              <div class="chat-confirm">
+                {{ 'home.ai.confirm' | t(c) }}
+                <div class="chat-confirm-actions">
+                  <span class="fake-button filled" data-press-at="6">{{ 'home.ai.apply' | t(c) }}</span>
+                  <span class="fake-button">{{ 'home.ai.cancel' | t(c) }}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -254,17 +259,18 @@ permalink: "{{ locale.prefix }}/index.html"
           </div>
         </div>
         <div class="card-visual">
+          {#- [name key, icon, docs.moddy.app/modules/<page>] -#}
           {% set moduleRows = [
-            [['welcome', 'waving_hand'], ['welcomeDm', 'mail'], ['autoRole', 'badge'], ['autoRestore', 'history'], ['starboard', 'star']],
-            [['slowmode', 'speed'], ['interserver', 'hub'], ['transcription', 'graphic_eq'], ['customization', 'palette'], ['altguard', 'verified_user']],
-            [['logs', 'receipt_long'], ['tickets', 'confirmation_number'], ['bump', 'notifications_active'], ['applications', 'how_to_reg'], ['social', 'campaign']]
+            [['welcome', 'waving_hand', 'welcome'], ['welcomeDm', 'mail', 'welcome-dm'], ['autoRole', 'badge', 'auto-role'], ['autoRestore', 'history', 'auto-restore-roles'], ['starboard', 'star', 'starboard']],
+            [['slowmode', 'speed', 'adaptive-slowmode'], ['interserver', 'hub', 'interserver'], ['transcription', 'graphic_eq', 'voice-transcription'], ['customization', 'palette', 'bot-customization'], ['altguard', 'verified_user', 'altguard']],
+            [['logs', 'receipt_long', 'logs'], ['tickets', 'confirmation_number', 'tickets'], ['bump', 'notifications_active', 'bump-reminder'], ['applications', 'how_to_reg', 'member-applications'], ['social', 'campaign', 'social-notifications']]
           ] %}
           <div class="chip-rows" aria-label="{{ 'home.modules.label' | t(c) }}">
             {% for row in moduleRows %}
               <div class="chip-row">
                 {% for copy in [false, true] %}
                   {% for module in row %}
-                    <span class="chip"{% if copy %} aria-hidden="true"{% endif %}><span class="material-symbols-outlined">{{ module[1] }}</span>{{ ('home.modules.names.' + module[0]) | t(c) }}</span>
+                    <a class="chip chip-link" href="{{ ('/modules/' + module[2]) | docsUrl(c) }}" target="_blank"{% if copy %} aria-hidden="true" tabindex="-1"{% endif %}><span class="material-symbols-outlined">{{ module[1] }}</span>{{ ('home.modules.names.' + module[0]) | t(c) }}<span class="material-symbols-outlined chip-go" aria-hidden="true">arrow_outward</span></a>
                   {% endfor %}
                 {% endfor %}
               </div>
@@ -284,6 +290,7 @@ permalink: "{{ locale.prefix }}/index.html"
               <div class="tile">
                 <span class="tile-meta {{ tile[2] }}">{{ ('home.social.' + tile[0]) | t(c) }}</span>
                 <span class="tile-name">{{ tile[1] }}</span>
+                <span class="material-symbols-outlined tile-arrow">north_east</span>
               </div>
             {% endfor %}
           </div>
@@ -415,8 +422,43 @@ permalink: "{{ locale.prefix }}/index.html"
         <h2>{{ 'home.logs.title' | t(c) }}</h2>
         <p>{{ 'home.logs.text' | t(c) }}</p>
         <div class="card-visual">
-          <div class="big-number" data-count-up="163">163</div>
-          <div class="big-number-label">{{ 'home.logs.label' | t(c) }}</div>
+          {#- A log channel receiving entries live (home-page.ts brings the
+              last entry back on top, like a new event). -#}
+          <div class="panel log-demo" aria-hidden="true">
+            <div class="log-head">
+              <span class="material-symbols-outlined">tag</span>
+              <span class="log-channel">{{ 'home.logs.demo.channel' | t(c) }}</span>
+              <span class="log-count"><span class="live-dot"></span>{{ 'home.logs.demo.events' | t(c) }}</span>
+            </div>
+            <div class="log-window">
+              <ul class="log-list">
+                <li class="log-entry tone-edit">
+                  <span class="material-symbols-outlined">edit</span>
+                  <span class="log-body">
+                    <strong>{{ 'home.logs.demo.edit' | t(c) }}</strong>
+                    <span class="log-meta">{{ 'home.logs.demo.editWhere' | t(c) }}</span>
+                    <span class="log-diff"><del>{{ 'home.logs.demo.before' | t(c) }}</del><ins>{{ 'home.logs.demo.after' | t(c) }}</ins></span>
+                  </span>
+                </li>
+                <li class="log-entry tone-role">
+                  <span class="material-symbols-outlined">shield_person</span>
+                  <span class="log-body"><strong>{{ 'home.logs.demo.role' | t(c) }}</strong><span class="log-meta">{{ 'home.logs.demo.roleWhat' | t(c) }}</span></span>
+                </li>
+                <li class="log-entry tone-ban">
+                  <span class="material-symbols-outlined">block</span>
+                  <span class="log-body"><strong>{{ 'home.logs.demo.ban' | t(c) }}</strong><span class="log-meta">{{ 'home.logs.demo.banWhat' | t(c) }}</span></span>
+                </li>
+                <li class="log-entry tone-perms">
+                  <span class="material-symbols-outlined">lock</span>
+                  <span class="log-body"><strong>{{ 'home.logs.demo.perms' | t(c) }}</strong><span class="log-meta">{{ 'home.logs.demo.permsWhat' | t(c) }}</span></span>
+                </li>
+                <li class="log-entry tone-join">
+                  <span class="material-symbols-outlined">person_add</span>
+                  <span class="log-body"><strong>{{ 'home.logs.demo.join' | t(c) }}</strong><span class="log-meta">{{ 'home.logs.demo.joinWhat' | t(c) }}</span></span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
         <div class="card-actions end">
           <md-outlined-button trailing-icon href="{{ '/modules/logs' | docsUrl(c) }}" target="_blank">
@@ -432,14 +474,14 @@ permalink: "{{ locale.prefix }}/index.html"
         <h2>{{ 'home.utilities.title' | t(c) }}</h2>
         <p>{{ 'home.utilities.text' | t(c) }}</p>
         {% set commands = 'home.utilities.commands' | tObject(c) %}
-        <div class="panel command-demo" aria-hidden="true">
-          <span class="command-call"><code>/{{ commands[0] }}</code><span class="option">{{ 'home.utilities.demo.option' | t(c) }}:</span>{{ 'home.utilities.demo.input' | t(c) }}</span>
-          <div class="command-reply">
-            <span class="from">{{ 'home.utilities.demo.languages' | t(c) }}</span>
-            {{ 'home.utilities.demo.output' | t(c) }}
-          </div>
-        </div>
         <div class="card-visual">
+          <div class="panel command-demo" aria-hidden="true">
+            <span class="command-call"><code>/{{ commands[0] }}</code><span class="option">{{ 'home.utilities.demo.option' | t(c) }}:</span>{{ 'home.utilities.demo.input' | t(c) }}</span>
+            <div class="command-reply">
+              <span class="from">{{ 'home.utilities.demo.languages' | t(c) }}</span>
+              {{ 'home.utilities.demo.output' | t(c) }}
+            </div>
+          </div>
           {#- Command names as Discord shows them in this language (from the
               bot's locales/commands/<locale>.json). Rows repeat their chips
               so they are wide enough to loop. -#}

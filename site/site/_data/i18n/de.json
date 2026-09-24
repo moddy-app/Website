@@ -34,7 +34,8 @@
     "github": "Moddy auf GitHub",
     "language": "Sprache",
     "theme": "Farben ändern",
-    "made": "Gemacht für Discord-Communities"
+    "made": "Gemacht für Discord-Communities",
+    "madeBy": "Gemacht von"
   },
   "notFound": {
     "title": "Seite nicht gefunden",
@@ -159,8 +160,23 @@
     "logs": {
       "title": "Dir entgeht nichts",
       "text": "Server-Logs posten Sekunden nach jedem Ereignis einen klaren Eintrag: eine bearbeitete Nachricht, eine neue Rolle, ein Bann, eine geänderte Berechtigung.",
-      "label": "überwachte Ereignisse, keins nach Gefühl gefiltert",
-      "cta": "Über Server-Logs"
+      "cta": "Über Server-Logs",
+      "demo": {
+        "channel": "server-logs",
+        "events": "163 Ereignisse",
+        "edit": "Nachricht bearbeitet",
+        "editWhere": "#allgemein · alex",
+        "before": "bis morgn",
+        "after": "bis morgen",
+        "role": "Rolle erstellt",
+        "roleWhat": "@Event-Team",
+        "ban": "Mitglied gebannt",
+        "banWhat": "unruhestifter · von Sam",
+        "perms": "Berechtigungen geändert",
+        "permsWhat": "#ankündigungen · Nachrichten senden verweigert",
+        "join": "Mitglied beigetreten",
+        "joinWhat": "alex · Konto 2 Jahre alt"
+      }
     },
     "tickets": {
       "title": "Ein echter Support",
