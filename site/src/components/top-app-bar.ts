@@ -12,13 +12,9 @@ import '@material/web/button/filled-tonal-button.js';
 import '@material/web/menu/menu.js';
 import '@material/web/menu/menu-item.js';
 
-import type {MdIconButton} from '@material/web/iconbutton/icon-button.js';
 import {css, html, LitElement} from 'lit';
 import {customElement, query, state} from 'lit/decorators.js';
-import {live} from 'lit/directives/live.js';
 
-import {drawerOpenSignal} from '../signals/drawer-open-state.js';
-import {inertContentSignal, inertSidebarSignal} from '../signals/inert.js';
 import {SignalElement} from '../signals/signal-element.js';
 import {moddyLogo} from '../svg/moddy-logo.js';
 import {getMe, logout, getAvatarUrl, type User} from '../utils/auth.js';
@@ -89,20 +85,6 @@ export class TopAppBar extends SignalElement(LitElement) {
       <header>
         <div class="default-content">
           <section class="start">
-            <md-icon-button
-              toggle
-              class="menu-button"
-              aria-label-selected="open navigation menu"
-              aria-label="close navigation menu"
-              aria-expanded=${drawerOpenSignal.value ? 'false' : 'true'}
-              title="${!drawerOpenSignal.value
-                ? 'Open'
-                : 'Close'} navigation menu"
-              .selected=${live(!drawerOpenSignal.value)}
-              @input=${this.onMenuIconToggle}>
-              <md-icon slot="selected">menu</md-icon>
-              <md-icon>menu_open</md-icon>
-            </md-icon-button>
             <a
               href="/"
               class="logo-link"
@@ -191,13 +173,6 @@ export class TopAppBar extends SignalElement(LitElement) {
     window.location.href = `/sign-in?url=${currentUrl}`;
   }
 
-  /**
-   * Toggles the sidebar's open state.
-   */
-  private onMenuIconToggle(e: InputEvent) {
-    drawerOpenSignal.value = !(e.target as MdIconButton).selected;
-  }
-
   static styles = css`
     :host,
     header {
@@ -260,10 +235,6 @@ export class TopAppBar extends SignalElement(LitElement) {
       height: 36px;
       width: auto;
       color: var(--md-sys-color-primary);
-    }
-
-    .start .menu-button {
-      display: none;
     }
 
     .start {
@@ -366,12 +337,6 @@ export class TopAppBar extends SignalElement(LitElement) {
     #skip-to-main:focus-visible {
       opacity: 1;
       pointer-events: auto;
-    }
-
-    @media (max-width: 1500px) {
-      .start .menu-button {
-        display: flex;
-      }
     }
   `;
 }

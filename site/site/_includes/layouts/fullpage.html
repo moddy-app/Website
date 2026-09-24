@@ -87,19 +87,6 @@
         </lit-island>
       </div>
 
-      <script>
-        // Hide the hamburger menu button and always show the logo
-        // since this layout has no nav-drawer.
-        customElements.whenDefined('top-app-bar').then(function() {
-          var topBar = document.querySelector('top-app-bar');
-          if (topBar && topBar.shadowRoot) {
-            var s = document.createElement('style');
-            s.textContent = '.menu-button { display: none !important; } .start .logo-link { display: flex !important; }';
-            topBar.shadowRoot.appendChild(s);
-          }
-        });
-      </script>
-
       <main class="fullpage-content" id="main-content" tabindex="0">
         {% block content %}{{ content | safe }}{% endblock %}
       </main>
