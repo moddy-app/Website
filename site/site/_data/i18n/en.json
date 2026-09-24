@@ -305,7 +305,11 @@
       "title": "5 premium servers",
       "text": "Pick the servers that get Moddy Max from your dashboard. Change your selection whenever you like.",
       "slot": "Premium server",
-      "free": "Free slot"
+      "free": "Free slot",
+      "demo": {
+        "title": "Premium servers",
+        "full": "All 5 slots in use · change them any time"
+      }
     },
     "custom": {
       "title": "Your own bot identity",
@@ -322,7 +326,15 @@
       "max": "Max",
       "realtime": "Realtime",
       "every": "every {time}",
-      "accounts": "Accounts per platform"
+      "accounts": "Accounts per platform",
+      "demo": {
+        "youtube": "New video",
+        "twitch": "Stream starts",
+        "rss": "New article",
+        "posted": "Posted",
+        "waiting": "Waiting for the next check",
+        "after": "after {time}"
+      }
     },
     "table": {
       "title": "Compare plans",

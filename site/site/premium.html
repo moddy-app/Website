@@ -87,15 +87,26 @@ permalink: "{{ locale.prefix }}/premium/index.html"
         <h2>{{ 'max.servers.title' | t(c) }}</h2>
         <p>{{ 'max.servers.text' | t(c) }}</p>
         <div class="card-visual">
-          <div class="slots" aria-hidden="true">
-            {% for slot in ['GC', 'AR', 'PX', 'MS', 'LF'] %}
-              <div class="slot" style="--i: {{ loop.index0 }}">
-                <span class="slot-icon">{{ slot }}</span>
-                <span class="material-symbols-outlined slot-check">workspace_premium</span>
-              </div>
-            {% endfor %}
+          {#- Played by premium-page.ts: the servers are switched on one by
+              one until the 5 slots are used, the sixth stays off. -#}
+          <div class="panel picker" data-demo="servers" aria-hidden="true">
+            <div class="picker-head">
+              <strong>{{ 'max.servers.demo.title' | t(c) }}</strong>
+              <span class="picker-count"><span data-count>5</span> / 5</span>
+            </div>
+            <div class="picker-bar">{% for i in range(5) %}<i></i>{% endfor %}</div>
+            <div class="picker-list">
+              {% for server in [['GC', 'Gaming Club'], ['AR', 'Art Room'], ['PL', 'Pixel Lab'], ['MS', 'Music Space'], ['SH', 'Study Hub'], ['LF', 'Late Friends']] %}
+                <div class="picker-row{% if loop.index <= 5 %} on{% endif %}">
+                  <span class="picker-icon tone-{{ loop.index0 % 3 }}">{{ server[0] }}</span>
+                  <span class="picker-name">{{ server[1] }}</span>
+                  <span class="material-symbols-outlined picker-crown">workspace_premium</span>
+                  <span class="switch" role="presentation" aria-checked="{{ 'true' if loop.index <= 5 else 'false' }}"></span>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="picker-full"><span class="material-symbols-outlined">check_circle</span>{{ 'max.servers.demo.full' | t(c) }}</div>
           </div>
-          <div class="slots-caption" aria-hidden="true"><span class="slot-dot"></span>{{ 'max.servers.slot' | t(c) }}</div>
         </div>
       </section>
 
@@ -131,21 +142,42 @@ permalink: "{{ locale.prefix }}/premium/index.html"
         <h2>{{ 'max.notif.title' | t(c) }}</h2>
         <p>{{ 'max.notif.text' | t(c) }}</p>
         <div class="card-visual">
-          {#- Each dot pings at the real polling rate, sped up 60x: one second
-              on screen is one minute of polling. -#}
-          <div class="speeds" aria-hidden="true">
-            <div class="speed-head"><span></span><span>{{ 'max.notif.free' | t(c) }}</span><span>{{ 'max.notif.max' | t(c) }}</span></div>
-            {% for p in [['YouTube', 'min5', 5, 'min1', 1], ['Twitch', 'min2', 2, 's30', 0.5], ['RSS', 'min10', 10, 'min2', 2]] %}
-              <div class="speed-row">
-                <span class="speed-name">{{ p[0] }}</span>
-                <span class="speed free"><span class="ping" style="--every: {{ p[2] }}s"></span>{{ 'max.notif.every' | t(c, { time: ('max.table.' + p[1]) | t(c) }) }}</span>
-                <span class="speed max"><span class="ping" style="--every: {{ p[4] }}s"></span>{{ 'max.notif.every' | t(c, { time: ('max.table.' + p[3]) | t(c) }) }}</span>
+          {#- Played by premium-page.ts: something is published, then each
+              plan waits for its next check before posting it. Real delays,
+              one minute on screen per second. -#}
+          {% set platforms = [
+            ['youtube', 'YouTube', 'smart_display', 'min5', 5, 'min1', 1],
+            ['twitch', 'Twitch', 'live_tv', 'min2', 2, 's30', 0.5],
+            ['rss', 'RSS', 'rss_feed', 'min10', 10, 'min2', 2]
+          ] %}
+          <div class="panel race" data-demo="race" aria-hidden="true">
+            {% for p in platforms %}
+              <div class="race-event{% if loop.first %} current{% endif %}" data-platform="{{ p[0] }}"
+                data-free="{{ p[4] }}" data-max="{{ p[6] }}">
+                <span class="material-symbols-outlined">{{ p[2] }}</span>
+                <strong>{{ p[1] }}</strong>
+                <span>{{ ('max.notif.demo.' + p[0]) | t(c) }}</span>
               </div>
             {% endfor %}
-            <div class="speed-row accounts">
-              <span class="speed-name">{{ 'max.notif.accounts' | t(c) }}</span>
-              <span class="speed free"><span class="dots"><i></i></span>1</span>
-              <span class="speed max"><span class="dots"><i></i><i></i><i></i><i></i><i></i></span>5</span>
+            {% for plan in ['max', 'free'] %}
+              <div class="race-lane {{ plan }}">
+                <div class="race-top">
+                  <span class="race-plan">{{ ('max.notif.' + plan) | t(c) }}</span>
+                  {% for p in platforms %}
+                    <span class="race-time{% if loop.first %} current{% endif %}" data-platform="{{ p[0] }}">{{ 'max.notif.demo.after' | t(c, { time: ('max.table.' + (p[5] if plan == 'max' else p[3])) | t(c) }) }}</span>
+                  {% endfor %}
+                </div>
+                <div class="race-track"><span class="race-fill"></span></div>
+                <div class="race-status">
+                  <span class="race-wait"><span class="material-symbols-outlined">schedule</span>{{ 'max.notif.demo.waiting' | t(c) }}</span>
+                  <span class="race-done"><span class="material-symbols-outlined">notifications_active</span>{{ 'max.notif.demo.posted' | t(c) }}</span>
+                </div>
+              </div>
+            {% endfor %}
+            <div class="race-accounts">
+              <span>{{ 'max.notif.accounts' | t(c) }}</span>
+              <span class="free"><span class="dots"><i></i></span>1</span>
+              <span class="max"><span class="dots"><i></i><i></i><i></i><i></i><i></i></span>5</span>
             </div>
           </div>
         </div>

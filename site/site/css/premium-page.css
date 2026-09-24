@@ -180,59 +180,138 @@
 }
 
 /* ---------------------------------------------------------------------------
- * 5 premium servers: slots that light up one by one
+ * 5 premium servers: switched on one by one (premium-page.ts)
  * ------------------------------------------------------------------------- */
 
-.slots {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 8px;
+.picker {
+  gap: 10px;
 }
 
-.slot {
-  position: relative;
-  display: grid;
-  place-items: center;
-  aspect-ratio: 1;
-  border-radius: 18px;
-  background-color: var(--md-sys-color-primary-container);
+.picker-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
 }
 
-.slot-icon {
+.picker-count {
   font-size: 13px;
   font-weight: 600;
+  color: var(--md-sys-color-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.picker-bar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+}
+
+.picker-bar i {
+  height: 6px;
+  border-radius: 3px;
+  background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.picker-bar i.on {
+  background-color: var(--md-sys-color-primary);
+}
+
+.picker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.picker-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 14px;
+  background-color: var(--md-sys-color-surface-container-lowest);
+  font-size: 14px;
+}
+
+.picker-icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  background-color: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
 }
 
-.slot-check {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  display: grid;
-  place-items: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  font-size: 14px;
-  background-color: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-  font-variation-settings: 'FILL' 1;
+.picker-icon.tone-1 {
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
 }
 
-.slots-caption {
+.picker-icon.tone-2 {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.picker-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.picker-crown {
+  font-size: 18px;
+  color: var(--md-sys-color-primary);
+  font-variation-settings: 'FILL' 1;
+  opacity: 0;
+  scale: 0.4;
+}
+
+.picker-row.on .picker-crown {
+  opacity: 1;
+  scale: 1;
+}
+
+.picker-row .switch {
+  cursor: default;
+}
+
+/* Once the 5 places are used, the servers left over are greyed out. */
+.picker.full .picker-row:not(.on),
+.picker:not(.playing) .picker-row:not(.on) {
+  opacity: 0.45;
+}
+
+.picker-full {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 14px;
-  font-size: 13px;
+  gap: 6px;
+  font-size: 12px;
   color: var(--md-sys-color-on-surface-variant);
+  visibility: hidden;
+  opacity: 0;
 }
 
-.slot-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+.picker.full .picker-full,
+.picker:not(.playing) .picker-full {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Without the script (or with reduced motion): the end state. */
+.picker:not(.playing) .picker-bar i {
   background-color: var(--md-sys-color-primary);
+}
+
+.picker-full .material-symbols-outlined {
+  font-size: 16px;
+  color: var(--md-sys-color-primary);
+  font-variation-settings: 'FILL' 1;
 }
 
 /* ---------------------------------------------------------------------------
@@ -325,65 +404,147 @@
 }
 
 /* ---------------------------------------------------------------------------
- * Faster notifications: dots that ping at the real rate
+ * Faster notifications: a race between the two plans (premium-page.ts)
  * ------------------------------------------------------------------------- */
 
-.speeds {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+.race {
+  gap: 10px;
 }
 
-.speed-head,
-.speed-row {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr) minmax(0, 1fr);
+.race-event,
+.race-time {
+  display: none;
+}
+
+.race-event.current {
+  display: flex;
   align-items: center;
   gap: 8px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  font-size: 13px;
+  background-color: var(--md-sys-color-surface-container-lowest);
 }
 
-.speed-head {
-  padding-inline: 12px;
-  font-size: 12px;
-  font-weight: 600;
+.race-event .material-symbols-outlined {
+  font-size: 20px;
+  color: var(--md-sys-color-primary);
+  font-variation-settings: 'FILL' 1;
+}
+
+.race-event span:last-child {
   color: var(--md-sys-color-on-surface-variant);
 }
 
-.speed-row {
+.race-lane {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   padding: 10px 12px;
   border-radius: 14px;
-  background-color: var(--md-sys-color-surface-container);
+  background-color: var(--md-sys-color-surface-container-lowest);
+}
+
+.race-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
   font-size: 12px;
 }
 
-.speed-name {
+.race-plan {
   font-size: 13px;
   font-weight: 600;
 }
 
-.speed {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.race-lane.max .race-plan {
+  color: var(--md-sys-color-primary);
+}
+
+.race-time.current {
+  display: inline;
   color: var(--md-sys-color-on-surface-variant);
 }
 
-.speed.max {
-  color: var(--md-sys-color-on-surface);
-  font-weight: 600;
+.race-track {
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: var(--md-sys-color-surface-container-highest);
 }
 
-.ping {
-  position: relative;
-  flex-shrink: 0;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+.race-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
   background-color: var(--md-sys-color-outline);
+  transform-origin: left;
 }
 
-.speed.max .ping {
+.race-lane.max .race-fill {
   background-color: var(--md-sys-color-primary);
+}
+
+.race-status {
+  display: grid;
+  font-size: 12px;
+}
+
+.race-status > * {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.race-status .material-symbols-outlined {
+  font-size: 16px;
+}
+
+.race-wait {
+  color: var(--md-sys-color-on-surface-variant);
+  visibility: hidden;
+}
+
+.race-done {
+  font-weight: 600;
+  color: var(--md-sys-color-primary);
+}
+
+.race-done .material-symbols-outlined {
+  font-variation-settings: 'FILL' 1;
+}
+
+.race-lane.waiting .race-wait {
+  visibility: visible;
+}
+
+.race-lane.waiting .race-done {
+  visibility: hidden;
+}
+
+.race-accounts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 4px 0;
+  font-size: 12px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.race-accounts .free,
+.race-accounts .max {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.race-accounts .max {
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface);
 }
 
 .dots {
@@ -398,7 +559,7 @@
   background-color: var(--md-sys-color-outline);
 }
 
-.speed.max .dots i {
+.race-accounts .max .dots i {
   background-color: var(--md-sys-color-primary);
 }
 
@@ -522,10 +683,6 @@
     flex-direction: column;
     align-items: flex-start;
   }
-
-  .slots {
-    gap: 6px;
-  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -549,37 +706,6 @@
     translate: 0 -8px;
   }
 
-  /* Slots light up one after the other, then start over. */
-  .slot {
-    animation: slot-fill 8s var(--ease) infinite;
-    animation-delay: calc(var(--i) * 0.5s);
-  }
-
-  .slot-check {
-    animation: slot-check 8s var(--ease) infinite;
-    animation-delay: calc(var(--i) * 0.5s);
-  }
-
-  @keyframes slot-fill {
-    0%, 4% {
-      background-color: var(--md-sys-color-surface-container);
-      scale: 0.9;
-    }
-    12%, 86% {
-      background-color: var(--md-sys-color-primary-container);
-      scale: 1;
-    }
-    100% {
-      background-color: var(--md-sys-color-surface-container);
-      scale: 0.9;
-    }
-  }
-
-  @keyframes slot-check {
-    0%, 8% { opacity: 0; scale: 0.3; }
-    14%, 86% { opacity: 1; scale: 1; }
-    100% { opacity: 0; scale: 0.3; }
-  }
 
 
   /* The profile switches from Moddy to a custom identity and back. */
@@ -636,24 +762,39 @@
     98%, 100% { opacity: 0; translate: 0 6px; }
   }
 
-  /* Each dot pings every --every seconds: the real rate, 60x faster. */
-  .ping::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background-color: inherit;
-    animation: ping var(--every) cubic-bezier(0, 0, 0.2, 1) infinite;
+
+
+
+
+
+  /* Server picker and race. */
+  .picker-bar i,
+  .picker-row,
+  .picker-full,
+  .picker-crown,
+  .race-lane {
+    transition:
+      background-color 300ms var(--ease),
+      opacity 300ms var(--ease),
+      visibility 300ms,
+      scale 350ms var(--ease);
   }
 
-  @keyframes ping {
-    0% { opacity: 0.8; transform: scale(1); }
-    40%, 100% { opacity: 0; transform: scale(2.8); }
+  .race-event.current {
+    animation: race-in 450ms var(--ease);
   }
 
+  @keyframes race-in {
+    from { opacity: 0; translate: 0 6px; }
+  }
 
+  .race-lane.arrived {
+    animation: race-arrive 700ms var(--ease);
+  }
 
-
+  @keyframes race-arrive {
+    35% { background-color: var(--md-sys-color-secondary-container); }
+  }
 
   /* Table rows light up under the pointer, to follow a line across. */
   .compare tbody tr th,

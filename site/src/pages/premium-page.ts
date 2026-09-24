@@ -299,5 +299,110 @@ async function start() {
 
 start();
 
+/* -------------------------------------------------------------------------
+ * Illustrations (nothing moves with reduced motion: the static HTML already
+ * shows the end state)
+ * ----------------------------------------------------------------------- */
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/** Calls `step` in a loop while `el` is on screen and the tab is visible. */
+function loopWhileVisible(el: Element, step: () => Promise<void>) {
+  let visible = false;
+  let running = false;
+  const run = async () => {
+    if (running) return;
+    running = true;
+    while (visible && !document.hidden) await step();
+    running = false;
+  };
+  new IntersectionObserver((entries) => {
+    visible = entries.some((entry) => entry.isIntersecting);
+    run();
+  }).observe(el);
+  document.addEventListener('visibilitychange', run);
+}
+
+/** 5 premium servers: switched on one by one until the places run out. */
+function playServers() {
+  const root = document.querySelector<HTMLElement>('[data-demo="servers"]');
+  if (!root) return;
+  const rows = [...root.querySelectorAll<HTMLElement>('.picker-row')];
+  const bars = [...root.querySelectorAll<HTMLElement>('.picker-bar i')];
+  const count = root.querySelector<HTMLElement>('[data-count]')!;
+
+  const set = (on: number) => {
+    rows.forEach((row, index) => {
+      row.classList.toggle('on', index < on);
+      row.querySelector('.switch')?.setAttribute('aria-checked', String(index < on));
+    });
+    bars.forEach((bar, index) => bar.classList.toggle('on', index < on));
+    count.textContent = String(on);
+    root.classList.toggle('full', on >= 5);
+  };
+
+  root.classList.add('playing');
+  set(0);
+  loopWhileVisible(root, async () => {
+    for (let on = 1; on <= 5; on++) {
+      await wait(750);
+      set(on);
+    }
+    await wait(3600);
+    set(0);
+    await wait(600);
+  });
+}
+
+/**
+ * Faster notifications: something is published, then each plan fills its
+ * bar until its next check (real delays, a minute per second on screen)
+ * and posts the notification. Cycles through YouTube, Twitch and RSS.
+ */
+function playRace() {
+  const root = document.querySelector<HTMLElement>('[data-demo="race"]');
+  if (!root) return;
+  const events = [...root.querySelectorAll<HTMLElement>('.race-event')];
+  const lanes = {
+    max: root.querySelector<HTMLElement>('.race-lane.max')!,
+    free: root.querySelector<HTMLElement>('.race-lane.free')!,
+  };
+  let index = 0;
+
+  const run = async (lane: HTMLElement, seconds: number) => {
+    const fill = lane.querySelector<HTMLElement>('.race-fill')!;
+    lane.classList.remove('arrived');
+    lane.classList.add('waiting');
+    fill.style.transition = 'none';
+    fill.style.transform = 'scaleX(0)';
+    void fill.offsetWidth; // apply the reset before animating
+    fill.style.transition = `transform ${seconds}s linear`;
+    fill.style.transform = 'scaleX(1)';
+    await wait(seconds * 1000);
+    lane.classList.remove('waiting');
+    lane.classList.add('arrived');
+  };
+
+  root.classList.add('playing');
+  loopWhileVisible(root, async () => {
+    const event = events[index % events.length];
+    const platform = event.dataset.platform;
+    root.querySelectorAll<HTMLElement>('[data-platform]').forEach((el) => {
+      el.classList.toggle('current', el.dataset.platform === platform);
+    });
+    await Promise.all([
+      run(lanes.max, Number(event.dataset.max)),
+      run(lanes.free, Number(event.dataset.free)),
+    ]);
+    await wait(2200);
+    index++;
+  });
+}
+
+if (!reduceMotion) {
+  playServers();
+  playRace();
+}
+
 // A module: keeps these names out of the global scope.
 export {};

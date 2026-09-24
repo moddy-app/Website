@@ -305,7 +305,11 @@
       "title": "5 servidores premium",
       "text": "Escolha pelo painel os servidores que recebem o Moddy Max. Mude a seleção quando quiser.",
       "slot": "Servidor premium",
-      "free": "Vaga livre"
+      "free": "Vaga livre",
+      "demo": {
+        "title": "Servidores premium",
+        "full": "As 5 vagas estão em uso · troque quando quiser"
+      }
     },
     "custom": {
       "title": "Sua própria identidade de bot",
@@ -322,7 +326,15 @@
       "max": "Max",
       "realtime": "Tempo real",
       "every": "a cada {time}",
-      "accounts": "Contas por plataforma"
+      "accounts": "Contas por plataforma",
+      "demo": {
+        "youtube": "Vídeo novo",
+        "twitch": "Live começou",
+        "rss": "Artigo novo",
+        "posted": "Publicado",
+        "waiting": "Aguardando a próxima verificação",
+        "after": "após {time}"
+      }
     },
     "table": {
       "title": "Comparar planos",

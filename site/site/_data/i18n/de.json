@@ -305,7 +305,11 @@
       "title": "5 Premium-Server",
       "text": "Wähle im Dashboard die Server, die Moddy Max bekommen. Ändere die Auswahl, wann immer du willst.",
       "slot": "Premium-Server",
-      "free": "Freier Platz"
+      "free": "Freier Platz",
+      "demo": {
+        "title": "Premium-Server",
+        "full": "Alle 5 Plätze belegt · jederzeit änderbar"
+      }
     },
     "custom": {
       "title": "Deine eigene Bot-Identität",
@@ -322,7 +326,15 @@
       "max": "Max",
       "realtime": "Echtzeit",
       "every": "alle {time}",
-      "accounts": "Konten pro Plattform"
+      "accounts": "Konten pro Plattform",
+      "demo": {
+        "youtube": "Neues Video",
+        "twitch": "Stream startet",
+        "rss": "Neuer Artikel",
+        "posted": "Gepostet",
+        "waiting": "Wartet auf die nächste Abfrage",
+        "after": "nach {time}"
+      }
     },
     "table": {
       "title": "Pläne vergleichen",
