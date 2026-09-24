@@ -72,11 +72,23 @@
         z-index: 10;
       }
 
+      /* One spacing everywhere: around the page, between the cards
+         (home-page.css) and above the footer (site-footer.html). */
+      :root {
+        --page-gap: 20px;
+      }
+
+      @media (max-width: 600px) {
+        :root {
+          --page-gap: 12px;
+        }
+      }
+
       .page-content {
         flex: 1;
         box-sizing: border-box;
         width: 100%;
-        padding: var(--catalog-spacing-xl);
+        padding: var(--page-gap) var(--page-gap) 0;
       }
     </style>
     <!-- Allows sub-templates to insert into the head -->

@@ -122,7 +122,8 @@
       "ban": "Banimento · Raid",
       "active": "Ativo",
       "expired": "Expirado",
-      "appeal": "Recurso"
+      "appeal": "Recurso",
+      "cta": "Como funcionam os casos"
     },
     "social": {
       "title": "Seus criadores, no seu servidor",
@@ -158,7 +159,8 @@
     "logs": {
       "title": "Nada passa despercebido",
       "text": "Os registros do servidor publicam uma entrada clara segundos depois de qualquer coisa: uma mensagem editada, um cargo novo, um banimento, uma permissão alterada.",
-      "label": "eventos monitorados, nenhum filtrado no chute"
+      "label": "eventos monitorados, nenhum filtrado no chute",
+      "cta": "Sobre os registros"
     },
     "tickets": {
       "title": "Um suporte de verdade",

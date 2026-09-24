@@ -64,32 +64,6 @@ function countTo(el: HTMLElement, target: number) {
 }
 
 /* -------------------------------------------------------------------------
- * Cards rise in as they scroll into view. Cards already on screen are left
- * alone so nothing blinks on load.
- * ----------------------------------------------------------------------- */
-
-function revealCards() {
-  const cards = [...document.querySelectorAll<HTMLElement>('.home .card')];
-  const below = cards.filter(
-    (card) => card.getBoundingClientRect().top > window.innerHeight,
-  );
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.classList.remove('reveal');
-        observer.unobserve(entry.target);
-      }
-    },
-    {rootMargin: '0px 0px -8% 0px'},
-  );
-  for (const card of below) {
-    card.classList.add('reveal');
-    observer.observe(card);
-  }
-}
-
-/* -------------------------------------------------------------------------
  * Live activity: the last event comes back to the top, as if it had just
  * happened. Time labels stay in place so the top row always reads "just now".
  * ----------------------------------------------------------------------- */
@@ -193,6 +167,66 @@ function guildIconFallbacks() {
       if (img.complete && img.naturalWidth === 0) fallback(img);
       else img.addEventListener('error', () => fallback(img), {once: true});
     });
+}
+
+/* -------------------------------------------------------------------------
+ * Server tiles take the main color of the server's icon, like album art
+ * players do, with white or dark text depending on that color. Discord's
+ * CDN allows reading the pixels (CORS), the <img> asks for it.
+ * ----------------------------------------------------------------------- */
+
+const tileColors = new Map<string, Promise<[number, number, number] | null>>();
+
+/** A representative color: the average of the icon, weighted towards its
+ *  most saturated pixels so a colorful logo on white does not turn grey. */
+function mainColor(img: HTMLImageElement): [number, number, number] | null {
+  const size = 24;
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size;
+  const context = canvas.getContext('2d', {willReadFrequently: true});
+  if (!context) return null;
+  try {
+    context.drawImage(img, 0, 0, size, size);
+    const {data} = context.getImageData(0, 0, size, size);
+    let r = 0, g = 0, b = 0, total = 0;
+    for (let i = 0; i < data.length; i += 4) {
+      if (data[i + 3] < 128) continue;
+      const max = Math.max(data[i], data[i + 1], data[i + 2]);
+      const min = Math.min(data[i], data[i + 1], data[i + 2]);
+      const weight = 0.15 + (max === 0 ? 0 : (max - min) / max);
+      r += data[i] * weight;
+      g += data[i + 1] * weight;
+      b += data[i + 2] * weight;
+      total += weight;
+    }
+    if (!total) return null;
+    return [r / total, g / total, b / total];
+  } catch {
+    return null; // tainted canvas: keep the theme tint
+  }
+}
+
+function colorTiles() {
+  document.querySelectorAll<HTMLElement>('.guild-tile').forEach((tile) => {
+    const img = tile.querySelector<HTMLImageElement>('img.guild-bg');
+    if (!img) return;
+    const apply = async () => {
+      let color = tileColors.get(img.src);
+      if (!color) {
+        color = Promise.resolve(mainColor(img));
+        tileColors.set(img.src, color);
+      }
+      const rgb = await color;
+      if (!rgb) return;
+      // Deepen very light colors a little so the tile never looks washed out.
+      const [r, g, b] = rgb.map((v) => Math.round(v * 0.9));
+      const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+      tile.style.setProperty('--tile-bg', `rgb(${r}, ${g}, ${b})`);
+      tile.style.setProperty('--tile-fg', luminance > 0.6 ? '#1b1b1f' : '#ffffff');
+    };
+    if (img.complete && img.naturalWidth) apply();
+    else img.addEventListener('load', apply, {once: true});
+  });
 }
 
 /* -------------------------------------------------------------------------
@@ -328,11 +362,11 @@ function dashboardReplica() {
 }
 
 guildIconFallbacks();
+colorTiles();
 liveStats();
 dashboardReplica();
 
 if (!reduceMotion) {
-  revealCards();
   rotateFeed();
   countUpNumbers();
   playBrocoli();

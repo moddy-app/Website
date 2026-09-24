@@ -122,7 +122,8 @@
       "ban": "Bann · Raid",
       "active": "Aktiv",
       "expired": "Abgelaufen",
-      "appeal": "Einspruch"
+      "appeal": "Einspruch",
+      "cta": "So funktionieren Fälle"
     },
     "social": {
       "title": "Deine Creator, auf deinem Server",
@@ -158,7 +159,8 @@
     "logs": {
       "title": "Dir entgeht nichts",
       "text": "Server-Logs posten Sekunden nach jedem Ereignis einen klaren Eintrag: eine bearbeitete Nachricht, eine neue Rolle, ein Bann, eine geänderte Berechtigung.",
-      "label": "überwachte Ereignisse, keins nach Gefühl gefiltert"
+      "label": "überwachte Ereignisse, keins nach Gefühl gefiltert",
+      "cta": "Über Server-Logs"
     },
     "tickets": {
       "title": "Ein echter Support",

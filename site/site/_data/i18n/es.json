@@ -122,7 +122,8 @@
       "ban": "Baneo · Raid",
       "active": "Activo",
       "expired": "Expirado",
-      "appeal": "Apelación"
+      "appeal": "Apelación",
+      "cta": "Cómo funcionan los casos"
     },
     "social": {
       "title": "Tus creadores, en tu servidor",
@@ -158,7 +159,8 @@
     "logs": {
       "title": "Nada se te escapa",
       "text": "Los registros del servidor publican una entrada clara segundos después de cualquier cambio: un mensaje editado, un rol nuevo, un baneo, un permiso modificado.",
-      "label": "eventos vigilados, ninguno filtrado al azar"
+      "label": "eventos vigilados, ninguno filtrado al azar",
+      "cta": "Sobre los registros"
     },
     "tickets": {
       "title": "Un soporte de verdad",

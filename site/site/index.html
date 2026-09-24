@@ -98,16 +98,16 @@ permalink: "{{ locale.prefix }}/index.html"
               {% if part.length %}
                 {#- Each row holds its tiles twice so the marquee loops; the
                     copy is hidden from screen readers. -#}
-                <div class="chip-row">
+                <div class="guild-lane"><div class="chip-row">
                   {% for copy in [false, true] %}
                     {% for guild in part %}
                       <span class="guild-tile tone-{{ loop.index0 % 4 }}"{% if copy %} aria-hidden="true"{% endif %}>
                         {% if guild.icon %}
-                          <img class="guild-bg" src="{{ guild.icon }}" alt="" loading="lazy" />
+                          <img class="guild-bg" src="{{ guild.icon }}" alt="" loading="lazy" crossorigin="anonymous" />
                         {% endif %}
                         <span class="guild-top">
                           {% if guild.icon %}
-                            <img class="guild-icon" src="{{ guild.icon }}" alt="" width="22" height="22" loading="lazy" />
+                            <img class="guild-icon" src="{{ guild.icon }}" alt="" width="22" height="22" loading="lazy" crossorigin="anonymous" />
                           {% else %}
                             <span class="guild-icon" aria-hidden="true">{{ guild.initials }}</span>
                           {% endif %}
@@ -117,7 +117,7 @@ permalink: "{{ locale.prefix }}/index.html"
                       </span>
                     {% endfor %}
                   {% endfor %}
-                </div>
+                </div></div>
               {% endif %}
             {% endfor %}
           </div>
@@ -125,7 +125,7 @@ permalink: "{{ locale.prefix }}/index.html"
       </section>
 
       <!-- Brocoli, the AI assistant -->
-      <section class="card split reverse span-8">
+      <section class="card split reverse">
         <div class="card-text">
           <span class="shape shape-heptagon tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">auto_awesome</span></span>
           <h2>{{ 'home.ai.title' | t(c) }}</h2>
@@ -181,17 +181,8 @@ permalink: "{{ locale.prefix }}/index.html"
         </div>
       </section>
 
-      <!-- Server logs -->
-      <section class="card span-4">
-        <span class="shape shape-square tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">receipt_long</span></span>
-        <h2>{{ 'home.logs.title' | t(c) }}</h2>
-        <p>{{ 'home.logs.text' | t(c) }}</p>
-        <div class="big-number" data-count-up="163">163</div>
-        <div class="big-number-label">{{ 'home.logs.label' | t(c) }}</div>
-      </section>
-
       <!-- AutoMod AI -->
-      <section class="card span-5">
+      <section class="card span-6">
         <span class="shape shape-square tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">smart_toy</span></span>
         <h2>{{ 'home.automod.title' | t(c) }}</h2>
         <p>{{ 'home.automod.text' | t(c) }}</p>
@@ -222,7 +213,7 @@ permalink: "{{ locale.prefix }}/index.html"
       </section>
 
       <!-- Moderation cases -->
-      <section class="card span-7">
+      <section class="card span-6">
         <span class="shape shape-pentagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">gavel</span></span>
         <h2>{{ 'home.cases.title' | t(c) }}</h2>
         <p>{{ 'home.cases.text' | t(c) }}</p>
@@ -240,6 +231,12 @@ permalink: "{{ locale.prefix }}/index.html"
               </div>
             {% endfor %}
           </div>
+        </div>
+        <div class="card-actions end">
+          <md-filled-tonal-button trailing-icon href="{{ '/moderation/cases' | docsUrl(c) }}" target="_blank">
+            {{ 'home.cases.cta' | t(c) }}
+            <md-icon slot="icon">arrow_forward</md-icon>
+          </md-filled-tonal-button>
         </div>
       </section>
 
@@ -333,10 +330,18 @@ permalink: "{{ locale.prefix }}/index.html"
       </section>
 
       <!-- Dashboard: a small live replica, no screenshot -->
-      <section class="card span-8">
-        <span class="shape shape-hexagon" aria-hidden="true"><span class="material-symbols-outlined">dashboard</span></span>
-        <h2>{{ 'home.dashboard.title' | t(c) }}</h2>
-        <p>{{ 'home.dashboard.text' | t(c) }}</p>
+      <section class="card split">
+        <div class="card-text">
+          <span class="shape shape-hexagon" aria-hidden="true"><span class="material-symbols-outlined">dashboard</span></span>
+          <h2>{{ 'home.dashboard.title' | t(c) }}</h2>
+          <p>{{ 'home.dashboard.text' | t(c) }}</p>
+          <div class="card-actions">
+            <md-filled-button trailing-icon href="https://dashboard.moddy.app" target="_blank">
+              {{ 'home.dashboard.cta' | t(c) }}
+              <md-icon slot="icon">arrow_forward</md-icon>
+            </md-filled-button>
+          </div>
+        </div>
         <div class="card-visual">
           <div class="mock">
             <div class="mock-side" aria-hidden="true">
@@ -366,16 +371,27 @@ permalink: "{{ locale.prefix }}/index.html"
             <svg class="mock-pointer" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" stroke="var(--md-sys-color-surface-container-lowest)" stroke-width="1.5" stroke-linejoin="round" d="M4 2.5 19 13l-6.6 1.3 3.8 6.7-2.6 1.4-3.8-6.7L5 20.4z" /></svg>
           </div>
         </div>
+      </section>
+
+      <!-- Server logs -->
+      <section class="card span-5">
+        <span class="shape shape-square tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">receipt_long</span></span>
+        <h2>{{ 'home.logs.title' | t(c) }}</h2>
+        <p>{{ 'home.logs.text' | t(c) }}</p>
+        <div class="card-visual">
+          <div class="big-number" data-count-up="163">163</div>
+          <div class="big-number-label">{{ 'home.logs.label' | t(c) }}</div>
+        </div>
         <div class="card-actions end">
-          <md-filled-button trailing-icon href="https://dashboard.moddy.app" target="_blank">
-            {{ 'home.dashboard.cta' | t(c) }}
+          <md-outlined-button trailing-icon href="{{ '/modules/logs' | docsUrl(c) }}" target="_blank">
+            {{ 'home.logs.cta' | t(c) }}
             <md-icon slot="icon">arrow_forward</md-icon>
-          </md-filled-button>
+          </md-outlined-button>
         </div>
       </section>
 
       <!-- Utilities -->
-      <section class="card span-4">
+      <section class="card span-7">
         <span class="shape shape-diamond tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">construction</span></span>
         <h2>{{ 'home.utilities.title' | t(c) }}</h2>
         <p>{{ 'home.utilities.text' | t(c) }}</p>

@@ -13,11 +13,17 @@
 .home {
   --home-card-radius: 32px;
   --home-card-padding: 32px;
-  --home-gap: 20px;
+  /* Same value as the page margin (--page-gap in default.html). */
+  --home-gap: var(--page-gap, 20px);
   --ease: cubic-bezier(0.2, 0, 0, 1);
+  /* Soft tints of the theme colors for large colored areas (tiles): the
+     theme's containers are vivid, fine for a small shape, loud for a tile.
+     Mixed with the card color, so they work in dark mode too. */
+  --tint-primary: color-mix(in srgb, var(--md-sys-color-primary-container) 22%, var(--md-sys-color-surface-container-lowest));
+  --tint-tertiary: color-mix(in srgb, var(--md-sys-color-tertiary-container) 22%, var(--md-sys-color-surface-container-lowest));
+  --tint-secondary: color-mix(in srgb, var(--md-sys-color-secondary-container) 45%, var(--md-sys-color-surface-container-lowest));
   max-width: 1240px;
   margin: 0 auto;
-  padding-block: var(--catalog-spacing-m) var(--catalog-spacing-xl);
 }
 
 .bento {
@@ -58,6 +64,7 @@
 .span-3 { grid-column: span 3; }
 .span-4 { grid-column: span 4; }
 .span-5 { grid-column: span 5; }
+.span-6 { grid-column: span 6; }
 .span-7 { grid-column: span 7; }
 .span-8 { grid-column: span 8; }
 
@@ -71,6 +78,16 @@
 
 .card.split.reverse .card-visual {
   order: -1;
+}
+
+/* In a two-column card the text is centred against the illustration and
+   its buttons follow it, instead of sinking to the bottom. */
+.card.split .card-text {
+  justify-content: center;
+}
+
+.card.split .card-actions {
+  margin-top: 0;
 }
 
 .card-text {
@@ -137,7 +154,13 @@
   min-width: 0;
 }
 
+/* In a stacked card the illustration takes the room left between the text
+   and the buttons, centred, so cards of one row end up without holes. */
 .card > .card-visual {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin-top: 24px;
 }
 
@@ -160,6 +183,10 @@
 
 .card.hero p {
   font-size: 18px;
+}
+
+.card.hero .card-actions {
+  margin-top: 0;
 }
 
 /* ---------------------------------------------------------------------------
@@ -469,11 +496,18 @@
 
 /* Servers using Moddy: tiles tinted with the theme colors, the server's
    icon blurred behind. */
+/* Unlike the other marquees, no fade: each row runs in its own rounded
+   lane, and tiles are cut cleanly by its rounded ends. */
 .guild-rows {
   gap: 14px;
-  margin-inline: 0 calc(var(--home-card-padding) * -1);
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 90%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 6%, #000 90%, transparent);
+  margin-inline: 0;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.guild-lane {
+  border-radius: 28px;
+  overflow: hidden;
 }
 
 .guild-rows .chip-row {
@@ -481,48 +515,47 @@
 }
 
 .guild-tile {
-  --tile-bg: var(--md-sys-color-primary);
-  --tile-fg: var(--md-sys-color-on-primary);
+  --tile-bg: var(--tint-primary);
+  --tile-fg: var(--md-sys-color-on-surface);
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-shrink: 0;
   box-sizing: border-box;
-  width: 230px;
-  height: 126px;
+  width: 260px;
+  height: 132px;
   padding: 16px 18px;
   border-radius: 28px;
   overflow: hidden;
   isolation: isolate;
   background-color: var(--tile-bg);
   color: var(--tile-fg);
+  transition: background-color 500ms var(--ease), color 500ms var(--ease);
 }
 
 .guild-tile.tone-1 {
-  --tile-bg: var(--md-sys-color-tertiary);
-  --tile-fg: var(--md-sys-color-on-tertiary);
+  --tile-bg: var(--tint-tertiary);
 }
 
 .guild-tile.tone-2 {
-  --tile-bg: var(--md-sys-color-primary-container);
-  --tile-fg: var(--md-sys-color-on-primary-container);
+  --tile-bg: var(--tint-secondary);
 }
 
 .guild-tile.tone-3 {
-  --tile-bg: var(--md-sys-color-secondary);
-  --tile-fg: var(--md-sys-color-on-secondary);
+  --tile-bg: var(--md-sys-color-surface-container);
 }
 
-/* The icon, enlarged and blurred, tinted by the tile color on top. */
+/* The server's icon on the right, fading into the tile color, which
+   home-page.ts picks from the icon itself (with a readable text color). */
 .guild-bg {
   position: absolute;
-  inset: -20%;
+  top: 0;
+  right: 0;
   z-index: -2;
-  width: 140%;
-  height: 140%;
+  width: 58%;
+  height: 100%;
   object-fit: cover;
-  filter: blur(18px) saturate(1.2);
 }
 
 .guild-tile:has(.guild-bg)::before {
@@ -531,9 +564,10 @@
   inset: 0;
   z-index: -1;
   background: linear-gradient(
-    120deg,
-    color-mix(in srgb, var(--tile-bg) 92%, transparent),
-    color-mix(in srgb, var(--tile-bg) 55%, transparent)
+    90deg,
+    var(--tile-bg) 42%,
+    color-mix(in srgb, var(--tile-bg) 70%, transparent) 62%,
+    color-mix(in srgb, var(--tile-bg) 15%, transparent)
   );
 }
 
@@ -554,12 +588,13 @@
   object-fit: cover;
   font-size: 10px;
   font-weight: 600;
-  background-color: var(--tile-fg);
-  color: var(--tile-bg);
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
 }
 
 .guild-members {
-  opacity: 0.9;
+  font-weight: 600;
+  opacity: 0.85;
   white-space: nowrap;
 }
 
@@ -568,9 +603,11 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  font-size: 22px;
-  font-weight: 600;
-  line-height: 1.1;
+  max-width: 88%;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
   white-space: normal;
   overflow-wrap: anywhere;
 }
@@ -845,23 +882,20 @@
   min-height: 96px;
   padding: 14px 16px;
   border-radius: 22px;
-  background-color: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
+  background-color: var(--tint-primary);
+  color: var(--md-sys-color-on-surface);
 }
 
 .tile:nth-child(2) {
-  background-color: var(--md-sys-color-tertiary-container);
-  color: var(--md-sys-color-on-tertiary-container);
+  background-color: var(--tint-tertiary);
 }
 
 .tile:nth-child(3) {
-  background-color: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
+  background-color: var(--tint-secondary);
 }
 
 .tile:nth-child(4) {
-  background-color: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
+  background-color: var(--md-sys-color-surface-container);
 }
 
 .tile-meta {
@@ -896,7 +930,7 @@
 /* A command and Moddy's reply, like in Discord. */
 .command-demo {
   gap: 10px;
-  margin-bottom: 16px;
+  margin-top: 12px;
 }
 
 .command-call {
@@ -940,7 +974,6 @@
  * ------------------------------------------------------------------------- */
 
 .big-number {
-  margin-top: auto;
   font-size: clamp(80px, 9vw, 120px);
   font-weight: 600;
   line-height: 1;
@@ -1262,6 +1295,7 @@
   .span-3 { grid-column: span 6; }
   .span-4,
   .span-5,
+  .span-6,
   .span-7,
   .span-8 { grid-column: span 12; }
 }
@@ -1280,7 +1314,6 @@
   .home {
     --home-card-radius: 24px;
     --home-card-padding: 20px;
-    --home-gap: 12px;
   }
 
   .card.hero {
@@ -1318,19 +1351,6 @@
  * ------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Cards rise in as they scroll into view (class set by home-page.ts, so
-     without JS nothing is hidden). */
-  .card {
-    transition:
-      opacity 700ms var(--ease),
-      transform 700ms var(--ease);
-  }
-
-  .card.reveal {
-    opacity: 0;
-    transform: translateY(32px) scale(0.98);
-  }
-
   /* ---- Hover details ---------------------------------------------------- */
 
   /* The card's shape turns and its icon pops. */
@@ -1481,7 +1501,8 @@
     animation-duration: 180s;
   }
 
-  .guild-rows .chip-row:nth-child(2) {
+  .guild-lane:nth-child(2) .chip-row {
+    animation-direction: reverse;
     animation-duration: 200s;
   }
 

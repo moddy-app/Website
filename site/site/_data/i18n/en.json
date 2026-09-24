@@ -122,7 +122,8 @@
       "ban": "Ban · Raid",
       "active": "Active",
       "expired": "Expired",
-      "appeal": "Appeal"
+      "appeal": "Appeal",
+      "cta": "How cases work"
     },
     "social": {
       "title": "Your creators, in your server",
@@ -158,7 +159,8 @@
     "logs": {
       "title": "Nothing slips by",
       "text": "Server logs post a clear entry seconds after anything happens: an edited message, a new role, a ban, a permission change.",
-      "label": "events watched, none filtered by guesswork"
+      "label": "events watched, none filtered by guesswork",
+      "cta": "About server logs"
     },
     "tickets": {
       "title": "A real support desk",
