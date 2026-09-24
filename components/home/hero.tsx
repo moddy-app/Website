@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowForwardIcon } from "@/components/icons"
 import { ServerCloud } from "@/components/home/server-cloud"
 import type { ShowcaseGuild } from "@/lib/api"
+import { installUrl } from "@/lib/site-config"
 
 function Hero({
   guilds,
@@ -32,7 +33,7 @@ function Hero({
         </h1>
         <div className="flex flex-col items-center gap-4">
           <Button asChild size="lg">
-            <a href="/install?utm_medium=website&utm_content=hero">
+            <a href={installUrl("hero")}>
               {t("cta")}
               <ArrowForwardIcon data-icon="inline-end" />
             </a>
