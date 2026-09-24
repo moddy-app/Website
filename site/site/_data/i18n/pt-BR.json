@@ -70,11 +70,11 @@
           "time": "há 12 min"
         }
       },
-      "activity": "Atividade ao vivo"
+      "activity": "Num servidor com o Moddy"
     },
     "stats": {
-      "title": "Comunidades já confiam no Moddy",
-      "text": "Números reais, atualizados todos os dias.",
+      "title": "Servidores que usam o Moddy",
+      "text": "Atualizado uma vez por dia.",
       "guilds": "servidores usam o Moddy",
       "users": "membros nesses servidores",
       "commands": "comandos nos últimos 30 dias",
@@ -101,8 +101,8 @@
       "applied": "2 módulos configurados"
     },
     "automod": {
-      "title": "Uma moderação que nunca dorme",
-      "text": "O AutoMod IA entende o contexto. Ele identifica mensagens nocivas em tempo real e adverte, silencia ou bane antes que o estrago aconteça, sem regras para ajustar na mão.",
+      "title": "Moderação com IA",
+      "text": "O AutoMod IA verifica as mensagens assim que são enviadas e aplica a punição definida pelo seu servidor: advertência, silenciamento ou banimento. Cada ação fica registrada como um caso.",
       "cta": "Conhecer o AutoMod",
       "author": "encrenqueiro · hoje às 21:04",
       "message": "Nitro grátis pra todo mundo, clica nesse link agora!!",
@@ -116,7 +116,7 @@
       }
     },
     "cases": {
-      "title": "Toda punição, registrada",
+      "title": "Toda punição vira um caso",
       "text": "Cada advertência, silenciamento ou banimento vira um caso com código de referência próprio, histórico completo e recursos integrados.",
       "warn": "Advertência · Links de spam",
       "mute": "Silenciamento · 1 hora",
@@ -127,7 +127,7 @@
       "cta": "Como funcionam os casos"
     },
     "social": {
-      "title": "Seus criadores, no seu servidor",
+      "title": "Alertas de YouTube, Twitch, Bluesky e RSS",
       "text": "Publique um aviso assim que um canal do YouTube posta um vídeo, um streamer da Twitch entra ao vivo, uma conta do Bluesky publica ou um feed RSS lança um artigo.",
       "newUpload": "Novo vídeo",
       "liveNow": "Ao vivo",
@@ -135,8 +135,8 @@
       "newArticle": "Novo artigo"
     },
     "modules": {
-      "title": "Um bot, todos os módulos",
-      "text": "Ative só o que o seu servidor precisa e configure cada módulo em poucos cliques. Das mensagens de boas-vindas aos tickets, o Moddy cresce com a sua comunidade.",
+      "title": "Ative só os módulos de que você precisa",
+      "text": "Mensagens de boas-vindas, tickets, registros, AltGuard e mais. Cada módulo é ativado e configurado separadamente, com /config ou pelo painel.",
       "cta": "Ver os módulos",
       "label": "Alguns módulos do Moddy",
       "names": {
@@ -158,7 +158,7 @@
       }
     },
     "logs": {
-      "title": "Nada passa despercebido",
+      "title": "Registros do servidor",
       "text": "Os registros do servidor publicam uma entrada clara segundos depois de qualquer coisa: uma mensagem editada, um cargo novo, um banimento, uma permissão alterada.",
       "cta": "Sobre os registros",
       "demo": {
@@ -179,7 +179,7 @@
       }
     },
     "tickets": {
-      "title": "Um suporte de verdade",
+      "title": "Tickets de suporte",
       "text": "Os membros abrem um ticket privado com um botão ou um menu. Você decide para onde vai cada pedido, quais cargos o veem e quem assume.",
       "panel": "Precisa de ajuda?",
       "report": "Denunciar um membro",
@@ -196,7 +196,7 @@
       }
     },
     "utilities": {
-      "title": "Ferramentas úteis, em todo lugar",
+      "title": "Comandos que também funcionam na DM",
       "text": "Traduza, crie lembretes, corrija ou resuma textos, role dados. A maioria dos comandos funciona em qualquer lugar, até na sua DM.",
       "label": "Alguns comandos do Moddy",
       "cta": "Todos os comandos",
@@ -228,8 +228,8 @@
       }
     },
     "altguard": {
-      "title": "Contas alternativas ficam de fora",
-      "text": "O AltGuard verifica os novos membros na entrada e age contra contas alternativas suspeitas, para que um banimento seja mesmo para sempre.",
+      "title": "Impeça que banidos voltem com o AltGuard",
+      "text": "Os novos membros se verificam antes de ter acesso. Contas que batem com um membro banido são sinalizadas para revisão ou bloqueadas.",
       "cta": "Sobre o AltGuard",
       "demo": {
         "joined": "entrou no servidor",
@@ -259,15 +259,15 @@
       }
     },
     "max": {
-      "title": "Vá além com o Moddy Max",
-      "text": "Moderação, AutoMod IA e mensagens de boas-vindas são gratuitos em todos os servidores. O Moddy Max adiciona alguns extras nos servidores que mais importam para você.",
+      "title": "Moddy Max",
+      "text": "Moderação, AutoMod IA e mensagens de boas-vindas são gratuitos em todos os servidores. O Moddy Max adiciona uma identidade de bot personalizada e notificações sociais mais rápidas, em até 5 servidores.",
       "servers": {
         "title": "5 servidores premium",
         "detail": "Escolha-os pelo painel e troque quando quiser."
       },
       "customization": {
         "title": "Personalização completa",
-        "detail": "Apelido, avatar, banner e bio com a cara da sua comunidade."
+        "detail": "Apelido, avatar, banner e bio no seu servidor."
       },
       "notifications": {
         "title": "Notificações mais rápidas",
@@ -277,8 +277,8 @@
       "badge": "Premium"
     },
     "final": {
-      "title": "Pronto para conhecer o Moddy?",
-      "text": "Adicione-o ao seu servidor em poucos cliques e ative seu primeiro módulo.",
+      "title": "Adicione o Moddy ao seu servidor",
+      "text": "É grátis. Depois ative os módulos com /config ou pelo painel.",
       "add": "Adicionar ao Discord",
       "support": "Entrar no servidor de suporte"
     }
@@ -301,7 +301,7 @@
     "pageTitle": "Moddy Max",
     "badge": "Premium",
     "title": "Moddy Max",
-    "text": "Um upgrade focado nos servidores que mais importam: sua própria identidade de bot e notificações sociais mais rápidas e maiores. Moderação, AutoMod IA e todo o resto continuam gratuitos para todos.",
+    "text": "O Moddy Max adiciona duas coisas: uma identidade de bot personalizada e notificações sociais mais rápidas, em até 5 servidores. Moderação, AutoMod IA e os outros módulos continuam gratuitos.",
     "compare": "Comparar planos",
     "billing": "Cobrança",
     "monthly": "Mensal",
@@ -375,7 +375,7 @@
       "realtime": "Tempo real"
     },
     "freeCard": {
-      "title": "Moderação nunca é paga",
+      "title": "O que continua grátis",
       "text": "Tudo o que protege sua comunidade funciona igual em todos os servidores, grátis ou premium.",
       "automod": "AutoMod IA",
       "cases": "Casos de moderação",
@@ -387,14 +387,14 @@
       "tickets": "Tickets"
     },
     "steps": {
-      "title": "Pronto em um minuto",
+      "title": "Como ativar",
       "one": "Assine o Moddy Max",
       "two": "Abra o painel",
       "three": "Vá em Servidores premium",
       "four": "Escolha até 5 servidores"
     },
     "final": {
-      "title": "Pronto para o Moddy Max?",
+      "title": "Assinar o Moddy Max",
       "text": "Escolha a cobrança mensal ou anual e ative agora mesmo nos seus servidores."
     },
     "status": {

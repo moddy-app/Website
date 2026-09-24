@@ -39,7 +39,6 @@ permalink: "{{ locale.prefix }}/index.html"
       <!-- Live activity -->
       <section class="card span-5">
         <div class="card-head">
-          <span class="live-dot" aria-hidden="true"></span>
           <h3>{{ 'home.hero.activity' | t(c) }}</h3>
         </div>
         <div class="feed-window">
@@ -198,21 +197,21 @@ permalink: "{{ locale.prefix }}/index.html"
           <div class="panel guard" data-demo="guard" aria-hidden="true">
             <ul class="guard-list">
               <li class="guard-msg">
-                <span class="guard-avatar">M</span>
+                <img class="guard-avatar avatar-3d" src="/images/avatars/mia.webp" alt="" width="36" height="36" loading="lazy" />
                 <span class="guard-body">
                   <span class="guard-author">mia</span>
                   <span class="guard-text">{{ 'home.automod.demo.m1' | t(c) }}</span>
                 </span>
               </li>
               <li class="guard-msg">
-                <span class="guard-avatar">L</span>
+                <img class="guard-avatar avatar-3d" src="/images/avatars/leo.webp" alt="" width="36" height="36" loading="lazy" />
                 <span class="guard-body">
                   <span class="guard-author">leo</span>
                   <span class="guard-text">{{ 'home.automod.demo.m2' | t(c) }}</span>
                 </span>
               </li>
               <li class="guard-msg guard-target" data-state="caught">
-                <span class="guard-avatar">T</span>
+                <img class="guard-avatar avatar-3d" src="/images/avatars/troublemaker.webp" alt="" width="36" height="36" loading="lazy" />
                 <span class="guard-body guard-original">
                   <span class="guard-author">troublemaker</span>
                   <span class="guard-text">{{ 'home.automod.message' | t(c) }}</span>
@@ -335,11 +334,11 @@ permalink: "{{ locale.prefix }}/index.html"
               <span class="ticket-body"><span class="ticket-author">Moddy</span>{{ 'home.tickets.demo.welcome' | t(c) }}</span>
             </div>
             <div class="ticket-msg">
-              <span class="ticket-avatar">A</span>
+              <img class="ticket-avatar avatar-3d" src="/images/avatars/alex.webp" alt="" width="32" height="32" loading="lazy" />
               <span class="ticket-body"><span class="ticket-author">alex</span>{{ 'home.tickets.demo.user' | t(c) }}</span>
             </div>
             <div class="ticket-msg">
-              <span class="ticket-avatar staff">S</span>
+              <img class="ticket-avatar avatar-3d" src="/images/avatars/sam.webp" alt="" width="32" height="32" loading="lazy" />
               <span class="ticket-body"><span class="ticket-author">sam <span class="ticket-tag">{{ 'home.tickets.demo.staffTag' | t(c) }}</span></span>{{ 'home.tickets.demo.staff' | t(c) }}</span>
             </div>
           </div>
@@ -357,7 +356,7 @@ permalink: "{{ locale.prefix }}/index.html"
               are the signals AltGuard really compares. -#}
           <div class="panel altguard-demo decided" data-demo="altguard" data-variant="pass" aria-hidden="true">
             <div class="ag-member">
-              <span class="ag-avatar"><span class="only-pass">A</span><span class="only-block">A</span></span>
+              <img class="ag-avatar avatar-3d" src="/images/avatars/alex.webp" alt="" width="36" height="36" loading="lazy" />
               <span class="ag-who">
                 <strong><span class="only-pass">alex</span><span class="only-block">alex_2</span></strong>
                 <span>{{ 'home.altguard.demo.joined' | t(c) }}</span>
@@ -446,7 +445,7 @@ permalink: "{{ locale.prefix }}/index.html"
             <div class="log-head">
               <span class="material-symbols-outlined">tag</span>
               <span class="log-channel">{{ 'home.logs.demo.channel' | t(c) }}</span>
-              <span class="log-count"><span class="live-dot"></span>{{ 'home.logs.demo.events' | t(c) }}</span>
+              <span class="log-count">{{ 'home.logs.demo.events' | t(c) }}</span>
             </div>
             <div class="log-window">
               <ul class="log-list">

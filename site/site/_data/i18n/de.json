@@ -70,11 +70,11 @@
           "time": "vor 12 Min."
         }
       },
-      "activity": "Live-Aktivität"
+      "activity": "Auf einem Server mit Moddy"
     },
     "stats": {
-      "title": "Communities vertrauen Moddy schon",
-      "text": "Echte Zahlen, jeden Tag aktualisiert.",
+      "title": "Server, die Moddy nutzen",
+      "text": "Einmal am Tag aktualisiert.",
       "guilds": "Server nutzen Moddy",
       "users": "Mitglieder auf diesen Servern",
       "commands": "Befehle in den letzten 30 Tagen",
@@ -101,8 +101,8 @@
       "applied": "2 Module eingerichtet"
     },
     "automod": {
-      "title": "Moderation, die nie schläft",
-      "text": "AutoMod KI versteht den Kontext. Sie erkennt schädliche Nachrichten in Echtzeit und verwarnt, stummschaltet oder bannt, bevor Schaden entsteht, ganz ohne Regeln, die du von Hand feintunen musst.",
+      "title": "KI-Moderation",
+      "text": "AutoMod KI prüft Nachrichten beim Senden und wendet die Sanktion deines Servers an: Verwarnung, Stummschaltung oder Bann. Jede Aktion wird als Fall gespeichert.",
       "cta": "Mehr über AutoMod",
       "author": "unruhestifter · heute um 21:04",
       "message": "Gratis Nitro für alle, klickt sofort auf diesen Link!!",
@@ -116,7 +116,7 @@
       }
     },
     "cases": {
-      "title": "Jede Sanktion, lückenlos dokumentiert",
+      "title": "Jede Sanktion wird ein Fall",
       "text": "Jede Verwarnung, Stummschaltung oder Sperre wird zu einem Fall mit eigenem Referenzcode, vollständigem Verlauf und integriertem Einspruch.",
       "warn": "Verwarnung · Spam-Links",
       "mute": "Stummschaltung · 1 Stunde",
@@ -127,7 +127,7 @@
       "cta": "So funktionieren Fälle"
     },
     "social": {
-      "title": "Deine Creator, auf deinem Server",
+      "title": "Benachrichtigungen für YouTube, Twitch, Bluesky und RSS",
       "text": "Poste ein Update, sobald ein YouTube-Kanal ein Video hochlädt, ein Twitch-Streamer live geht, ein Bluesky-Konto postet oder ein RSS-Feed einen Artikel veröffentlicht.",
       "newUpload": "Neues Video",
       "liveNow": "Jetzt live",
@@ -135,8 +135,8 @@
       "newArticle": "Neuer Artikel"
     },
     "modules": {
-      "title": "Ein Bot, alle Module",
-      "text": "Aktiviere nur, was dein Server braucht, und richte jedes Modul mit wenigen Klicks ein. Von Willkommensnachrichten bis zu Tickets wächst Moddy mit deiner Community.",
+      "title": "Nur die Module aktivieren, die du brauchst",
+      "text": "Willkommensnachrichten, Tickets, Logs, AltGuard und mehr. Jedes Modul wird einzeln aktiviert und eingerichtet, mit /config oder im Dashboard.",
       "cta": "Module ansehen",
       "label": "Einige Module von Moddy",
       "names": {
@@ -158,7 +158,7 @@
       }
     },
     "logs": {
-      "title": "Dir entgeht nichts",
+      "title": "Server-Logs",
       "text": "Server-Logs posten Sekunden nach jedem Ereignis einen klaren Eintrag: eine bearbeitete Nachricht, eine neue Rolle, ein Bann, eine geänderte Berechtigung.",
       "cta": "Über Server-Logs",
       "demo": {
@@ -179,7 +179,7 @@
       }
     },
     "tickets": {
-      "title": "Ein echter Support",
+      "title": "Support-Tickets",
       "text": "Mitglieder öffnen per Button oder Dropdown ein privates Ticket. Du legst fest, wohin jede Anfrage geht, welche Rollen sie sehen und wer sie übernimmt.",
       "panel": "Brauchst du Hilfe?",
       "report": "Mitglied melden",
@@ -196,7 +196,7 @@
       }
     },
     "utilities": {
-      "title": "Praktische Tools, überall",
+      "title": "Befehle, die auch in DMs funktionieren",
       "text": "Übersetzen, Erinnerungen setzen, Texte korrigieren oder zusammenfassen, würfeln. Die meisten Befehle funktionieren überall, sogar in deinen DMs.",
       "label": "Einige Befehle von Moddy",
       "cta": "Alle Befehle",
@@ -228,8 +228,8 @@
       }
     },
     "altguard": {
-      "title": "Zweitaccounts bleiben draußen",
-      "text": "AltGuard prüft neue Mitglieder beim Beitritt und geht gegen verdächtige Zweitaccounts vor, damit ein Bann wirklich endgültig ist.",
+      "title": "Bann-Umgehung stoppen mit AltGuard",
+      "text": "Neue Mitglieder verifizieren sich, bevor sie Zugriff bekommen. Konten, die zu einem gebannten Mitglied passen, werden zur Prüfung markiert oder blockiert.",
       "cta": "Über AltGuard",
       "demo": {
         "joined": "ist dem Server beigetreten",
@@ -259,15 +259,15 @@
       }
     },
     "max": {
-      "title": "Mehr drin mit Moddy Max",
-      "text": "Moderation, AutoMod KI und Willkommensnachrichten sind auf jedem Server kostenlos. Moddy Max bringt ein paar Extras auf die Server, die dir am wichtigsten sind.",
+      "title": "Moddy Max",
+      "text": "Moderation, AutoMod KI und Willkommensnachrichten sind auf jedem Server kostenlos. Moddy Max bringt eine eigene Bot-Identität und schnellere Social-Benachrichtigungen auf bis zu 5 Server.",
       "servers": {
         "title": "5 Premium-Server",
         "detail": "Wähle sie im Dashboard aus und wechsle jederzeit."
       },
       "customization": {
         "title": "Volle Bot-Anpassung",
-        "detail": "Nickname, Avatar, Banner und Bio passend zu deiner Community."
+        "detail": "Nickname, Avatar, Banner und Bio auf deinem Server."
       },
       "notifications": {
         "title": "Schnellere Benachrichtigungen",
@@ -277,8 +277,8 @@
       "badge": "Premium"
     },
     "final": {
-      "title": "Bereit für Moddy?",
-      "text": "Füge ihn mit wenigen Klicks zu deinem Server hinzu und aktiviere dein erstes Modul.",
+      "title": "Moddy zu deinem Server hinzufügen",
+      "text": "Es ist kostenlos. Danach aktivierst du Module mit /config oder im Dashboard.",
       "add": "Zu Discord hinzufügen",
       "support": "Support-Server beitreten"
     }
@@ -301,7 +301,7 @@
     "pageTitle": "Moddy Max",
     "badge": "Premium",
     "title": "Moddy Max",
-    "text": "Ein gezieltes Upgrade für die Server, die dir am wichtigsten sind: eine eigene Bot-Identität und schnellere, größere Social-Benachrichtigungen. Moderation, AutoMod KI und alles andere bleiben für alle kostenlos.",
+    "text": "Moddy Max bringt zwei Dinge: eine eigene Bot-Identität und schnellere Social-Benachrichtigungen, auf bis zu 5 Servern. Moderation, AutoMod KI und die anderen Module bleiben kostenlos.",
     "compare": "Pläne vergleichen",
     "billing": "Abrechnung",
     "monthly": "Monatlich",
@@ -375,7 +375,7 @@
       "realtime": "Echtzeit"
     },
     "freeCard": {
-      "title": "Moderation kostet nie extra",
+      "title": "Was kostenlos bleibt",
       "text": "Alles, was deine Community schützt, funktioniert auf jedem Server gleich, kostenlos oder Premium.",
       "automod": "AutoMod KI",
       "cases": "Moderationsfälle",
@@ -387,14 +387,14 @@
       "tickets": "Tickets"
     },
     "steps": {
-      "title": "In einer Minute startklar",
+      "title": "So aktivierst du es",
       "one": "Moddy Max abonnieren",
       "two": "Dashboard öffnen",
       "three": "Zu Premium-Server gehen",
       "four": "Bis zu 5 Server auswählen"
     },
     "final": {
-      "title": "Bereit für Moddy Max?",
+      "title": "Moddy Max holen",
       "text": "Wähle monatliche oder jährliche Abrechnung und aktiviere es sofort auf deinen Servern."
     },
     "status": {

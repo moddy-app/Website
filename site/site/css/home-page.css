@@ -345,6 +345,16 @@
  * Shared pieces
  * ------------------------------------------------------------------------- */
 
+/* Example people: 3D emoji avatars (Fluent Emoji 3D, MIT, in
+   /images/avatars) on a soft disc. */
+.avatar-3d {
+  box-sizing: border-box;
+  padding: 3px;
+  border-radius: 50%;
+  object-fit: contain;
+  background-color: var(--md-sys-color-surface-container-highest);
+}
+
 /* A soft inner panel holding an illustration. */
 .panel {
   display: flex;
@@ -524,13 +534,6 @@
   white-space: nowrap;
 }
 
-.live-dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--md-sys-color-error);
-}
 
 /* ---------------------------------------------------------------------------
  * Live numbers and the servers using Moddy
@@ -2121,7 +2124,6 @@
     from { opacity: 0; scale: 0.96; }
   }
 
-  .live-dot,
   .tile-live::before {
     animation: pulse 1.6s ease-in-out infinite;
   }

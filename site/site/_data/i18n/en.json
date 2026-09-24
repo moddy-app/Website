@@ -70,11 +70,11 @@
           "time": "12 min ago"
         }
       },
-      "activity": "Live activity"
+      "activity": "On a server with Moddy"
     },
     "stats": {
-      "title": "Communities already trust Moddy",
-      "text": "Live numbers, updated every day.",
+      "title": "Servers using Moddy",
+      "text": "Updated once a day.",
       "guilds": "servers use Moddy",
       "users": "members in those servers",
       "commands": "commands in the last 30 days",
@@ -101,8 +101,8 @@
       "applied": "2 modules configured"
     },
     "automod": {
-      "title": "Moderation that never sleeps",
-      "text": "AutoMod AI reads the room. It spots harmful messages in real time and warns, mutes or bans before the damage is done, with no rules to fine-tune by hand.",
+      "title": "AI moderation",
+      "text": "AutoMod AI checks messages as they are sent and applies your server's sanction: a warning, a mute or a ban. Each action is recorded as a case.",
       "cta": "Learn about AutoMod",
       "author": "troublemaker · today at 21:04",
       "message": "Free nitro for everyone, click this link now!!",
@@ -116,7 +116,7 @@
       }
     },
     "cases": {
-      "title": "Every sanction, on the record",
+      "title": "Every sanction becomes a case",
       "text": "Each warn, mute or ban becomes a case with its own reference code, a full timeline and built-in appeals.",
       "warn": "Warn · Spam links",
       "mute": "Mute · 1 hour",
@@ -127,7 +127,7 @@
       "cta": "How cases work"
     },
     "social": {
-      "title": "Your creators, in your server",
+      "title": "YouTube, Twitch, Bluesky and RSS alerts",
       "text": "Post an update the moment a YouTube channel uploads, a Twitch streamer goes live, a Bluesky account posts or an RSS feed publishes.",
       "newUpload": "New upload",
       "liveNow": "Live now",
@@ -135,8 +135,8 @@
       "newArticle": "New article"
     },
     "modules": {
-      "title": "One bot, every module",
-      "text": "Turn on only what your server needs, and configure each module in a couple of clicks. From welcome messages to tickets, Moddy grows with your community.",
+      "title": "Turn on only the modules you need",
+      "text": "Welcome messages, tickets, logs, AltGuard and more. Each module is enabled and set up on its own, from /config or the dashboard.",
       "cta": "Browse modules",
       "label": "Some of Moddy's modules",
       "names": {
@@ -158,7 +158,7 @@
       }
     },
     "logs": {
-      "title": "Nothing slips by",
+      "title": "Server logs",
       "text": "Server logs post a clear entry seconds after anything happens: an edited message, a new role, a ban, a permission change.",
       "cta": "About server logs",
       "demo": {
@@ -179,7 +179,7 @@
       }
     },
     "tickets": {
-      "title": "A real support desk",
+      "title": "Support tickets",
       "text": "Members open a private ticket with a button or a dropdown. You decide where each request goes, which roles can see it and who claims it.",
       "panel": "Need help?",
       "report": "Report a member",
@@ -196,7 +196,7 @@
       }
     },
     "utilities": {
-      "title": "Handy tools, everywhere",
+      "title": "Commands that work in DMs too",
       "text": "Translate, set reminders, fix or summarize text, roll dice. Most commands work anywhere, even in your DMs.",
       "label": "Some of Moddy's commands",
       "cta": "All commands",
@@ -228,8 +228,8 @@
       }
     },
     "altguard": {
-      "title": "Alt accounts stay out",
-      "text": "AltGuard checks new members as they join and acts on suspected alternate accounts, so a ban really means gone for good.",
+      "title": "Stop ban evasion with AltGuard",
+      "text": "New members verify before they get access. Accounts that match a banned member are flagged for review or blocked.",
       "cta": "About AltGuard",
       "demo": {
         "joined": "joined the server",
@@ -259,15 +259,15 @@
       }
     },
     "max": {
-      "title": "Go further with Moddy Max",
-      "text": "Moderation, AutoMod AI and welcome messages are free on every server. Moddy Max adds a few extras on the servers you care about most.",
+      "title": "Moddy Max",
+      "text": "Moderation, AutoMod AI and welcome messages are free on every server. Moddy Max adds a custom bot identity and faster social notifications on up to 5 servers.",
       "servers": {
         "title": "5 premium servers",
         "detail": "Pick them from your dashboard and switch at any time."
       },
       "customization": {
         "title": "Full bot customization",
-        "detail": "Nickname, avatar, banner and bio that match your community."
+        "detail": "Nickname, avatar, banner and bio on your server."
       },
       "notifications": {
         "title": "Faster notifications",
@@ -277,8 +277,8 @@
       "badge": "Premium"
     },
     "final": {
-      "title": "Ready to meet Moddy?",
-      "text": "Add it to your server in a few clicks and turn on your first module.",
+      "title": "Add Moddy to your server",
+      "text": "It's free. Then enable modules with /config or from the dashboard.",
       "add": "Add to Discord",
       "support": "Join the support server"
     }
@@ -301,7 +301,7 @@
     "pageTitle": "Moddy Max",
     "badge": "Premium",
     "title": "Moddy Max",
-    "text": "A focused upgrade for the servers you care about most: your own bot identity and faster, bigger social notifications. Moderation, AutoMod AI and everything else stay free for everyone.",
+    "text": "Moddy Max adds two things: a custom bot identity and faster social notifications, on up to 5 servers. Moderation, AutoMod AI and the other modules stay free.",
     "compare": "Compare plans",
     "billing": "Billing",
     "monthly": "Monthly",
@@ -375,7 +375,7 @@
       "realtime": "Realtime"
     },
     "freeCard": {
-      "title": "Moderation is never behind a paywall",
+      "title": "What stays free",
       "text": "Everything that keeps your community safe works the same on every server, free or premium.",
       "automod": "AutoMod AI",
       "cases": "Moderation cases",
@@ -387,14 +387,14 @@
       "tickets": "Tickets"
     },
     "steps": {
-      "title": "Up and running in a minute",
+      "title": "How to activate it",
       "one": "Subscribe to Moddy Max",
       "two": "Open the dashboard",
       "three": "Go to Premium Servers",
       "four": "Pick up to 5 servers"
     },
     "final": {
-      "title": "Ready for Moddy Max?",
+      "title": "Get Moddy Max",
       "text": "Choose monthly or yearly billing and turn it on for your servers right away."
     },
     "status": {
