@@ -13,7 +13,7 @@ import './hct-slider.js';
 
 import type {MdOutlinedSegmentedButton} from '@material/web/labs/segmentedbutton/outlined-segmented-button.js';
 import {css, html, LitElement} from 'lit';
-import {customElement, query, queryAll, state} from 'lit/decorators.js';
+import {customElement, property, query, queryAll, state} from 'lit/decorators.js';
 import {live} from 'lit/directives/live.js';
 
 import {ChangeColorEvent, ChangeDarkModeEvent} from '../types/color-events.js';
@@ -31,6 +31,40 @@ import type {HCTSlider} from './hct-slider.js';
  * A small set of controls that allows the user to change the theme and preview
  * color values.
  */
+/**
+ * Text shown by the theme menu. The page passes the translated strings as a
+ * JSON `labels` attribute (see site/_data/i18n); English is the fallback.
+ */
+export interface ThemeChangerLabels {
+  title: string;
+  copy: string;
+  copyTitle: string;
+  copied: string;
+  source: string;
+  hue: string;
+  chroma: string;
+  tone: string;
+  mode: string;
+  dark: string;
+  auto: string;
+  light: string;
+}
+
+const DEFAULT_LABELS: ThemeChangerLabels = {
+  title: 'Theme Controls',
+  copy: 'Copy current theme',
+  copyTitle: 'Copy current theme to clipboard',
+  copied: 'Copy successful',
+  source: 'Hex Source Color',
+  hue: 'Hue',
+  chroma: 'Chroma',
+  tone: 'Tone',
+  mode: 'Color mode',
+  dark: 'Dark',
+  auto: 'Automatic',
+  light: 'Light',
+};
+
 @customElement('theme-changer')
 export class ThemeChanger extends LitElement {
   static override shadowRootOptions = {
@@ -66,16 +100,23 @@ export class ThemeChanger extends LitElement {
    */
   @state() tone = 0;
 
+  @property({type: Object}) labels: Partial<ThemeChangerLabels> = {};
+
+  private get text(): ThemeChangerLabels {
+    return {...DEFAULT_LABELS, ...this.labels};
+  }
+
   @query('input') private inputEl!: HTMLInputElement;
   @queryAll('hct-slider') private sliders!: NodeListOf<HCTSlider>;
 
   render() {
     return html`
       <div id="head-wrapper">
-        <h2> Theme Controls </h2>
+        <h2>${this.text.title}</h2>
         <copy-code-button
-          button-title="Copy current theme to clipboard"
-          label="Copy current theme"
+          button-title=${this.text.copyTitle}
+          label=${this.text.copy}
+          success-label=${this.text.copied}
           .getCopyText=${getCurrentThemeString}>
         </copy-code-button>
       </div>
@@ -90,7 +131,7 @@ export class ThemeChanger extends LitElement {
   protected renderHexPicker() {
     return html`<div>
       <label id="hex" for="color-input">
-        <span class="label">Hex Source Color</span>
+        <span class="label">${this.text.source}</span>
         <span class="input-wrapper">
           <div class="overflow">
             <input
@@ -113,20 +154,20 @@ export class ThemeChanger extends LitElement {
       <hct-slider
         .value=${live(this.hue)}
         type="hue"
-        label="Hue"
+        label=${this.text.hue}
         max="360"
         @input=${this.onSliderInput}></hct-slider>
       <hct-slider
         .value=${live(this.chroma)}
         .color=${this.hexColor}
         type="chroma"
-        label="Chroma"
+        label=${this.text.chroma}
         max="150"
         @input=${this.onSliderInput}></hct-slider>
       <hct-slider
         .value=${live(this.tone)}
         type="tone"
-        label="Tone"
+        label=${this.text.tone}
         max="100"
         @input=${this.onSliderInput}></hct-slider>
     </div>`;
@@ -138,7 +179,7 @@ export class ThemeChanger extends LitElement {
   private renderColorModePicker() {
     return html`<md-outlined-segmented-button-set
       @segmented-button-set-selection=${this.onColorModeSelection}
-      aria-label="Color mode">
+      aria-label=${this.text.mode}>
       ${this.renderModeButton('dark', 'dark_mode')}
       ${this.renderModeButton('auto', 'brightness_medium')}
       ${this.renderModeButton('light', 'light_mode')}
@@ -155,8 +196,8 @@ export class ThemeChanger extends LitElement {
   private renderModeButton(mode: ColorMode, icon: string) {
     return html`<md-outlined-segmented-button
       data-value=${mode}
-      title=${mode}
-      aria-label="${mode} color scheme"
+      title=${this.text[mode]}
+      aria-label=${this.text[mode]}
       .selected=${this.selectedColorMode === mode}>
       <md-icon slot="icon">${icon}</md-icon>
     </md-outlined-segmented-button>`;

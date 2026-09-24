@@ -1,0 +1,420 @@
+{
+  "topbar": {
+    "home": "Home",
+    "skipToMain": "Skip to main content",
+    "signIn": "Sign In",
+    "userMenu": "User menu",
+    "hello": "Hello @{username}!",
+    "dashboard": "Dashboard",
+    "signOut": "Sign out"
+  },
+  "footer": {
+    "navLabel": "Footer",
+    "product": "Product",
+    "addToDiscord": "Add to Discord",
+    "dashboard": "Dashboard",
+    "moddyMax": "Moddy Max",
+    "status": "Status",
+    "resources": "Resources",
+    "documentation": "Documentation",
+    "commands": "Commands",
+    "changelog": "Changelog",
+    "supportServer": "Support server",
+    "legal": "Legal",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "license": "License",
+    "logoLabel": "Moddy home",
+    "github": "Moddy on GitHub",
+    "language": "Language",
+    "theme": "Change colors",
+    "made": "Made for Discord communities",
+    "madeBy": "Made by"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist.",
+    "home": "Go home"
+  },
+  "home": {
+    "pageTitle": "Home",
+    "hero": {
+      "text": "AI-powered moderation, social notifications, welcome messages and everyday utilities for your Discord server, all in one bot.",
+      "add": "Add to Discord",
+      "dashboard": "Open dashboard",
+      "feedLabel": "Example of what Moddy does in a server",
+      "feed": {
+        "spam": {
+          "title": "Spam link removed",
+          "sub": "AutoMod · #general",
+          "time": "just now"
+        },
+        "welcome": {
+          "title": "Welcome, Alex!",
+          "sub": "Welcome messages · #welcome",
+          "time": "2 min ago"
+        },
+        "live": {
+          "title": "Now live on Twitch",
+          "sub": "Social notifications · #streams",
+          "time": "6 min ago"
+        },
+        "case": {
+          "title": "Case A7F2K9 opened",
+          "sub": "Moderation · Warn",
+          "time": "9 min ago"
+        },
+        "bump": {
+          "title": "Time to bump!",
+          "sub": "Bump reminder · #bump",
+          "time": "12 min ago"
+        }
+      },
+      "activity": "On a server with Moddy"
+    },
+    "stats": {
+      "title": "Servers using Moddy",
+      "text": "Updated once a day.",
+      "guilds": "servers use Moddy",
+      "users": "members in those servers",
+      "commands": "commands in the last 30 days",
+      "cases": "moderation cases handled",
+      "top": "Some of the servers using Moddy",
+      "members": "{count} members"
+    },
+    "ai": {
+      "title": "Just ask Brocoli",
+      "text": "Brocoli is Moddy's AI assistant. Describe the setup you have in mind and it configures your server for you: modules, channels, roles, messages. Sensitive changes wait for your confirmation.",
+      "cta": "Try Brocoli in the dashboard",
+      "label": "Example conversation with Brocoli, Moddy's AI assistant",
+      "you": "You",
+      "assistant": "Brocoli",
+      "placeholder": "Ask Brocoli…",
+      "prompt": "Greet new members in #welcome and give them the Member role",
+      "read": "Reading the current configuration",
+      "stepWelcome": "Welcome messages in #welcome",
+      "stepRole": "Member role for newcomers",
+      "confirm": "Apply these 2 changes?",
+      "apply": "Apply",
+      "cancel": "Cancel",
+      "answer": "Done! New members are now greeted in #welcome and get the Member role.",
+      "applied": "2 modules configured"
+    },
+    "automod": {
+      "title": "AI moderation",
+      "text": "AutoMod AI checks messages as they are sent and applies your server's sanction: a warning, a mute or a ban. Each action is recorded as a case.",
+      "cta": "Learn about AutoMod",
+      "author": "troublemaker · today at 21:04",
+      "message": "Free nitro for everyone, click this link now!!",
+      "verdict": "Message removed · Warn applied",
+      "detail": "Scam link detected by AutoMod AI, case A7F2K9 opened",
+      "demo": {
+        "m1": "anyone up for a game tonight?",
+        "m2": "gg everyone, that was fun",
+        "channel": "general",
+        "analyzing": "Analyzing…"
+      }
+    },
+    "cases": {
+      "title": "Every sanction becomes a case",
+      "text": "Each warn, mute or ban becomes a case with its own reference code, a full timeline and built-in appeals.",
+      "warn": "Warn · Spam links",
+      "mute": "Mute · 1 hour",
+      "ban": "Ban · Raid",
+      "active": "Active",
+      "expired": "Expired",
+      "appeal": "Appeal",
+      "cta": "How cases work"
+    },
+    "social": {
+      "title": "YouTube, Twitch, Bluesky and RSS alerts",
+      "text": "Post an update the moment a YouTube channel uploads, a Twitch streamer goes live, a Bluesky account posts or an RSS feed publishes.",
+      "newUpload": "New upload",
+      "liveNow": "Live now",
+      "newPost": "New post",
+      "newArticle": "New article"
+    },
+    "modules": {
+      "title": "Turn on only the modules you need",
+      "text": "Welcome messages, tickets, logs, AltGuard and more. Each module is enabled and set up on its own, from /config or the dashboard.",
+      "cta": "Browse modules",
+      "label": "Some of Moddy's modules",
+      "names": {
+        "welcome": "Welcome messages",
+        "welcomeDm": "Welcome DM",
+        "autoRole": "Auto role",
+        "autoRestore": "Auto-restore roles",
+        "starboard": "Starboard",
+        "slowmode": "Adaptive slowmode",
+        "interserver": "Inter-server",
+        "transcription": "Voice transcription",
+        "customization": "Bot customization",
+        "altguard": "AltGuard",
+        "logs": "Server logs",
+        "tickets": "Tickets",
+        "bump": "Bump reminder",
+        "applications": "Member applications",
+        "social": "Social notifications"
+      }
+    },
+    "logs": {
+      "title": "Server logs",
+      "text": "Server logs post a clear entry seconds after anything happens: an edited message, a new role, a ban, a permission change.",
+      "cta": "About server logs",
+      "demo": {
+        "channel": "server-logs",
+        "events": "163 events",
+        "edit": "Message edited",
+        "editWhere": "#general · alex",
+        "before": "see you tomorow",
+        "after": "see you tomorrow",
+        "role": "Role created",
+        "roleWhat": "@Event team",
+        "ban": "Member banned",
+        "banWhat": "troublemaker · by Sam",
+        "perms": "Permissions changed",
+        "permsWhat": "#announcements · Send messages denied",
+        "join": "Member joined",
+        "joinWhat": "alex · account 2 years old"
+      }
+    },
+    "tickets": {
+      "title": "Support tickets",
+      "text": "Members open a private ticket with a button or a dropdown. You decide where each request goes, which roles can see it and who claims it.",
+      "panel": "Need help?",
+      "report": "Report a member",
+      "partnership": "Partnership",
+      "other": "Other question",
+      "demo": {
+        "channel": "ticket-alex",
+        "new": "New",
+        "welcome": "Hi Alex, thanks for reaching out! A moderator will be with you shortly.",
+        "claimed": "Claimed by Sam",
+        "user": "Someone keeps sending me scam links in DMs.",
+        "staff": "Thanks for reporting it! Could you send a screenshot? I'll take care of it.",
+        "staffTag": "Staff"
+      }
+    },
+    "utilities": {
+      "title": "Commands that work in DMs too",
+      "text": "Translate, set reminders, fix or summarize text, roll dice. Most commands work anywhere, even in your DMs.",
+      "label": "Some of Moddy's commands",
+      "cta": "All commands",
+      "commands": [
+        "translate",
+        "reminder-add",
+        "fix",
+        "rephrase",
+        "summarize",
+        "roll",
+        "user",
+        "avatar",
+        "banner",
+        "emoji",
+        "ping"
+      ],
+      "demo": {
+        "option": "text",
+        "input": "Hola a todos, ¡bienvenidos!",
+        "output": "Hello everyone, welcome!",
+        "languages": "Spanish → English"
+      },
+      "reel": {
+        "rolled": "You rolled",
+        "outOf": "out of 6",
+        "remind": "Reminder set",
+        "remindWhat": "Team meeting",
+        "remindWhen": "in 10 minutes"
+      }
+    },
+    "altguard": {
+      "title": "Stop ban evasion with AltGuard",
+      "text": "New members verify before they get access. Accounts that match a banned member are flagged for review or blocked.",
+      "cta": "About AltGuard",
+      "demo": {
+        "joined": "joined the server",
+        "unverified": "Unverified",
+        "verified": "Verified",
+        "blockedChip": "Blocked",
+        "device": "Device",
+        "email": "Email",
+        "network": "Network",
+        "servers": "Servers",
+        "passed": "Passed · Verified role given",
+        "blocked": "Blocked · Same device as a banned account"
+      }
+    },
+    "dashboard": {
+      "title": "Configure from your browser",
+      "text": "Enable modules, review cases and customize the bot from the web dashboard, no command to remember.",
+      "cta": "Open dashboard",
+      "mock": {
+        "server": "My community",
+        "overview": "Overview",
+        "modules": "Modules",
+        "cases": "Cases",
+        "settings": "Settings",
+        "saved": "Changes saved",
+        "search": "Search modules"
+      }
+    },
+    "max": {
+      "title": "Moddy Max",
+      "text": "Moderation, AutoMod AI and welcome messages are free on every server. Moddy Max adds a custom bot identity and faster social notifications on up to 5 servers.",
+      "servers": {
+        "title": "5 premium servers",
+        "detail": "Pick them from your dashboard and switch at any time."
+      },
+      "customization": {
+        "title": "Full bot customization",
+        "detail": "Nickname, avatar, banner and bio on your server."
+      },
+      "notifications": {
+        "title": "Faster notifications",
+        "detail": "Quicker polling and up to 5 accounts per platform."
+      },
+      "cta": "Discover Moddy Max",
+      "badge": "Premium"
+    },
+    "final": {
+      "title": "Add Moddy to your server",
+      "text": "It's free. Then enable modules with /config or from the dashboard.",
+      "add": "Add to Discord",
+      "support": "Join the support server"
+    }
+  },
+  "theme": {
+    "title": "Theme",
+    "copy": "Copy current theme",
+    "copyTitle": "Copy current theme to clipboard",
+    "copied": "Copied",
+    "source": "Source color",
+    "hue": "Hue",
+    "chroma": "Chroma",
+    "tone": "Tone",
+    "mode": "Color mode",
+    "dark": "Dark",
+    "auto": "Automatic",
+    "light": "Light"
+  },
+  "max": {
+    "pageTitle": "Moddy Max",
+    "badge": "Premium",
+    "title": "Moddy Max",
+    "text": "Moddy Max adds two things: a custom bot identity and faster social notifications, on up to 5 servers. Moderation, AutoMod AI and the other modules stay free.",
+    "compare": "Compare plans",
+    "billing": "Billing",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "save": "Save 58%",
+    "perMonth": "per month",
+    "perYear": "per year",
+    "subscribe": "Subscribe",
+    "note": "Use it on up to 5 servers and switch them at any time from the dashboard.",
+    "servers": {
+      "title": "5 premium servers",
+      "text": "Pick the servers that get Moddy Max from your dashboard. Change your selection whenever you like.",
+      "slot": "Premium server",
+      "free": "Free slot",
+      "demo": {
+        "title": "Premium servers",
+        "full": "All 5 slots in use · change them any time"
+      }
+    },
+    "custom": {
+      "title": "Your own bot identity",
+      "text": "Give Moddy a nickname, avatar, banner and bio that match your community. Name styles stay free for everyone.",
+      "botName": "Moddy",
+      "customName": "Guardian",
+      "bio": "Keeping our community safe since 2026",
+      "tag": "APP"
+    },
+    "notif": {
+      "title": "Faster social notifications",
+      "text": "Follow 5 accounts per platform instead of 1, with much quicker checks for new videos, streams and articles.",
+      "free": "Free",
+      "max": "Max",
+      "realtime": "Realtime",
+      "every": "every {time}",
+      "accounts": "Accounts per platform",
+      "demo": {
+        "youtube": "New video",
+        "twitch": "Stream starts",
+        "rss": "New article",
+        "posted": "Posted",
+        "waiting": "Waiting for the next check",
+        "after": "after {time}"
+      }
+    },
+    "table": {
+      "title": "Compare plans",
+      "feature": "Feature",
+      "free": "Free",
+      "max": "Moddy Max",
+      "rows": {
+        "servers": "Servers with premium features",
+        "identity": "Bot nickname, avatar, banner and bio",
+        "style": "Bot name style (font, effect, colors)",
+        "accounts": "Social notifications: accounts per platform",
+        "youtube": "YouTube checks",
+        "twitch": "Twitch checks",
+        "rss": "RSS checks",
+        "bluesky": "Bluesky",
+        "automod": "AutoMod AI",
+        "cases": "Moderation cases",
+        "welcome": "Welcome messages (up to 5 channels)",
+        "others": "AltGuard, Inter-server and every utility command"
+      },
+      "same": "Same on every plan",
+      "upTo5": "Up to 5",
+      "min5": "5 min",
+      "min1": "1 min",
+      "min2": "2 min",
+      "s30": "30 s",
+      "min10": "10 min",
+      "realtime": "Realtime"
+    },
+    "freeCard": {
+      "title": "What stays free",
+      "text": "Everything that keeps your community safe works the same on every server, free or premium.",
+      "automod": "AutoMod AI",
+      "cases": "Moderation cases",
+      "welcome": "Welcome messages",
+      "altguard": "AltGuard",
+      "interserver": "Inter-server",
+      "utilities": "Utility commands",
+      "logs": "Server logs",
+      "tickets": "Tickets"
+    },
+    "steps": {
+      "title": "How to activate it",
+      "one": "Subscribe to Moddy Max",
+      "two": "Open the dashboard",
+      "three": "Go to Premium Servers",
+      "four": "Pick up to 5 servers"
+    },
+    "final": {
+      "title": "Get Moddy Max",
+      "text": "Choose monthly or yearly billing and turn it on for your servers right away."
+    },
+    "status": {
+      "signin": "You'll sign in with Discord before paying. Payment is handled by Stripe.",
+      "loading": "Opening secure checkout…",
+      "successTitle": "Welcome to Moddy Max!",
+      "successText": "Your payment went through. Now pick the servers that get Moddy Max.",
+      "pendingText": "Your subscription is being activated, this takes a few seconds.",
+      "chooseServers": "Choose my servers",
+      "cancelTitle": "Payment cancelled",
+      "cancelText": "You left the checkout page, nothing was charged. You can subscribe whenever you're ready.",
+      "blockedTitle": "Subscription unavailable",
+      "blockedText": "This Discord account can't subscribe right now. If you think this is a mistake, reach out on the support server.",
+      "errorTitle": "Something went wrong",
+      "errorText": "We couldn't open the checkout page. Please try again in a moment.",
+      "activeTitle": "You're on Moddy Max",
+      "activeText": "{servers} of {max} premium servers in use. Renews on {date}.",
+      "activeTextNoDate": "{servers} of {max} premium servers in use.",
+      "manage": "Manage subscription",
+      "dismiss": "Close"
+    }
+  }
+}

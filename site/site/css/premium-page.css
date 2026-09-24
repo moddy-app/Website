@@ -1,0 +1,815 @@
+/**
+ * Moddy Max page (/premium). Builds on home-page.css (cards, shapes, chips)
+ * and only adds what this page needs. Colors are theme tokens only.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Status (back from Stripe, errors, active subscription)
+ * ------------------------------------------------------------------------- */
+
+.card.status-card {
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.card.status-card.is-error {
+  background-color: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+}
+
+.card.status-card.is-error .shape::before {
+  background-color: var(--md-sys-color-error);
+}
+
+.card.status-card.is-error .shape {
+  color: var(--md-sys-color-on-error);
+}
+
+.status-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.status-text h2 {
+  margin: 0 0 4px;
+  font-size: 22px;
+}
+
+.card.status-card p {
+  margin: 0;
+  color: inherit;
+  opacity: 0.9;
+}
+
+.status-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-actions [hidden] {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Hero and pricing
+ * ------------------------------------------------------------------------- */
+
+.premium .hero .max-badge {
+  margin-bottom: 20px;
+}
+
+.card.pricing {
+  gap: 0;
+}
+
+.plan-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background-color: var(--md-sys-color-surface-container);
+}
+
+.plan-toggle button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface-variant);
+  background: transparent;
+  cursor: pointer;
+}
+
+.plan-toggle button[aria-checked='true'] {
+  background-color: var(--md-sys-color-surface-container-lowest);
+  color: var(--md-sys-color-on-surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.plan-toggle button:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}
+
+.plan-save {
+  padding: 2px 6px;
+  border-radius: 999px;
+  font-size: 11px;
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+.price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.price-amount {
+  font-size: clamp(48px, 5vw, 64px);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--md-sys-color-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.price-period {
+  font-size: var(--catalog-body-l-font-size);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.save-badge {
+  align-self: flex-start;
+  margin-top: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+.card.pricing[data-plan='monthly'] .save-badge {
+  visibility: hidden;
+}
+
+.price-points {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.price-points li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+}
+
+.price-points .material-symbols-outlined {
+  font-size: 20px;
+  color: var(--md-sys-color-primary);
+}
+
+.card.pricing .card-actions md-filled-button {
+  flex: 1;
+  --md-filled-button-container-height: 48px;
+}
+
+.card .pricing-note {
+  margin: 12px 0 0;
+  font-size: 13px;
+}
+
+/* ---------------------------------------------------------------------------
+ * 5 premium servers: switched on one by one (premium-page.ts)
+ * ------------------------------------------------------------------------- */
+
+.picker {
+  gap: 10px;
+}
+
+.picker-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.picker-count {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--md-sys-color-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.picker-bar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+}
+
+.picker-bar i {
+  height: 6px;
+  border-radius: 3px;
+  background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.picker-bar i.on {
+  background-color: var(--md-sys-color-primary);
+}
+
+.picker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.picker-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 14px;
+  background-color: var(--md-sys-color-surface-container-lowest);
+  font-size: 14px;
+}
+
+.picker-icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.picker-icon.tone-1 {
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+.picker-icon.tone-2 {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.picker-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.picker-crown {
+  font-size: 18px;
+  color: var(--md-sys-color-primary);
+  font-variation-settings: 'FILL' 1;
+  opacity: 0;
+  scale: 0.4;
+}
+
+.picker-row.on .picker-crown {
+  opacity: 1;
+  scale: 1;
+}
+
+.picker-row .switch {
+  cursor: default;
+}
+
+/* Once the 5 places are used, the servers left over are greyed out. */
+.picker.full .picker-row:not(.on),
+.picker:not(.playing) .picker-row:not(.on) {
+  opacity: 0.45;
+}
+
+.picker-full {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--md-sys-color-on-surface-variant);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.picker.full .picker-full,
+.picker:not(.playing) .picker-full {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Without the script (or with reduced motion): the end state. */
+.picker:not(.playing) .picker-bar i {
+  background-color: var(--md-sys-color-primary);
+}
+
+.picker-full .material-symbols-outlined {
+  font-size: 16px;
+  color: var(--md-sys-color-primary);
+  font-variation-settings: 'FILL' 1;
+}
+
+/* ---------------------------------------------------------------------------
+ * Bot identity: a Discord-like profile that switches identity
+ * ------------------------------------------------------------------------- */
+
+.profile {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: var(--md-sys-color-surface-container);
+}
+
+.profile-banner {
+  height: 64px;
+  background-color: var(--md-sys-color-primary);
+}
+
+.profile-avatar {
+  position: absolute;
+  top: 28px;
+  left: 16px;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border: 5px solid var(--md-sys-color-surface-container);
+  border-radius: 50%;
+  box-sizing: border-box;
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  overflow: hidden;
+}
+
+.profile-avatar > * {
+  grid-area: 1 / 1;
+}
+
+.avatar-default {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-custom {
+  font-size: 30px;
+  font-variation-settings: 'FILL' 1;
+  opacity: 0;
+}
+
+.profile-body {
+  padding: 36px 16px 16px;
+}
+
+.profile-name {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: start;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.profile-name .name-default,
+.profile-name .name-custom {
+  grid-area: 1 / 1;
+}
+
+.profile-name .name-custom {
+  opacity: 0;
+}
+
+.profile-tag {
+  grid-column: 2;
+  justify-self: start;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+.profile-bio {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--md-sys-color-on-surface-variant);
+  opacity: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Faster notifications: a race between the two plans (premium-page.ts)
+ * ------------------------------------------------------------------------- */
+
+.race {
+  gap: 10px;
+}
+
+.race-event,
+.race-time {
+  display: none;
+}
+
+.race-event.current {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  font-size: 13px;
+  background-color: var(--md-sys-color-surface-container-lowest);
+}
+
+.race-event .material-symbols-outlined {
+  font-size: 20px;
+  color: var(--md-sys-color-primary);
+  font-variation-settings: 'FILL' 1;
+}
+
+.race-event span:last-child {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.race-lane {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background-color: var(--md-sys-color-surface-container-lowest);
+}
+
+.race-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.race-plan {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.race-lane.max .race-plan {
+  color: var(--md-sys-color-primary);
+}
+
+.race-time.current {
+  display: inline;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.race-track {
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.race-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: var(--md-sys-color-outline);
+  transform-origin: left;
+}
+
+.race-lane.max .race-fill {
+  background-color: var(--md-sys-color-primary);
+}
+
+.race-status {
+  display: grid;
+  font-size: 12px;
+}
+
+.race-status > * {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.race-status .material-symbols-outlined {
+  font-size: 16px;
+}
+
+.race-wait {
+  color: var(--md-sys-color-on-surface-variant);
+  visibility: hidden;
+}
+
+.race-done {
+  font-weight: 600;
+  color: var(--md-sys-color-primary);
+}
+
+.race-done .material-symbols-outlined {
+  font-variation-settings: 'FILL' 1;
+}
+
+.race-lane.waiting .race-wait {
+  visibility: visible;
+}
+
+.race-lane.waiting .race-done {
+  visibility: hidden;
+}
+
+.race-accounts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 4px 0;
+  font-size: 12px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.race-accounts .free,
+.race-accounts .max {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.race-accounts .max {
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface);
+}
+
+.dots {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.dots i {
+  width: 6px;
+  height: 14px;
+  border-radius: 3px;
+  background-color: var(--md-sys-color-outline);
+}
+
+.race-accounts .max .dots i {
+  background-color: var(--md-sys-color-primary);
+}
+
+/* ---------------------------------------------------------------------------
+ * Comparison table
+ * ------------------------------------------------------------------------- */
+
+.table-wrap {
+  margin-top: 8px;
+  overflow-x: auto;
+}
+
+.compare {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 15px;
+}
+
+.compare th,
+.compare td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.compare thead th {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.compare tbody th {
+  font-weight: 400;
+}
+
+.compare td {
+  width: 22%;
+  white-space: nowrap;
+}
+
+.compare .col-max {
+  background-color: var(--md-sys-color-surface-container);
+  font-weight: 600;
+}
+
+.compare thead .col-max {
+  border-radius: 16px 16px 0 0;
+  color: var(--md-sys-color-primary);
+}
+
+.compare tbody tr:last-child .col-max {
+  border-radius: 0 0 16px 16px;
+}
+
+.compare tbody tr:last-child th,
+.compare tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.compare .material-symbols-outlined {
+  vertical-align: middle;
+  font-size: 22px;
+}
+
+.compare .yes {
+  color: var(--md-sys-color-primary);
+  font-variation-settings: 'FILL' 1;
+}
+
+.compare .no {
+  color: var(--md-sys-color-outline);
+}
+
+/* ---------------------------------------------------------------------------
+ * Free features and steps
+ * ------------------------------------------------------------------------- */
+
+.free-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+
+.steps li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: var(--catalog-shape-l);
+  background-color: var(--md-sys-color-surface-container);
+  font-size: 15px;
+}
+
+.step-number {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+@media (max-width: 600px) {
+  .card.status-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Motion
+ * ------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .plan-toggle button {
+    transition:
+      background-color 250ms var(--ease),
+      color 250ms var(--ease),
+      box-shadow 250ms var(--ease);
+  }
+
+  .price-amount {
+    transition: opacity 200ms var(--ease), translate 300ms var(--ease);
+  }
+
+  .price-amount.changing {
+    opacity: 0;
+    translate: 0 -8px;
+  }
+
+
+
+  /* The profile switches from Moddy to a custom identity and back. */
+  .profile-banner,
+  .profile-avatar {
+    animation: identity-bg 7s var(--ease) infinite;
+  }
+
+  .profile-avatar {
+    animation-name: identity-avatar;
+  }
+
+  .avatar-default,
+  .name-default {
+    animation: identity-out 7s var(--ease) infinite;
+  }
+
+  .avatar-custom,
+  .name-custom,
+  .profile-bio {
+    animation: identity-in 7s var(--ease) infinite;
+  }
+
+  @keyframes identity-bg {
+    0%, 40% { background-color: var(--md-sys-color-primary); }
+    50%, 90% { background-color: var(--md-sys-color-tertiary); }
+    100% { background-color: var(--md-sys-color-primary); }
+  }
+
+  @keyframes identity-avatar {
+    0%, 40% {
+      background-color: var(--md-sys-color-primary-container);
+      border-radius: 50%;
+    }
+    50%, 90% {
+      background-color: var(--md-sys-color-tertiary-container);
+      border-radius: 30%;
+    }
+    100% {
+      background-color: var(--md-sys-color-primary-container);
+      border-radius: 50%;
+    }
+  }
+
+  @keyframes identity-out {
+    0%, 40% { opacity: 1; translate: 0 0; }
+    48%, 92% { opacity: 0; translate: 0 -6px; }
+    100% { opacity: 1; translate: 0 0; }
+  }
+
+  @keyframes identity-in {
+    0%, 42% { opacity: 0; translate: 0 6px; }
+    50%, 90% { opacity: 1; translate: 0 0; }
+    98%, 100% { opacity: 0; translate: 0 6px; }
+  }
+
+
+
+
+
+
+  /* Server picker and race. */
+  .picker-bar i,
+  .picker-row,
+  .picker-full,
+  .picker-crown,
+  .race-lane {
+    transition:
+      background-color 300ms var(--ease),
+      opacity 300ms var(--ease),
+      visibility 300ms,
+      scale 350ms var(--ease);
+  }
+
+  .race-event.current {
+    animation: race-in 450ms var(--ease);
+  }
+
+  @keyframes race-in {
+    from { opacity: 0; translate: 0 6px; }
+  }
+
+  .race-lane.arrived {
+    animation: race-arrive 700ms var(--ease);
+  }
+
+  @keyframes race-arrive {
+    35% { background-color: var(--md-sys-color-secondary-container); }
+  }
+
+  /* Table rows light up under the pointer, to follow a line across. */
+  .compare tbody tr th,
+  .compare tbody tr td {
+    transition: background-color 200ms var(--ease);
+  }
+
+  .compare tbody tr:hover th,
+  .compare tbody tr:hover td:not(.col-max) {
+    background-color: var(--md-sys-color-surface-container-low);
+  }
+
+
+
+
+}

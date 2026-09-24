@@ -8,6 +8,56 @@
       "source": "/install",
       "destination": "https://api.moddy.app/install",
       "permanent": false
+    },
+    {
+      "source": "/navigation/subscriptions",
+      "destination": "/premium/",
+      "permanent": true
+    },
+    {
+      "source": "/navigation/subscriptions/",
+      "destination": "/premium/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/navigation/subscriptions",
+      "destination": "/fr/premium/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/navigation/subscriptions/",
+      "destination": "/fr/premium/",
+      "permanent": true
+    },
+    {
+      "source": "/es/navigation/subscriptions",
+      "destination": "/es/premium/",
+      "permanent": true
+    },
+    {
+      "source": "/es/navigation/subscriptions/",
+      "destination": "/es/premium/",
+      "permanent": true
+    },
+    {
+      "source": "/pt-br/navigation/subscriptions",
+      "destination": "/pt-br/premium/",
+      "permanent": true
+    },
+    {
+      "source": "/pt-br/navigation/subscriptions/",
+      "destination": "/pt-br/premium/",
+      "permanent": true
+    },
+    {
+      "source": "/de/navigation/subscriptions",
+      "destination": "/de/premium/",
+      "permanent": true
+    },
+    {
+      "source": "/de/navigation/subscriptions/",
+      "destination": "/de/premium/",
+      "permanent": true
     }
   ]
 }

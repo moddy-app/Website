@@ -1,0 +1,29 @@
+{#- Picks a new theme color at random on every page load, among the seeds of
+    site/_data/palettes.js (themes computed at build time). Runs before
+    inline/apply-saved-theme.js, which then applies it: nothing is painted
+    in the old color. A color chosen in the footer's theme menu is kept
+    ("moddy-color-locked", set in src/pages/global.ts). -#}
+<script>
+  (function () {
+    var palettes = {{ palettes | dump | safe }};
+    try {
+      if (localStorage.getItem('moddy-color-locked')) return;
+      var mode = localStorage.getItem('color-mode') || 'auto';
+      var dark =
+        mode === 'dark' ||
+        (mode === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      // Never the same color twice in a row.
+      var last = (localStorage.getItem('seed-color') || '').toLowerCase();
+      var pool = palettes.filter(function (p) {
+        return p.seed.toLowerCase() !== last;
+      });
+      var pick = pool[Math.floor(Math.random() * pool.length)];
+      localStorage.setItem('seed-color', pick.seed);
+      localStorage.setItem('color-mode', mode);
+      if (mode === 'auto') {
+        localStorage.setItem('last-auto-color-mode', dark ? 'dark' : 'light');
+      }
+      localStorage.setItem('material-theme', dark ? pick.dark : pick.light);
+    } catch (e) {}
+  })();
+</script>

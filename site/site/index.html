@@ -1,596 +1,594 @@
 ---
 name: Home
-title: Home
-tags: navigation
-order: 1
+titleKey: home.pageTitle
 layout: default.html
 hasToc: false
+basePath: /
+pagination:
+  data: locales
+  size: 1
+  alias: locale
+permalink: "{{ locale.prefix }}/index.html"
 ---
 
-<style>
-  .home-page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: var(--catalog-spacing-l);
-  }
+{#- Every string comes from site/_data/i18n/<locale>.json, except the
+    baseline (site/_data/brand.json), which stays in English everywhere.
+    This page is rendered once per locale (see `pagination` above). -#}
+{% set c = locale.code %}
 
-  /* Hero Section */
-  .hero-section {
-    margin-bottom: calc(var(--catalog-spacing-xl) * 2);
-    padding-top: var(--catalog-spacing-xl);
-  }
-
-  .hero-section h1 {
-    font-size: 80px;
-    font-weight: 700;
-    -webkit-font-smoothing: antialiased;
-    margin-bottom: var(--catalog-spacing-l);
-    text-align: left;
-    color: var(--md-sys-color-on-surface);
-    line-height: 1.1;
-  }
-
-  .hero-section .subtitle {
-    font-size: var(--catalog-title-l-font-size);
-    font-weight: 400;
-    color: var(--md-sys-color-on-surface-variant);
-    margin-bottom: calc(var(--catalog-spacing-xl) * 1.5);
-    text-align: left;
-    max-width: 900px;
-    line-height: 1.4;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: var(--catalog-spacing-m);
-    flex-wrap: wrap;
-  }
-
-  .hero-actions md-filled-button,
-  .hero-actions md-outlined-button {
-    --md-filled-button-container-height: 56px;
-    --md-outlined-button-container-height: 56px;
-    --md-filled-button-label-text-size: var(--catalog-body-l-font-size);
-    --md-outlined-button-label-text-size: var(--catalog-body-l-font-size);
-    font-weight: 500;
-    padding: 0 var(--catalog-spacing-xl);
-  }
-
-  /* Stats Section */
-  .stats-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--catalog-spacing-l);
-    margin-bottom: calc(var(--catalog-spacing-xl) * 2);
-    padding: calc(var(--catalog-spacing-xl) + var(--catalog-spacing-m));
-    background-color: var(--md-sys-color-surface-container-low);
-    border-radius: var(--catalog-shape-xl);
-    border: 1px solid var(--md-sys-color-outline-variant);
-  }
-
-  .stat-item {
-    text-align: center;
-  }
-
-  .stat-number {
-    font-size: var(--catalog-display-m-font-size);
-    font-weight: 700;
-    -webkit-font-smoothing: antialiased;
-    color: var(--md-sys-color-primary);
-    margin-bottom: var(--catalog-spacing-s);
-    line-height: 1;
-    transition: opacity 0.3s ease;
-  }
-
-  .stat-number.counting {
-    animation: count-fade-in 0.6s ease-out;
-  }
-
-  @keyframes count-fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .stat-label {
-    font-size: var(--catalog-body-l-font-size);
-    color: var(--md-sys-color-on-surface-variant);
-    line-height: 1.3;
-  }
-
-  /* Features Section */
-  .features-section {
-    margin-bottom: calc(var(--catalog-spacing-xl) * 2);
-  }
-
-  .features-section h2 {
-    font-size: var(--catalog-display-m-font-size);
-    font-weight: 700;
-    -webkit-font-smoothing: antialiased;
-    margin-bottom: var(--catalog-spacing-xl);
-    text-align: left;
-    color: var(--md-sys-color-on-surface);
-    line-height: 1.2;
-  }
-
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--catalog-spacing-l);
-  }
-
-  .feature-card {
-    background-color: var(--md-sys-color-surface-container-low);
-    border-radius: var(--catalog-shape-xl);
-    padding: calc(var(--catalog-spacing-xl) + var(--catalog-spacing-s));
-    border: 1px solid var(--md-sys-color-outline-variant);
-  }
-
-  .feature-card h3 {
-    font-size: var(--catalog-title-l-font-size);
-    font-weight: 600;
-    -webkit-font-smoothing: antialiased;
-    margin: 0 0 var(--catalog-spacing-m) 0;
-    text-align: left;
-    color: var(--md-sys-color-on-surface);
-    display: flex;
-    align-items: center;
-    gap: var(--catalog-spacing-s);
-    line-height: 1.3;
-  }
-
-  .feature-card .feature-icon {
-    color: var(--md-sys-color-primary);
-    font-size: 28px;
-    flex-shrink: 0;
-    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-  }
-
-  .feature-card p {
-    font-size: var(--catalog-body-l-font-size);
-    color: var(--md-sys-color-on-surface-variant);
-    text-align: left;
-    line-height: 1.6;
-    margin: 0;
-    padding-left: calc(28px + var(--catalog-spacing-s));
-  }
-
-  /* Premium Section */
-  .premium-section {
-    background: linear-gradient(135deg, var(--md-sys-color-primary-container) 0%, var(--md-sys-color-secondary-container) 100%);
-    border-radius: var(--catalog-shape-xl);
-    padding: calc(var(--catalog-spacing-xl) + var(--catalog-spacing-m));
-    margin-bottom: calc(var(--catalog-spacing-xl) * 2);
-    border: 1px solid var(--md-sys-color-outline-variant);
-  }
-
-  .premium-section h2 {
-    font-size: var(--catalog-display-m-font-size);
-    font-weight: 700;
-    -webkit-font-smoothing: antialiased;
-    margin: 0 0 var(--catalog-spacing-m) 0;
-    color: var(--md-sys-color-on-primary-container);
-    text-align: left;
-    line-height: 1.2;
-  }
-
-  .premium-section p {
-    font-size: var(--catalog-body-l-font-size);
-    color: var(--md-sys-color-on-primary-container);
-    margin: 0 0 var(--catalog-spacing-l) 0;
-    text-align: left;
-    line-height: 1.5;
-  }
-
-  .premium-features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--catalog-spacing-m);
-    margin: 0 0 var(--catalog-spacing-l) 0;
-  }
-
-  .premium-feature {
-    display: flex;
-    align-items: center;
-    gap: var(--catalog-spacing-s);
-    color: var(--md-sys-color-on-primary-container);
-    font-size: var(--catalog-body-l-font-size);
-  }
-
-  .premium-feature .check-icon {
-    color: var(--md-sys-color-on-primary-container);
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-
-  .premium-actions {
-    display: flex;
-    gap: var(--catalog-spacing-m);
-    flex-wrap: wrap;
-    margin: 0;
-  }
-
-  .premium-actions md-filled-button {
-    --md-filled-button-container-height: 56px;
-    --md-filled-button-label-text-size: var(--catalog-body-l-font-size);
-    font-weight: 500;
-    padding: 0 var(--catalog-spacing-xl);
-  }
-
-  /* CTA Section */
-  .cta-section {
-    background-color: var(--md-sys-color-surface-container-low);
-    border-radius: var(--catalog-shape-xl);
-    padding: calc(var(--catalog-spacing-xl) + var(--catalog-spacing-m));
-    text-align: left;
-    border: 2px solid var(--md-sys-color-primary);
-    margin-bottom: calc(var(--catalog-spacing-xl) * 2);
-  }
-
-  .cta-section h2 {
-    font-size: var(--catalog-display-m-font-size);
-    font-weight: 700;
-    -webkit-font-smoothing: antialiased;
-    margin: 0 0 var(--catalog-spacing-m) 0;
-    color: var(--md-sys-color-on-surface);
-    line-height: 1.2;
-  }
-
-  .cta-section p {
-    font-size: var(--catalog-body-l-font-size);
-    color: var(--md-sys-color-on-surface-variant);
-    margin: 0 0 var(--catalog-spacing-l) 0;
-    max-width: 700px;
-    line-height: 1.5;
-  }
-
-  .cta-actions {
-    display: flex;
-    gap: var(--catalog-spacing-m);
-    flex-wrap: wrap;
-    margin: 0;
-  }
-
-  .cta-actions md-filled-button {
-    --md-filled-button-container-height: 56px;
-    --md-filled-button-label-text-size: var(--catalog-body-l-font-size);
-    font-weight: 500;
-    padding: 0 var(--catalog-spacing-xl);
-  }
-
-  /* Support Section */
-  .support-section {
-    padding: calc(var(--catalog-spacing-xl) + var(--catalog-spacing-s));
-    background-color: var(--md-sys-color-surface-container);
-    border-radius: var(--catalog-shape-xl);
-    border: 1px solid var(--md-sys-color-outline-variant);
-    text-align: left;
-  }
-
-  .support-section h3 {
-    font-size: var(--catalog-title-l-font-size);
-    font-weight: 600;
-    -webkit-font-smoothing: antialiased;
-    margin: 0 0 var(--catalog-spacing-m) 0;
-    color: var(--md-sys-color-on-surface);
-    line-height: 1.3;
-  }
-
-  .support-section p {
-    font-size: var(--catalog-body-l-font-size);
-    color: var(--md-sys-color-on-surface-variant);
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  .support-section a {
-    color: var(--md-sys-color-primary);
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  .support-section a:hover,
-  .support-section a:focus-visible {
-    text-decoration: underline;
-  }
-
-  /* Responsive */
-  @media screen and (max-width: 600px) {
-    .home-page {
-      padding: var(--catalog-spacing-m);
-    }
-
-    .hero-section h1 {
-      font-size: 55px;
-    }
-
-    .hero-section .subtitle {
-      font-size: var(--catalog-body-l-font-size);
-    }
-
-    .features-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .hero-actions,
-    .cta-actions,
-    .premium-actions {
-      flex-direction: column;
-    }
-
-    .hero-actions md-filled-button,
-    .hero-actions md-outlined-button,
-    .cta-actions md-filled-button,
-    .premium-actions md-filled-button {
-      width: 100%;
-    }
-
-    .stats-section {
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--catalog-spacing-m);
-      padding: var(--catalog-spacing-xl);
-    }
-
-    .premium-features {
-      grid-template-columns: 1fr;
-    }
-
-    .feature-card {
-      padding: var(--catalog-spacing-xl);
-    }
-
-    .premium-section,
-    .cta-section {
-      padding: var(--catalog-spacing-xl);
-    }
-
-    .support-section {
-      padding: calc(var(--catalog-spacing-l) + var(--catalog-spacing-m));
-    }
-  }
-</style>
+{% inlinecss "home-page.css" %}
 
 <lit-island on:visible import="/js/hydration-entrypoints/form-controls.js">
-  <div class="home-page">
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <h1>Moddy, the only bot you need.</h1>
-      <p class="subtitle">
-        Your all-in-one Discord bot solution for server management, moderation, and community engagement.
-      </p>
-      <div class="hero-actions">
-        <md-filled-button href="https://moddy.app/install" target="_blank">
-          Add to Discord
-        </md-filled-button>
-        <md-outlined-button href="https://dashboard.moddy.app" target="_blank">
-          Open Dashboard
-        </md-outlined-button>
+  <div class="home">
+    <div class="bento">
+
+      <!-- Hero -->
+      <section class="card hero span-7">
+        <h1>{{ brand.baseline }}</h1>
+        <p>{{ 'home.hero.text' | t(c) }}</p>
+        <div class="card-actions">
+          <md-filled-button href="/install" target="_blank">
+            {{ 'home.hero.add' | t(c) }}
+          </md-filled-button>
+          <md-outlined-button href="https://dashboard.moddy.app" target="_blank">
+            {{ 'home.hero.dashboard' | t(c) }}
+          </md-outlined-button>
+        </div>
+      </section>
+
+      <!-- Live activity -->
+      <section class="card span-5">
+        <div class="card-head">
+          <h3>{{ 'home.hero.activity' | t(c) }}</h3>
+        </div>
+        <div class="feed-window">
+          <ul class="feed" aria-label="{{ 'home.hero.feedLabel' | t(c) }}">
+            {% set feed = [
+              ['spam', 'shape-square', '', 'shield'],
+              ['welcome', 'shape-hexagon', 'tone-tertiary', 'waving_hand'],
+              ['live', 'shape-pentagon', 'tone-secondary', 'live_tv'],
+              ['case', 'shape-octagon', '', 'gavel'],
+              ['bump', 'shape-square', 'tone-tertiary', 'notifications_active']
+            ] %}
+            {% for item in feed %}
+              <li>
+                <span class="shape small {{ item[1] }} {{ item[2] }}" aria-hidden="true"><span class="material-symbols-outlined">{{ item[3] }}</span></span>
+                <span class="feed-text">
+                  <span class="feed-title">{{ ('home.hero.feed.' + item[0] + '.title') | t(c) }}</span>
+                  <span class="feed-sub">{{ ('home.hero.feed.' + item[0] + '.sub') | t(c) }}</span>
+                </span>
+                <span class="feed-time">{{ ('home.hero.feed.' + item[0] + '.time') | t(c) }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+
+      <!-- Live numbers: written at build time (site/_data/publicStats.js) and
+           refreshed by home-page.ts; hidden when no number is known. -->
+      {% set s = publicStats.stats %}
+      <div class="bento-group" id="stats"{% if not s %} hidden{% endif %}>
+        {% for stat in [
+          ['guilds', 'dns', 'shape-square', ''],
+          ['users', 'groups', 'shape-hexagon', 'tone-tertiary'],
+          ['commands', 'terminal', 'shape-octagon', 'tone-secondary'],
+          ['cases', 'gavel', 'shape-pentagon', '']
+        ] %}
+          <section class="card stat span-3">
+            <span class="shape small {{ stat[2] }} {{ stat[3] }}" aria-hidden="true"><span class="material-symbols-outlined">{{ stat[1] }}</span></span>
+            <span class="stat-value" data-stat="{{ stat[0] }}" data-value="{{ s[stat[0]] if s else 0 }}">{{ (s[stat[0]] if s else 0) | formatNumber(c) }}</span>
+            <span class="stat-label">{{ ('home.stats.' + stat[0]) | t(c) }}</span>
+          </section>
+        {% endfor %}
       </div>
-    </section>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
-      <div class="stat-item">
-        <div class="stat-number">--</div>
-        <div class="stat-label">Active Servers</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">--</div>
-        <div class="stat-label">Community Users</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" data-target="99" data-suffix="%">0</div>
-        <div class="stat-label">Uptime</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" data-target="24" data-suffix="/7">0</div>
-        <div class="stat-label">Support Available</div>
-      </div>
-    </section>
+      {% set guilds = publicStats.topGuilds %}
+      <section class="card split guilds" id="guilds"{% if not guilds.length %} hidden{% endif %}
+        data-members-label="{{ 'home.stats.members' | t(c) }}">
+        <div class="card-text">
+          <span class="shape shape-octagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">diversity_3</span></span>
+          <h2>{{ 'home.stats.title' | t(c) }}</h2>
+          <p>{{ 'home.stats.top' | t(c) }}. {{ 'home.stats.text' | t(c) }}</p>
+        </div>
+        <div class="card-visual">
+          <div class="chip-rows guild-rows">
+            {% set half = ((guilds.length + 1) / 2) | round(0, 'floor') %}
+            {% for part in [guilds.slice(0, half), guilds.slice(half)] %}
+              {% if part.length %}
+                {#- Each row holds its tiles twice so the marquee loops; the
+                    copy is hidden from screen readers. -#}
+                <div class="guild-lane"><div class="chip-row">
+                  {% for copy in [false, true] %}
+                    {% for guild in part %}
+                      <span class="guild-tile tone-{{ loop.index0 % 4 }}" style="--tile-width: {{ guild.width }}px"{% if copy %} aria-hidden="true"{% endif %}>
+                        {% if guild.icon %}
+                          <img class="guild-bg" src="{{ guild.icon }}" alt="" loading="lazy" crossorigin="anonymous" />
+                        {% endif %}
+                        <span class="guild-top">
+                          {% if guild.icon %}
+                            <img class="guild-icon" src="{{ guild.icon }}" alt="" width="22" height="22" loading="lazy" crossorigin="anonymous" />
+                          {% else %}
+                            <span class="guild-icon" aria-hidden="true">{{ guild.initials }}</span>
+                          {% endif %}
+                          <span class="guild-members">{{ 'home.stats.members' | t(c, { count: guild.members | formatNumber(c, true) }) }}</span>
+                        </span>
+                        <span class="guild-name">{{ guild.name }}</span>
+                      </span>
+                    {% endfor %}
+                  {% endfor %}
+                </div></div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </section>
 
-    <!-- Features Section -->
-    <section class="features-section">
-      <h2>Why Choose Moddy?</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <h3>
-            <span class="material-symbols-outlined feature-icon">shield</span>
-            Moderation on Autopilot
-          </h3>
-          <p>
-            Ban the trolls before they even think about causing trouble. Smart filters, custom rules, and zero tolerance for chaos.
-          </p>
+      <!-- Brocoli, the AI assistant -->
+      <section class="card split reverse">
+        <div class="card-text">
+          <span class="shape shape-heptagon tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">auto_awesome</span></span>
+          <h2>{{ 'home.ai.title' | t(c) }}</h2>
+          <p>{{ 'home.ai.text' | t(c) }}</p>
+          <div class="card-actions">
+            <md-filled-button trailing-icon href="https://dashboard.moddy.app" target="_blank">
+              {{ 'home.ai.cta' | t(c) }}
+              <md-icon slot="icon">arrow_forward</md-icon>
+            </md-filled-button>
+          </div>
         </div>
+        <div class="card-visual">
+          <div class="panel chat" role="img" aria-label="{{ 'home.ai.label' | t(c) }}">
+            <div class="chat-log">
+              <div class="chat-msg user" data-at="1">
+                <span class="chat-author">{{ 'home.ai.you' | t(c) }}</span>
+                <div class="bubble">{{ 'home.ai.prompt' | t(c) }}</div>
+              </div>
+              <div class="chat-msg ai" data-at="2">
+                <span class="chat-author"><span class="material-symbols-outlined">auto_awesome</span>{{ 'home.ai.assistant' | t(c) }}</span>
+                <div class="chat-steps">
+                  {% for step in [['read', 2], ['stepWelcome', 3], ['stepRole', 4]] %}
+                    <div class="chat-step done" data-at="{{ step[1] }}" data-done-at="{{ step[1] + 1 }}">
+                      <span class="step-icon">
+                        <span class="material-symbols-outlined spinner">progress_activity</span>
+                        <span class="material-symbols-outlined check">check_circle</span>
+                      </span>
+                      {{ ('home.ai.' + step[0]) | t(c) }}
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="chat-msg ai" data-at="7">
+                <div class="bubble">{{ 'home.ai.answer' | t(c) }}</div>
+              </div>
+              <span class="chat-applied" data-at="8">
+                <span class="material-symbols-outlined">check_circle</span>
+                {{ 'home.ai.applied' | t(c) }}
+              </span>
+            </div>
+            {#- The confirmation takes the place of the message box while
+                Brocoli waits for an answer (class "confirming", set by
+                home-page.ts). -#}
+            <div class="chat-bottom">
+              <div class="chat-input">
+                <span class="chat-input-text" data-placeholder="{{ 'home.ai.placeholder' | t(c) }}" data-prompt="{{ 'home.ai.prompt' | t(c) }}"></span>
+                <span class="chat-send"><span class="material-symbols-outlined">arrow_upward</span></span>
+              </div>
+              <div class="chat-confirm">
+                {{ 'home.ai.confirm' | t(c) }}
+                <div class="chat-confirm-actions">
+                  <span class="fake-button filled" data-press-at="6">{{ 'home.ai.apply' | t(c) }}</span>
+                  <span class="fake-button">{{ 'home.ai.cancel' | t(c) }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <div class="feature-card">
-          <h3>
-            <span class="material-symbols-outlined feature-icon">psychology</span>
-            AI That Actually Works
-          </h3>
-          <p>
-            Stop copy-pasting commands. Our AI handles the boring stuff so you can focus on what matters: your community.
-          </p>
+      <!-- AutoMod AI -->
+      <section class="card span-6">
+        <span class="shape shape-square tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">smart_toy</span></span>
+        <h2>{{ 'home.automod.title' | t(c) }}</h2>
+        <p>{{ 'home.automod.text' | t(c) }}</p>
+        <div class="card-visual">
+          {#- AutoMod at work (home-page.ts): a scam arrives among normal
+              messages, is analysed, then turns into the sanction in place.
+              Rendered in its final state (caught) without JS. -#}
+          <div class="panel guard" data-demo="guard" aria-hidden="true">
+            <ul class="guard-list">
+              <li class="guard-msg">
+                <img class="guard-avatar avatar-3d" src="/images/avatars/mia.webp" alt="" width="36" height="36" loading="lazy" />
+                <span class="guard-body">
+                  <span class="guard-author">mia</span>
+                  <span class="guard-text">{{ 'home.automod.demo.m1' | t(c) }}</span>
+                </span>
+              </li>
+              <li class="guard-msg">
+                <img class="guard-avatar avatar-3d" src="/images/avatars/leo.webp" alt="" width="36" height="36" loading="lazy" />
+                <span class="guard-body">
+                  <span class="guard-author">leo</span>
+                  <span class="guard-text">{{ 'home.automod.demo.m2' | t(c) }}</span>
+                </span>
+              </li>
+              <li class="guard-msg guard-target" data-state="caught">
+                <img class="guard-avatar avatar-3d" src="/images/avatars/troublemaker.webp" alt="" width="36" height="36" loading="lazy" />
+                <span class="guard-body guard-original">
+                  <span class="guard-author">troublemaker</span>
+                  <span class="guard-text">{{ 'home.automod.message' | t(c) }}</span>
+                </span>
+                <span class="guard-status"><span class="material-symbols-outlined">progress_activity</span>{{ 'home.automod.demo.analyzing' | t(c) }}</span>
+                <span class="guard-verdict">
+                  <span class="guard-verdict-icon"><span class="material-symbols-outlined">shield</span></span>
+                  <span class="guard-body">
+                    <strong>{{ 'home.automod.verdict' | t(c) }}</strong>
+                    <span class="guard-detail">{{ 'home.automod.detail' | t(c) }}</span>
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
+        <div class="card-actions end">
+          <md-filled-tonal-button trailing-icon href="{{ '/moderation/automod' | docsUrl(c) }}" target="_blank">
+            {{ 'home.automod.cta' | t(c) }}
+            <md-icon slot="icon">arrow_forward</md-icon>
+          </md-filled-tonal-button>
+        </div>
+      </section>
 
-        <div class="feature-card">
-          <h3>
-            <span class="material-symbols-outlined feature-icon">dashboard</span>
-            Dashboard, Not Rocket Science
-          </h3>
-          <p>
-            Configure everything from your browser. No PhD required—just click, type, done. Even your grandma could use it.
-          </p>
+      <!-- Moderation cases -->
+      <section class="card span-6">
+        <span class="shape shape-pentagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">gavel</span></span>
+        <h2>{{ 'home.cases.title' | t(c) }}</h2>
+        <p>{{ 'home.cases.text' | t(c) }}</p>
+        <div class="card-visual">
+          <div class="rows" aria-hidden="true">
+            {% for item in [
+              ['A7F2K9', 'warn', 'warning', '', 'active', true],
+              ['Q3M8ZT', 'mute', 'timer', 'tone-tertiary', 'expired', false],
+              ['L9D4RW', 'ban', 'block', 'tone-secondary', 'appeal', false]
+            ] %}
+              <div class="row">
+                <span class="shape small shape-hexagon {{ item[3] }}"><span class="material-symbols-outlined">{{ item[2] }}</span></span>
+                <span class="row-body"><span class="row-meta">{{ item[0] }}</span><span class="row-title">{{ ('home.cases.' + item[1]) | t(c) }}</span></span>
+                <span class="status{% if item[5] %} strong{% endif %}">{{ ('home.cases.' + item[4]) | t(c) }}</span>
+              </div>
+            {% endfor %}
+          </div>
         </div>
+        <div class="card-actions end">
+          <md-filled-tonal-button trailing-icon href="{{ '/moderation/cases' | docsUrl(c) }}" target="_blank">
+            {{ 'home.cases.cta' | t(c) }}
+            <md-icon slot="icon">arrow_forward</md-icon>
+          </md-filled-tonal-button>
+        </div>
+      </section>
 
-        <div class="feature-card">
-          <h3>
-            <span class="material-symbols-outlined feature-icon">speed</span>
-            Faster Than Your Wi-Fi
-          </h3>
-          <p>
-            99% uptime means we're basically never down. Commands run instantly. Your server never skips a beat.
-          </p>
+      <!-- Modules -->
+      <section class="card split">
+        <div class="card-text">
+          <span class="shape shape-octagon tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">extension</span></span>
+          <h2>{{ 'home.modules.title' | t(c) }}</h2>
+          <p>{{ 'home.modules.text' | t(c) }}</p>
+          <div class="card-actions">
+            <md-outlined-button trailing-icon href="{{ '/modules/overview' | docsUrl(c) }}" target="_blank">
+              {{ 'home.modules.cta' | t(c) }}
+              <md-icon slot="icon">arrow_forward</md-icon>
+            </md-outlined-button>
+          </div>
         </div>
+        <div class="card-visual">
+          {#- [name key, icon, docs.moddy.app/modules/<page>] -#}
+          {% set moduleRows = [
+            [['welcome', 'waving_hand', 'welcome'], ['welcomeDm', 'mail', 'welcome-dm'], ['autoRole', 'badge', 'auto-role'], ['autoRestore', 'history', 'auto-restore-roles'], ['starboard', 'star', 'starboard']],
+            [['slowmode', 'speed', 'adaptive-slowmode'], ['interserver', 'hub', 'interserver'], ['transcription', 'graphic_eq', 'voice-transcription'], ['customization', 'palette', 'bot-customization'], ['altguard', 'verified_user', 'altguard']],
+            [['logs', 'receipt_long', 'logs'], ['tickets', 'confirmation_number', 'tickets'], ['bump', 'notifications_active', 'bump-reminder'], ['applications', 'how_to_reg', 'member-applications'], ['social', 'campaign', 'social-notifications']]
+          ] %}
+          <div class="chip-rows" aria-label="{{ 'home.modules.label' | t(c) }}">
+            {% for row in moduleRows %}
+              <div class="chip-row">
+                {% for copy in [false, true] %}
+                  {% for module in row %}
+                    <a class="chip chip-link" href="{{ ('/modules/' + module[2]) | docsUrl(c) }}" target="_blank"{% if copy %} aria-hidden="true" tabindex="-1"{% endif %}><span class="material-symbols-outlined">{{ module[1] }}</span>{{ ('home.modules.names.' + module[0]) | t(c) }}<span class="material-symbols-outlined chip-go" aria-hidden="true">arrow_outward</span></a>
+                  {% endfor %}
+                {% endfor %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
 
-        <div class="feature-card">
-          <h3>
-            <span class="material-symbols-outlined feature-icon">auto_awesome</span>
-            Always Getting Better
-          </h3>
-          <p>
-            We ship new features every week. Your feedback actually matters here—tell us what you want and we'll build it.
-          </p>
+      <!-- Social notifications -->
+      <section class="card span-4">
+        <span class="shape shape-hexagon" aria-hidden="true"><span class="material-symbols-outlined">campaign</span></span>
+        <h2>{{ 'home.social.title' | t(c) }}</h2>
+        <p>{{ 'home.social.text' | t(c) }}</p>
+        <div class="card-visual">
+          <div class="tiles" aria-hidden="true">
+            {% for tile in [['newUpload', 'YouTube', ''], ['liveNow', 'Twitch', 'tile-live'], ['newPost', 'Bluesky', ''], ['newArticle', 'RSS', '']] %}
+              <div class="tile">
+                <span class="tile-meta {{ tile[2] }}">{{ ('home.social.' + tile[0]) | t(c) }}</span>
+                <span class="tile-name">{{ tile[1] }}</span>
+                <span class="material-symbols-outlined tile-arrow">north_east</span>
+              </div>
+            {% endfor %}
+          </div>
         </div>
+      </section>
 
-        <div class="feature-card">
-          <h3>
-            <span class="material-symbols-outlined feature-icon">support_agent</span>
-            Humans, Not Bots
-          </h3>
-          <p>
-            Real support from real people, 24/7. Stuck? Message us. We'll actually respond (usually in minutes, not days).
-          </p>
+      <!-- Tickets -->
+      <section class="card span-4">
+        <span class="shape shape-heptagon" aria-hidden="true"><span class="material-symbols-outlined">confirmation_number</span></span>
+        <h2>{{ 'home.tickets.title' | t(c) }}</h2>
+        <p>{{ 'home.tickets.text' | t(c) }}</p>
+        <div class="card-visual">
+          {#- A still exchange in a ticket. -#}
+          <div class="panel ticket-thread" aria-hidden="true">
+            <div class="ticket-channel">
+              <span class="material-symbols-outlined">lock</span>
+              <span class="ticket-channel-name">{{ 'home.tickets.demo.channel' | t(c) }}</span>
+              <span class="ticket-claim"><span class="material-symbols-outlined">front_hand</span>{{ 'home.tickets.demo.claimed' | t(c) }}</span>
+            </div>
+            <div class="ticket-msg">
+              <img class="ticket-avatar" src="/images/avatars/moddy.webp" alt="" width="32" height="32" loading="lazy" />
+              <span class="ticket-body"><span class="ticket-author">Moddy</span>{{ 'home.tickets.demo.welcome' | t(c) }}</span>
+            </div>
+            <div class="ticket-msg">
+              <img class="ticket-avatar avatar-3d" src="/images/avatars/alex.webp" alt="" width="32" height="32" loading="lazy" />
+              <span class="ticket-body"><span class="ticket-author">alex</span>{{ 'home.tickets.demo.user' | t(c) }}</span>
+            </div>
+            <div class="ticket-msg">
+              <img class="ticket-avatar avatar-3d" src="/images/avatars/sam.webp" alt="" width="32" height="32" loading="lazy" />
+              <span class="ticket-body"><span class="ticket-author">sam <span class="ticket-tag">{{ 'home.tickets.demo.staffTag' | t(c) }}</span></span>{{ 'home.tickets.demo.staff' | t(c) }}</span>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Premium Section -->
-    <section class="premium-section">
-      <h2>Go Max or Go Home</h2>
-      <p>
-        Moddy Max isn't just "premium features"—it's the whole upgrade package. Five servers, unlimited AI, early access to the good stuff.
-      </p>
-      <div class="premium-features">
-        <div class="premium-feature">
-          <span class="material-symbols-outlined check-icon">check_circle</span>
-          <span>5 servers with premium unlocked</span>
+      <!-- AltGuard -->
+      <section class="card span-4">
+        <span class="shape shape-pentagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">verified_user</span></span>
+        <h2>{{ 'home.altguard.title' | t(c) }}</h2>
+        <p>{{ 'home.altguard.text' | t(c) }}</p>
+        <div class="card-visual">
+          {#- Played by home-page.ts, alternating a member who passes and a
+              second account that is blocked (data-variant). The four checks
+              are the signals AltGuard really compares. -#}
+          <div class="panel altguard-demo decided" data-demo="altguard" data-variant="pass" aria-hidden="true">
+            <div class="ag-member">
+              <img class="ag-avatar avatar-3d only-pass" src="/images/avatars/alex.webp" alt="" width="36" height="36" loading="lazy" /><img class="ag-avatar avatar-3d only-block" src="/images/avatars/alex2.webp" alt="" width="36" height="36" loading="lazy" />
+              <span class="ag-who">
+                <strong><span class="only-pass">alex</span><span class="only-block">alex_2</span></strong>
+                <span>{{ 'home.altguard.demo.joined' | t(c) }}</span>
+              </span>
+              <span class="status ag-state" data-state>
+                <span class="ag-state-wait">{{ 'home.altguard.demo.unverified' | t(c) }}</span>
+                <span class="ag-state-pass">{{ 'home.altguard.demo.verified' | t(c) }}</span>
+                <span class="ag-state-block">{{ 'home.altguard.demo.blockedChip' | t(c) }}</span>
+              </span>
+            </div>
+            <div class="ag-checks">
+              {% for check in [['device', 'devices', 1], ['email', 'mail', 2], ['network', 'lan', 3], ['servers', 'dns', 4]] %}
+                <span class="ag-check done{% if loop.first %} ag-hit{% endif %}" data-at="{{ check[2] }}" data-done-at="{{ check[2] + 1 }}">
+                  <span class="material-symbols-outlined ag-icon">{{ check[1] }}</span>
+                  {{ ('home.altguard.demo.' + check[0]) | t(c) }}
+                  <span class="ag-result">
+                    <span class="material-symbols-outlined spinner">progress_activity</span>
+                    <span class="material-symbols-outlined ok">check_circle</span>
+                    <span class="material-symbols-outlined hit">error</span>
+                  </span>
+                </span>
+              {% endfor %}
+            </div>
+            <div class="ag-verdict" data-at="6">
+              <span class="material-symbols-outlined only-pass">verified_user</span>
+              <span class="material-symbols-outlined only-block">gpp_bad</span>
+              <span class="only-pass">{{ 'home.altguard.demo.passed' | t(c) }}</span>
+              <span class="only-block">{{ 'home.altguard.demo.blocked' | t(c) }}</span>
+            </div>
+          </div>
         </div>
-        <div class="premium-feature">
-          <span class="material-symbols-outlined check-icon">check_circle</span>
-          <span>AI limits? What limits?</span>
-        </div>
-        <div class="premium-feature">
-          <span class="material-symbols-outlined check-icon">check_circle</span>
-          <span>First in line for new features</span>
-        </div>
-        <div class="premium-feature">
-          <span class="material-symbols-outlined check-icon">check_circle</span>
-          <span>Flex with a premium badge</span>
-        </div>
-        <div class="premium-feature">
-          <span class="material-symbols-outlined check-icon">check_circle</span>
-          <span>VIP support lane (skip the queue)</span>
-        </div>
-        <div class="premium-feature">
-          <span class="material-symbols-outlined check-icon">check_circle</span>
-          <span>Customize literally everything</span>
-        </div>
-      </div>
-      <div class="premium-actions">
-        <md-filled-button href="/navigation/subscriptions/">
-          See Pricing
-        </md-filled-button>
-      </div>
-    </section>
+      </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-      <h2>Join the -- servers that already get it</h2>
-      <p>
-        Start free. Upgrade when you're ready. Cancel anytime (but you won't want to).
-      </p>
-      <div class="cta-actions">
-        <md-filled-button href="https://moddy.app/install" target="_blank">
-          Add Moddy to Discord
-        </md-filled-button>
-      </div>
-    </section>
+      <!-- Dashboard: a small live replica, no screenshot -->
+      <section class="card split">
+        <div class="card-text">
+          <span class="shape shape-hexagon" aria-hidden="true"><span class="material-symbols-outlined">dashboard</span></span>
+          <h2>{{ 'home.dashboard.title' | t(c) }}</h2>
+          <p>{{ 'home.dashboard.text' | t(c) }}</p>
+          <div class="card-actions">
+            <md-filled-button trailing-icon href="https://dashboard.moddy.app" target="_blank">
+              {{ 'home.dashboard.cta' | t(c) }}
+              <md-icon slot="icon">arrow_forward</md-icon>
+            </md-filled-button>
+          </div>
+        </div>
+        <div class="card-visual">
+          <div class="mock">
+            <div class="mock-side" aria-hidden="true">
+              <div class="mock-server"><span class="mock-server-icon">MC</span>{{ 'home.dashboard.mock.server' | t(c) }}</div>
+              <div class="mock-nav"><span class="material-symbols-outlined">space_dashboard</span>{{ 'home.dashboard.mock.overview' | t(c) }}</div>
+              <div class="mock-nav active"><span class="material-symbols-outlined">extension</span>{{ 'home.dashboard.mock.modules' | t(c) }}</div>
+              <div class="mock-nav"><span class="material-symbols-outlined">gavel</span>{{ 'home.dashboard.mock.cases' | t(c) }}</div>
+              <div class="mock-nav"><span class="material-symbols-outlined">settings</span>{{ 'home.dashboard.mock.settings' | t(c) }}</div>
+            </div>
+            <div class="mock-main">
+              <div class="mock-search" aria-hidden="true"><span class="material-symbols-outlined">search</span>{{ 'home.dashboard.mock.search' | t(c) }}</div>
+              {% for module in [
+                ['welcome', 'waving_hand', 'shape-hexagon', 'tone-tertiary', true],
+                ['autoRole', 'badge', 'shape-square', '', false],
+                ['logs', 'receipt_long', 'shape-octagon', 'tone-secondary', true],
+                ['tickets', 'confirmation_number', 'shape-pentagon', '', false],
+                ['starboard', 'star', 'shape-square', 'tone-tertiary', true]
+              ] %}
+                <div class="mock-module">
+                  <span class="shape small {{ module[2] }} {{ module[3] }}" aria-hidden="true"><span class="material-symbols-outlined">{{ module[1] }}</span></span>
+                  <span class="mock-module-name" id="mock-{{ module[0] }}">{{ ('home.modules.names.' + module[0]) | t(c) }}</span>
+                  <button class="switch" type="button" role="switch" aria-checked="{{ 'true' if module[4] else 'false' }}" aria-labelledby="mock-{{ module[0] }}"></button>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="mock-toast" role="status"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span>{{ 'home.dashboard.mock.saved' | t(c) }}</div>
+          </div>
+        </div>
+      </section>
 
-    <!-- Support Section -->
-    <section class="support-section">
-      <h3>Questions? We got you.</h3>
-      <p>
-        Join our <a href="/support/"><strong>Discord Server</strong></a>, check out the <a href="https://docs.moddy.app" target="_blank"><strong>documentation</strong></a>, or shoot us an email at
-        <a href="mailto:hello@moddy.app"><strong>hello@moddy.app</strong></a>
-      </p>
-    </section>
+      <!-- Server logs -->
+      <section class="card span-5">
+        <span class="shape shape-square tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">receipt_long</span></span>
+        <h2>{{ 'home.logs.title' | t(c) }}</h2>
+        <p>{{ 'home.logs.text' | t(c) }}</p>
+        <div class="card-visual">
+          {#- A log channel receiving entries live (home-page.ts brings the
+              last entry back on top, like a new event). -#}
+          <div class="panel log-demo" aria-hidden="true">
+            <div class="log-head">
+              <span class="material-symbols-outlined">tag</span>
+              <span class="log-channel">{{ 'home.logs.demo.channel' | t(c) }}</span>
+              <span class="log-count">{{ 'home.logs.demo.events' | t(c) }}</span>
+            </div>
+            <div class="log-window">
+              <ul class="log-list">
+                <li class="log-entry tone-edit">
+                  <span class="material-symbols-outlined">edit</span>
+                  <span class="log-body">
+                    <strong>{{ 'home.logs.demo.edit' | t(c) }}</strong>
+                    <span class="log-meta">{{ 'home.logs.demo.editWhere' | t(c) }}</span>
+                    <span class="log-diff"><del>{{ 'home.logs.demo.before' | t(c) }}</del><ins>{{ 'home.logs.demo.after' | t(c) }}</ins></span>
+                  </span>
+                </li>
+                <li class="log-entry tone-role">
+                  <span class="material-symbols-outlined">shield_person</span>
+                  <span class="log-body"><strong>{{ 'home.logs.demo.role' | t(c) }}</strong><span class="log-meta">{{ 'home.logs.demo.roleWhat' | t(c) }}</span></span>
+                </li>
+                <li class="log-entry tone-ban">
+                  <span class="material-symbols-outlined">block</span>
+                  <span class="log-body"><strong>{{ 'home.logs.demo.ban' | t(c) }}</strong><span class="log-meta">{{ 'home.logs.demo.banWhat' | t(c) }}</span></span>
+                </li>
+                <li class="log-entry tone-perms">
+                  <span class="material-symbols-outlined">lock</span>
+                  <span class="log-body"><strong>{{ 'home.logs.demo.perms' | t(c) }}</strong><span class="log-meta">{{ 'home.logs.demo.permsWhat' | t(c) }}</span></span>
+                </li>
+                <li class="log-entry tone-join">
+                  <span class="material-symbols-outlined">person_add</span>
+                  <span class="log-body"><strong>{{ 'home.logs.demo.join' | t(c) }}</strong><span class="log-meta">{{ 'home.logs.demo.joinWhat' | t(c) }}</span></span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions end">
+          <md-outlined-button trailing-icon href="{{ '/modules/logs' | docsUrl(c) }}" target="_blank">
+            {{ 'home.logs.cta' | t(c) }}
+            <md-icon slot="icon">arrow_forward</md-icon>
+          </md-outlined-button>
+        </div>
+      </section>
+
+      <!-- Utilities -->
+      <section class="card span-7">
+        <span class="shape shape-diamond tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">construction</span></span>
+        <h2>{{ 'home.utilities.title' | t(c) }}</h2>
+        <p>{{ 'home.utilities.text' | t(c) }}</p>
+        {% set commands = 'home.utilities.commands' | tObject(c) %}
+        <div class="card-visual">
+          {#- A slot machine of commands (home-page.ts): the reel spins through
+              the command names as Discord shows them in this language, stops
+              on one, and its result plays. The strip holds the list three
+              times so the reel can spin a full turn before stopping. -#}
+          <div class="panel cmd-machine" data-demo="reel" aria-hidden="true">
+            <div class="reel">
+              <span class="reel-slash">/</span>
+              <div class="reel-strip">
+                {% for copy in [0, 1, 2] %}
+                  {% for command in commands %}
+                    <span class="reel-item">{{ command }}</span>
+                  {% endfor %}
+                {% endfor %}
+              </div>
+            </div>
+            <div class="reel-results">
+              <div class="reel-result current" data-command="0">
+                <span class="shape small shape-hexagon" aria-hidden="true"><span class="material-symbols-outlined">translate</span></span>
+                <span class="reel-result-body">
+                  <span class="reel-label">{{ 'home.utilities.demo.languages' | t(c) }}</span>
+                  <span class="reel-value reel-scramble" data-from="{{ 'home.utilities.demo.input' | t(c) }}">{{ 'home.utilities.demo.output' | t(c) }}</span>
+                </span>
+              </div>
+              <div class="reel-result" data-command="5">
+                <span class="shape small shape-square tone-tertiary reel-die" aria-hidden="true"><span class="material-symbols-outlined">casino</span></span>
+                <span class="reel-result-body">
+                  <span class="reel-label">{{ 'home.utilities.reel.rolled' | t(c) }}</span>
+                  <span class="reel-value"><span class="reel-number">4</span> <span class="reel-muted">{{ 'home.utilities.reel.outOf' | t(c) }}</span></span>
+                </span>
+              </div>
+              <div class="reel-result" data-command="1">
+                <span class="shape small shape-octagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">alarm</span></span>
+                <span class="reel-result-body">
+                  <span class="reel-label">{{ 'home.utilities.reel.remind' | t(c) }}</span>
+                  <span class="reel-value">{{ 'home.utilities.reel.remindWhat' | t(c) }} <span class="reel-muted">· {{ 'home.utilities.reel.remindWhen' | t(c) }}</span></span>
+                  <span class="reel-progress"><i></i></span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions end">
+          <md-outlined-button trailing-icon href="{{ '/commands/overview' | docsUrl(c) }}" target="_blank">
+            {{ 'home.utilities.cta' | t(c) }}
+            <md-icon slot="icon">arrow_forward</md-icon>
+          </md-outlined-button>
+        </div>
+      </section>
+
+      <!-- Moddy Max -->
+      <section class="card split">
+        <div class="card-text">
+          <span class="shape shape-octagon tone-solid" aria-hidden="true"><span class="material-symbols-outlined">workspace_premium</span></span>
+          <h2>{{ 'home.max.title' | t(c) }}</h2>
+          <p>{{ 'home.max.text' | t(c) }}</p>
+          <div class="card-actions">
+            <md-filled-button trailing-icon href="{{ locale.prefix }}/premium/">
+              {{ 'home.max.cta' | t(c) }}
+              <md-icon slot="icon">arrow_forward</md-icon>
+            </md-filled-button>
+          </div>
+        </div>
+        <div class="card-visual">
+          <div class="panel">
+            <span class="max-badge"><span class="material-symbols-outlined" aria-hidden="true">workspace_premium</span>{{ 'home.max.badge' | t(c) }}</span>
+            <ul class="perks">
+              {% for perk in [['servers', 'dns', 'shape-square'], ['customization', 'palette', 'shape-hexagon'], ['notifications', 'bolt', 'shape-octagon']] %}
+                <li>
+                  <span class="shape small {{ perk[2] }}" aria-hidden="true"><span class="material-symbols-outlined">{{ perk[1] }}</span></span>
+                  <span class="perk-text">
+                    <strong>{{ ('home.max.' + perk[0] + '.title') | t(c) }}</strong>
+                    <span class="detail">{{ ('home.max.' + perk[0] + '.detail') | t(c) }}</span>
+                  </span>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final call to action -->
+      <section class="card cta">
+        <span class="shape shape-hexagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">rocket_launch</span></span>
+        <h2>{{ 'home.final.title' | t(c) }}</h2>
+        <p>{{ 'home.final.text' | t(c) }}</p>
+        <div class="card-actions">
+          <md-filled-button href="/install" target="_blank">
+            {{ 'home.final.add' | t(c) }}
+          </md-filled-button>
+          <md-outlined-button href="/support" target="_blank">
+            {{ 'home.final.support' | t(c) }}
+          </md-outlined-button>
+        </div>
+      </section>
+
+    </div>
   </div>
 </lit-island>
 
-<script>
-  // Smooth counter animation for stats
-  function animateCounter(element) {
-    const target = parseInt(element.dataset.target);
-    const suffix = element.dataset.suffix || '';
-
-    // Skip animation if target is not a number (e.g., for "--" placeholders)
-    if (isNaN(target)) {
-      // Replace NaN with N/A if the element shows NaN
-      if (element.textContent === 'NaN' || element.textContent.includes('NaN')) {
-        element.textContent = 'N/A';
-      }
-      return;
-    }
-
-    const duration = 1500; // 1.5 seconds
-    const frameDuration = 1000 / 60; // 60fps
-    const totalFrames = Math.round(duration / frameDuration);
-    let frame = 0;
-
-    const counter = setInterval(() => {
-      frame++;
-      const progress = frame / totalFrames;
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const currentCount = Math.round(easeOutQuart * target);
-
-      // Format the number
-      let displayValue;
-      if (suffix === 'K+') {
-        displayValue = Math.floor(currentCount / 1000);
-      } else {
-        displayValue = currentCount;
-      }
-
-      element.textContent = displayValue + suffix;
-      element.classList.add('counting');
-
-      if (frame === totalFrames) {
-        clearInterval(counter);
-        setTimeout(() => {
-          element.classList.remove('counting');
-        }, 300);
-      }
-    }, frameDuration);
-  }
-
-  // Use Intersection Observer to trigger animation when stats come into view
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const statNumbers = entry.target.querySelectorAll('.stat-number');
-        statNumbers.forEach((stat, index) => {
-          setTimeout(() => {
-            animateCounter(stat);
-          }, index * 100); // Stagger animations by 100ms
-        });
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  // Start observing when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      const statsSection = document.querySelector('.stats-section');
-      if (statsSection) observer.observe(statsSection);
-    });
-  } else {
-    const statsSection = document.querySelector('.stats-section');
-    if (statsSection) observer.observe(statsSection);
-  }
-</script>
+<script type="module" src="/js/pages/home-page.js"></script>

@@ -12,13 +12,9 @@ import '@material/web/button/filled-tonal-button.js';
 import '@material/web/menu/menu.js';
 import '@material/web/menu/menu-item.js';
 
-import type {MdIconButton} from '@material/web/iconbutton/icon-button.js';
 import {css, html, LitElement} from 'lit';
-import {customElement, query, state} from 'lit/decorators.js';
-import {live} from 'lit/directives/live.js';
+import {customElement, property, query, state} from 'lit/decorators.js';
 
-import {drawerOpenSignal} from '../signals/drawer-open-state.js';
-import {inertContentSignal, inertSidebarSignal} from '../signals/inert.js';
 import {SignalElement} from '../signals/signal-element.js';
 import {moddyLogo} from '../svg/moddy-logo.js';
 import {getMe, logout, getAvatarUrl, type User} from '../utils/auth.js';
@@ -26,6 +22,31 @@ import {getMe, logout, getAvatarUrl, type User} from '../utils/auth.js';
 /**
  * Top app bar of the catalog.
  */
+/**
+ * Text shown by the top app bar. The page passes the translated strings as a
+ * JSON `labels` attribute (see site/_data/i18n); English is the fallback.
+ */
+export interface TopAppBarLabels {
+  home: string;
+  skipToMain: string;
+  signIn: string;
+  userMenu: string;
+  /** `{username}` is replaced with the signed-in user's name. */
+  hello: string;
+  dashboard: string;
+  signOut: string;
+}
+
+const DEFAULT_LABELS: TopAppBarLabels = {
+  home: 'Home',
+  skipToMain: 'Skip to main content',
+  signIn: 'Sign In',
+  userMenu: 'User menu',
+  hello: 'Hello @{username}!',
+  dashboard: 'Dashboard',
+  signOut: 'Sign out',
+};
+
 @customElement('top-app-bar')
 export class TopAppBar extends SignalElement(LitElement) {
   @state()
@@ -36,6 +57,15 @@ export class TopAppBar extends SignalElement(LitElement) {
 
   @state()
   private isLoading = true;
+
+  @property({type: Object}) labels: Partial<TopAppBarLabels> = {};
+
+  /** Where the logo leads: the home page in the current language. */
+  @property({attribute: 'home-href'}) homeHref = '/';
+
+  private get text(): TopAppBarLabels {
+    return {...DEFAULT_LABELS, ...this.labels};
+  }
 
   connectedCallback() {
     super.connectedCallback();
@@ -89,31 +119,17 @@ export class TopAppBar extends SignalElement(LitElement) {
       <header>
         <div class="default-content">
           <section class="start">
-            <md-icon-button
-              toggle
-              class="menu-button"
-              aria-label-selected="open navigation menu"
-              aria-label="close navigation menu"
-              aria-expanded=${drawerOpenSignal.value ? 'false' : 'true'}
-              title="${!drawerOpenSignal.value
-                ? 'Open'
-                : 'Close'} navigation menu"
-              .selected=${live(!drawerOpenSignal.value)}
-              @input=${this.onMenuIconToggle}>
-              <md-icon slot="selected">menu</md-icon>
-              <md-icon>menu_open</md-icon>
-            </md-icon-button>
             <a
-              href="/"
+              href=${this.homeHref}
               class="logo-link"
-              title="Home"
-              aria-label="Home">
+              title=${this.text.home}
+              aria-label=${this.text.home}>
               ${moddyLogo}
             </a>
           </section>
 
           <a id="skip-to-main" href="#main-content" tabindex="0">
-            Skip to main content
+            ${this.text.skipToMain}
           </a>
 
           <section class="end">
@@ -138,7 +154,7 @@ export class TopAppBar extends SignalElement(LitElement) {
         <div class="user-menu-container">
           <md-icon-button
             id="user-menu-button"
-            aria-label="User menu"
+            aria-label=${this.text.userMenu}
             title="${this.userInfo.username}"
             @click=${this.toggleUserMenu}>
             <img
@@ -158,16 +174,18 @@ export class TopAppBar extends SignalElement(LitElement) {
                   src="${getAvatarUrl(this.userInfo.user_id, this.userInfo.avatar)}"
                   alt="${this.userInfo.username}"
                   class="user-menu-avatar" />
-                <div class="user-menu-greeting">Hello @${this.userInfo.username}!</div>
+                <div class="user-menu-greeting">
+                  ${this.text.hello.replace('{username}', this.userInfo.username)}
+                </div>
               </div>
               <div class="user-menu-actions">
                 <md-filled-button @click=${this.handleDashboard}>
                   <md-icon slot="icon" class="filled">dashboard</md-icon>
-                  Dashboard
+                  ${this.text.dashboard}
                 </md-filled-button>
                 <md-filled-tonal-button @click=${this.handleSignOut}>
                   <md-icon slot="icon">logout</md-icon>
-                  Sign out
+                  ${this.text.signOut}
                 </md-filled-tonal-button>
               </div>
             </div>
@@ -178,7 +196,7 @@ export class TopAppBar extends SignalElement(LitElement) {
 
     return html`
       <md-filled-tonal-button @click=${this.onSignInClick}>
-        Sign In
+        ${this.text.signIn}
       </md-filled-tonal-button>
     `;
   }
@@ -189,13 +207,6 @@ export class TopAppBar extends SignalElement(LitElement) {
   private onSignInClick() {
     const currentUrl = encodeURIComponent(window.location.href);
     window.location.href = `/sign-in?url=${currentUrl}`;
-  }
-
-  /**
-   * Toggles the sidebar's open state.
-   */
-  private onMenuIconToggle(e: InputEvent) {
-    drawerOpenSignal.value = !(e.target as MdIconButton).selected;
   }
 
   static styles = css`
@@ -240,7 +251,7 @@ export class TopAppBar extends SignalElement(LitElement) {
     a {
       color: var(--md-sys-color-primary);
       font-size: max(var(--catalog-title-l-font-size), 22px);
-      font-weight: 700;
+      font-weight: 600;
       text-decoration: none;
       padding-inline: 2px;
       position: relative;
@@ -260,10 +271,6 @@ export class TopAppBar extends SignalElement(LitElement) {
       height: 36px;
       width: auto;
       color: var(--md-sys-color-primary);
-    }
-
-    .start .menu-button {
-      display: none;
     }
 
     .start {
@@ -329,7 +336,7 @@ export class TopAppBar extends SignalElement(LitElement) {
 
     .user-menu-greeting {
       font-size: var(--catalog-body-l-font-size);
-      font-weight: 700;
+      font-weight: 600;
       color: var(--md-sys-color-on-surface);
       text-align: center;
     }
@@ -366,12 +373,6 @@ export class TopAppBar extends SignalElement(LitElement) {
     #skip-to-main:focus-visible {
       opacity: 1;
       pointer-events: auto;
-    }
-
-    @media (max-width: 1500px) {
-      .start .menu-button {
-        display: flex;
-      }
     }
   `;
 }

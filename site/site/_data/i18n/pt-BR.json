@@ -1,0 +1,420 @@
+{
+  "topbar": {
+    "home": "Início",
+    "skipToMain": "Ir para o conteúdo principal",
+    "signIn": "Entrar",
+    "userMenu": "Menu do usuário",
+    "hello": "Olá, @{username}!",
+    "dashboard": "Painel",
+    "signOut": "Sair"
+  },
+  "footer": {
+    "navLabel": "Rodapé",
+    "product": "Produto",
+    "addToDiscord": "Adicionar ao Discord",
+    "dashboard": "Painel",
+    "moddyMax": "Moddy Max",
+    "status": "Status",
+    "resources": "Recursos",
+    "documentation": "Documentação",
+    "commands": "Comandos",
+    "changelog": "Novidades",
+    "supportServer": "Servidor de suporte",
+    "legal": "Legal",
+    "terms": "Termos de Serviço",
+    "privacy": "Política de Privacidade",
+    "license": "Licença",
+    "logoLabel": "Início do Moddy",
+    "github": "Moddy no GitHub",
+    "language": "Idioma",
+    "theme": "Mudar as cores",
+    "made": "Feito para as comunidades do Discord",
+    "madeBy": "Feito por"
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "description": "A página que você procura não existe.",
+    "home": "Voltar ao início"
+  },
+  "home": {
+    "pageTitle": "Início",
+    "hero": {
+      "text": "Moderação com IA, notificações sociais, mensagens de boas-vindas e utilidades do dia a dia para o seu servidor do Discord, tudo em um só bot.",
+      "add": "Adicionar ao Discord",
+      "dashboard": "Abrir o painel",
+      "feedLabel": "Exemplo do que o Moddy faz em um servidor",
+      "feed": {
+        "spam": {
+          "title": "Link de spam removido",
+          "sub": "AutoMod · #geral",
+          "time": "agora mesmo"
+        },
+        "welcome": {
+          "title": "Boas-vindas, Alex!",
+          "sub": "Mensagens de boas-vindas · #boas-vindas",
+          "time": "há 2 min"
+        },
+        "live": {
+          "title": "Ao vivo na Twitch",
+          "sub": "Notificações sociais · #streams",
+          "time": "há 6 min"
+        },
+        "case": {
+          "title": "Caso A7F2K9 aberto",
+          "sub": "Moderação · Advertência",
+          "time": "há 9 min"
+        },
+        "bump": {
+          "title": "Hora do bump!",
+          "sub": "Lembrete de bump · #bump",
+          "time": "há 12 min"
+        }
+      },
+      "activity": "Num servidor com o Moddy"
+    },
+    "stats": {
+      "title": "Servidores que usam o Moddy",
+      "text": "Atualizado uma vez por dia.",
+      "guilds": "servidores usam o Moddy",
+      "users": "membros nesses servidores",
+      "commands": "comandos nos últimos 30 dias",
+      "cases": "casos de moderação tratados",
+      "top": "Alguns servidores que usam o Moddy",
+      "members": "{count} membros"
+    },
+    "ai": {
+      "title": "É só pedir ao Brocoli",
+      "text": "O Brocoli é o assistente de IA do Moddy. Descreva a configuração que você imagina e ele configura o servidor para você: módulos, canais, cargos, mensagens. Mudanças sensíveis aguardam sua confirmação.",
+      "cta": "Testar o Brocoli no painel",
+      "label": "Exemplo de conversa com o Brocoli, o assistente de IA do Moddy",
+      "you": "Você",
+      "assistant": "Brocoli",
+      "placeholder": "Pergunte ao Brocoli…",
+      "prompt": "Dê boas-vindas aos novos membros em #boas-vindas e dê a eles o cargo Membro",
+      "read": "Lendo a configuração atual",
+      "stepWelcome": "Mensagens de boas-vindas em #boas-vindas",
+      "stepRole": "Cargo Membro para quem chega",
+      "confirm": "Aplicar estas 2 mudanças?",
+      "apply": "Aplicar",
+      "cancel": "Cancelar",
+      "answer": "Pronto! Os novos membros são recebidos em #boas-vindas e ganham o cargo Membro.",
+      "applied": "2 módulos configurados"
+    },
+    "automod": {
+      "title": "Moderação com IA",
+      "text": "O AutoMod IA verifica as mensagens assim que são enviadas e aplica a punição definida pelo seu servidor: advertência, silenciamento ou banimento. Cada ação fica registrada como um caso.",
+      "cta": "Conhecer o AutoMod",
+      "author": "encrenqueiro · hoje às 21:04",
+      "message": "Nitro grátis pra todo mundo, clica nesse link agora!!",
+      "verdict": "Mensagem removida · Advertência aplicada",
+      "detail": "Link de golpe detectado pelo AutoMod IA, caso A7F2K9 aberto",
+      "demo": {
+        "m1": "alguém pra uma partida hoje à noite?",
+        "m2": "gg pessoal, foi divertido",
+        "channel": "geral",
+        "analyzing": "Analisando…"
+      }
+    },
+    "cases": {
+      "title": "Toda punição vira um caso",
+      "text": "Cada advertência, silenciamento ou banimento vira um caso com código de referência próprio, histórico completo e recursos integrados.",
+      "warn": "Advertência · Links de spam",
+      "mute": "Silenciamento · 1 hora",
+      "ban": "Banimento · Raid",
+      "active": "Ativo",
+      "expired": "Expirado",
+      "appeal": "Recurso",
+      "cta": "Como funcionam os casos"
+    },
+    "social": {
+      "title": "Alertas de YouTube, Twitch, Bluesky e RSS",
+      "text": "Publique um aviso assim que um canal do YouTube posta um vídeo, um streamer da Twitch entra ao vivo, uma conta do Bluesky publica ou um feed RSS lança um artigo.",
+      "newUpload": "Novo vídeo",
+      "liveNow": "Ao vivo",
+      "newPost": "Nova publicação",
+      "newArticle": "Novo artigo"
+    },
+    "modules": {
+      "title": "Ative só os módulos de que você precisa",
+      "text": "Mensagens de boas-vindas, tickets, registros, AltGuard e mais. Cada módulo é ativado e configurado separadamente, com /config ou pelo painel.",
+      "cta": "Ver os módulos",
+      "label": "Alguns módulos do Moddy",
+      "names": {
+        "welcome": "Mensagens de boas-vindas",
+        "welcomeDm": "Boas-vindas por DM",
+        "autoRole": "Cargo automático",
+        "autoRestore": "Restaurar cargos",
+        "starboard": "Starboard",
+        "slowmode": "Modo lento adaptativo",
+        "interserver": "Interservidor",
+        "transcription": "Transcrição de voz",
+        "customization": "Personalização do bot",
+        "altguard": "AltGuard",
+        "logs": "Registros do servidor",
+        "tickets": "Tickets",
+        "bump": "Lembrete de bump",
+        "applications": "Solicitações de entrada",
+        "social": "Notificações sociais"
+      }
+    },
+    "logs": {
+      "title": "Registros do servidor",
+      "text": "Os registros do servidor publicam uma entrada clara segundos depois de qualquer coisa: uma mensagem editada, um cargo novo, um banimento, uma permissão alterada.",
+      "cta": "Sobre os registros",
+      "demo": {
+        "channel": "registros",
+        "events": "163 eventos",
+        "edit": "Mensagem editada",
+        "editWhere": "#geral · alex",
+        "before": "até amanha",
+        "after": "até amanhã",
+        "role": "Cargo criado",
+        "roleWhat": "@Equipe de eventos",
+        "ban": "Membro banido",
+        "banWhat": "encrenqueiro · por Sam",
+        "perms": "Permissões alteradas",
+        "permsWhat": "#anúncios · Enviar mensagens negado",
+        "join": "Membro entrou",
+        "joinWhat": "alex · conta de 2 anos"
+      }
+    },
+    "tickets": {
+      "title": "Tickets de suporte",
+      "text": "Os membros abrem um ticket privado com um botão ou um menu. Você decide para onde vai cada pedido, quais cargos o veem e quem assume.",
+      "panel": "Precisa de ajuda?",
+      "report": "Denunciar um membro",
+      "partnership": "Parceria",
+      "other": "Outra pergunta",
+      "demo": {
+        "channel": "ticket-alex",
+        "new": "Novo",
+        "welcome": "Oi Alex, obrigado por escrever! Um moderador já vai te atender.",
+        "claimed": "Assumido por Sam",
+        "user": "Alguém não para de me mandar links de golpe na DM.",
+        "staff": "Obrigado por avisar! Pode me mandar um print? Eu cuido disso.",
+        "staffTag": "Staff"
+      }
+    },
+    "utilities": {
+      "title": "Comandos que também funcionam na DM",
+      "text": "Traduza, crie lembretes, corrija ou resuma textos, role dados. A maioria dos comandos funciona em qualquer lugar, até na sua DM.",
+      "label": "Alguns comandos do Moddy",
+      "cta": "Todos os comandos",
+      "commands": [
+        "traduzir",
+        "lembrete-adicionar",
+        "corrigir",
+        "reformular",
+        "resumir",
+        "dado",
+        "usuário",
+        "avatar",
+        "banner",
+        "emoji",
+        "ping"
+      ],
+      "demo": {
+        "option": "texto",
+        "input": "Hello everyone, welcome!",
+        "output": "Olá a todos, sejam bem-vindos!",
+        "languages": "Inglês → Português"
+      },
+      "reel": {
+        "rolled": "Você tirou",
+        "outOf": "de 6",
+        "remind": "Lembrete criado",
+        "remindWhat": "Reunião da equipe",
+        "remindWhen": "em 10 minutos"
+      }
+    },
+    "altguard": {
+      "title": "Impeça que banidos voltem com o AltGuard",
+      "text": "Os novos membros se verificam antes de ter acesso. Contas que batem com um membro banido são sinalizadas para revisão ou bloqueadas.",
+      "cta": "Sobre o AltGuard",
+      "demo": {
+        "joined": "entrou no servidor",
+        "unverified": "Não verificado",
+        "verified": "Verificado",
+        "blockedChip": "Bloqueado",
+        "device": "Dispositivo",
+        "email": "E-mail",
+        "network": "Rede",
+        "servers": "Servidores",
+        "passed": "Aprovado · Cargo verificado atribuído",
+        "blocked": "Bloqueado · Mesmo dispositivo de uma conta banida"
+      }
+    },
+    "dashboard": {
+      "title": "Configure pelo navegador",
+      "text": "Ative módulos, revise casos e personalize o bot pelo painel web, sem comando para decorar.",
+      "cta": "Abrir o painel",
+      "mock": {
+        "server": "Minha comunidade",
+        "overview": "Visão geral",
+        "modules": "Módulos",
+        "cases": "Casos",
+        "settings": "Configurações",
+        "saved": "Alterações salvas",
+        "search": "Buscar módulos"
+      }
+    },
+    "max": {
+      "title": "Moddy Max",
+      "text": "Moderação, AutoMod IA e mensagens de boas-vindas são gratuitos em todos os servidores. O Moddy Max adiciona uma identidade de bot personalizada e notificações sociais mais rápidas, em até 5 servidores.",
+      "servers": {
+        "title": "5 servidores premium",
+        "detail": "Escolha-os pelo painel e troque quando quiser."
+      },
+      "customization": {
+        "title": "Personalização completa",
+        "detail": "Apelido, avatar, banner e bio no seu servidor."
+      },
+      "notifications": {
+        "title": "Notificações mais rápidas",
+        "detail": "Verificações mais frequentes e até 5 contas por plataforma."
+      },
+      "cta": "Conhecer o Moddy Max",
+      "badge": "Premium"
+    },
+    "final": {
+      "title": "Adicione o Moddy ao seu servidor",
+      "text": "É grátis. Depois ative os módulos com /config ou pelo painel.",
+      "add": "Adicionar ao Discord",
+      "support": "Entrar no servidor de suporte"
+    }
+  },
+  "theme": {
+    "title": "Tema",
+    "copy": "Copiar o tema atual",
+    "copyTitle": "Copiar o tema atual para a área de transferência",
+    "copied": "Copiado",
+    "source": "Cor de origem",
+    "hue": "Matiz",
+    "chroma": "Saturação",
+    "tone": "Luminosidade",
+    "mode": "Modo de cor",
+    "dark": "Escuro",
+    "auto": "Automático",
+    "light": "Claro"
+  },
+  "max": {
+    "pageTitle": "Moddy Max",
+    "badge": "Premium",
+    "title": "Moddy Max",
+    "text": "O Moddy Max adiciona duas coisas: uma identidade de bot personalizada e notificações sociais mais rápidas, em até 5 servidores. Moderação, AutoMod IA e os outros módulos continuam gratuitos.",
+    "compare": "Comparar planos",
+    "billing": "Cobrança",
+    "monthly": "Mensal",
+    "yearly": "Anual",
+    "save": "Economize 58%",
+    "perMonth": "por mês",
+    "perYear": "por ano",
+    "subscribe": "Assinar",
+    "note": "Use em até 5 servidores e troque-os quando quiser pelo painel.",
+    "servers": {
+      "title": "5 servidores premium",
+      "text": "Escolha pelo painel os servidores que recebem o Moddy Max. Mude a seleção quando quiser.",
+      "slot": "Servidor premium",
+      "free": "Vaga livre",
+      "demo": {
+        "title": "Servidores premium",
+        "full": "As 5 vagas estão em uso · troque quando quiser"
+      }
+    },
+    "custom": {
+      "title": "Sua própria identidade de bot",
+      "text": "Dê ao Moddy um apelido, avatar, banner e bio com a cara da sua comunidade. Os estilos de nome continuam gratuitos para todos.",
+      "botName": "Moddy",
+      "customName": "Guardião",
+      "bio": "Cuidando da nossa comunidade desde 2026",
+      "tag": "APP"
+    },
+    "notif": {
+      "title": "Notificações sociais mais rápidas",
+      "text": "Siga 5 contas por plataforma em vez de 1, com verificações muito mais frequentes de vídeos, lives e artigos novos.",
+      "free": "Grátis",
+      "max": "Max",
+      "realtime": "Tempo real",
+      "every": "a cada {time}",
+      "accounts": "Contas por plataforma",
+      "demo": {
+        "youtube": "Vídeo novo",
+        "twitch": "Live começou",
+        "rss": "Artigo novo",
+        "posted": "Publicado",
+        "waiting": "Aguardando a próxima verificação",
+        "after": "após {time}"
+      }
+    },
+    "table": {
+      "title": "Comparar planos",
+      "feature": "Recurso",
+      "free": "Grátis",
+      "max": "Moddy Max",
+      "rows": {
+        "servers": "Servidores com recursos premium",
+        "identity": "Apelido, avatar, banner e bio do bot",
+        "style": "Estilo do nome do bot (fonte, efeito, cores)",
+        "accounts": "Notificações sociais: contas por plataforma",
+        "youtube": "Verificações do YouTube",
+        "twitch": "Verificações da Twitch",
+        "rss": "Verificações de RSS",
+        "bluesky": "Bluesky",
+        "automod": "AutoMod IA",
+        "cases": "Casos de moderação",
+        "welcome": "Mensagens de boas-vindas (até 5 canais)",
+        "others": "AltGuard, Interservidor e todos os comandos utilitários"
+      },
+      "same": "Igual em todos os planos",
+      "upTo5": "Até 5",
+      "min5": "5 min",
+      "min1": "1 min",
+      "min2": "2 min",
+      "s30": "30 s",
+      "min10": "10 min",
+      "realtime": "Tempo real"
+    },
+    "freeCard": {
+      "title": "O que continua grátis",
+      "text": "Tudo o que protege sua comunidade funciona igual em todos os servidores, grátis ou premium.",
+      "automod": "AutoMod IA",
+      "cases": "Casos de moderação",
+      "welcome": "Mensagens de boas-vindas",
+      "altguard": "AltGuard",
+      "interserver": "Interservidor",
+      "utilities": "Comandos utilitários",
+      "logs": "Registros do servidor",
+      "tickets": "Tickets"
+    },
+    "steps": {
+      "title": "Como ativar",
+      "one": "Assine o Moddy Max",
+      "two": "Abra o painel",
+      "three": "Vá em Servidores premium",
+      "four": "Escolha até 5 servidores"
+    },
+    "final": {
+      "title": "Assinar o Moddy Max",
+      "text": "Escolha a cobrança mensal ou anual e ative agora mesmo nos seus servidores."
+    },
+    "status": {
+      "signin": "Você vai entrar com o Discord antes de pagar. O pagamento é feito pela Stripe.",
+      "loading": "Abrindo o pagamento seguro…",
+      "successTitle": "Boas-vindas ao Moddy Max!",
+      "successText": "Seu pagamento foi aprovado. Agora escolha os servidores que recebem o Moddy Max.",
+      "pendingText": "Sua assinatura está sendo ativada, isso leva alguns segundos.",
+      "chooseServers": "Escolher meus servidores",
+      "cancelTitle": "Pagamento cancelado",
+      "cancelText": "Você saiu da página de pagamento e nada foi cobrado. Assine quando quiser.",
+      "blockedTitle": "Assinatura indisponível",
+      "blockedText": "Esta conta do Discord não pode assinar agora. Se achar que é um erro, fale com a gente no servidor de suporte.",
+      "errorTitle": "Algo deu errado",
+      "errorText": "Não conseguimos abrir a página de pagamento. Tente de novo daqui a pouco.",
+      "activeTitle": "Você tem o Moddy Max",
+      "activeText": "{servers} de {max} servidores premium em uso. Renova em {date}.",
+      "activeTextNoDate": "{servers} de {max} servidores premium em uso.",
+      "manage": "Gerenciar assinatura",
+      "dismiss": "Fechar"
+    }
+  }
+}
