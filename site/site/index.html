@@ -192,7 +192,7 @@ permalink: "{{ locale.prefix }}/index.html"
               <span class="automod-avatar"></span>
               <div>
                 <div class="automod-author">{{ 'home.automod.author' | t(c) }}</div>
-                <div class="automod-content">{{ 'home.automod.message' | t(c) }}</div>
+                <div class="automod-content"><span class="strike">{{ 'home.automod.message' | t(c) }}</span></div>
               </div>
             </div>
             <div class="automod-verdict">
@@ -296,13 +296,27 @@ permalink: "{{ locale.prefix }}/index.html"
         <h2>{{ 'home.tickets.title' | t(c) }}</h2>
         <p>{{ 'home.tickets.text' | t(c) }}</p>
         <div class="card-visual">
-          <div class="panel ticket-panel" aria-hidden="true">
-            <strong>{{ 'home.tickets.panel' | t(c) }}</strong>
-            <div class="chip-row">
-              <span class="chip"><span class="material-symbols-outlined">flag</span>{{ 'home.tickets.report' | t(c) }}</span>
-              <span class="chip"><span class="material-symbols-outlined">handshake</span>{{ 'home.tickets.partnership' | t(c) }}</span>
-              <span class="chip"><span class="material-symbols-outlined">help</span>{{ 'home.tickets.other' | t(c) }}</span>
+          {#- Played by home-page.ts: an option is picked, the private
+              channel opens, Moddy greets, a moderator claims it. -#}
+          <div class="panel ticket-demo" data-demo="tickets" aria-hidden="true">
+            <div class="ticket-options">
+              <strong>{{ 'home.tickets.panel' | t(c) }}</strong>
+              <div class="ticket-chips">
+                <span class="chip picked" data-pick-at="1"><span class="material-symbols-outlined">flag</span>{{ 'home.tickets.report' | t(c) }}</span>
+                <span class="chip"><span class="material-symbols-outlined">handshake</span>{{ 'home.tickets.partnership' | t(c) }}</span>
+                <span class="chip"><span class="material-symbols-outlined">help</span>{{ 'home.tickets.other' | t(c) }}</span>
+              </div>
             </div>
+            <div class="ticket-channel" data-at="2">
+              <span class="material-symbols-outlined">lock</span>
+              <span class="ticket-channel-name">{{ 'home.tickets.demo.channel' | t(c) }}</span>
+              <span class="status strong">{{ 'home.tickets.demo.new' | t(c) }}</span>
+            </div>
+            <div class="ticket-message" data-at="3">
+              <span class="shape small shape-octagon tone-solid"><svg viewBox="27 55 191 191" fill="currentColor"><path d="M170.21 55.7626H122.754L75.2768 103.219H27.8203V150.675H122.754L170.21 103.219V55.7626Z" /><path d="M122.754 150.675L75.2771 198.152V245.609H122.754L170.211 198.152H217.667V150.675L122.754 150.675Z" /></svg></span>
+              <span class="bubble">{{ 'home.tickets.demo.welcome' | t(c) }}</span>
+            </div>
+            <span class="ticket-claim" data-at="4"><span class="material-symbols-outlined">front_hand</span>{{ 'home.tickets.demo.claimed' | t(c) }}</span>
           </div>
         </div>
       </section>
@@ -313,16 +327,40 @@ permalink: "{{ locale.prefix }}/index.html"
         <h2>{{ 'home.altguard.title' | t(c) }}</h2>
         <p>{{ 'home.altguard.text' | t(c) }}</p>
         <div class="card-visual">
-          <div class="rows" aria-hidden="true">
-            <div class="row">
-              <span class="shape small shape-square"><span class="material-symbols-outlined">check_circle</span></span>
-              <span class="row-body"><span class="row-meta">{{ 'home.altguard.member' | t(c) }}</span><span class="row-title">{{ 'home.altguard.passed' | t(c) }}</span></span>
-              <span class="status">{{ 'home.altguard.verified' | t(c) }}</span>
+          {#- Played by home-page.ts, alternating a member who passes and a
+              second account that is blocked (data-variant). The four checks
+              are the signals AltGuard really compares. -#}
+          <div class="panel altguard-demo decided" data-demo="altguard" data-variant="pass" aria-hidden="true">
+            <div class="ag-member">
+              <span class="ag-avatar"><span class="only-pass">A</span><span class="only-block">A</span></span>
+              <span class="ag-who">
+                <strong><span class="only-pass">alex</span><span class="only-block">alex_2</span></strong>
+                <span>{{ 'home.altguard.demo.joined' | t(c) }}</span>
+              </span>
+              <span class="status ag-state" data-state>
+                <span class="ag-state-wait">{{ 'home.altguard.demo.unverified' | t(c) }}</span>
+                <span class="ag-state-pass">{{ 'home.altguard.demo.verified' | t(c) }}</span>
+                <span class="ag-state-block">{{ 'home.altguard.demo.blockedChip' | t(c) }}</span>
+              </span>
             </div>
-            <div class="row">
-              <span class="shape small shape-square tone-tertiary"><span class="material-symbols-outlined">person_off</span></span>
-              <span class="row-body"><span class="row-meta">{{ 'home.altguard.member' | t(c) }}</span><span class="row-title">{{ 'home.altguard.suspected' | t(c) }}</span></span>
-              <span class="status strong">{{ 'home.altguard.blocked' | t(c) }}</span>
+            <div class="ag-checks">
+              {% for check in [['device', 'devices', 1], ['email', 'mail', 2], ['network', 'lan', 3], ['servers', 'dns', 4]] %}
+                <span class="ag-check done{% if loop.first %} ag-hit{% endif %}" data-at="{{ check[2] }}" data-done-at="{{ check[2] + 1 }}">
+                  <span class="material-symbols-outlined ag-icon">{{ check[1] }}</span>
+                  {{ ('home.altguard.demo.' + check[0]) | t(c) }}
+                  <span class="ag-result">
+                    <span class="material-symbols-outlined spinner">progress_activity</span>
+                    <span class="material-symbols-outlined ok">check_circle</span>
+                    <span class="material-symbols-outlined hit">error</span>
+                  </span>
+                </span>
+              {% endfor %}
+            </div>
+            <div class="ag-verdict" data-at="6">
+              <span class="material-symbols-outlined only-pass">verified_user</span>
+              <span class="material-symbols-outlined only-block">gpp_bad</span>
+              <span class="only-pass">{{ 'home.altguard.demo.passed' | t(c) }}</span>
+              <span class="only-block">{{ 'home.altguard.demo.blocked' | t(c) }}</span>
             </div>
           </div>
         </div>
@@ -367,7 +405,6 @@ permalink: "{{ locale.prefix }}/index.html"
               {% endfor %}
             </div>
             <div class="mock-toast" role="status"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span>{{ 'home.dashboard.mock.saved' | t(c) }}</div>
-            <svg class="mock-pointer" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" stroke="var(--md-sys-color-surface-container-lowest)" stroke-width="1.5" stroke-linejoin="round" d="M4 2.5 19 13l-6.6 1.3 3.8 6.7-2.6 1.4-3.8-6.7L5 20.4z" /></svg>
           </div>
         </div>
       </section>

@@ -230,6 +230,92 @@ function colorTiles() {
 }
 
 /* -------------------------------------------------------------------------
+ * Played illustrations share one mechanism: elements with data-at appear at
+ * that step, data-done-at get "done" (spinner -> check), data-press-at are
+ * pressed during that step, data-pick-at stay picked from that step on.
+ * ----------------------------------------------------------------------- */
+
+function stepper(root: HTMLElement) {
+  const all = (attribute: string) => [
+    ...root.querySelectorAll<HTMLElement>(`[${attribute}]`),
+  ];
+  const timed = all('data-at');
+  const done = all('data-done-at');
+  const pressed = all('data-press-at');
+  const picked = all('data-pick-at');
+  return (step: number) => {
+    for (const el of timed) el.classList.toggle('shown', Number(el.dataset.at) <= step);
+    for (const el of done) el.classList.toggle('done', Number(el.dataset.doneAt) <= step);
+    for (const el of pressed) el.classList.toggle('pressed', Number(el.dataset.pressAt) === step);
+    for (const el of picked) el.classList.toggle('picked', Number(el.dataset.pickAt) <= step);
+  };
+}
+
+/** Plays `timeline` ([step, pause in ms]) in a loop while on screen. */
+function playDemo(
+  root: HTMLElement,
+  timeline: Array<[number, number]>,
+  hooks: {beforeLoop?: () => void; onStep?: (step: number) => void} = {},
+) {
+  const show = stepper(root);
+  root.classList.add('playing');
+  show(0);
+  hooks.onStep?.(0);
+  loopWhileVisible(root, async () => {
+    hooks.beforeLoop?.();
+    for (const [step, pause] of timeline) {
+      show(step);
+      hooks.onStep?.(step);
+      await wait(pause);
+    }
+    root.classList.add('resetting');
+    await wait(550);
+    show(0);
+    hooks.onStep?.(0);
+    root.classList.remove('resetting');
+    await wait(450);
+  });
+}
+
+function playTickets() {
+  const root = document.querySelector<HTMLElement>('[data-demo="tickets"]');
+  if (!root) return;
+  playDemo(root, [
+    [0, 900], // the panel
+    [1, 900], // "Report a member" is picked
+    [2, 900], // the private channel opens
+    [3, 1400], // Moddy greets
+    [4, 3200], // a moderator claims it
+  ]);
+}
+
+/** Alternates a member who passes and a second account that is blocked. */
+function playAltGuard() {
+  const root = document.querySelector<HTMLElement>('[data-demo="altguard"]');
+  if (!root) return;
+  let blocked = true;
+  playDemo(
+    root,
+    [
+      [0, 900], // a member joins, unverified
+      [1, 600], // device
+      [2, 600], // email
+      [3, 600], // network
+      [4, 600], // servers
+      [5, 500], // last check done
+      [6, 3200], // the verdict
+    ],
+    {
+      beforeLoop: () => {
+        blocked = !blocked;
+        root.dataset.variant = blocked ? 'block' : 'pass';
+      },
+      onStep: (step) => root.classList.toggle('decided', step >= 6),
+    },
+  );
+}
+
+/* -------------------------------------------------------------------------
  * Brocoli: the question is typed and sent, Brocoli reads the configuration,
  * plans two changes, asks for confirmation, applies them and answers.
  * Elements with data-at appear at that step; steps with data-done-at get
@@ -242,21 +328,7 @@ function playBrocoli() {
   const input = chat.querySelector<HTMLElement>('.chat-input-text')!;
   const send = chat.querySelector<HTMLElement>('.chat-send')!;
   const prompt = input.dataset.prompt ?? '';
-  const timed = [...chat.querySelectorAll<HTMLElement>('[data-at]')];
-  const steps = [...chat.querySelectorAll<HTMLElement>('[data-done-at]')];
-  const buttons = [...chat.querySelectorAll<HTMLElement>('[data-press-at]')];
-
-  const show = (step: number) => {
-    for (const el of timed) {
-      el.classList.toggle('shown', Number(el.dataset.at) <= step);
-    }
-    for (const el of steps) {
-      el.classList.toggle('done', Number(el.dataset.doneAt) <= step);
-    }
-    for (const el of buttons) {
-      el.classList.toggle('pressed', Number(el.dataset.pressAt) === step);
-    }
-  };
+  const show = stepper(chat);
 
   chat.classList.add('playing');
   show(0);
@@ -299,9 +371,9 @@ function playBrocoli() {
 }
 
 /* -------------------------------------------------------------------------
- * Dashboard replica: switches work, and a pointer comes by now and then to
- * flip one, followed by a "Changes saved" toast. It keeps away while the
- * visitor's own pointer is over the replica.
+ * Dashboard replica: switches work, and now and then a module row lights up
+ * and its switch flips by itself, followed by a "Changes saved" toast. It
+ * stays still while the visitor's pointer is over the replica.
  * ----------------------------------------------------------------------- */
 
 function dashboardReplica() {
@@ -309,7 +381,6 @@ function dashboardReplica() {
   if (!mock) return;
   const switches = [...mock.querySelectorAll<HTMLButtonElement>('.switch')];
   const toast = mock.querySelector<HTMLElement>('.mock-toast')!;
-  const pointer = mock.querySelector<SVGElement>('.mock-pointer')!;
   let toastTimer = 0;
 
   const flip = (button: HTMLButtonElement) => {
@@ -326,38 +397,21 @@ function dashboardReplica() {
   if (reduceMotion) return;
 
   let hovered = false;
-  mock.addEventListener('pointerenter', () => {
-    hovered = true;
-    pointer.classList.remove('visible');
-  });
+  mock.addEventListener('pointerenter', () => (hovered = true));
   mock.addEventListener('pointerleave', () => (hovered = false));
-
-  const moveTo = (el: Element) => {
-    const box = mock.getBoundingClientRect();
-    const target = el.getBoundingClientRect();
-    const x = target.left - box.left + target.width * 0.6;
-    const y = target.top - box.top + target.height * 0.55;
-    pointer.style.transform = `translate(${x}px, ${y}px)`;
-  };
 
   let next = 1;
   loopWhileVisible(mock, async () => {
-    await wait(2200);
+    await wait(2600);
     if (hovered) return;
     const button = switches[next % switches.length];
+    const row = button.closest('.mock-module');
     next += 2;
-    pointer.classList.add('visible');
-    moveTo(button);
-    await wait(1000);
-    if (hovered) return;
-    pointer.classList.add('pressing');
-    await wait(140);
-    pointer.classList.remove('pressing');
-    flip(button);
-    await wait(900);
-    pointer.style.transform = `translate(${mock.clientWidth - 40}px, ${mock.clientHeight - 30}px)`;
+    row?.classList.add('changing');
     await wait(700);
-    pointer.classList.remove('visible');
+    if (!hovered) flip(button);
+    await wait(900);
+    row?.classList.remove('changing');
   });
 }
 
@@ -370,6 +424,8 @@ if (!reduceMotion) {
   rotateFeed();
   countUpNumbers();
   playBrocoli();
+  playTickets();
+  playAltGuard();
 }
 
 // A module: keeps these names out of the global scope.

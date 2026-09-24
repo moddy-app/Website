@@ -168,7 +168,13 @@
       "panel": "Need help?",
       "report": "Report a member",
       "partnership": "Partnership",
-      "other": "Other question"
+      "other": "Other question",
+      "demo": {
+        "channel": "ticket-alex",
+        "new": "New",
+        "welcome": "Hi Alex, thanks for reaching out! A moderator will be with you shortly.",
+        "claimed": "Claimed by Sam"
+      }
     },
     "utilities": {
       "title": "Handy tools, everywhere",
@@ -199,11 +205,18 @@
       "title": "Alt accounts stay out",
       "text": "AltGuard checks new members as they join and acts on suspected alternate accounts, so a ban really means gone for good.",
       "cta": "About AltGuard",
-      "member": "new member",
-      "passed": "Verification passed",
-      "suspected": "Suspected alt of a banned member",
-      "verified": "Verified",
-      "blocked": "Blocked"
+      "demo": {
+        "joined": "joined the server",
+        "unverified": "Unverified",
+        "verified": "Verified",
+        "blockedChip": "Blocked",
+        "device": "Device",
+        "email": "Email",
+        "network": "Network",
+        "servers": "Servers",
+        "passed": "Passed · Verified role given",
+        "blocked": "Blocked · Same device as a banned account"
+      }
     },
     "dashboard": {
       "title": "Configure from your browser",

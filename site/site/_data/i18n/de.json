@@ -168,7 +168,13 @@
       "panel": "Brauchst du Hilfe?",
       "report": "Mitglied melden",
       "partnership": "Partnerschaft",
-      "other": "Andere Frage"
+      "other": "Andere Frage",
+      "demo": {
+        "channel": "ticket-alex",
+        "new": "Neu",
+        "welcome": "Hallo Alex, danke für deine Nachricht! Gleich kümmert sich ein Moderator um dich.",
+        "claimed": "Übernommen von Sam"
+      }
     },
     "utilities": {
       "title": "Praktische Tools, überall",
@@ -199,11 +205,18 @@
       "title": "Zweitaccounts bleiben draußen",
       "text": "AltGuard prüft neue Mitglieder beim Beitritt und geht gegen verdächtige Zweitaccounts vor, damit ein Bann wirklich endgültig ist.",
       "cta": "Über AltGuard",
-      "member": "neues Mitglied",
-      "passed": "Verifizierung bestanden",
-      "suspected": "Vermutlich Zweitaccount eines gebannten Mitglieds",
-      "verified": "Verifiziert",
-      "blocked": "Blockiert"
+      "demo": {
+        "joined": "ist dem Server beigetreten",
+        "unverified": "Nicht verifiziert",
+        "verified": "Verifiziert",
+        "blockedChip": "Blockiert",
+        "device": "Gerät",
+        "email": "E-Mail",
+        "network": "Netzwerk",
+        "servers": "Server",
+        "passed": "Bestanden · Rolle Verifiziert vergeben",
+        "blocked": "Blockiert · Gleiches Gerät wie ein gebanntes Konto"
+      }
     },
     "dashboard": {
       "title": "Konfiguration im Browser",

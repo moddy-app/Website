@@ -168,7 +168,13 @@
       "panel": "Precisa de ajuda?",
       "report": "Denunciar um membro",
       "partnership": "Parceria",
-      "other": "Outra pergunta"
+      "other": "Outra pergunta",
+      "demo": {
+        "channel": "ticket-alex",
+        "new": "Novo",
+        "welcome": "Oi Alex, obrigado por escrever! Um moderador já vai te atender.",
+        "claimed": "Assumido por Sam"
+      }
     },
     "utilities": {
       "title": "Ferramentas úteis, em todo lugar",
@@ -199,11 +205,18 @@
       "title": "Contas alternativas ficam de fora",
       "text": "O AltGuard verifica os novos membros na entrada e age contra contas alternativas suspeitas, para que um banimento seja mesmo para sempre.",
       "cta": "Sobre o AltGuard",
-      "member": "novo membro",
-      "passed": "Verificação aprovada",
-      "suspected": "Possível conta alternativa de um membro banido",
-      "verified": "Verificado",
-      "blocked": "Bloqueado"
+      "demo": {
+        "joined": "entrou no servidor",
+        "unverified": "Não verificado",
+        "verified": "Verificado",
+        "blockedChip": "Bloqueado",
+        "device": "Dispositivo",
+        "email": "E-mail",
+        "network": "Rede",
+        "servers": "Servidores",
+        "passed": "Aprovado · Cargo verificado atribuído",
+        "blocked": "Bloqueado · Mesmo dispositivo de uma conta banida"
+      }
     },
     "dashboard": {
       "title": "Configure pelo navegador",

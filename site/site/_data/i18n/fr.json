@@ -168,7 +168,13 @@
       "panel": "Besoin d'aide ?",
       "report": "Signaler un membre",
       "partnership": "Partenariat",
-      "other": "Autre question"
+      "other": "Autre question",
+      "demo": {
+        "channel": "ticket-alex",
+        "new": "Nouveau",
+        "welcome": "Salut Alex, merci de nous avoir écrit ! Un modérateur arrive très vite.",
+        "claimed": "Pris en charge par Sam"
+      }
     },
     "utilities": {
       "title": "Des outils pratiques, partout",
@@ -199,11 +205,18 @@
       "title": "Les doubles comptes restent dehors",
       "text": "AltGuard vérifie les nouveaux membres à leur arrivée et agit sur les comptes secondaires suspects : un bannissement veut vraiment dire au revoir.",
       "cta": "À propos d'AltGuard",
-      "member": "nouveau membre",
-      "passed": "Vérification réussie",
-      "suspected": "Double compte suspecté d'un membre banni",
-      "verified": "Vérifié",
-      "blocked": "Bloqué"
+      "demo": {
+        "joined": "a rejoint le serveur",
+        "unverified": "Non vérifié",
+        "verified": "Vérifié",
+        "blockedChip": "Bloqué",
+        "device": "Appareil",
+        "email": "E-mail",
+        "network": "Réseau",
+        "servers": "Serveurs",
+        "passed": "Validé · Rôle vérifié attribué",
+        "blocked": "Bloqué · Même appareil qu'un compte banni"
+      }
     },
     "dashboard": {
       "title": "Configurez depuis votre navigateur",
