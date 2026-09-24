@@ -329,56 +329,25 @@ function playAltGuard() {
 }
 
 /* -------------------------------------------------------------------------
- * AutoMod: messages arrive in a channel one by one; each is swept by a scan
- * beam, its risk meter fills, and it is tagged safe, or collapses into the
- * sanction when it is the scam. The server-rendered messages (final state)
- * serve as templates.
+ * AutoMod: a scam arrives among normal messages, is analysed, then turns
+ * into the sanction in place.
  * ----------------------------------------------------------------------- */
 
-function playScanner() {
-  const root = document.querySelector<HTMLElement>('[data-demo="scanner"]');
-  if (!root) return;
-  const list = root.querySelector<HTMLElement>('.scan-list')!;
-  const templates = [...list.children].map((li) => {
-    const clone = li.cloneNode(true) as HTMLElement;
-    clone.classList.remove('done', 'removed');
-    return clone;
-  });
-  const visible = 3;
-  // Start with the first three as rendered; the next one to arrive is #4.
-  [...list.children].slice(visible).forEach((li) => li.remove());
-  let next = visible % templates.length;
-
-  loopWhileVisible(root, async () => {
-    await wait(1200);
-    const message = templates[next % templates.length].cloneNode(true) as HTMLElement;
-    next++;
-
-    // Make room: the oldest message slides out at the top.
-    if (list.children.length >= visible) {
-      const oldest = list.firstElementChild as HTMLElement;
-      const gap = parseFloat(getComputedStyle(list).rowGap) || 0;
-      list.classList.add('sliding');
-      list.style.transform = `translateY(-${oldest.offsetHeight + gap}px)`;
-      oldest.style.opacity = '0';
-      await wait(500);
-      list.classList.remove('sliding');
-      oldest.remove();
-      list.style.transform = '';
+function playGuard() {
+  const target = document.querySelector<HTMLElement>('[data-demo="guard"] .guard-target');
+  if (!target) return;
+  const states: Array<[string, number]> = [
+    ['hidden', 900],
+    ['arrived', 1100],
+    ['analyzing', 1500],
+    ['caught', 3600],
+  ];
+  target.dataset.state = 'hidden';
+  loopWhileVisible(target, async () => {
+    for (const [state, pause] of states) {
+      target.dataset.state = state;
+      await wait(pause);
     }
-
-    message.classList.add('entering');
-    list.append(message);
-    await wait(450);
-    message.classList.add('scanning');
-    await wait(900);
-    message.classList.remove('scanning');
-    message.classList.add('done');
-    if (message.dataset.kind === 'bad') {
-      await wait(1100);
-      message.classList.add('removed');
-    }
-    await wait(1300);
   });
 }
 
@@ -418,8 +387,9 @@ function playReel() {
   const itemHeight = () => items[0].getBoundingClientRect().height;
   // The window shows 3 items; the chosen one sits in the middle (+1).
   const place = (index: number, animate: boolean) => {
+    // Eases out with a slight overshoot: the reel settles on its command.
     strip.style.transition = animate
-      ? 'transform 1900ms cubic-bezier(0.12, 0.8, 0.2, 1)'
+      ? 'transform 1900ms cubic-bezier(0.15, 0.85, 0.3, 1.06)'
       : 'none';
     strip.style.transform = `translateY(${(1 - index) * itemHeight()}px)`;
   };
@@ -443,10 +413,10 @@ function playReel() {
       }
     },
     '1': async (result) => {
-      const timer = result.querySelector<HTMLElement>('.reel-timer')!;
-      timer.classList.remove('running');
-      void timer.getBoundingClientRect();
-      timer.classList.add('running');
+      const progress = result.querySelector<HTMLElement>('.reel-progress')!;
+      progress.classList.remove('running');
+      void progress.offsetWidth;
+      progress.classList.add('running');
     },
   };
 
@@ -463,8 +433,11 @@ function playReel() {
     // Spin from the first copy to the same command in the third copy.
     place(target, false);
     void strip.offsetHeight;
+    strip.classList.add('spinning');
     place(target + count * 2, true);
-    await wait(1950);
+    await wait(1300);
+    strip.classList.remove('spinning');
+    await wait(650);
     items[target + count * 2].classList.add('landed');
     // Back to the first copy, invisibly, ready for the next spin.
     await wait(50);
@@ -500,6 +473,7 @@ function playBrocoli() {
     input.classList.add('typing');
     for (let i = 1; i <= prompt.length; i++) {
       input.textContent = prompt.slice(0, i);
+      input.scrollLeft = input.scrollWidth;
       await wait(28 + Math.random() * 40);
     }
     await wait(350);
@@ -590,7 +564,7 @@ if (!reduceMotion) {
   playBrocoli();
   playTickets();
   playReel();
-  playScanner();
+  playGuard();
   playAltGuard();
 }
 

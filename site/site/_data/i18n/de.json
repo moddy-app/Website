@@ -111,11 +111,8 @@
       "demo": {
         "m1": "hat jemand heute Abend Lust auf eine Runde?",
         "m2": "gg an alle, hat Spaß gemacht",
-        "m3": "willkommen an die neuen Mitglieder!",
-        "safe": "Sicher",
-        "flagged": "Betrugslink",
-        "scanning": "Wird geprüft…",
-        "channel": "allgemein"
+        "channel": "allgemein",
+        "analyzing": "Wird geprüft…"
       }
     },
     "cases": {

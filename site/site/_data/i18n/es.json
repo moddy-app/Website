@@ -111,11 +111,8 @@
       "demo": {
         "m1": "¿alguien para una partida esta noche?",
         "m2": "gg a todos, ha estado genial",
-        "m3": "¡bienvenidos a los nuevos miembros!",
-        "safe": "Seguro",
-        "flagged": "Enlace fraudulento",
-        "scanning": "Analizando…",
-        "channel": "general"
+        "channel": "general",
+        "analyzing": "Analizando…"
       }
     },
     "cases": {

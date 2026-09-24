@@ -192,67 +192,38 @@ permalink: "{{ locale.prefix }}/index.html"
         <h2>{{ 'home.automod.title' | t(c) }}</h2>
         <p>{{ 'home.automod.text' | t(c) }}</p>
         <div class="card-visual">
-          {#- A channel where AutoMod AI scans every new message (home-page.ts
-              plays the templates in turn): a beam sweeps the message, a risk
-              meter fills; safe ones get a tag, the scam collapses into the
-              sanction. -#}
-          <div class="panel scanner" data-demo="scanner" aria-hidden="true">
-            <div class="log-head">
-              <span class="material-symbols-outlined">tag</span>
-              <span class="log-channel">{{ 'home.automod.demo.channel' | t(c) }}</span>
-              <span class="log-count"><span class="material-symbols-outlined">smart_toy</span>AutoMod AI</span>
-            </div>
-            <ul class="scan-list">
-              <li class="scan-msg done" data-kind="safe">
-                <span class="scan-avatar">M</span>
-                <span class="scan-body">
-                  <span class="scan-author">mia</span>
-                  <span class="scan-text">{{ 'home.automod.demo.m1' | t(c) }}</span>
-                  <span class="scan-removed"><span class="material-symbols-outlined">shield</span>{{ 'home.automod.verdict' | t(c) }}</span>
-                </span>
-                <span class="scan-verdict">
-                  <span class="scan-meter"><i></i></span>
-                  <span class="scan-label scan-label-safe">{{ 'home.automod.demo.safe' | t(c) }}</span>
-                  <span class="scan-label scan-label-bad">{{ 'home.automod.demo.flagged' | t(c) }}</span>
+          {#- AutoMod at work (home-page.ts): a scam arrives among normal
+              messages, is analysed, then turns into the sanction in place.
+              Rendered in its final state (caught) without JS. -#}
+          <div class="panel guard" data-demo="guard" aria-hidden="true">
+            <ul class="guard-list">
+              <li class="guard-msg">
+                <span class="guard-avatar">M</span>
+                <span class="guard-body">
+                  <span class="guard-author">mia</span>
+                  <span class="guard-text">{{ 'home.automod.demo.m1' | t(c) }}</span>
                 </span>
               </li>
-              <li class="scan-msg done" data-kind="safe">
-                <span class="scan-avatar">L</span>
-                <span class="scan-body">
-                  <span class="scan-author">leo</span>
-                  <span class="scan-text">{{ 'home.automod.demo.m2' | t(c) }}</span>
-                  <span class="scan-removed"><span class="material-symbols-outlined">shield</span>{{ 'home.automod.verdict' | t(c) }}</span>
-                </span>
-                <span class="scan-verdict">
-                  <span class="scan-meter"><i></i></span>
-                  <span class="scan-label scan-label-safe">{{ 'home.automod.demo.safe' | t(c) }}</span>
-                  <span class="scan-label scan-label-bad">{{ 'home.automod.demo.flagged' | t(c) }}</span>
+              <li class="guard-msg">
+                <span class="guard-avatar">L</span>
+                <span class="guard-body">
+                  <span class="guard-author">leo</span>
+                  <span class="guard-text">{{ 'home.automod.demo.m2' | t(c) }}</span>
                 </span>
               </li>
-              <li class="scan-msg done removed" data-kind="bad">
-                <span class="scan-avatar">T</span>
-                <span class="scan-body">
-                  <span class="scan-author">troublemaker</span>
-                  <span class="scan-text">{{ 'home.automod.message' | t(c) }}</span>
-                  <span class="scan-removed"><span class="material-symbols-outlined">shield</span>{{ 'home.automod.verdict' | t(c) }}</span>
+              <li class="guard-msg guard-target" data-state="caught">
+                <span class="guard-avatar">T</span>
+                <span class="guard-body guard-original">
+                  <span class="guard-author">troublemaker</span>
+                  <span class="guard-text">{{ 'home.automod.message' | t(c) }}</span>
                 </span>
-                <span class="scan-verdict">
-                  <span class="scan-meter"><i></i></span>
-                  <span class="scan-label scan-label-safe">{{ 'home.automod.demo.safe' | t(c) }}</span>
-                  <span class="scan-label scan-label-bad">{{ 'home.automod.demo.flagged' | t(c) }}</span>
-                </span>
-              </li>
-              <li class="scan-msg done" data-kind="safe">
-                <span class="scan-avatar">S</span>
-                <span class="scan-body">
-                  <span class="scan-author">sam</span>
-                  <span class="scan-text">{{ 'home.automod.demo.m3' | t(c) }}</span>
-                  <span class="scan-removed"><span class="material-symbols-outlined">shield</span>{{ 'home.automod.verdict' | t(c) }}</span>
-                </span>
-                <span class="scan-verdict">
-                  <span class="scan-meter"><i></i></span>
-                  <span class="scan-label scan-label-safe">{{ 'home.automod.demo.safe' | t(c) }}</span>
-                  <span class="scan-label scan-label-bad">{{ 'home.automod.demo.flagged' | t(c) }}</span>
+                <span class="guard-status"><span class="material-symbols-outlined">progress_activity</span>{{ 'home.automod.demo.analyzing' | t(c) }}</span>
+                <span class="guard-verdict">
+                  <span class="guard-verdict-icon"><span class="material-symbols-outlined">shield</span></span>
+                  <span class="guard-body">
+                    <strong>{{ 'home.automod.verdict' | t(c) }}</strong>
+                    <span class="guard-detail">{{ 'home.automod.detail' | t(c) }}</span>
+                  </span>
                 </span>
               </li>
             </ul>
@@ -531,36 +502,35 @@ permalink: "{{ locale.prefix }}/index.html"
           <div class="panel cmd-machine" data-demo="reel" aria-hidden="true">
             <div class="reel">
               <span class="reel-slash">/</span>
-              <div class="reel-window">
-                <div class="reel-strip">
-                  {% for copy in [0, 1, 2] %}
-                    {% for command in commands %}
-                      <span class="reel-item">{{ command }}</span>
-                    {% endfor %}
+              <div class="reel-strip">
+                {% for copy in [0, 1, 2] %}
+                  {% for command in commands %}
+                    <span class="reel-item">{{ command }}</span>
                   {% endfor %}
-                </div>
+                {% endfor %}
               </div>
             </div>
             <div class="reel-results">
               <div class="reel-result current" data-command="0">
-                <span class="reel-result-head"><span class="material-symbols-outlined">translate</span>{{ 'home.utilities.demo.languages' | t(c) }}</span>
-                <span class="reel-source">{{ 'home.utilities.demo.input' | t(c) }}</span>
-                <span class="reel-scramble" data-from="{{ 'home.utilities.demo.input' | t(c) }}">{{ 'home.utilities.demo.output' | t(c) }}</span>
+                <span class="shape small shape-hexagon" aria-hidden="true"><span class="material-symbols-outlined">translate</span></span>
+                <span class="reel-result-body">
+                  <span class="reel-label">{{ 'home.utilities.demo.languages' | t(c) }}</span>
+                  <span class="reel-value reel-scramble" data-from="{{ 'home.utilities.demo.input' | t(c) }}">{{ 'home.utilities.demo.output' | t(c) }}</span>
+                </span>
               </div>
               <div class="reel-result" data-command="5">
-                <span class="material-symbols-outlined reel-die">casino</span>
-                <span class="reel-roll">
+                <span class="shape small shape-square tone-tertiary reel-die" aria-hidden="true"><span class="material-symbols-outlined">casino</span></span>
+                <span class="reel-result-body">
                   <span class="reel-label">{{ 'home.utilities.reel.rolled' | t(c) }}</span>
-                  <span class="reel-number">4</span>
-                  <span class="reel-label">{{ 'home.utilities.reel.outOf' | t(c) }}</span>
+                  <span class="reel-value"><span class="reel-number">4</span> <span class="reel-muted">{{ 'home.utilities.reel.outOf' | t(c) }}</span></span>
                 </span>
               </div>
               <div class="reel-result" data-command="1">
-                <svg class="reel-timer" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" /><circle class="reel-timer-fill" cx="22" cy="22" r="18" pathLength="100" /></svg>
-                <span class="reel-remind">
+                <span class="shape small shape-octagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">alarm</span></span>
+                <span class="reel-result-body">
                   <span class="reel-label">{{ 'home.utilities.reel.remind' | t(c) }}</span>
-                  <strong>{{ 'home.utilities.reel.remindWhat' | t(c) }}</strong>
-                  <span class="reel-label">{{ 'home.utilities.reel.remindWhen' | t(c) }}</span>
+                  <span class="reel-value">{{ 'home.utilities.reel.remindWhat' | t(c) }} <span class="reel-muted">· {{ 'home.utilities.reel.remindWhen' | t(c) }}</span></span>
+                  <span class="reel-progress"><i></i></span>
                 </span>
               </div>
             </div>

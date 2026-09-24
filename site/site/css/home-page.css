@@ -783,7 +783,9 @@
    replaces the box while Brocoli waits for an answer. */
 .chat-bottom {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   align-items: end;
+  min-width: 0;
 }
 
 .chat-bottom > * {
@@ -868,12 +870,14 @@
   font-size: 14px;
 }
 
+/* One line, like a real input: while typing, home-page.ts scrolls it so the
+   last characters stay in view. */
 .chat-input-text {
   flex: 1;
   min-width: 0;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
+  text-overflow: clip;
 }
 
 .chat-input-text:empty::before {
@@ -896,47 +900,41 @@
 }
 
 /* ---------------------------------------------------------------------------
- * AutoMod: a channel where every new message is scanned (home-page.ts)
+ * AutoMod: a scam arrives, is analysed, becomes the sanction (home-page.ts)
+ * data-state on the target: hidden -> arrived -> analyzing -> caught.
  * ------------------------------------------------------------------------- */
 
-.scanner {
-  gap: 12px;
-}
-
-.scan-list {
+.guard-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 14px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.scan-msg {
+.guard-msg {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 14px;
-  overflow: hidden;
-  background-color: var(--md-sys-color-surface-container-lowest);
+  gap: 12px;
+  min-height: 44px;
 }
 
-.scan-avatar {
+.guard-avatar {
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   flex-shrink: 0;
   border-radius: 50%;
   font-size: 13px;
   font-weight: 600;
-  background-color: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
-.scan-body {
+.guard-body {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -944,124 +942,110 @@
   font-size: 14px;
 }
 
-.scan-author {
+.guard-author {
   font-size: 12px;
   font-weight: 600;
   color: var(--md-sys-color-on-surface-variant);
 }
 
-.scan-removed {
-  display: none;
+/* The target: its message, a status while analysed, then the sanction,
+   stacked in one spot. */
+.guard-target {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--md-sys-color-on-error-container);
+  gap: 12px;
+  margin: -8px -10px;
+  padding: 8px 10px;
+  border-radius: 16px;
+  outline: 1.5px solid transparent;
 }
 
-.scan-removed .material-symbols-outlined {
-  font-size: 18px;
+/* Everything on row 1: the sanction lies over the message it replaces. */
+.guard-target > .guard-avatar { grid-area: 1 / 1; }
+.guard-target > .guard-original { grid-area: 1 / 2; }
+.guard-target > .guard-status { grid-area: 1 / 3; }
+
+.guard-verdict {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.guard-verdict-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-error);
+}
+
+.guard-verdict-icon .material-symbols-outlined {
+  font-size: 20px;
   font-variation-settings: 'FILL' 1;
 }
 
-/* A removed message collapses into the sanction. */
-.scan-msg.removed {
-  background-color: var(--md-sys-color-error-container);
+.guard-verdict strong {
+  font-size: 14px;
 }
 
-.scan-msg.removed .scan-author,
-.scan-msg.removed .scan-text,
-.scan-msg.removed .scan-verdict {
-  display: none;
+.guard-detail {
+  font-size: 12px;
+  color: var(--md-sys-color-on-surface-variant);
 }
 
-.scan-msg.removed .scan-removed {
+.guard-status {
   display: inline-flex;
-}
-
-.scan-msg.removed .scan-avatar {
-  background-color: var(--md-sys-color-error);
-  color: var(--md-sys-color-on-error);
-}
-
-/* Verdict: a risk meter, then a tag. */
-.scan-verdict {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
-  flex-shrink: 0;
-  width: 88px;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--md-sys-color-primary);
+  visibility: hidden;
   opacity: 0;
 }
 
-.scan-msg.scanning .scan-verdict,
-.scan-msg.done .scan-verdict {
+.guard-status .material-symbols-outlined {
+  font-size: 16px;
+}
+
+.guard-target[data-state='hidden'] {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.guard-target[data-state='analyzing'] {
+  outline-color: var(--md-sys-color-primary);
+}
+
+.guard-target[data-state='analyzing'] .guard-status {
+  visibility: visible;
   opacity: 1;
 }
 
-.scan-meter {
-  width: 100%;
-  height: 5px;
-  border-radius: 3px;
-  overflow: hidden;
-  background-color: var(--md-sys-color-surface-container-highest);
+.guard-target[data-state='caught'] {
+  background-color: var(--md-sys-color-error-container);
 }
 
-.scan-meter i {
-  display: block;
-  width: 0;
-  height: 100%;
-  border-radius: inherit;
-  background-color: var(--md-sys-color-primary);
-}
-
-.scan-msg.done[data-kind='safe'] .scan-meter i {
-  width: 10%;
-}
-
-.scan-msg.done[data-kind='bad'] .scan-meter i {
-  width: 96%;
-  background-color: var(--md-sys-color-error);
-}
-
-.scan-label {
-  display: none;
-  padding: 1px 8px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.scan-msg.done[data-kind='safe'] .scan-label-safe {
-  display: inline;
-  background-color: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
-}
-
-.scan-msg.done[data-kind='bad'] .scan-label-bad {
-  display: inline;
-  background-color: var(--md-sys-color-error);
-  color: var(--md-sys-color-on-error);
-}
-
-/* The scan beam: a band of light sweeping across the message. */
-.scan-msg::after {
-  content: '';
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 40%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    color-mix(in srgb, var(--md-sys-color-primary) 22%, transparent),
-    transparent
-  );
-  border-right: 2px solid color-mix(in srgb, var(--md-sys-color-primary) 70%, transparent);
-  transform: translateX(-110%);
-  pointer-events: none;
+.guard-target[data-state='caught'] .guard-avatar,
+.guard-target[data-state='caught'] .guard-original {
+  visibility: hidden;
   opacity: 0;
+}
+
+.guard-target[data-state='caught'] .guard-verdict {
+  visibility: visible;
+  opacity: 1;
+}
+
+.guard-target[data-state='caught'] .guard-detail {
+  color: var(--md-sys-color-on-error-container);
 }
 
 /* ---------------------------------------------------------------------------
@@ -1175,41 +1159,46 @@
  * ------------------------------------------------------------------------- */
 
 .cmd-machine {
-  --reel-item: 52px;
-  gap: 14px;
+  --reel-item: 44px;
+  gap: 18px;
+  justify-content: center;
 }
 
+/* Three rows; the middle one sits in a pill with the "/", like a picker. */
 .reel {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 0 18px;
-  border-radius: 20px;
-  background-color: var(--md-sys-color-surface-container-lowest);
+  position: relative;
+  height: calc(var(--reel-item) * 3);
+  overflow: hidden;
   font-family: 'Google Sans Mono', monospace;
-  font-size: 22px;
+  font-size: 20px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 70%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 70%, transparent);
+}
+
+.reel::before {
+  content: '';
+  position: absolute;
+  inset: var(--reel-item) 0;
+  border-radius: 999px;
+  background-color: var(--md-sys-color-surface-container-lowest);
 }
 
 .reel-slash {
-  line-height: 1;
+  position: absolute;
+  top: var(--reel-item);
+  left: 20px;
+  display: flex;
+  align-items: center;
+  height: var(--reel-item);
   font-weight: 600;
   color: var(--md-sys-color-primary);
 }
 
-/* Three items tall: the chosen command in the middle, its neighbours
-   fading above and below, like a slot machine's window. */
-.reel-window {
-  position: relative;
-  flex: 1;
-  height: calc(var(--reel-item) * 3);
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 38%, #000 62%, transparent);
-  mask-image: linear-gradient(to bottom, transparent, #000 38%, #000 62%, transparent);
-}
-
 .reel-strip {
+  position: relative;
   display: flex;
   flex-direction: column;
+  padding-left: 36px;
   transform: translateY(var(--reel-item));
 }
 
@@ -1221,9 +1210,15 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.reel-item.landed {
+  font-weight: 600;
   color: var(--md-sys-color-on-surface);
 }
 
+/* The results share one spot and one layout: a shape, a label, a value. */
 .reel-results {
   display: grid;
 }
@@ -1233,12 +1228,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  min-height: 92px;
-  padding: 14px 16px;
-  box-sizing: border-box;
-  border-left: 3px solid var(--md-sys-color-primary);
-  border-radius: 4px 16px 16px 4px;
-  background-color: var(--md-sys-color-surface-container-lowest);
+  padding: 0 4px;
   visibility: hidden;
   opacity: 0;
 }
@@ -1248,89 +1238,49 @@
   opacity: 1;
 }
 
-.reel-result[data-command='0'] {
+.reel-result-body {
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
   gap: 2px;
+  flex: 1;
+  min-width: 0;
 }
 
-.reel-result-head {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+.reel-label {
   font-size: 12px;
   color: var(--md-sys-color-on-surface-variant);
 }
 
-.reel-result-head .material-symbols-outlined {
+.reel-value {
   font-size: 16px;
-  color: var(--md-sys-color-primary);
-}
-
-.reel-source {
-  font-size: 13px;
-  color: var(--md-sys-color-on-surface-variant);
-  text-decoration: line-through;
-  text-decoration-color: var(--md-sys-color-outline);
-}
-
-.reel-scramble {
-  font-size: 17px;
   font-weight: 600;
-}
-
-.reel-die {
-  font-size: 44px;
-  color: var(--md-sys-color-primary);
-  font-variation-settings: 'FILL' 1;
-}
-
-.reel-roll,
-.reel-remind {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 4px 8px;
-}
-
-.reel-remind {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-}
-
-.reel-label {
-  font-size: 13px;
-  color: var(--md-sys-color-on-surface-variant);
+  overflow-wrap: anywhere;
 }
 
 .reel-number {
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1;
   color: var(--md-sys-color-primary);
   font-variant-numeric: tabular-nums;
 }
 
-.reel-timer {
-  width: 48px;
-  height: 48px;
-  flex-shrink: 0;
-  rotate: -90deg;
+.reel-muted {
+  font-weight: 400;
+  color: var(--md-sys-color-on-surface-variant);
 }
 
-.reel-timer circle {
-  fill: none;
-  stroke-width: 5;
-  stroke: var(--md-sys-color-surface-container-highest);
+.reel-progress {
+  height: 3px;
+  margin-top: 6px;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: var(--md-sys-color-surface-container-highest);
 }
 
-.reel-timer .reel-timer-fill {
-  stroke: var(--md-sys-color-primary);
-  stroke-linecap: round;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 25;
+.reel-progress i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--md-sys-color-primary);
+  transform-origin: left;
 }
 
 /* ---------------------------------------------------------------------------
@@ -2279,48 +2229,60 @@
     animation: pop 350ms var(--ease);
   }
 
-  /* AutoMod scanner. */
-  .scan-msg.scanning::after {
-    opacity: 1;
-    animation: scan-beam 900ms cubic-bezier(0.45, 0, 0.3, 1) forwards;
+  /* AutoMod. */
+  .guard-target,
+  .guard-target > *,
+  .guard-original,
+  .guard-avatar,
+  .guard-status,
+  .guard-verdict {
+    transition:
+      opacity 400ms var(--ease),
+      visibility 400ms,
+      filter 400ms var(--ease),
+      translate 450ms var(--ease),
+      background-color 400ms var(--ease),
+      outline-color 300ms var(--ease);
   }
 
-  @keyframes scan-beam {
-    from { transform: translateX(-110%); }
-    to { transform: translateX(260%); }
+  .guard-target[data-state='hidden'] {
+    translate: 0 10px;
   }
 
-  .scan-meter i {
-    transition: width 600ms var(--ease), background-color 300ms var(--ease);
+  .guard-target[data-state='analyzing'] {
+    animation: guard-pulse 1.1s ease-in-out infinite;
   }
 
-  .scan-verdict {
-    transition: opacity 250ms var(--ease);
+  @keyframes guard-pulse {
+    50% { outline-color: color-mix(in srgb, var(--md-sys-color-primary) 30%, transparent); }
   }
 
-  .scan-msg.entering {
-    animation: scan-in 500ms var(--ease);
+  .guard-status .material-symbols-outlined {
+    animation: spin 1s linear infinite;
   }
 
-  @keyframes scan-in {
-    from { opacity: 0; translate: 0 14px; }
+  .guard-target[data-state='caught'] .guard-original {
+    filter: blur(6px);
   }
 
-  .scan-msg.removed {
-    animation: scan-remove 600ms var(--ease);
+  .guard-verdict {
+    translate: 0 6px;
   }
 
-  @keyframes scan-remove {
-    0% { scale: 1; }
-    30% { scale: 0.96; }
-    100% { scale: 1; }
+  .guard-target[data-state='caught'] .guard-verdict {
+    translate: 0 0;
   }
 
-  .scan-list.sliding {
-    transition: transform 500ms var(--ease);
+  /* Slot machine: a little motion blur while spinning, the result slides
+     in once the reel stops. */
+  .reel-strip.spinning {
+    filter: blur(1.2px);
   }
 
-  /* Slot machine: the result pops in once the reel stops. */
+  .reel-item {
+    transition: color 250ms var(--ease);
+  }
+
   .reel-result {
     transition:
       opacity 350ms var(--ease),
@@ -2333,29 +2295,20 @@
     translate: 0 0;
   }
 
-  .reel-item.landed {
-    color: var(--md-sys-color-primary);
-    font-weight: 600;
-    transition: color 250ms var(--ease);
-  }
-
-  .reel-die.rolling {
-    animation: die-roll 700ms var(--ease);
+  .reel-die.rolling > * {
+    animation: die-roll 650ms var(--ease);
   }
 
   @keyframes die-roll {
-    0% { rotate: 0deg; scale: 0.6; }
-    60% { rotate: 540deg; scale: 1.15; }
-    100% { rotate: 720deg; scale: 1; }
+    from { rotate: -360deg; scale: 0.5; }
   }
 
-  .reel-timer.running .reel-timer-fill {
-    animation: timer-fill 2400ms var(--ease) forwards;
+  .reel-progress.running i {
+    animation: reel-progress 2400ms linear forwards;
   }
 
-  @keyframes timer-fill {
-    from { stroke-dashoffset: 100; }
-    to { stroke-dashoffset: 25; }
+  @keyframes reel-progress {
+    from { transform: scaleX(0); }
   }
 
   /* Dashboard replica: the row being changed lights up. */
