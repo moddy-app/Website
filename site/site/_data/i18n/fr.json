@@ -32,7 +32,8 @@
     "license": "Licence",
     "logoLabel": "Accueil Moddy",
     "github": "Moddy sur GitHub",
-    "language": "Langue"
+    "language": "Langue",
+    "theme": "Changer les couleurs"
   },
   "notFound": {
     "title": "Page introuvable",
@@ -61,18 +62,60 @@
   "home": {
     "pageTitle": "Accueil",
     "hero": {
-      "title": "Moddy, le seul bot dont vous avez besoin.",
+      "title": "Conçu pour que vous puissiez vous concentrer sur votre communauté",
       "text": "Modération par IA, notifications sociales, messages de bienvenue et outils du quotidien pour votre serveur Discord, le tout dans un seul bot.",
       "add": "Ajouter à Discord",
       "dashboard": "Ouvrir le tableau de bord",
       "feedLabel": "Exemple de ce que fait Moddy sur un serveur",
       "feed": {
-        "spam": { "title": "Lien de spam supprimé", "sub": "AutoMod · #général", "time": "à l'instant" },
-        "welcome": { "title": "Bienvenue, Alex !", "sub": "Messages de bienvenue · #bienvenue", "time": "il y a 2 min" },
-        "live": { "title": "En live sur Twitch", "sub": "Notifications sociales · #streams", "time": "il y a 6 min" },
-        "case": { "title": "Dossier A7F2K9 ouvert", "sub": "Modération · Avertissement", "time": "il y a 9 min" },
-        "bump": { "title": "C'est l'heure du bump !", "sub": "Rappel de bump · #bump", "time": "il y a 12 min" }
+        "spam": {
+          "title": "Lien de spam supprimé",
+          "sub": "AutoMod · #général",
+          "time": "à l'instant"
+        },
+        "welcome": {
+          "title": "Bienvenue, Alex !",
+          "sub": "Messages de bienvenue · #bienvenue",
+          "time": "il y a 2 min"
+        },
+        "live": {
+          "title": "En live sur Twitch",
+          "sub": "Notifications sociales · #streams",
+          "time": "il y a 6 min"
+        },
+        "case": {
+          "title": "Dossier A7F2K9 ouvert",
+          "sub": "Modération · Avertissement",
+          "time": "il y a 9 min"
+        },
+        "bump": {
+          "title": "C'est l'heure du bump !",
+          "sub": "Rappel de bump · #bump",
+          "time": "il y a 12 min"
+        }
       }
+    },
+    "stats": {
+      "title": "Des communautés font déjà confiance à Moddy",
+      "text": "Des chiffres réels, mis à jour chaque jour.",
+      "guilds": "serveurs utilisent Moddy",
+      "users": "membres sur ces serveurs",
+      "commands": "commandes ces 30 derniers jours",
+      "cases": "dossiers de modération traités",
+      "top": "Quelques serveurs qui utilisent Moddy",
+      "members": "{count} membres"
+    },
+    "ai": {
+      "title": "Dites simplement ce que vous voulez",
+      "text": "Décrivez la configuration que vous imaginez et l'assistant IA de Moddy configure votre serveur pour vous : modules, salons, rôles, messages. Les changements sensibles attendent votre confirmation.",
+      "cta": "Essayer dans le tableau de bord",
+      "label": "Exemple de conversation avec l'assistant IA de Moddy",
+      "you": "Vous",
+      "assistant": "Moddy IA",
+      "prompt": "Accueille les nouveaux membres dans #bienvenue et donne-leur le rôle Membre",
+      "thinking": "Je lis la configuration actuelle…",
+      "answer": "C'est fait ! Les messages de bienvenue sont actifs dans #bienvenue et les nouveaux membres reçoivent le rôle Membre.",
+      "applied": "2 modules configurés"
     },
     "automod": {
       "title": "Une modération qui ne dort jamais",
@@ -142,7 +185,19 @@
       "text": "Traduire, créer des rappels, corriger ou résumer un texte, lancer un dé. La plupart des commandes marchent partout, même en MP.",
       "label": "Quelques commandes de Moddy",
       "cta": "Toutes les commandes",
-      "commands": ["traduire", "rappel-ajouter", "corriger", "reformuler", "résumer", "dé", "utilisateur", "avatar", "bannière", "emoji", "ping"]
+      "commands": [
+        "traduire",
+        "rappel-ajouter",
+        "corriger",
+        "reformuler",
+        "résumer",
+        "dé",
+        "utilisateur",
+        "avatar",
+        "bannière",
+        "emoji",
+        "ping"
+      ]
     },
     "altguard": {
       "title": "Les doubles comptes restent dehors",
@@ -163,10 +218,20 @@
     "max": {
       "title": "Allez plus loin avec Moddy Max",
       "text": "La modération, AutoMod IA et les messages de bienvenue sont gratuits sur tous les serveurs. Moddy Max ajoute quelques extras sur les serveurs qui comptent le plus pour vous.",
-      "servers": { "title": "5 serveurs premium", "detail": "Choisissez-les depuis le tableau de bord et changez quand vous voulez." },
-      "customization": { "title": "Personnalisation complète", "detail": "Pseudo, avatar, bannière et bio aux couleurs de votre communauté." },
-      "notifications": { "title": "Notifications plus rapides", "detail": "Vérifications plus fréquentes et jusqu'à 5 comptes par plateforme." },
-      "cta": "Découvrir Moddy Max"
+      "servers": {
+        "title": "5 serveurs premium",
+        "detail": "Choisissez-les depuis le tableau de bord et changez quand vous voulez."
+      },
+      "customization": {
+        "title": "Personnalisation complète",
+        "detail": "Pseudo, avatar, bannière et bio aux couleurs de votre communauté."
+      },
+      "notifications": {
+        "title": "Notifications plus rapides",
+        "detail": "Vérifications plus fréquentes et jusqu'à 5 comptes par plateforme."
+      },
+      "cta": "Découvrir Moddy Max",
+      "badge": "Premium"
     },
     "final": {
       "title": "Prêt à rencontrer Moddy ?",
@@ -174,5 +239,19 @@
       "add": "Ajouter à Discord",
       "support": "Rejoindre le serveur de support"
     }
+  },
+  "theme": {
+    "title": "Thème",
+    "copy": "Copier le thème actuel",
+    "copyTitle": "Copier le thème actuel dans le presse-papiers",
+    "copied": "Copié",
+    "source": "Couleur source",
+    "hue": "Teinte",
+    "chroma": "Saturation",
+    "tone": "Luminosité",
+    "mode": "Mode de couleur",
+    "dark": "Sombre",
+    "auto": "Automatique",
+    "light": "Clair"
   }
 }

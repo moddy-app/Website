@@ -24,12 +24,6 @@ permalink: "{{ locale.prefix }}/index.html"
       <!-- Hero -->
       <section class="card split">
         <div class="card-text">
-          <span class="shape shape-octagon tone-solid logo" aria-hidden="true">
-            <svg viewBox="27 55 191 191" fill="currentColor">
-              <path d="M170.21 55.7626H122.754L75.2768 103.219H27.8203V150.675H122.754L170.21 103.219V55.7626Z" />
-              <path d="M122.754 150.675L75.2771 198.152V245.609H122.754L170.211 198.152H217.667V150.675L122.754 150.675Z" />
-            </svg>
-          </span>
           <h1>{{ 'home.hero.title' | t(c) }}</h1>
           <p>{{ 'home.hero.text' | t(c) }}</p>
           <div class="card-actions">
@@ -64,8 +58,65 @@ permalink: "{{ locale.prefix }}/index.html"
         </div>
       </section>
 
-      <!-- AutoMod AI -->
+      <!-- Live numbers (filled by home-page.ts from api.moddy.app/public/stats;
+           stays hidden if the API cannot be reached) -->
+      <section class="card stats-card" id="stats" hidden
+        data-members-label="{{ 'home.stats.members' | t(c) }}">
+        <div class="stats-head">
+          <span class="shape shape-hexagon tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">groups</span></span>
+          <div>
+            <h2>{{ 'home.stats.title' | t(c) }}</h2>
+            <p>{{ 'home.stats.text' | t(c) }}</p>
+          </div>
+        </div>
+        <dl class="stats-grid">
+          {% for stat in ['guilds', 'users', 'commands', 'cases'] %}
+            <div class="stat">
+              <dt>{{ ('home.stats.' + stat) | t(c) }}</dt>
+              <dd class="stat-value" data-stat="{{ stat }}">0</dd>
+            </div>
+          {% endfor %}
+        </dl>
+        <div class="chip-rows guild-rows" aria-label="{{ 'home.stats.top' | t(c) }}" hidden></div>
+      </section>
+
+      <!-- Configure with AI -->
       <section class="card split reverse">
+        <div class="card-text">
+          <span class="shape shape-heptagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">auto_awesome</span></span>
+          <h2>{{ 'home.ai.title' | t(c) }}</h2>
+          <p>{{ 'home.ai.text' | t(c) }}</p>
+          <div class="card-actions end">
+            <md-filled-button trailing-icon href="https://dashboard.moddy.app" target="_blank">
+              {{ 'home.ai.cta' | t(c) }}
+              <md-icon slot="icon">arrow_forward</md-icon>
+            </md-filled-button>
+          </div>
+        </div>
+        <div class="card-visual">
+          <div class="panel chat" role="img" aria-label="{{ 'home.ai.label' | t(c) }}">
+            <div class="chat-msg user">
+              <span class="chat-author">{{ 'home.ai.you' | t(c) }}</span>
+              <div class="bubble">{{ 'home.ai.prompt' | t(c) }}</div>
+            </div>
+            <div class="chat-status chat-thinking">
+              <span class="material-symbols-outlined">progress_activity</span>
+              {{ 'home.ai.thinking' | t(c) }}
+            </div>
+            <div class="chat-msg ai">
+              <span class="chat-author">{{ 'home.ai.assistant' | t(c) }}</span>
+              <div class="bubble">{{ 'home.ai.answer' | t(c) }}</div>
+            </div>
+            <div class="chat-status chat-applied">
+              <span class="material-symbols-outlined">check_circle</span>
+              {{ 'home.ai.applied' | t(c) }}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AutoMod AI -->
+      <section class="card split">
         <div class="card-text">
           <span class="shape shape-square tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">smart_toy</span></span>
           <h2>{{ 'home.automod.title' | t(c) }}</h2>
@@ -131,7 +182,7 @@ permalink: "{{ locale.prefix }}/index.html"
         <div class="card-visual">
           <div class="tiles" aria-hidden="true">
             <div class="tile"><span class="tile-meta">{{ 'home.social.newUpload' | t(c) }}</span><span class="tile-name">YouTube</span></div>
-            <div class="tile"><span class="tile-meta">{{ 'home.social.liveNow' | t(c) }}</span><span class="tile-name">Twitch</span></div>
+            <div class="tile"><span class="tile-meta tile-live">{{ 'home.social.liveNow' | t(c) }}</span><span class="tile-name">Twitch</span></div>
             <div class="tile"><span class="tile-meta">{{ 'home.social.newPost' | t(c) }}</span><span class="tile-name">Bluesky</span></div>
             <div class="tile"><span class="tile-meta">{{ 'home.social.newArticle' | t(c) }}</span><span class="tile-name">RSS</span></div>
           </div>
@@ -159,9 +210,13 @@ permalink: "{{ locale.prefix }}/index.html"
           ] %}
           <div class="chip-rows" aria-label="{{ 'home.modules.label' | t(c) }}">
             {% for row in moduleRows %}
+              {#- Each row holds its chips twice so the marquee loops seamlessly;
+                  the copy is hidden from screen readers. -#}
               <div class="chip-row">
-                {% for module in row %}
-                  <span class="chip"><span class="material-symbols-outlined">{{ module[1] }}</span>{{ ('home.modules.names.' + module[0]) | t(c) }}</span>
+                {% for copy in [false, true] %}
+                  {% for module in row %}
+                    <span class="chip"{% if copy %} aria-hidden="true"{% endif %}><span class="material-symbols-outlined">{{ module[1] }}</span>{{ ('home.modules.names.' + module[0]) | t(c) }}</span>
+                  {% endfor %}
                 {% endfor %}
               </div>
             {% endfor %}
@@ -175,7 +230,7 @@ permalink: "{{ locale.prefix }}/index.html"
         <h2>{{ 'home.logs.title' | t(c) }}</h2>
         <p>{{ 'home.logs.text' | t(c) }}</p>
         <div class="card-visual">
-          <div class="big-number">163</div>
+          <div class="big-number" data-count-up="163">163</div>
           <div class="big-number-label">{{ 'home.logs.label' | t(c) }}</div>
         </div>
       </section>
@@ -207,16 +262,15 @@ permalink: "{{ locale.prefix }}/index.html"
               bot's locales/commands/<locale>.json). -#}
           {% set commands = 'home.utilities.commands' | tObject(c) %}
           <div class="chip-rows" aria-label="{{ 'home.utilities.label' | t(c) }}">
-            <div class="chip-row">
-              {% for command in commands.slice(0, 5) %}
-                <span class="chip command">/{{ command }}</span>
-              {% endfor %}
-            </div>
-            <div class="chip-row">
-              {% for command in commands.slice(5) %}
-                <span class="chip command">/{{ command }}</span>
-              {% endfor %}
-            </div>
+            {% for row in [commands.slice(0, 5), commands.slice(5)] %}
+              <div class="chip-row">
+                {% for copy in [false, true] %}
+                  {% for command in row %}
+                    <span class="chip command"{% if copy %} aria-hidden="true"{% endif %}>/{{ command }}</span>
+                  {% endfor %}
+                {% endfor %}
+              </div>
+            {% endfor %}
           </div>
         </div>
         <div class="card-actions end">
@@ -274,24 +328,33 @@ permalink: "{{ locale.prefix }}/index.html"
       </section>
 
       <!-- Moddy Max -->
-      <section class="card glow">
-        <span class="shape shape-octagon tone-solid" aria-hidden="true"><span class="material-symbols-outlined">workspace_premium</span></span>
-        <h2>{{ 'home.max.title' | t(c) }}</h2>
-        <p>{{ 'home.max.text' | t(c) }}</p>
-        <ul class="perks">
-          {% for perk in [['servers', 'dns'], ['customization', 'palette'], ['notifications', 'bolt']] %}
-            <li>
-              <span class="material-symbols-outlined">{{ perk[1] }}</span>
-              <strong>{{ ('home.max.' + perk[0] + '.title') | t(c) }}</strong>
-              <span class="detail">{{ ('home.max.' + perk[0] + '.detail') | t(c) }}</span>
-            </li>
-          {% endfor %}
-        </ul>
-        <div class="card-actions end">
-          <md-filled-button trailing-icon href="{{ '/premium/overview' | docsUrl(c) }}" target="_blank">
-            {{ 'home.max.cta' | t(c) }}
-            <md-icon slot="icon">arrow_forward</md-icon>
-          </md-filled-button>
+      <section class="card split">
+        <div class="card-text">
+          <span class="shape shape-octagon tone-solid" aria-hidden="true"><span class="material-symbols-outlined">workspace_premium</span></span>
+          <h2>{{ 'home.max.title' | t(c) }}</h2>
+          <p>{{ 'home.max.text' | t(c) }}</p>
+          <div class="card-actions">
+            <md-filled-button trailing-icon href="{{ locale.prefix }}/navigation/subscriptions/">
+              {{ 'home.max.cta' | t(c) }}
+              <md-icon slot="icon">arrow_forward</md-icon>
+            </md-filled-button>
+          </div>
+        </div>
+        <div class="card-visual">
+          <div class="panel">
+            <span class="max-badge"><span class="material-symbols-outlined" aria-hidden="true">workspace_premium</span>{{ 'home.max.badge' | t(c) }}</span>
+            <ul class="perks">
+              {% for perk in [['servers', 'dns', 'shape-square'], ['customization', 'palette', 'shape-hexagon'], ['notifications', 'bolt', 'shape-octagon']] %}
+                <li>
+                  <span class="shape small {{ perk[2] }}" aria-hidden="true"><span class="material-symbols-outlined">{{ perk[1] }}</span></span>
+                  <span class="perk-text">
+                    <strong>{{ ('home.max.' + perk[0] + '.title') | t(c) }}</strong>
+                    <span class="detail">{{ ('home.max.' + perk[0] + '.detail') | t(c) }}</span>
+                  </span>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -313,3 +376,5 @@ permalink: "{{ locale.prefix }}/index.html"
     </div>
   </div>
 </lit-island>
+
+<script type="module" src="/js/pages/home-page.js"></script>

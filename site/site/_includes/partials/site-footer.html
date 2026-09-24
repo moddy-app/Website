@@ -5,7 +5,7 @@
         <h2>{{ 'footer.product' | t(loc.code) }}</h2>
         <a href="/install" target="_blank">{{ 'footer.addToDiscord' | t(loc.code) }}</a>
         <a href="https://dashboard.moddy.app" target="_blank">{{ 'footer.dashboard' | t(loc.code) }}</a>
-        <a href="{{ '/premium/overview' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.moddyMax' | t(loc.code) }}</a>
+        <a href="{{ loc.prefix }}/navigation/subscriptions/">{{ 'footer.moddyMax' | t(loc.code) }}</a>
         <a href="https://status.moddy.app" target="_blank">{{ 'footer.status' | t(loc.code) }}</a>
       </div>
       <div class="site-footer-column">
@@ -53,6 +53,27 @@
         <span>Moddy</span>
       </a>
       <div class="site-footer-meta">
+        <lit-island
+          on:interaction="pointerenter,focusin,pointerdown"
+          import="/js/hydration-entrypoints/footer-theme.js"
+          class="site-footer-theme">
+          <md-icon-button
+            id="footer-theme-button"
+            title="{{ 'footer.theme' | t(loc.code) }}"
+            aria-label="{{ 'footer.theme' | t(loc.code) }}">
+            <md-icon class="filled">palette</md-icon>
+          </md-icon-button>
+          <md-menu
+            id="footer-theme-menu"
+            anchor="footer-theme-button"
+            menu-corner="end-end"
+            anchor-corner="start-end"
+            default-focus="none"
+            role="dialog"
+            aria-label="{{ 'footer.theme' | t(loc.code) }}">
+            <theme-changer labels="{{ 'theme' | tObject(loc.code) | dump }}"></theme-changer>
+          </md-menu>
+        </lit-island>
         <span>© {% year %} Moddy</span>
         <a href="https://github.com/moddy-app" target="_blank" aria-label="{{ 'footer.github' | t(loc.code) }}" title="GitHub">
           <svg viewBox="0 0 98 96" aria-hidden="true">
@@ -77,18 +98,20 @@
 </script>
 
 <style>
+  /* The footer card runs off the bottom of the page: no bottom padding, no
+     bottom corners. */
   .site-footer {
     box-sizing: border-box;
     width: 100%;
-    padding: 48px var(--catalog-spacing-xl) var(--catalog-spacing-xl);
+    padding: 48px var(--catalog-spacing-xl) 0;
   }
 
   .site-footer-card {
     max-width: 1200px;
     margin: 0 auto;
     box-sizing: border-box;
-    padding: 32px;
-    border-radius: 32px;
+    padding: 32px 32px 40px;
+    border-radius: 32px 32px 0 0;
     background-color: var(--md-sys-color-surface-container-lowest);
     color: var(--md-sys-color-on-surface);
   }
@@ -110,7 +133,7 @@
   .site-footer-column h2 {
     margin: 0 0 8px;
     font-size: var(--catalog-body-m-font-size);
-    font-weight: 400;
+    font-weight: 600;
     color: var(--md-sys-color-on-surface-variant);
   }
 
@@ -139,7 +162,7 @@
 
   .site-footer-languages a[aria-current] {
     color: var(--md-sys-color-primary);
-    font-weight: 700;
+    font-weight: 600;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -189,6 +212,23 @@
     color: var(--md-sys-color-on-surface-variant);
   }
 
+  .site-footer-theme {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .site-footer-theme md-icon-button {
+    --md-icon-button-icon-color: var(--md-sys-color-on-surface-variant);
+  }
+
+  .site-footer-theme md-icon.filled {
+    font-variation-settings: 'FILL' 1;
+  }
+
+  #footer-theme-menu {
+    --md-menu-container-shape: var(--catalog-shape-xl);
+  }
+
   .site-footer-meta svg {
     width: 22px;
     height: 22px;
@@ -200,7 +240,7 @@
     }
 
     .site-footer-card {
-      padding: 24px 20px;
+      padding: 24px 20px 32px;
       border-radius: 24px 24px 0 0;
     }
 

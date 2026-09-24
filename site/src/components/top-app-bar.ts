@@ -251,7 +251,7 @@ export class TopAppBar extends SignalElement(LitElement) {
     a {
       color: var(--md-sys-color-primary);
       font-size: max(var(--catalog-title-l-font-size), 22px);
-      font-weight: 700;
+      font-weight: 600;
       text-decoration: none;
       padding-inline: 2px;
       position: relative;
@@ -336,7 +336,7 @@ export class TopAppBar extends SignalElement(LitElement) {
 
     .user-menu-greeting {
       font-size: var(--catalog-body-l-font-size);
-      font-weight: 700;
+      font-weight: 600;
       color: var(--md-sys-color-on-surface);
       text-align: center;
     }

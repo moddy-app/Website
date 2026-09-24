@@ -35,6 +35,11 @@
   overflow: hidden;
 }
 
+.card[hidden],
+.chip-rows[hidden] {
+  display: none;
+}
+
 .card.span-6 {
   grid-column: span 6;
 }
@@ -69,13 +74,18 @@
 .card h1,
 .card h2 {
   margin: 24px 0 16px;
-  font-weight: 400;
+  font-weight: 600;
   -webkit-font-smoothing: antialiased;
   line-height: 1.2;
 }
 
 .card h1 {
   font-size: clamp(34px, 5vw, 52px);
+}
+
+.card h1:first-child,
+.card h2:first-child {
+  margin-top: 0;
 }
 
 .card h2 {
@@ -124,8 +134,9 @@
   display: inline-grid;
   place-items: center;
   flex-shrink: 0;
-  width: 56px;
-  height: 56px;
+  --shape-size: 56px;
+  width: var(--shape-size);
+  height: var(--shape-size);
   color: var(--md-sys-color-on-primary-container);
 }
 
@@ -145,14 +156,30 @@
   position: relative;
 }
 
+/* A Material Symbol is a ligature on a text line: pin it to a 1em box so the
+   glyph sits on the exact centre of the shape. */
 .shape .material-symbols-outlined {
+  display: block;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  overflow: hidden;
   font-size: 28px;
   font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
 }
 
+/* Pentagons and heptagons point up: their visual centre sits below the
+   middle of their box (by ~5% and ~2.5% of the height). */
+.shape.shape-pentagon > * {
+  transform: translateY(calc(var(--shape-size) * 0.05));
+}
+
+.shape.shape-heptagon > * {
+  transform: translateY(calc(var(--shape-size) * 0.025));
+}
+
 .shape.small {
-  width: 36px;
-  height: 36px;
+  --shape-size: 36px;
 }
 
 .shape.small .material-symbols-outlined {
@@ -181,11 +208,6 @@
 
 .shape.tone-solid::before {
   background-color: var(--md-sys-color-primary);
-}
-
-.shape.logo svg {
-  width: 30px;
-  height: 30px;
 }
 
 .shape-square::before {
@@ -296,13 +318,6 @@
   white-space: nowrap;
 }
 
-.chip-rows .chip-row:nth-child(2) {
-  margin-left: -48px;
-}
-
-.chip-rows .chip-row:nth-child(3) {
-  margin-left: -16px;
-}
 
 .chip {
   display: inline-flex;
@@ -431,7 +446,7 @@
 }
 
 .automod-verdict strong {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .automod-verdict span.detail {
@@ -481,7 +496,7 @@
 
 .tile-name {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 600;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -489,7 +504,7 @@
 .big-number {
   margin-top: 8px;
   font-size: clamp(72px, 10vw, 120px);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   color: var(--md-sys-color-primary);
@@ -520,53 +535,58 @@
   border-radius: inherit;
 }
 
-/* Moddy Max: the one card with a soft glow, built from theme containers. */
-.card.glow {
-  background:
-    radial-gradient(
-      120% 90% at 100% 100%,
-      var(--md-sys-color-tertiary-container),
-      transparent 60%
-    ),
-    radial-gradient(
-      90% 80% at 0% 0%,
-      var(--md-sys-color-primary-container),
-      transparent 55%
-    ),
-    var(--md-sys-color-surface-container-lowest);
-}
-
+/* Moddy Max: the perks, as a list in an inner panel. */
 .perks {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin: 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .perks li {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 18px;
-  border-radius: 24px;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border-radius: var(--catalog-shape-l);
   background-color: var(--md-sys-color-surface-container-lowest);
 }
 
-.perks .material-symbols-outlined {
-  color: var(--md-sys-color-primary);
-  font-variation-settings: 'FILL' 1;
+.perks .perk-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .perks strong {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .perks span.detail {
   font-size: var(--catalog-body-m-font-size);
   color: var(--md-sys-color-on-surface-variant);
   line-height: 1.4;
+}
+
+.max-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  margin-bottom: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+.max-badge .material-symbols-outlined {
+  font-size: 16px;
+  font-variation-settings: 'FILL' 1;
 }
 
 /* Final call to action. */
@@ -585,9 +605,381 @@
   margin-top: 8px;
 }
 
+/* ---------------------------------------------------------------------------
+ * Live numbers and the servers using Moddy.
+ * ------------------------------------------------------------------------- */
+
+.stats-head {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.stats-head h2 {
+  margin: 0 0 4px;
+}
+
+.stats-head p {
+  margin: 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 28px 0 0;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 20px;
+  border-radius: 24px;
+  background-color: var(--md-sys-color-surface-container);
+}
+
+.stat dt {
+  font-size: var(--catalog-body-m-font-size);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.stat-value {
+  margin: 0;
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--md-sys-color-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.guild-rows {
+  margin-top: 24px;
+}
+
+.guild-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  padding: 6px 16px 6px 6px;
+  border-radius: 999px;
+  background-color: var(--md-sys-color-surface-container);
+}
+
+.guild-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  font-size: 13px;
+  font-weight: 600;
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.guild-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.guild-name {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 15px;
+}
+
+.guild-members {
+  font-size: 12px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+/* ---------------------------------------------------------------------------
+ * AI assistant conversation (plays in a loop, see "Motion" below).
+ * ------------------------------------------------------------------------- */
+
+.chat {
+  gap: 14px;
+}
+
+.chat-msg {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 88%;
+}
+
+.chat-msg.user {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.chat-author {
+  font-size: 12px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.bubble {
+  padding: 12px 16px;
+  border-radius: 20px;
+  font-size: 15px;
+  line-height: 1.4;
+  background-color: var(--md-sys-color-surface-container-lowest);
+}
+
+.chat-msg.user .bubble {
+  border-end-end-radius: 6px;
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+.chat-msg.ai .bubble {
+  border-end-start-radius: 6px;
+}
+
+.chat-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--catalog-body-m-font-size);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.chat-status .material-symbols-outlined {
+  font-size: 18px;
+  color: var(--md-sys-color-primary);
+  font-variation-settings: 'FILL' 1;
+}
+
+.chat-applied {
+  align-self: flex-start;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+.chat-applied .material-symbols-outlined {
+  color: inherit;
+}
+
+/* The strike-through on the AutoMod example is drawn, not toggled. */
+.automod-content {
+  text-decoration: none;
+  background-image: linear-gradient(var(--md-sys-color-error), var(--md-sys-color-error));
+  background-repeat: no-repeat;
+  background-position: 0 55%;
+  background-size: 100% 2px;
+}
+
+/* Live dot on the Twitch tile. */
+.tile-live::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-inline-end: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+  vertical-align: middle;
+}
+
+/* ---------------------------------------------------------------------------
+ * Motion. Everything below is decoration: with "reduce motion" on, the page
+ * shows the final state of each illustration and nothing moves.
+ * ------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Cards rise in as they scroll into view (class set by home-page.ts, so
+     without JS nothing is hidden). */
+  .card.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  .card {
+    transition:
+      opacity 600ms cubic-bezier(0.2, 0, 0, 1),
+      transform 600ms cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  /* The big shape turns a little when the card is hovered. */
+  .card > .shape::before,
+  .card-text > .shape::before {
+    transition: transform 700ms cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  .card:hover > .shape::before,
+  .card:hover .card-text > .shape::before {
+    transform: rotate(45deg);
+  }
+
+  /* Endless rows of chips; each row holds its chips twice, so sliding it by
+     half its width loops seamlessly. */
+  .chip-rows .chip-row {
+    width: max-content;
+    animation: marquee 48s linear infinite;
+  }
+
+  .chip-rows .chip-row:nth-child(2) {
+    animation-direction: reverse;
+    animation-duration: 56s;
+  }
+
+  .chip-rows .chip-row:nth-child(3) {
+    animation-duration: 42s;
+  }
+
+  .guild-rows .chip-row {
+    animation-duration: 140s;
+  }
+
+  .guild-rows .chip-row:nth-child(2) {
+    animation-duration: 160s;
+  }
+
+  .chip-rows:hover .chip-row {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Hero feed: home-page.ts slides the list down one row at a time. */
+  .feed.sliding {
+    transition: transform 700ms cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  .feed li.entering {
+    animation: feed-in 700ms cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  @keyframes feed-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  /* AutoMod example: the message gets struck through, then the verdict. */
+  .automod-content {
+    animation: strike 7s cubic-bezier(0.2, 0, 0, 1) infinite;
+  }
+
+  .automod-verdict {
+    animation: verdict 7s cubic-bezier(0.2, 0, 0, 1) infinite;
+  }
+
+  @keyframes strike {
+    0%, 15% { background-size: 0 2px; }
+    30%, 92% { background-size: 100% 2px; }
+    100% { background-size: 0 2px; }
+  }
+
+  @keyframes verdict {
+    0%, 32% { opacity: 0; transform: translateY(12px); }
+    42%, 92% { opacity: 1; transform: none; }
+    100% { opacity: 0; transform: none; }
+  }
+
+  /* AI conversation: question, "reading the configuration", answer, result. */
+  .chat > * {
+    animation: 11s cubic-bezier(0.2, 0, 0, 1) infinite;
+  }
+
+  .chat .chat-msg.user { animation-name: chat-user; }
+  .chat .chat-thinking { animation-name: chat-thinking; }
+  .chat .chat-msg.ai { animation-name: chat-answer; }
+  .chat .chat-applied { animation-name: chat-applied; }
+
+  .chat-thinking .material-symbols-outlined {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes chat-user {
+    0%, 3% { opacity: 0; transform: translateY(12px); }
+    9%, 93% { opacity: 1; transform: none; }
+    100% { opacity: 0; }
+  }
+
+  @keyframes chat-thinking {
+    0%, 14% { opacity: 0; }
+    18%, 34% { opacity: 1; }
+    38%, 100% { opacity: 0; }
+  }
+
+  @keyframes chat-answer {
+    0%, 36% { opacity: 0; transform: translateY(12px); }
+    42%, 93% { opacity: 1; transform: none; }
+    100% { opacity: 0; }
+  }
+
+  @keyframes chat-applied {
+    0%, 48% { opacity: 0; transform: scale(0.8); }
+    54%, 93% { opacity: 1; transform: none; }
+    100% { opacity: 0; }
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Ticket panel: the options light up one after the other. */
+  .ticket-panel .chip {
+    animation: chip-pick 6s ease-in-out infinite;
+  }
+
+  .ticket-panel .chip:nth-child(2) { animation-delay: 2s; }
+  .ticket-panel .chip:nth-child(3) { animation-delay: 4s; }
+
+  @keyframes chip-pick {
+    0%, 6% {
+      background-color: var(--md-sys-color-secondary-container);
+      border-color: transparent;
+      color: var(--md-sys-color-on-secondary-container);
+    }
+    30%, 100% {
+      background-color: transparent;
+    }
+  }
+
+  /* Twitch is live. */
+  .tile-live::before {
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    50% { opacity: 0.3; transform: scale(0.7); }
+  }
+
+  /* Tiles lift under the pointer. */
+  .tile {
+    transition: transform 300ms cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  .tile:hover {
+    transform: translateY(-4px) rotate(-1deg);
+  }
+}
+
 /* ------------------------------------------------------------------------- */
 
 @media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .card.span-6,
   .card.span-7,
   .card.span-5 {
@@ -600,10 +992,6 @@
 
   .card.split.reverse .card-visual {
     order: 0;
-  }
-
-  .perks {
-    grid-template-columns: minmax(0, 1fr);
   }
 }
 

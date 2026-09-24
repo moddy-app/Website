@@ -32,7 +32,8 @@
     "license": "License",
     "logoLabel": "Moddy home",
     "github": "Moddy on GitHub",
-    "language": "Language"
+    "language": "Language",
+    "theme": "Change colors"
   },
   "notFound": {
     "title": "Page not found",
@@ -61,18 +62,60 @@
   "home": {
     "pageTitle": "Home",
     "hero": {
-      "title": "Moddy, the only bot you need.",
+      "title": "Built to let you focus on your community",
       "text": "AI-powered moderation, social notifications, welcome messages and everyday utilities for your Discord server, all in one bot.",
       "add": "Add to Discord",
       "dashboard": "Open dashboard",
       "feedLabel": "Example of what Moddy does in a server",
       "feed": {
-        "spam": { "title": "Spam link removed", "sub": "AutoMod · #general", "time": "just now" },
-        "welcome": { "title": "Welcome, Alex!", "sub": "Welcome messages · #welcome", "time": "2 min ago" },
-        "live": { "title": "Now live on Twitch", "sub": "Social notifications · #streams", "time": "6 min ago" },
-        "case": { "title": "Case A7F2K9 opened", "sub": "Moderation · Warn", "time": "9 min ago" },
-        "bump": { "title": "Time to bump!", "sub": "Bump reminder · #bump", "time": "12 min ago" }
+        "spam": {
+          "title": "Spam link removed",
+          "sub": "AutoMod · #general",
+          "time": "just now"
+        },
+        "welcome": {
+          "title": "Welcome, Alex!",
+          "sub": "Welcome messages · #welcome",
+          "time": "2 min ago"
+        },
+        "live": {
+          "title": "Now live on Twitch",
+          "sub": "Social notifications · #streams",
+          "time": "6 min ago"
+        },
+        "case": {
+          "title": "Case A7F2K9 opened",
+          "sub": "Moderation · Warn",
+          "time": "9 min ago"
+        },
+        "bump": {
+          "title": "Time to bump!",
+          "sub": "Bump reminder · #bump",
+          "time": "12 min ago"
+        }
       }
+    },
+    "stats": {
+      "title": "Communities already trust Moddy",
+      "text": "Live numbers, updated every day.",
+      "guilds": "servers use Moddy",
+      "users": "members in those servers",
+      "commands": "commands in the last 30 days",
+      "cases": "moderation cases handled",
+      "top": "Some of the servers using Moddy",
+      "members": "{count} members"
+    },
+    "ai": {
+      "title": "Just say what you want",
+      "text": "Describe the setup you have in mind and Moddy's AI assistant configures your server for you: modules, channels, roles, messages. Sensitive changes wait for your confirmation.",
+      "cta": "Try it in the dashboard",
+      "label": "Example conversation with Moddy's AI assistant",
+      "you": "You",
+      "assistant": "Moddy AI",
+      "prompt": "Greet new members in #welcome and give them the Member role",
+      "thinking": "Reading the current configuration…",
+      "answer": "Done! Welcome messages are on in #welcome, and new members get the Member role.",
+      "applied": "2 modules configured"
     },
     "automod": {
       "title": "Moderation that never sleeps",
@@ -142,7 +185,19 @@
       "text": "Translate, set reminders, fix or summarize text, roll dice. Most commands work anywhere, even in your DMs.",
       "label": "Some of Moddy's commands",
       "cta": "All commands",
-      "commands": ["translate", "reminder-add", "fix", "rephrase", "summarize", "roll", "user", "avatar", "banner", "emoji", "ping"]
+      "commands": [
+        "translate",
+        "reminder-add",
+        "fix",
+        "rephrase",
+        "summarize",
+        "roll",
+        "user",
+        "avatar",
+        "banner",
+        "emoji",
+        "ping"
+      ]
     },
     "altguard": {
       "title": "Alt accounts stay out",
@@ -163,10 +218,20 @@
     "max": {
       "title": "Go further with Moddy Max",
       "text": "Moderation, AutoMod AI and welcome messages are free on every server. Moddy Max adds a few extras on the servers you care about most.",
-      "servers": { "title": "5 premium servers", "detail": "Pick them from your dashboard and switch at any time." },
-      "customization": { "title": "Full bot customization", "detail": "Nickname, avatar, banner and bio that match your community." },
-      "notifications": { "title": "Faster notifications", "detail": "Quicker polling and up to 5 accounts per platform." },
-      "cta": "Discover Moddy Max"
+      "servers": {
+        "title": "5 premium servers",
+        "detail": "Pick them from your dashboard and switch at any time."
+      },
+      "customization": {
+        "title": "Full bot customization",
+        "detail": "Nickname, avatar, banner and bio that match your community."
+      },
+      "notifications": {
+        "title": "Faster notifications",
+        "detail": "Quicker polling and up to 5 accounts per platform."
+      },
+      "cta": "Discover Moddy Max",
+      "badge": "Premium"
     },
     "final": {
       "title": "Ready to meet Moddy?",
@@ -174,5 +239,19 @@
       "add": "Add to Discord",
       "support": "Join the support server"
     }
+  },
+  "theme": {
+    "title": "Theme",
+    "copy": "Copy current theme",
+    "copyTitle": "Copy current theme to clipboard",
+    "copied": "Copied",
+    "source": "Source color",
+    "hue": "Hue",
+    "chroma": "Chroma",
+    "tone": "Tone",
+    "mode": "Color mode",
+    "dark": "Dark",
+    "auto": "Automatic",
+    "light": "Light"
   }
 }
