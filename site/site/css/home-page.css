@@ -919,13 +919,6 @@
   font-weight: 600;
 }
 
-.tile-arrow {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-size: 20px;
-  opacity: 0;
-}
 
 /* A command and Moddy's reply, like in Discord. */
 .command-demo {
@@ -1351,132 +1344,15 @@
  * ------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: no-preference) {
-  /* ---- Hover details ---------------------------------------------------- */
+  /* ---- Hover: only on things that react to the pointer ------------------ */
 
-  /* The card's shape turns and its icon pops. */
-  .shape::before,
-  .shape > * {
-    transition:
-      transform 600ms var(--ease),
-      rotate 600ms var(--ease),
-      scale 400ms var(--ease);
-  }
-
-  .card:hover > .shape::before,
-  .card:hover .card-text > .shape::before,
-  .card:hover .card-head > .shape::before,
-  .card.stat:hover .shape::before {
-    rotate: 45deg;
-  }
-
-  .card:hover > .shape > *,
-  .card:hover .card-text > .shape > *,
-  .card:hover .card-head > .shape > *,
-  .card.stat:hover .shape > * {
-    scale: 1.12;
-  }
-
-  /* Rows answer the pointer: they slide and their shape turns. */
-  .feed li,
-  .row,
-  .perks li,
+  /* The dashboard replica's rows (their switches can be flipped). */
   .mock-module {
-    transition:
-      background-color 250ms var(--ease),
-      translate 350ms var(--ease);
+    transition: background-color 250ms var(--ease);
   }
 
-  .feed li:hover,
   .mock-module:hover {
     background-color: var(--md-sys-color-surface-container);
-  }
-
-  .row:hover,
-  .perks li:hover {
-    translate: 6px 0;
-  }
-
-  .row:hover {
-    background-color: var(--md-sys-color-surface-container-high);
-  }
-
-  .feed li:hover .shape::before,
-  .row:hover .shape::before,
-  .perks li:hover .shape::before {
-    rotate: 90deg;
-  }
-
-  /* Chips fill in. */
-  .chip,
-  .guild-tile {
-    transition:
-      background-color 250ms var(--ease),
-      border-color 250ms var(--ease),
-      color 250ms var(--ease),
-      translate 300ms var(--ease);
-  }
-
-  .chip .material-symbols-outlined,
-  .guild-bg {
-    transition: rotate 400ms var(--ease), scale 300ms var(--ease);
-  }
-
-  .chip:hover {
-    border-color: transparent;
-    background-color: var(--md-sys-color-secondary-container);
-    color: var(--md-sys-color-on-secondary-container);
-  }
-
-  .chip:hover .material-symbols-outlined {
-    rotate: -12deg;
-    scale: 1.15;
-  }
-
-  .guild-tile:hover {
-    translate: 0 -4px;
-  }
-
-  .guild-tile:hover .guild-bg {
-    scale: 1.15;
-    rotate: 6deg;
-  }
-
-  /* Numbers lean in. */
-  .stat-value,
-  .big-number {
-    transition: scale 400ms var(--ease), color 300ms var(--ease);
-    transform-origin: left bottom;
-  }
-
-  .card.stat:hover .stat-value,
-  .card:hover > .big-number {
-    scale: 1.06;
-  }
-
-  .card.stat:hover .stat-value {
-    color: var(--md-sys-color-tertiary);
-  }
-
-  /* Tiles lift and show an arrow. */
-  .tile,
-  .tile-arrow {
-    transition:
-      transform 350ms var(--ease),
-      opacity 250ms var(--ease);
-  }
-
-  .tile:hover {
-    transform: translateY(-4px) rotate(-1.5deg);
-  }
-
-  .tile:hover .tile-arrow {
-    opacity: 1;
-    transform: translate(2px, -2px);
-  }
-
-  /* The rocket takes off. */
-  .card.cta:hover .shape > * {
-    transform: translate(3px, -3px);
   }
 
   /* ---- Always moving ------------------------------------------------------ */
