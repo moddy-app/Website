@@ -213,10 +213,14 @@
   margin: 0;
 }
 
-/* The hero: the baseline at the top like every card, the calls to action
-   at the bottom. */
+/* The hero is the one card whose content is centred vertically: the
+   baseline, the text and the buttons as one block. */
+.card.hero {
+  justify-content: center;
+}
+
 .card.hero .card-actions {
-  margin-top: auto;
+  margin-top: 0;
 }
 
 .card.hero p {
@@ -892,63 +896,172 @@
 }
 
 /* ---------------------------------------------------------------------------
- * AutoMod example
+ * AutoMod: a channel where every new message is scanned (home-page.ts)
  * ------------------------------------------------------------------------- */
 
-.automod-message {
-  display: flex;
+.scanner {
   gap: 12px;
-  align-items: flex-start;
 }
 
-.automod-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  background-color: var(--md-sys-color-secondary-container);
+.scan-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.automod-author {
-  font-size: 13px;
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-.automod-content {
-  font-size: 16px;
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-/* The strike-through is drawn, not toggled. It lives on an inline span
-   cloned per line box, so a message wrapping on several lines (phones) gets
-   a line through each of them. */
-.automod-content .strike {
-  background-image: linear-gradient(var(--md-sys-color-error), var(--md-sys-color-error));
-  background-repeat: no-repeat;
-  background-position: 0 58%;
-  background-size: 100% 2px;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-}
-
-.automod-verdict {
+.scan-msg {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  border-radius: var(--catalog-shape-l);
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  overflow: hidden;
   background-color: var(--md-sys-color-surface-container-lowest);
 }
 
-.automod-verdict > .material-symbols-outlined {
-  color: var(--md-sys-color-primary);
+.scan-avatar {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 600;
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.scan-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+}
+
+.scan-author {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.scan-removed {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--md-sys-color-on-error-container);
+}
+
+.scan-removed .material-symbols-outlined {
+  font-size: 18px;
   font-variation-settings: 'FILL' 1;
 }
 
-.automod-verdict .detail {
+/* A removed message collapses into the sanction. */
+.scan-msg.removed {
+  background-color: var(--md-sys-color-error-container);
+}
+
+.scan-msg.removed .scan-author,
+.scan-msg.removed .scan-text,
+.scan-msg.removed .scan-verdict {
+  display: none;
+}
+
+.scan-msg.removed .scan-removed {
+  display: inline-flex;
+}
+
+.scan-msg.removed .scan-avatar {
+  background-color: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-error);
+}
+
+/* Verdict: a risk meter, then a tag. */
+.scan-verdict {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+  width: 88px;
+  opacity: 0;
+}
+
+.scan-msg.scanning .scan-verdict,
+.scan-msg.done .scan-verdict {
+  opacity: 1;
+}
+
+.scan-meter {
+  width: 100%;
+  height: 5px;
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.scan-meter i {
   display: block;
-  font-size: 13px;
-  color: var(--md-sys-color-on-surface-variant);
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background-color: var(--md-sys-color-primary);
+}
+
+.scan-msg.done[data-kind='safe'] .scan-meter i {
+  width: 10%;
+}
+
+.scan-msg.done[data-kind='bad'] .scan-meter i {
+  width: 96%;
+  background-color: var(--md-sys-color-error);
+}
+
+.scan-label {
+  display: none;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.scan-msg.done[data-kind='safe'] .scan-label-safe {
+  display: inline;
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.scan-msg.done[data-kind='bad'] .scan-label-bad {
+  display: inline;
+  background-color: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-error);
+}
+
+/* The scan beam: a band of light sweeping across the message. */
+.scan-msg::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--md-sys-color-primary) 22%, transparent),
+    transparent
+  );
+  border-right: 2px solid color-mix(in srgb, var(--md-sys-color-primary) 70%, transparent);
+  transform: translateX(-110%);
+  pointer-events: none;
+  opacity: 0;
 }
 
 /* ---------------------------------------------------------------------------
@@ -1055,6 +1168,169 @@
 .command-reply .from {
   font-size: 12px;
   color: var(--md-sys-color-on-surface-variant);
+}
+
+/* ---------------------------------------------------------------------------
+ * Utilities: a slot machine of commands (home-page.ts)
+ * ------------------------------------------------------------------------- */
+
+.cmd-machine {
+  --reel-item: 52px;
+  gap: 14px;
+}
+
+.reel {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 18px;
+  border-radius: 20px;
+  background-color: var(--md-sys-color-surface-container-lowest);
+  font-family: 'Google Sans Mono', monospace;
+  font-size: 22px;
+}
+
+.reel-slash {
+  line-height: 1;
+  font-weight: 600;
+  color: var(--md-sys-color-primary);
+}
+
+/* Three items tall: the chosen command in the middle, its neighbours
+   fading above and below, like a slot machine's window. */
+.reel-window {
+  position: relative;
+  flex: 1;
+  height: calc(var(--reel-item) * 3);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 38%, #000 62%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 38%, #000 62%, transparent);
+}
+
+.reel-strip {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(var(--reel-item));
+}
+
+.reel-item {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: var(--reel-item);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--md-sys-color-on-surface);
+}
+
+.reel-results {
+  display: grid;
+}
+
+.reel-result {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 92px;
+  padding: 14px 16px;
+  box-sizing: border-box;
+  border-left: 3px solid var(--md-sys-color-primary);
+  border-radius: 4px 16px 16px 4px;
+  background-color: var(--md-sys-color-surface-container-lowest);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.reel-result.current {
+  visibility: visible;
+  opacity: 1;
+}
+
+.reel-result[data-command='0'] {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+}
+
+.reel-result-head {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.reel-result-head .material-symbols-outlined {
+  font-size: 16px;
+  color: var(--md-sys-color-primary);
+}
+
+.reel-source {
+  font-size: 13px;
+  color: var(--md-sys-color-on-surface-variant);
+  text-decoration: line-through;
+  text-decoration-color: var(--md-sys-color-outline);
+}
+
+.reel-scramble {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.reel-die {
+  font-size: 44px;
+  color: var(--md-sys-color-primary);
+  font-variation-settings: 'FILL' 1;
+}
+
+.reel-roll,
+.reel-remind {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+
+.reel-remind {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.reel-label {
+  font-size: 13px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.reel-number {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--md-sys-color-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.reel-timer {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  rotate: -90deg;
+}
+
+.reel-timer circle {
+  fill: none;
+  stroke-width: 5;
+  stroke: var(--md-sys-color-surface-container-highest);
+}
+
+.reel-timer .reel-timer-fill {
+  stroke: var(--md-sys-color-primary);
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 25;
 }
 
 /* ---------------------------------------------------------------------------
@@ -1888,26 +2164,6 @@
     50% { opacity: 0.3; transform: scale(0.7); }
   }
 
-  /* AutoMod: the message gets struck through, then the verdict lands. */
-  .automod-content .strike {
-    animation: strike 7s var(--ease) infinite;
-  }
-
-  .automod-verdict {
-    animation: verdict 7s var(--ease) infinite;
-  }
-
-  @keyframes strike {
-    0%, 15% { background-size: 0 2px; }
-    30%, 92% { background-size: 100% 2px; }
-    100% { background-size: 0 2px; }
-  }
-
-  @keyframes verdict {
-    0%, 32% { opacity: 0; transform: translateY(12px) scale(0.97); }
-    42%, 92% { opacity: 1; transform: none; }
-    100% { opacity: 0; }
-  }
 
   /* Brocoli: steps appear as the conversation plays (home-page.ts). */
   .playing [data-at] {
@@ -2021,6 +2277,85 @@
   .ag-result .ok,
   .ag-result .hit {
     animation: pop 350ms var(--ease);
+  }
+
+  /* AutoMod scanner. */
+  .scan-msg.scanning::after {
+    opacity: 1;
+    animation: scan-beam 900ms cubic-bezier(0.45, 0, 0.3, 1) forwards;
+  }
+
+  @keyframes scan-beam {
+    from { transform: translateX(-110%); }
+    to { transform: translateX(260%); }
+  }
+
+  .scan-meter i {
+    transition: width 600ms var(--ease), background-color 300ms var(--ease);
+  }
+
+  .scan-verdict {
+    transition: opacity 250ms var(--ease);
+  }
+
+  .scan-msg.entering {
+    animation: scan-in 500ms var(--ease);
+  }
+
+  @keyframes scan-in {
+    from { opacity: 0; translate: 0 14px; }
+  }
+
+  .scan-msg.removed {
+    animation: scan-remove 600ms var(--ease);
+  }
+
+  @keyframes scan-remove {
+    0% { scale: 1; }
+    30% { scale: 0.96; }
+    100% { scale: 1; }
+  }
+
+  .scan-list.sliding {
+    transition: transform 500ms var(--ease);
+  }
+
+  /* Slot machine: the result pops in once the reel stops. */
+  .reel-result {
+    transition:
+      opacity 350ms var(--ease),
+      visibility 350ms,
+      translate 450ms var(--ease);
+    translate: 0 8px;
+  }
+
+  .reel-result.current {
+    translate: 0 0;
+  }
+
+  .reel-item.landed {
+    color: var(--md-sys-color-primary);
+    font-weight: 600;
+    transition: color 250ms var(--ease);
+  }
+
+  .reel-die.rolling {
+    animation: die-roll 700ms var(--ease);
+  }
+
+  @keyframes die-roll {
+    0% { rotate: 0deg; scale: 0.6; }
+    60% { rotate: 540deg; scale: 1.15; }
+    100% { rotate: 720deg; scale: 1; }
+  }
+
+  .reel-timer.running .reel-timer-fill {
+    animation: timer-fill 2400ms var(--ease) forwards;
+  }
+
+  @keyframes timer-fill {
+    from { stroke-dashoffset: 100; }
+    to { stroke-dashoffset: 25; }
   }
 
   /* Dashboard replica: the row being changed lights up. */

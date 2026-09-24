@@ -30,6 +30,9 @@ import {
 function applyColorThemeListeners() {
   document.body.addEventListener('change-color', (event) => {
     changeColor(event.color);
+    // A color picked by hand is kept instead of a random one on each load
+    // (see site/_includes/partials/random-theme.html).
+    localStorage.setItem('moddy-color-locked', '1');
   });
 
   document.body.addEventListener('change-mode', (event) => {

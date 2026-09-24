@@ -8,12 +8,6 @@
     "dashboard": "Dashboard",
     "signOut": "Sign out"
   },
-  "popup": {
-    "title": "Under Development",
-    "body": "Moddy is currently under active development and will likely not be ready before <strong>June 2026</strong>. Stay tuned for updates!",
-    "join": "Join Support Server",
-    "close": "Close popup"
-  },
   "footer": {
     "navLabel": "Footer",
     "product": "Product",
@@ -113,7 +107,16 @@
       "author": "troublemaker · today at 21:04",
       "message": "Free nitro for everyone, click this link now!!",
       "verdict": "Message removed · Warn applied",
-      "detail": "Scam link detected by AutoMod AI, case A7F2K9 opened"
+      "detail": "Scam link detected by AutoMod AI, case A7F2K9 opened",
+      "demo": {
+        "m1": "anyone up for a game tonight?",
+        "m2": "gg everyone, that was fun",
+        "m3": "welcome to the new members!",
+        "safe": "Safe",
+        "flagged": "Scam link",
+        "scanning": "Scanning…",
+        "channel": "general"
+      }
     },
     "cases": {
       "title": "Every sanction, on the record",
@@ -215,6 +218,13 @@
         "input": "Hola a todos, ¡bienvenidos!",
         "output": "Hello everyone, welcome!",
         "languages": "Spanish → English"
+      },
+      "reel": {
+        "rolled": "You rolled",
+        "outOf": "out of 6",
+        "remind": "Reminder set",
+        "remindWhat": "Team meeting",
+        "remindWhen": "in 10 minutes"
       }
     },
     "altguard": {

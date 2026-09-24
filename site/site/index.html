@@ -192,21 +192,70 @@ permalink: "{{ locale.prefix }}/index.html"
         <h2>{{ 'home.automod.title' | t(c) }}</h2>
         <p>{{ 'home.automod.text' | t(c) }}</p>
         <div class="card-visual">
-          <div class="panel" aria-hidden="true">
-            <div class="automod-message">
-              <span class="automod-avatar"></span>
-              <div>
-                <div class="automod-author">{{ 'home.automod.author' | t(c) }}</div>
-                <div class="automod-content"><span class="strike">{{ 'home.automod.message' | t(c) }}</span></div>
-              </div>
+          {#- A channel where AutoMod AI scans every new message (home-page.ts
+              plays the templates in turn): a beam sweeps the message, a risk
+              meter fills; safe ones get a tag, the scam collapses into the
+              sanction. -#}
+          <div class="panel scanner" data-demo="scanner" aria-hidden="true">
+            <div class="log-head">
+              <span class="material-symbols-outlined">tag</span>
+              <span class="log-channel">{{ 'home.automod.demo.channel' | t(c) }}</span>
+              <span class="log-count"><span class="material-symbols-outlined">smart_toy</span>AutoMod AI</span>
             </div>
-            <div class="automod-verdict">
-              <span class="material-symbols-outlined">shield</span>
-              <div>
-                <strong>{{ 'home.automod.verdict' | t(c) }}</strong>
-                <span class="detail">{{ 'home.automod.detail' | t(c) }}</span>
-              </div>
-            </div>
+            <ul class="scan-list">
+              <li class="scan-msg done" data-kind="safe">
+                <span class="scan-avatar">M</span>
+                <span class="scan-body">
+                  <span class="scan-author">mia</span>
+                  <span class="scan-text">{{ 'home.automod.demo.m1' | t(c) }}</span>
+                  <span class="scan-removed"><span class="material-symbols-outlined">shield</span>{{ 'home.automod.verdict' | t(c) }}</span>
+                </span>
+                <span class="scan-verdict">
+                  <span class="scan-meter"><i></i></span>
+                  <span class="scan-label scan-label-safe">{{ 'home.automod.demo.safe' | t(c) }}</span>
+                  <span class="scan-label scan-label-bad">{{ 'home.automod.demo.flagged' | t(c) }}</span>
+                </span>
+              </li>
+              <li class="scan-msg done" data-kind="safe">
+                <span class="scan-avatar">L</span>
+                <span class="scan-body">
+                  <span class="scan-author">leo</span>
+                  <span class="scan-text">{{ 'home.automod.demo.m2' | t(c) }}</span>
+                  <span class="scan-removed"><span class="material-symbols-outlined">shield</span>{{ 'home.automod.verdict' | t(c) }}</span>
+                </span>
+                <span class="scan-verdict">
+                  <span class="scan-meter"><i></i></span>
+                  <span class="scan-label scan-label-safe">{{ 'home.automod.demo.safe' | t(c) }}</span>
+                  <span class="scan-label scan-label-bad">{{ 'home.automod.demo.flagged' | t(c) }}</span>
+                </span>
+              </li>
+              <li class="scan-msg done removed" data-kind="bad">
+                <span class="scan-avatar">T</span>
+                <span class="scan-body">
+                  <span class="scan-author">troublemaker</span>
+                  <span class="scan-text">{{ 'home.automod.message' | t(c) }}</span>
+                  <span class="scan-removed"><span class="material-symbols-outlined">shield</span>{{ 'home.automod.verdict' | t(c) }}</span>
+                </span>
+                <span class="scan-verdict">
+                  <span class="scan-meter"><i></i></span>
+                  <span class="scan-label scan-label-safe">{{ 'home.automod.demo.safe' | t(c) }}</span>
+                  <span class="scan-label scan-label-bad">{{ 'home.automod.demo.flagged' | t(c) }}</span>
+                </span>
+              </li>
+              <li class="scan-msg done" data-kind="safe">
+                <span class="scan-avatar">S</span>
+                <span class="scan-body">
+                  <span class="scan-author">sam</span>
+                  <span class="scan-text">{{ 'home.automod.demo.m3' | t(c) }}</span>
+                  <span class="scan-removed"><span class="material-symbols-outlined">shield</span>{{ 'home.automod.verdict' | t(c) }}</span>
+                </span>
+                <span class="scan-verdict">
+                  <span class="scan-meter"><i></i></span>
+                  <span class="scan-label scan-label-safe">{{ 'home.automod.demo.safe' | t(c) }}</span>
+                  <span class="scan-label scan-label-bad">{{ 'home.automod.demo.flagged' | t(c) }}</span>
+                </span>
+              </li>
+            </ul>
           </div>
         </div>
         <div class="card-actions end">
@@ -475,27 +524,46 @@ permalink: "{{ locale.prefix }}/index.html"
         <p>{{ 'home.utilities.text' | t(c) }}</p>
         {% set commands = 'home.utilities.commands' | tObject(c) %}
         <div class="card-visual">
-          <div class="panel command-demo" aria-hidden="true">
-            <span class="command-call"><code>/{{ commands[0] }}</code><span class="option">{{ 'home.utilities.demo.option' | t(c) }}:</span>{{ 'home.utilities.demo.input' | t(c) }}</span>
-            <div class="command-reply">
-              <span class="from">{{ 'home.utilities.demo.languages' | t(c) }}</span>
-              {{ 'home.utilities.demo.output' | t(c) }}
-            </div>
-          </div>
-          {#- Command names as Discord shows them in this language (from the
-              bot's locales/commands/<locale>.json). Rows repeat their chips
-              so they are wide enough to loop. -#}
-          {% set commands = 'home.utilities.commands' | tObject(c) %}
-          <div class="chip-rows" aria-label="{{ 'home.utilities.label' | t(c) }}">
-            {% for row in [commands.slice(0, 4), commands.slice(4, 8), commands.slice(8)] %}
-              <div class="chip-row">
-                {% for copy in [false, true, true, true] %}
-                  {% for command in row %}
-                    <span class="chip command"{% if copy %} aria-hidden="true"{% endif %}>/{{ command }}</span>
+          {#- A slot machine of commands (home-page.ts): the reel spins through
+              the command names as Discord shows them in this language, stops
+              on one, and its result plays. The strip holds the list three
+              times so the reel can spin a full turn before stopping. -#}
+          <div class="panel cmd-machine" data-demo="reel" aria-hidden="true">
+            <div class="reel">
+              <span class="reel-slash">/</span>
+              <div class="reel-window">
+                <div class="reel-strip">
+                  {% for copy in [0, 1, 2] %}
+                    {% for command in commands %}
+                      <span class="reel-item">{{ command }}</span>
+                    {% endfor %}
                   {% endfor %}
-                {% endfor %}
+                </div>
               </div>
-            {% endfor %}
+            </div>
+            <div class="reel-results">
+              <div class="reel-result current" data-command="0">
+                <span class="reel-result-head"><span class="material-symbols-outlined">translate</span>{{ 'home.utilities.demo.languages' | t(c) }}</span>
+                <span class="reel-source">{{ 'home.utilities.demo.input' | t(c) }}</span>
+                <span class="reel-scramble" data-from="{{ 'home.utilities.demo.input' | t(c) }}">{{ 'home.utilities.demo.output' | t(c) }}</span>
+              </div>
+              <div class="reel-result" data-command="5">
+                <span class="material-symbols-outlined reel-die">casino</span>
+                <span class="reel-roll">
+                  <span class="reel-label">{{ 'home.utilities.reel.rolled' | t(c) }}</span>
+                  <span class="reel-number">4</span>
+                  <span class="reel-label">{{ 'home.utilities.reel.outOf' | t(c) }}</span>
+                </span>
+              </div>
+              <div class="reel-result" data-command="1">
+                <svg class="reel-timer" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" /><circle class="reel-timer-fill" cx="22" cy="22" r="18" pathLength="100" /></svg>
+                <span class="reel-remind">
+                  <span class="reel-label">{{ 'home.utilities.reel.remind' | t(c) }}</span>
+                  <strong>{{ 'home.utilities.reel.remindWhat' | t(c) }}</strong>
+                  <span class="reel-label">{{ 'home.utilities.reel.remindWhen' | t(c) }}</span>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-actions end">

@@ -8,12 +8,6 @@
     "dashboard": "Dashboard",
     "signOut": "Abmelden"
   },
-  "popup": {
-    "title": "In Entwicklung",
-    "body": "Moddy befindet sich in aktiver Entwicklung und wird voraussichtlich nicht vor <strong>Juni 2026</strong> fertig sein. Bleib dran!",
-    "join": "Support-Server beitreten",
-    "close": "Fenster schließen"
-  },
   "footer": {
     "navLabel": "Fußzeile",
     "product": "Produkt",
@@ -113,7 +107,16 @@
       "author": "unruhestifter · heute um 21:04",
       "message": "Gratis Nitro für alle, klickt sofort auf diesen Link!!",
       "verdict": "Nachricht entfernt · Verwarnung erteilt",
-      "detail": "Betrugslink von AutoMod KI erkannt, Fall A7F2K9 eröffnet"
+      "detail": "Betrugslink von AutoMod KI erkannt, Fall A7F2K9 eröffnet",
+      "demo": {
+        "m1": "hat jemand heute Abend Lust auf eine Runde?",
+        "m2": "gg an alle, hat Spaß gemacht",
+        "m3": "willkommen an die neuen Mitglieder!",
+        "safe": "Sicher",
+        "flagged": "Betrugslink",
+        "scanning": "Wird geprüft…",
+        "channel": "allgemein"
+      }
     },
     "cases": {
       "title": "Jede Sanktion, lückenlos dokumentiert",
@@ -215,6 +218,13 @@
         "input": "Hello everyone, welcome!",
         "output": "Hallo zusammen, willkommen!",
         "languages": "Englisch → Deutsch"
+      },
+      "reel": {
+        "rolled": "Du hast gewürfelt",
+        "outOf": "von 6",
+        "remind": "Erinnerung erstellt",
+        "remindWhat": "Team-Meeting",
+        "remindWhen": "in 10 Minuten"
       }
     },
     "altguard": {

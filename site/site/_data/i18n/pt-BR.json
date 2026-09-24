@@ -8,12 +8,6 @@
     "dashboard": "Painel",
     "signOut": "Sair"
   },
-  "popup": {
-    "title": "Em desenvolvimento",
-    "body": "O Moddy está em pleno desenvolvimento e provavelmente não estará pronto antes de <strong>junho de 2026</strong>. Fique ligado!",
-    "join": "Entrar no servidor de suporte",
-    "close": "Fechar janela"
-  },
   "footer": {
     "navLabel": "Rodapé",
     "product": "Produto",
@@ -113,7 +107,16 @@
       "author": "encrenqueiro · hoje às 21:04",
       "message": "Nitro grátis pra todo mundo, clica nesse link agora!!",
       "verdict": "Mensagem removida · Advertência aplicada",
-      "detail": "Link de golpe detectado pelo AutoMod IA, caso A7F2K9 aberto"
+      "detail": "Link de golpe detectado pelo AutoMod IA, caso A7F2K9 aberto",
+      "demo": {
+        "m1": "alguém pra uma partida hoje à noite?",
+        "m2": "gg pessoal, foi divertido",
+        "m3": "boas-vindas aos novos membros!",
+        "safe": "Seguro",
+        "flagged": "Link de golpe",
+        "scanning": "Analisando…",
+        "channel": "geral"
+      }
     },
     "cases": {
       "title": "Toda punição, registrada",
@@ -215,6 +218,13 @@
         "input": "Hello everyone, welcome!",
         "output": "Olá a todos, sejam bem-vindos!",
         "languages": "Inglês → Português"
+      },
+      "reel": {
+        "rolled": "Você tirou",
+        "outOf": "de 6",
+        "remind": "Lembrete criado",
+        "remindWhat": "Reunião da equipe",
+        "remindWhen": "em 10 minutos"
       }
     },
     "altguard": {

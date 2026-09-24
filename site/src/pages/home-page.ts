@@ -329,6 +329,155 @@ function playAltGuard() {
 }
 
 /* -------------------------------------------------------------------------
+ * AutoMod: messages arrive in a channel one by one; each is swept by a scan
+ * beam, its risk meter fills, and it is tagged safe, or collapses into the
+ * sanction when it is the scam. The server-rendered messages (final state)
+ * serve as templates.
+ * ----------------------------------------------------------------------- */
+
+function playScanner() {
+  const root = document.querySelector<HTMLElement>('[data-demo="scanner"]');
+  if (!root) return;
+  const list = root.querySelector<HTMLElement>('.scan-list')!;
+  const templates = [...list.children].map((li) => {
+    const clone = li.cloneNode(true) as HTMLElement;
+    clone.classList.remove('done', 'removed');
+    return clone;
+  });
+  const visible = 3;
+  // Start with the first three as rendered; the next one to arrive is #4.
+  [...list.children].slice(visible).forEach((li) => li.remove());
+  let next = visible % templates.length;
+
+  loopWhileVisible(root, async () => {
+    await wait(1200);
+    const message = templates[next % templates.length].cloneNode(true) as HTMLElement;
+    next++;
+
+    // Make room: the oldest message slides out at the top.
+    if (list.children.length >= visible) {
+      const oldest = list.firstElementChild as HTMLElement;
+      const gap = parseFloat(getComputedStyle(list).rowGap) || 0;
+      list.classList.add('sliding');
+      list.style.transform = `translateY(-${oldest.offsetHeight + gap}px)`;
+      oldest.style.opacity = '0';
+      await wait(500);
+      list.classList.remove('sliding');
+      oldest.remove();
+      list.style.transform = '';
+    }
+
+    message.classList.add('entering');
+    list.append(message);
+    await wait(450);
+    message.classList.add('scanning');
+    await wait(900);
+    message.classList.remove('scanning');
+    message.classList.add('done');
+    if (message.dataset.kind === 'bad') {
+      await wait(1100);
+      message.classList.add('removed');
+    }
+    await wait(1300);
+  });
+}
+
+/* -------------------------------------------------------------------------
+ * Utilities: a slot machine of commands. The reel spins a full turn and
+ * stops on a command, then that command's result plays: the translation
+ * decodes letter by letter, the die rolls, the reminder's timer fills.
+ * ----------------------------------------------------------------------- */
+
+const SCRAMBLE = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+/** Morphs `el` from `from` to `to`, resolving letters left to right. */
+async function scramble(el: HTMLElement, from: string, to: string) {
+  const length = Math.max(from.length, to.length);
+  const frames = 22;
+  for (let frame = 0; frame <= frames; frame++) {
+    const settled = Math.floor((frame / frames) * length);
+    let text = '';
+    for (let i = 0; i < length; i++) {
+      if (i < settled) text += to[i] ?? '';
+      else if ((from[i] ?? ' ') === ' ' && (to[i] ?? ' ') === ' ') text += ' ';
+      else text += SCRAMBLE[Math.floor(Math.random() * SCRAMBLE.length)];
+    }
+    el.textContent = text;
+    await wait(45);
+  }
+  el.textContent = to;
+}
+
+function playReel() {
+  const root = document.querySelector<HTMLElement>('[data-demo="reel"]');
+  if (!root) return;
+  const strip = root.querySelector<HTMLElement>('.reel-strip')!;
+  const items = [...strip.querySelectorAll<HTMLElement>('.reel-item')];
+  const count = items.length / 3; // the list is there three times
+  const results = [...root.querySelectorAll<HTMLElement>('.reel-result')];
+  const itemHeight = () => items[0].getBoundingClientRect().height;
+  // The window shows 3 items; the chosen one sits in the middle (+1).
+  const place = (index: number, animate: boolean) => {
+    strip.style.transition = animate
+      ? 'transform 1900ms cubic-bezier(0.12, 0.8, 0.2, 1)'
+      : 'none';
+    strip.style.transform = `translateY(${(1 - index) * itemHeight()}px)`;
+  };
+
+  const plays: Record<string, (result: HTMLElement) => Promise<void>> = {
+    '0': async (result) => {
+      const target = result.querySelector<HTMLElement>('.reel-scramble')!;
+      const to = target.dataset.to ?? target.textContent ?? '';
+      target.dataset.to = to;
+      await scramble(target, target.dataset.from ?? '', to);
+    },
+    '5': async (result) => {
+      const die = result.querySelector<HTMLElement>('.reel-die')!;
+      const number = result.querySelector<HTMLElement>('.reel-number')!;
+      die.classList.remove('rolling');
+      void die.offsetWidth;
+      die.classList.add('rolling');
+      for (let i = 0; i < 10; i++) {
+        number.textContent = String(1 + Math.floor(Math.random() * 6));
+        await wait(60);
+      }
+    },
+    '1': async (result) => {
+      const timer = result.querySelector<HTMLElement>('.reel-timer')!;
+      timer.classList.remove('running');
+      void timer.getBoundingClientRect();
+      timer.classList.add('running');
+    },
+  };
+
+  const order = results.map((result) => Number(result.dataset.command));
+  let turn = 0;
+  place(order[0], false);
+  items[order[0]].classList.add('landed');
+
+  loopWhileVisible(root, async () => {
+    await wait(2600);
+    const target = order[++turn % order.length];
+    items.forEach((item) => item.classList.remove('landed'));
+    results.forEach((result) => result.classList.remove('current'));
+    // Spin from the first copy to the same command in the third copy.
+    place(target, false);
+    void strip.offsetHeight;
+    place(target + count * 2, true);
+    await wait(1950);
+    items[target + count * 2].classList.add('landed');
+    // Back to the first copy, invisibly, ready for the next spin.
+    await wait(50);
+    items[target + count * 2].classList.remove('landed');
+    place(target, false);
+    items[target].classList.add('landed');
+    const result = results.find((r) => Number(r.dataset.command) === target)!;
+    result.classList.add('current');
+    await plays[String(target)]?.(result);
+  });
+}
+
+/* -------------------------------------------------------------------------
  * Brocoli: the question is typed and sent, Brocoli reads the configuration,
  * plans two changes, asks for confirmation, applies them and answers.
  * Elements with data-at appear at that step; steps with data-done-at get
@@ -440,6 +589,8 @@ if (!reduceMotion) {
   countUpNumbers();
   playBrocoli();
   playTickets();
+  playReel();
+  playScanner();
   playAltGuard();
 }
 

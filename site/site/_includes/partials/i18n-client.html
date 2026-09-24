@@ -12,7 +12,7 @@
 <script>
   (function () {
     var locales = {{ locales | dump | safe }};
-    var strings = {{ ['topbar', 'popup', 'notFound'] | i18nClient | dump | safe }};
+    var strings = {{ ['topbar', 'notFound'] | i18nClient | dump | safe }};
     var code = null;
 
     try {

@@ -8,12 +8,6 @@
     "dashboard": "Panel",
     "signOut": "Cerrar sesión"
   },
-  "popup": {
-    "title": "En desarrollo",
-    "body": "Moddy está en pleno desarrollo y probablemente no estará listo antes de <strong>junio de 2026</strong>. ¡Mantente atento!",
-    "join": "Unirse al servidor de soporte",
-    "close": "Cerrar ventana"
-  },
   "footer": {
     "navLabel": "Pie de página",
     "product": "Producto",
@@ -113,7 +107,16 @@
       "author": "alborotador · hoy a las 21:04",
       "message": "¡¡Nitro gratis para todos, haz clic en este enlace ya!!",
       "verdict": "Mensaje eliminado · Advertencia aplicada",
-      "detail": "Enlace fraudulento detectado por AutoMod IA, caso A7F2K9 abierto"
+      "detail": "Enlace fraudulento detectado por AutoMod IA, caso A7F2K9 abierto",
+      "demo": {
+        "m1": "¿alguien para una partida esta noche?",
+        "m2": "gg a todos, ha estado genial",
+        "m3": "¡bienvenidos a los nuevos miembros!",
+        "safe": "Seguro",
+        "flagged": "Enlace fraudulento",
+        "scanning": "Analizando…",
+        "channel": "general"
+      }
     },
     "cases": {
       "title": "Cada sanción, registrada",
@@ -215,6 +218,13 @@
         "input": "Hello everyone, welcome!",
         "output": "¡Hola a todos, bienvenidos!",
         "languages": "Inglés → Español"
+      },
+      "reel": {
+        "rolled": "Has sacado",
+        "outOf": "de 6",
+        "remind": "Recordatorio creado",
+        "remindWhat": "Reunión de equipo",
+        "remindWhen": "en 10 minutos"
       }
     },
     "altguard": {

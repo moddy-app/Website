@@ -8,12 +8,6 @@
     "dashboard": "Tableau de bord",
     "signOut": "Se déconnecter"
   },
-  "popup": {
-    "title": "En développement",
-    "body": "Moddy est en plein développement et ne sera sans doute pas prêt avant <strong>juin 2026</strong>. Restez à l'écoute !",
-    "join": "Rejoindre le serveur de support",
-    "close": "Fermer la fenêtre"
-  },
   "footer": {
     "navLabel": "Pied de page",
     "product": "Produit",
@@ -113,7 +107,16 @@
       "author": "fauteurdetrouble · aujourd'hui à 21:04",
       "message": "Nitro gratuit pour tout le monde, cliquez vite sur ce lien !!",
       "verdict": "Message supprimé · Avertissement appliqué",
-      "detail": "Lien frauduleux détecté par AutoMod IA, dossier A7F2K9 ouvert"
+      "detail": "Lien frauduleux détecté par AutoMod IA, dossier A7F2K9 ouvert",
+      "demo": {
+        "m1": "quelqu'un pour une partie ce soir ?",
+        "m2": "gg tout le monde, c'était cool",
+        "m3": "bienvenue aux nouveaux membres !",
+        "safe": "Sain",
+        "flagged": "Lien frauduleux",
+        "scanning": "Analyse…",
+        "channel": "général"
+      }
     },
     "cases": {
       "title": "Chaque sanction, archivée",
@@ -215,6 +218,13 @@
         "input": "Hello everyone, welcome!",
         "output": "Bonjour à tous, bienvenue !",
         "languages": "Anglais → Français"
+      },
+      "reel": {
+        "rolled": "Vous avez fait",
+        "outOf": "sur 6",
+        "remind": "Rappel créé",
+        "remindWhat": "Réunion d'équipe",
+        "remindWhen": "dans 10 minutes"
       }
     },
     "altguard": {
