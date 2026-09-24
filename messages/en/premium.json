@@ -1,1 +1,165 @@
-{}
+{
+  "meta": {
+    "title": "Moddy Max",
+    "description": "Moddy Max unlocks full bot customization and faster social notifications on up to 5 of your Discord servers."
+  },
+  "hero": {
+    "eyebrow": "Premium",
+    "title": "Make Moddy yours",
+    "description": "Full bot customization and faster social notifications, on up to 5 of your servers."
+  },
+  "plans": {
+    "title": "Moddy Max",
+    "description": "One subscription, up to 5 servers.",
+    "billingPeriod": "Billing period",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "saving": "Save {percent}",
+    "perMonth": "/month",
+    "perYear": "/year",
+    "billedMonthly": "Billed monthly.",
+    "billedYearly": "That’s {price} a month, billed yearly.",
+    "features": {
+      "servers": "Premium on up to 5 servers",
+      "customization": "Custom nickname, avatar, banner and bio",
+      "notifications": "Faster social notifications, 5 accounts per platform"
+    },
+    "subscribe": "Get Moddy Max",
+    "redirecting": "Redirecting…",
+    "secure": "Secure checkout with Stripe."
+  },
+  "checkout": {
+    "success": {
+      "title": "Thanks for subscribing to Moddy Max!",
+      "description": "Now <link>choose which servers get premium</link> from your dashboard."
+    },
+    "cancel": {
+      "title": "Checkout cancelled",
+      "description": "You haven’t been charged. Come back whenever you’re ready."
+    },
+    "blocked": {
+      "title": "This account can’t subscribe",
+      "description": "Your account is restricted and can’t start a Moddy Max subscription. If you think this is a mistake, <link>contact support</link>."
+    },
+    "error": {
+      "title": "Checkout couldn’t start",
+      "description": "Something went wrong. Please try again in a moment."
+    },
+    "dismiss": "Dismiss"
+  },
+  "perks": {
+    "title": "What’s included",
+    "description": "A focused set of extras. Everything else works the same on every server.",
+    "servers": {
+      "title": "5 premium servers",
+      "description": "Activate Moddy Max on up to 5 servers of your choice. Switch which servers have premium at any time from your dashboard."
+    },
+    "customization": {
+      "title": "Full bot customization",
+      "description": "Change Moddy’s nickname, avatar, banner and bio on your server, and make the bot feel native to your community’s brand."
+    },
+    "notifications": {
+      "title": "Faster social notifications",
+      "description": "Faster polling on YouTube, Twitch and RSS (Bluesky is already realtime for everyone), plus up to 5 accounts per platform instead of 1."
+    }
+  },
+  "comparison": {
+    "title": "Free vs Moddy Max",
+    "description": "Moddy Max is intentionally narrow: it enhances bot customization and social notifications. Everything else runs identically on every server, free or premium.",
+    "caption": "Features of the free plan and of Moddy Max",
+    "feature": "Feature",
+    "free": "Free",
+    "max": "Moddy Max",
+    "included": "Included",
+    "notIncluded": "Not included",
+    "groups": {
+      "customization": "Bot customization",
+      "notifications": "Social notifications",
+      "everywhere": "Same on every server"
+    },
+    "rows": {
+      "servers": {
+        "label": "Servers with premium features",
+        "free": "0",
+        "max": "Up to 5"
+      },
+      "identity": {
+        "label": "Nickname, avatar, banner, bio"
+      },
+      "nameStyle": {
+        "label": "Name style (font, effect, colours)"
+      },
+      "accounts": {
+        "label": "Accounts per platform",
+        "free": "1",
+        "max": "5"
+      },
+      "youtube": {
+        "label": "YouTube polling",
+        "free": "Every 5 min",
+        "max": "Every 1 min"
+      },
+      "twitch": {
+        "label": "Twitch polling",
+        "free": "Every 2 min",
+        "max": "Every 30 s"
+      },
+      "rss": {
+        "label": "RSS polling",
+        "free": "Every 10 min",
+        "max": "Every 2 min"
+      },
+      "bluesky": {
+        "label": "Bluesky polling",
+        "free": "Realtime",
+        "max": "Realtime"
+      },
+      "automod": {
+        "label": "AutoMod AI",
+        "free": "Full capability",
+        "max": "Full capability (no difference)"
+      },
+      "cases": {
+        "label": "Moderation cases"
+      },
+      "welcome": {
+        "label": "Welcome messages — up to 5 channels"
+      },
+      "utilities": {
+        "label": "AltGuard, Inter-Server, all utility commands"
+      }
+    },
+    "docs": "Full comparison in the docs"
+  },
+  "activation": {
+    "title": "Premium in five steps",
+    "description": "Subscribe once, then pick your servers from the dashboard. No restart or re-invite required.",
+    "steps": {
+      "subscribe": {
+        "title": "Subscribe to Moddy Max",
+        "description": "Choose a <plans>monthly or yearly plan</plans> and complete checkout."
+      },
+      "dashboard": {
+        "title": "Open the dashboard",
+        "description": "Go to <dashboard>dashboard.moddy.app</dashboard> and sign in with your Discord account."
+      },
+      "premiumServers": {
+        "title": "Click Premium Servers",
+        "description": "This is where you manage which servers receive premium features."
+      },
+      "select": {
+        "title": "Select your servers",
+        "description": "Choose up to 5 servers where Moddy is installed. You can change your selection at any time."
+      },
+      "save": {
+        "title": "Save your selection",
+        "description": "Premium is active on your selected servers immediately."
+      }
+    },
+    "note": {
+      "title": "Tied to your Discord account",
+      "description": "A server stays premium as long as at least one subscriber who selected it has an active subscription. Use <code>/subscription</code> in Discord to check your plan and renewal date."
+    },
+    "cta": "Choose your servers"
+  }
+}

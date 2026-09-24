@@ -1,1 +1,165 @@
-{}
+{
+  "meta": {
+    "title": "Moddy Max",
+    "description": "Moddy Max débloque la personnalisation complète du bot et des notifications sociales plus rapides sur jusqu’à 5 de vos serveurs Discord."
+  },
+  "hero": {
+    "eyebrow": "Premium",
+    "title": "Un Moddy à votre image",
+    "description": "Personnalisation complète du bot et notifications sociales plus rapides, sur jusqu’à 5 de vos serveurs."
+  },
+  "plans": {
+    "title": "Moddy Max",
+    "description": "Un abonnement, jusqu’à 5 serveurs.",
+    "billingPeriod": "Période de facturation",
+    "monthly": "Mensuel",
+    "yearly": "Annuel",
+    "saving": "−{percent}",
+    "perMonth": "/mois",
+    "perYear": "/an",
+    "billedMonthly": "Facturé chaque mois.",
+    "billedYearly": "Soit {price} par mois, facturé une fois par an.",
+    "features": {
+      "servers": "Premium sur jusqu’à 5 serveurs",
+      "customization": "Pseudonyme, avatar, bannière et bio personnalisés",
+      "notifications": "Notifications sociales plus rapides, 5 comptes par plateforme"
+    },
+    "subscribe": "Obtenir Moddy Max",
+    "redirecting": "Redirection…",
+    "secure": "Paiement sécurisé par Stripe."
+  },
+  "checkout": {
+    "success": {
+      "title": "Merci pour votre abonnement à Moddy Max !",
+      "description": "Il ne reste plus qu’à <link>choisir vos serveurs premium</link> depuis le dashboard."
+    },
+    "cancel": {
+      "title": "Paiement annulé",
+      "description": "Aucun montant n’a été débité. Revenez quand vous le souhaitez."
+    },
+    "blocked": {
+      "title": "Ce compte ne peut pas s’abonner",
+      "description": "Votre compte fait l’objet d’une restriction et ne peut pas souscrire à Moddy Max. S’il s’agit d’une erreur, <link>contactez le support</link>."
+    },
+    "error": {
+      "title": "Impossible de lancer le paiement",
+      "description": "Une erreur est survenue. Veuillez réessayer dans un instant."
+    },
+    "dismiss": "Fermer"
+  },
+  "perks": {
+    "title": "Ce qui est inclus",
+    "description": "Quelques avantages ciblés. Tout le reste fonctionne de la même façon sur chaque serveur.",
+    "servers": {
+      "title": "5 serveurs premium",
+      "description": "Activez Moddy Max sur jusqu’à 5 serveurs de votre choix. Changez de serveurs premium à tout moment depuis votre dashboard."
+    },
+    "customization": {
+      "title": "Personnalisation complète du bot",
+      "description": "Modifiez le pseudonyme, l’avatar, la bannière et la bio de Moddy sur votre serveur, pour un bot aux couleurs de votre communauté."
+    },
+    "notifications": {
+      "title": "Notifications sociales plus rapides",
+      "description": "Vérifications plus fréquentes sur YouTube, Twitch et RSS (Bluesky est déjà en temps réel pour tous), et jusqu’à 5 comptes par plateforme au lieu d’un seul."
+    }
+  },
+  "comparison": {
+    "title": "Gratuit ou Moddy Max",
+    "description": "Moddy Max a volontairement un périmètre restreint : il améliore la personnalisation du bot et les notifications sociales. Tout le reste fonctionne à l’identique sur chaque serveur, gratuit ou premium.",
+    "caption": "Fonctionnalités du forfait gratuit et de Moddy Max",
+    "feature": "Fonctionnalité",
+    "free": "Gratuit",
+    "max": "Moddy Max",
+    "included": "Inclus",
+    "notIncluded": "Non inclus",
+    "groups": {
+      "customization": "Personnalisation du bot",
+      "notifications": "Notifications sociales",
+      "everywhere": "Identique sur chaque serveur"
+    },
+    "rows": {
+      "servers": {
+        "label": "Serveurs avec fonctionnalités premium",
+        "free": "0",
+        "max": "Jusqu’à 5"
+      },
+      "identity": {
+        "label": "Pseudonyme, avatar, bannière, bio"
+      },
+      "nameStyle": {
+        "label": "Style du nom (police, effet, couleurs)"
+      },
+      "accounts": {
+        "label": "Comptes par plateforme",
+        "free": "1",
+        "max": "5"
+      },
+      "youtube": {
+        "label": "Vérification YouTube",
+        "free": "Toutes les 5 min",
+        "max": "Chaque minute"
+      },
+      "twitch": {
+        "label": "Vérification Twitch",
+        "free": "Toutes les 2 min",
+        "max": "Toutes les 30 s"
+      },
+      "rss": {
+        "label": "Vérification RSS",
+        "free": "Toutes les 10 min",
+        "max": "Toutes les 2 min"
+      },
+      "bluesky": {
+        "label": "Vérification Bluesky",
+        "free": "Temps réel",
+        "max": "Temps réel"
+      },
+      "automod": {
+        "label": "AutoMod AI",
+        "free": "Capacités complètes",
+        "max": "Capacités complètes (aucune différence)"
+      },
+      "cases": {
+        "label": "Cas de modération"
+      },
+      "welcome": {
+        "label": "Messages de bienvenue — jusqu’à 5 salons"
+      },
+      "utilities": {
+        "label": "AltGuard, Inter-Server, toutes les commandes utilitaires"
+      }
+    },
+    "docs": "Comparatif complet dans la documentation"
+  },
+  "activation": {
+    "title": "Le premium en cinq étapes",
+    "description": "Abonnez-vous une fois, puis choisissez vos serveurs depuis le dashboard. Aucun redémarrage ni réinvitation nécessaire.",
+    "steps": {
+      "subscribe": {
+        "title": "Abonnez-vous à Moddy Max",
+        "description": "Choisissez une <plans>formule mensuelle ou annuelle</plans> et finalisez le paiement."
+      },
+      "dashboard": {
+        "title": "Ouvrez le dashboard",
+        "description": "Rendez-vous sur <dashboard>dashboard.moddy.app</dashboard> et connectez-vous avec votre compte Discord."
+      },
+      "premiumServers": {
+        "title": "Cliquez sur Serveurs Premium",
+        "description": "C’est ici que vous choisissez les serveurs qui reçoivent les fonctionnalités premium."
+      },
+      "select": {
+        "title": "Sélectionnez vos serveurs",
+        "description": "Choisissez jusqu’à 5 serveurs où Moddy est installé. Vous pouvez modifier votre sélection à tout moment."
+      },
+      "save": {
+        "title": "Enregistrez votre sélection",
+        "description": "Le premium est immédiatement actif sur les serveurs sélectionnés."
+      }
+    },
+    "note": {
+      "title": "Lié à votre compte Discord",
+      "description": "Un serveur reste premium tant qu’au moins un abonné l’ayant sélectionné a un abonnement actif. Utilisez <code>/subscription</code> dans Discord pour consulter votre forfait et sa date de renouvellement."
+    },
+    "cta": "Choisir mes serveurs"
+  }
+}
