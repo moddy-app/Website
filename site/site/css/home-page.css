@@ -345,14 +345,11 @@
  * Shared pieces
  * ------------------------------------------------------------------------- */
 
-/* Example people: 3D emoji avatars (Fluent Emoji 3D, MIT, in
-   /images/avatars) on a soft disc. */
+/* Example people: Memoji-style avatars (/images/avatars), each already on
+   its own colored disc. */
 .avatar-3d {
-  box-sizing: border-box;
-  padding: 3px;
   border-radius: 50%;
-  object-fit: contain;
-  background-color: var(--md-sys-color-surface-container-highest);
+  object-fit: cover;
 }
 
 /* A soft inner panel holding an illustration. */
