@@ -157,7 +157,7 @@ concernée est masquée).
 | Donnée | Source |
 | --- | --- |
 | Serveurs, utilisateurs | `GET https://api.moddy.app/public/stats` |
-| Icônes du hero | `GET https://api.moddy.app/public/stats/top-guilds` (60 plus gros serveurs) |
+| Icônes du hero | `GET https://api.moddy.app/public/stats/top-guilds` (60 plus gros serveurs, recalculés chaque jour ; liste vide → tuiles neutres aux icônes des modules) |
 | Disponibilité, état global | Better Stack : `https://status.moddy.app/index.json` |
 | Badge de statut (footer) | iframe officielle `status.moddy.app/badge?theme=light|dark` |
 | Bannières du site | `health.moddy.app/v1/status/banner?service=moddy-website`, sinon `GET /banners/active` (côté client, toutes les 60 s) |
