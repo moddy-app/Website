@@ -1,0 +1,366 @@
+{
+  "guilds": [
+    {
+      "id": "1100000000000000000",
+      "name": "Pixel Harbor",
+      "icon_url": null,
+      "member_count": 150000
+    },
+    {
+      "id": "1100000000000007919",
+      "name": "Night Owls",
+      "icon_url": null,
+      "member_count": 80383
+    },
+    {
+      "id": "1100000000000015838",
+      "name": "Café Code",
+      "icon_url": null,
+      "member_count": 55806
+    },
+    {
+      "id": "1100000000000023757",
+      "name": "Lofi Lounge",
+      "icon_url": null,
+      "member_count": 43076
+    },
+    {
+      "id": "1100000000000031676",
+      "name": "Arcadia",
+      "icon_url": null,
+      "member_count": 35238
+    },
+    {
+      "id": "1100000000000039595",
+      "name": "Nebula",
+      "icon_url": null,
+      "member_count": 29905
+    },
+    {
+      "id": "1100000000000047514",
+      "name": "Gaming Hub FR",
+      "icon_url": null,
+      "member_count": 26031
+    },
+    {
+      "id": "1100000000000055433",
+      "name": "Studio 42",
+      "icon_url": null,
+      "member_count": 23083
+    },
+    {
+      "id": "1100000000000063352",
+      "name": "The Workshop",
+      "icon_url": null,
+      "member_count": 20762
+    },
+    {
+      "id": "1100000000000071271",
+      "name": "Bookworms",
+      "icon_url": null,
+      "member_count": 18883
+    },
+    {
+      "id": "1100000000000079190",
+      "name": "Crypto Café",
+      "icon_url": null,
+      "member_count": 17331
+    },
+    {
+      "id": "1100000000000087109",
+      "name": "Artistes",
+      "icon_url": null,
+      "member_count": 16026
+    },
+    {
+      "id": "1100000000000095028",
+      "name": "Speedrunners",
+      "icon_url": null,
+      "member_count": 14912
+    },
+    {
+      "id": "1100000000000102947",
+      "name": "Minecraft FR",
+      "icon_url": null,
+      "member_count": 13950
+    },
+    {
+      "id": "1100000000000110866",
+      "name": "Anime Club",
+      "icon_url": null,
+      "member_count": 13110
+    },
+    {
+      "id": "1100000000000118785",
+      "name": "Dev Corner",
+      "icon_url": null,
+      "member_count": 12370
+    },
+    {
+      "id": "1100000000000126704",
+      "name": "Photography",
+      "icon_url": null,
+      "member_count": 11713
+    },
+    {
+      "id": "1100000000000134623",
+      "name": "Music Lab",
+      "icon_url": null,
+      "member_count": 11126
+    },
+    {
+      "id": "1100000000000142542",
+      "name": "Chill Zone",
+      "icon_url": null,
+      "member_count": 10597
+    },
+    {
+      "id": "1100000000000150461",
+      "name": "Esport Arena",
+      "icon_url": null,
+      "member_count": 10119
+    },
+    {
+      "id": "1100000000000158380",
+      "name": "Tech Talk",
+      "icon_url": null,
+      "member_count": 9684
+    },
+    {
+      "id": "1100000000000166299",
+      "name": "Roleplay City",
+      "icon_url": null,
+      "member_count": 9287
+    },
+    {
+      "id": "1100000000000174218",
+      "name": "Valorant FR",
+      "icon_url": null,
+      "member_count": 8923
+    },
+    {
+      "id": "1100000000000182137",
+      "name": "Language Exchange",
+      "icon_url": null,
+      "member_count": 8588
+    },
+    {
+      "id": "1100000000000190056",
+      "name": "Study Room",
+      "icon_url": null,
+      "member_count": 8278
+    },
+    {
+      "id": "1100000000000197975",
+      "name": "Retro Games",
+      "icon_url": null,
+      "member_count": 7991
+    },
+    {
+      "id": "1100000000000205894",
+      "name": "Memes & Co",
+      "icon_url": null,
+      "member_count": 7724
+    },
+    {
+      "id": "1100000000000213813",
+      "name": "Design Lab",
+      "icon_url": null,
+      "member_count": 7475
+    },
+    {
+      "id": "1100000000000221732",
+      "name": "Science Club",
+      "icon_url": null,
+      "member_count": 7243
+    },
+    {
+      "id": "1100000000000229651",
+      "name": "Cinephiles",
+      "icon_url": null,
+      "member_count": 7025
+    },
+    {
+      "id": "1100000000000237570",
+      "name": "Streamers",
+      "icon_url": null,
+      "member_count": 6821
+    },
+    {
+      "id": "1100000000000245489",
+      "name": "Travel Diaries",
+      "icon_url": null,
+      "member_count": 6629
+    },
+    {
+      "id": "1100000000000253408",
+      "name": "Fitness",
+      "icon_url": null,
+      "member_count": 6448
+    },
+    {
+      "id": "1100000000000261327",
+      "name": "Cooking",
+      "icon_url": null,
+      "member_count": 6277
+    },
+    {
+      "id": "1100000000000269246",
+      "name": "Astronomy",
+      "icon_url": null,
+      "member_count": 6115
+    },
+    {
+      "id": "1100000000000277165",
+      "name": "Board Games",
+      "icon_url": null,
+      "member_count": 5962
+    },
+    {
+      "id": "1100000000000285084",
+      "name": "Pokémon FR",
+      "icon_url": null,
+      "member_count": 5817
+    },
+    {
+      "id": "1100000000000293003",
+      "name": "Indie Devs",
+      "icon_url": null,
+      "member_count": 5679
+    },
+    {
+      "id": "1100000000000300922",
+      "name": "Writers Guild",
+      "icon_url": null,
+      "member_count": 5547
+    },
+    {
+      "id": "1100000000000308841",
+      "name": "Hackers",
+      "icon_url": null,
+      "member_count": 5422
+    },
+    {
+      "id": "1100000000000316760",
+      "name": "Garden Club",
+      "icon_url": null,
+      "member_count": 5303
+    },
+    {
+      "id": "1100000000000324679",
+      "name": "Karaoke",
+      "icon_url": null,
+      "member_count": 5189
+    },
+    {
+      "id": "1100000000000332598",
+      "name": "Chess Club",
+      "icon_url": null,
+      "member_count": 5081
+    },
+    {
+      "id": "1100000000000340517",
+      "name": "F1 Fans",
+      "icon_url": null,
+      "member_count": 4977
+    },
+    {
+      "id": "1100000000000348436",
+      "name": "Rocket League",
+      "icon_url": null,
+      "member_count": 4877
+    },
+    {
+      "id": "1100000000000356355",
+      "name": "Coders FR",
+      "icon_url": null,
+      "member_count": 4781
+    },
+    {
+      "id": "1100000000000364274",
+      "name": "Manga Library",
+      "icon_url": null,
+      "member_count": 4690
+    },
+    {
+      "id": "1100000000000372193",
+      "name": "K-Pop",
+      "icon_url": null,
+      "member_count": 4602
+    },
+    {
+      "id": "1100000000000380112",
+      "name": "Podcasters",
+      "icon_url": null,
+      "member_count": 4517
+    },
+    {
+      "id": "1100000000000388031",
+      "name": "Car Club",
+      "icon_url": null,
+      "member_count": 4436
+    },
+    {
+      "id": "1100000000000395950",
+      "name": "Horror Fans",
+      "icon_url": null,
+      "member_count": 4357
+    },
+    {
+      "id": "1100000000000403869",
+      "name": "Lego Builders",
+      "icon_url": null,
+      "member_count": 4282
+    },
+    {
+      "id": "1100000000000411788",
+      "name": "Plant Parents",
+      "icon_url": null,
+      "member_count": 4209
+    },
+    {
+      "id": "1100000000000419707",
+      "name": "Vinyl Records",
+      "icon_url": null,
+      "member_count": 4139
+    },
+    {
+      "id": "1100000000000427626",
+      "name": "Skaters",
+      "icon_url": null,
+      "member_count": 4071
+    },
+    {
+      "id": "1100000000000435545",
+      "name": "Surf Club",
+      "icon_url": null,
+      "member_count": 4006
+    },
+    {
+      "id": "1100000000000443464",
+      "name": "Drawing Room",
+      "icon_url": null,
+      "member_count": 3942
+    },
+    {
+      "id": "1100000000000451383",
+      "name": "Poetry",
+      "icon_url": null,
+      "member_count": 3881
+    },
+    {
+      "id": "1100000000000459302",
+      "name": "Film Makers",
+      "icon_url": null,
+      "member_count": 3822
+    },
+    {
+      "id": "1100000000000467221",
+      "name": "Quiz Night",
+      "icon_url": null,
+      "member_count": 3764
+    }
+  ],
+  "count": 60,
+  "updated_at": "2026-09-24T03:12:45+00:00"
+}

@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "title": "Moddy — Built to let you focus on your community",
+    "titleTemplate": "%s · Moddy",
+    "description": "Moddy is the all-in-one Discord bot: AI moderation, AltGuard, logs, tickets, welcome messages and social notifications, configured from a web dashboard."
+  },
+  "skipToContent": "Skip to content",
+  "nav": {
+    "label": "Main",
+    "home": "Moddy home",
+    "modules": "Modules",
+    "premium": "Premium",
+    "docs": "Docs",
+    "support": "Support",
+    "openMenu": "Open menu",
+    "menuTitle": "Menu"
+  },
+  "auth": {
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "dashboard": "Dashboard",
+    "account": "Account",
+    "loading": "Loading your account"
+  },
+  "theme": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "locale": {
+    "label": "Language",
+    "en": "English",
+    "fr": "Français"
+  },
+  "cta": {
+    "addToDiscord": "Add to Discord",
+    "getStarted": "Get started",
+    "learnMore": "Learn more"
+  },
+  "banner": {
+    "dismiss": "Dismiss",
+    "details": "Details"
+  },
+  "footer": {
+    "tagline": "The all-in-one Discord bot.",
+    "product": "Product",
+    "resources": "Resources",
+    "legal": "Legal",
+    "dashboard": "Dashboard",
+    "modules": "Modules",
+    "premium": "Moddy Max",
+    "status": "Status",
+    "docs": "Documentation",
+    "support": "Support server",
+    "github": "GitHub",
+    "contact": "Contact",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "license": "License",
+    "copyright": "© {year} Moddy. All rights reserved.",
+    "notAffiliated": "Moddy is not affiliated with Discord Inc."
+  }
+}

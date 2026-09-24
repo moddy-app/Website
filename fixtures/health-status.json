@@ -1,0 +1,21 @@
+{
+  "status": "operational",
+  "updated_at": "2026-09-24T16:33:24Z",
+  "services": [
+    {
+      "id": "moddy-bot",
+      "name": "Moddy Bot",
+      "status": "operational"
+    },
+    {
+      "id": "moddy-api",
+      "name": "API",
+      "status": "operational"
+    },
+    {
+      "id": "moddy-dashboard",
+      "name": "Dashboard",
+      "status": "operational"
+    }
+  ]
+}
