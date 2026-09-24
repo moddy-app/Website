@@ -2,7 +2,7 @@
   "meta": {
     "title": "Moddy — Le bot Discord tout-en-un",
     "titleTemplate": "%s · Moddy",
-    "description": "Moddy est le bot Discord tout-en-un : modération par IA, AltGuard, logs, tickets, messages de bienvenue et notifications sociales, configurés depuis un dashboard web."
+    "description": "Moddy est le bot Discord tout-en-un : modération par IA, AltGuard, logs, tickets, messages de bienvenue et notifications sociales, configurés depuis un dashboard web."
   },
   "skipToContent": "Aller au contenu",
   "nav": {
