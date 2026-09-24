@@ -35,7 +35,7 @@ function MobileNav() {
         <SheetHeader>
           <SheetTitle>{t("nav.menuTitle")}</SheetTitle>
           <SheetDescription className="sr-only">
-            {t("footer.tagline")}
+            {t("footer.baseline")}
           </SheetDescription>
         </SheetHeader>
         <nav aria-label={t("nav.label")} className="flex flex-col px-3">

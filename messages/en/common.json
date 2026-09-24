@@ -43,22 +43,17 @@
     "details": "Details"
   },
   "footer": {
-    "tagline": "The all-in-one Discord bot.",
-    "product": "Product",
-    "resources": "Resources",
-    "legal": "Legal",
-    "dashboard": "Dashboard",
-    "modules": "Modules",
-    "premium": "Moddy Max",
-    "status": "Status",
-    "docs": "Documentation",
-    "support": "Support server",
-    "github": "GitHub",
-    "contact": "Contact",
-    "terms": "Terms of Service",
-    "privacy": "Privacy Policy",
-    "license": "License",
-    "copyright": "© {year} Moddy. All rights reserved.",
-    "notAffiliated": "Moddy is not affiliated with Discord Inc."
+    "baseline": "Built to let you focus on your community.",
+    "author": "Moddy",
+    "appBadge": "APP",
+    "today": "Today at {time}",
+    "typing": "Moddy is typing…",
+    "status": {
+      "operational": "All systems operational",
+      "degraded": "Some services are disrupted",
+      "maintenance": "Maintenance in progress"
+    },
+    "copyright": "© {year} Moddy",
+    "notAffiliated": "Not affiliated with Discord Inc."
   }
 }

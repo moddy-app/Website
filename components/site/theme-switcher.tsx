@@ -75,6 +75,7 @@ function ThemeToggleGroup() {
       type="single"
       variant="outline"
       size="sm"
+      spacing={0}
       value={mounted ? theme : ""}
       onValueChange={(value) => value && setTheme(value)}
       aria-label={t("label")}

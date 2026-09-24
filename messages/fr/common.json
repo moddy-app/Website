@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Moddy — Conçu pour que vous vous concentriez sur votre communauté",
+    "title": "Moddy — Le bot Discord tout-en-un",
     "titleTemplate": "%s · Moddy",
     "description": "Moddy est le bot Discord tout-en-un : modération par IA, AltGuard, logs, tickets, messages de bienvenue et notifications sociales, configurés depuis un dashboard web."
   },
@@ -43,22 +43,17 @@
     "details": "Détails"
   },
   "footer": {
-    "tagline": "Le bot Discord tout-en-un.",
-    "product": "Produit",
-    "resources": "Ressources",
-    "legal": "Légal",
-    "dashboard": "Dashboard",
-    "modules": "Modules",
-    "premium": "Moddy Max",
-    "status": "Statut",
-    "docs": "Documentation",
-    "support": "Serveur d’aide",
-    "github": "GitHub",
-    "contact": "Contact",
-    "terms": "Conditions d’utilisation",
-    "privacy": "Politique de confidentialité",
-    "license": "Licence",
-    "copyright": "© {year} Moddy. Tous droits réservés.",
-    "notAffiliated": "Moddy n’est pas affilié à Discord Inc."
+    "baseline": "Built to let you focus on your community.",
+    "author": "Moddy",
+    "appBadge": "APP",
+    "today": "Aujourd’hui à {time}",
+    "typing": "Moddy est en train d’écrire…",
+    "status": {
+      "operational": "Tous les systèmes sont opérationnels",
+      "degraded": "Certains services sont perturbés",
+      "maintenance": "Maintenance en cours"
+    },
+    "copyright": "© {year} Moddy",
+    "notAffiliated": "Non affilié à Discord Inc."
   }
 }

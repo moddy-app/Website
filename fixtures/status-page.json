@@ -1,0 +1,9 @@
+{
+  "data": { "attributes": { "aggregate_state": "operational" } },
+  "included": [
+    {
+      "type": "status_page_resource",
+      "attributes": { "public_name": "Moddy Bot ", "availability": 0.976751 }
+    }
+  ]
+}

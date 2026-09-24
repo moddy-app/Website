@@ -41,19 +41,23 @@ export type ShowcaseGuild = {
   member_count: number
 }
 
-/** `GET https://health.moddy.app/v1/status`. */
-export type HealthStatus = {
-  status: HealthLevel
-  updated_at: string
-  services: { id: string; name: string; status: HealthLevel }[]
+/**
+ * Service status from the Better Stack status page (status.moddy.app).
+ * health.moddy.app is only used for site banners (see StatusBanner).
+ */
+export type ServiceStatus = {
+  state: "operational" | "degraded" | "downtime" | "maintenance"
+  /** Moddy Bot availability over the status page window (0–1), if published. */
+  botAvailability: number | null
 }
 
-export type HealthLevel =
-  | "operational"
-  | "degraded_performance"
-  | "partial_outage"
-  | "major_outage"
-  | "maintenance"
+type BetterStackStatusPage = {
+  data: { attributes: { aggregate_state: ServiceStatus["state"] } }
+  included?: {
+    type: string
+    attributes: { public_name?: string; availability?: number }
+  }[]
+}
 
 async function fetchJson<T>(url: string): Promise<T | null> {
   try {
@@ -96,13 +100,25 @@ export async function getShowcaseGuilds(): Promise<ShowcaseGuild[]> {
   return Array.isArray(data?.guilds) ? data.guilds : []
 }
 
-export async function getHealthStatus(): Promise<HealthStatus | null> {
-  if (useMocks) return readFixture<HealthStatus>("health-status")
+export async function getServiceStatus(): Promise<ServiceStatus | null> {
+  const page = useMocks
+    ? await readFixture<BetterStackStatusPage>("status-page")
+    : await fetchJson<BetterStackStatusPage>(
+        `${siteConfig.links.status}/index.json`
+      )
+  const state = page?.data?.attributes?.aggregate_state
+  if (!state) return null
 
-  const status = await fetchJson<HealthStatus>(
-    `${siteConfig.healthUrl}/v1/status`
+  const bot = page.included?.find(
+    (item) =>
+      item.type === "status_page_resource" &&
+      item.attributes.public_name?.trim().toLowerCase() === "moddy bot"
   )
-  return status && typeof status.status === "string" ? status : null
+  const availability = bot?.attributes.availability
+  return {
+    state,
+    botAvailability: typeof availability === "number" ? availability : null,
+  }
 }
 
 /**

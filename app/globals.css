@@ -9,6 +9,7 @@
   --font-sans: var(--font-google-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-google-sans-code), ui-monospace, monospace;
   --color-brand: var(--brand);
+  --color-success: var(--success);
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
   --color-inverted: var(--inverted);
@@ -100,6 +101,7 @@
   /* Moddy brand colors (logo): #0046F8 in light mode, #BEC2FF in dark mode. */
   --brand: #0046f8;
   --brand-wordmark: #0046f8;
+  --success: oklch(0.627 0.17 149.2);
   /* Moddy: alternate section background and high-contrast tiles. */
   --surface: oklch(0.97 0.001 286);
   --surface-foreground: oklch(0.145 0 0);
@@ -141,6 +143,7 @@
   --sidebar-ring: oklch(0.556 0 0);
   --brand: #bec2ff;
   --brand-wordmark: #bec2ff;
+  --success: oklch(0.723 0.19 149.6);
   --surface: oklch(0.175 0 0);
   --surface-foreground: oklch(0.985 0 0);
   --inverted: oklch(0.985 0 0);
