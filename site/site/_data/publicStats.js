@@ -41,7 +41,7 @@ function initials(name) {
 function tileWidth(name) {
   let hash = 0;
   for (const char of String(name)) hash = (hash * 31 + char.codePointAt(0)) >>> 0;
-  return 190 + (hash % 7) * 20; // 190 to 310 px
+  return 150 + (hash % 7) * 15; // 150 to 240 px
 }
 
 module.exports = async function () {
