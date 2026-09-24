@@ -290,17 +290,6 @@ function playDemo(
   });
 }
 
-function playTickets() {
-  const root = document.querySelector<HTMLElement>('[data-demo="tickets"]');
-  if (!root) return;
-  playDemo(root, [
-    [0, 900], // the panel
-    [1, 900], // "Report a member" is picked
-    [2, 900], // the private channel opens
-    [3, 1400], // Moddy greets
-    [4, 3200], // a moderator claims it
-  ]);
-}
 
 /** Alternates a member who passes and a second account that is blocked. */
 function playAltGuard() {
@@ -562,7 +551,6 @@ if (!reduceMotion) {
   rotateFeed();
   countUpNumbers();
   playBrocoli();
-  playTickets();
   playReel();
   playGuard();
   playAltGuard();

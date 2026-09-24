@@ -1408,52 +1408,25 @@
 }
 
 /* ---------------------------------------------------------------------------
- * Tickets: an option is picked, the private channel opens (home-page.ts)
+ * Tickets: a still exchange in a ticket channel
  * ------------------------------------------------------------------------- */
 
-.ticket-demo {
-  gap: 10px;
-}
-
-.ticket-options {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 12px 14px;
-  border-radius: 16px;
-  background-color: var(--md-sys-color-surface-container-lowest);
-  font-size: 14px;
-}
-
-.ticket-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.ticket-chips .chip {
-  height: 32px;
-  font-size: 13px;
-}
-
-.ticket-chips .chip.picked {
-  border-color: transparent;
-  background-color: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
+.ticket-thread {
+  gap: 14px;
+  justify-content: flex-start;
 }
 
 .ticket-channel {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
-  border-radius: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
   font-size: 14px;
   font-weight: 600;
-  background-color: var(--md-sys-color-surface-container-high);
 }
 
-.ticket-channel .material-symbols-outlined {
+.ticket-channel > .material-symbols-outlined {
   font-size: 18px;
   color: var(--md-sys-color-on-surface-variant);
 }
@@ -1471,39 +1444,82 @@
   color: var(--md-sys-color-on-surface-variant);
 }
 
-.ticket-message {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-}
-
-.ticket-message .shape svg {
-  position: relative;
-  width: 16px;
-  height: 16px;
-}
-
-.ticket-message .bubble {
-  border-start-start-radius: 6px;
-  font-size: 13px;
-}
-
 .ticket-claim {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  align-self: flex-start;
-  padding: 6px 12px;
+  gap: 4px;
+  padding: 3px 10px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 600;
+  white-space: nowrap;
   background-color: var(--md-sys-color-tertiary-container);
   color: var(--md-sys-color-on-tertiary-container);
 }
 
 .ticket-claim .material-symbols-outlined {
-  font-size: 18px;
+  font-size: 14px;
   font-variation-settings: 'FILL' 1;
+}
+
+.ticket-msg {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.ticket-avatar {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 600;
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.ticket-avatar.bot {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+.ticket-avatar.bot svg {
+  width: 15px;
+  height: 15px;
+}
+
+.ticket-avatar.staff {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.ticket-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.ticket-author {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.ticket-tag {
+  padding: 0 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
 }
 
 /* ---------------------------------------------------------------------------
@@ -2210,7 +2226,6 @@
     opacity: 0;
   }
 
-  .ticket-chips .chip,
   .ag-state,
   .ag-verdict,
   .ag-check {

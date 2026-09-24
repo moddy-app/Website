@@ -189,7 +189,10 @@
         "channel": "ticket-alex",
         "new": "Nuevo",
         "welcome": "¡Hola Alex, gracias por escribirnos! Un moderador te atenderá enseguida.",
-        "claimed": "Atendido por Sam"
+        "claimed": "Atendido por Sam",
+        "user": "Alguien no para de mandarme enlaces fraudulentos por MD.",
+        "staff": "¡Gracias por avisar! ¿Puedes mandarme una captura? Me encargo yo.",
+        "staffTag": "Staff"
       }
     },
     "utilities": {

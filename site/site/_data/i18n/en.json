@@ -189,7 +189,10 @@
         "channel": "ticket-alex",
         "new": "New",
         "welcome": "Hi Alex, thanks for reaching out! A moderator will be with you shortly.",
-        "claimed": "Claimed by Sam"
+        "claimed": "Claimed by Sam",
+        "user": "Someone keeps sending me scam links in DMs.",
+        "staff": "Thanks for reporting it! Could you send a screenshot? I'll take care of it.",
+        "staffTag": "Staff"
       }
     },
     "utilities": {

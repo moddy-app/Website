@@ -189,7 +189,10 @@
         "channel": "ticket-alex",
         "new": "Neu",
         "welcome": "Hallo Alex, danke für deine Nachricht! Gleich kümmert sich ein Moderator um dich.",
-        "claimed": "Übernommen von Sam"
+        "claimed": "Übernommen von Sam",
+        "user": "Jemand schickt mir ständig Betrugslinks per DM.",
+        "staff": "Danke für die Meldung! Kannst du mir einen Screenshot schicken? Ich kümmere mich darum.",
+        "staffTag": "Team"
       }
     },
     "utilities": {

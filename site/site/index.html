@@ -323,27 +323,25 @@ permalink: "{{ locale.prefix }}/index.html"
         <h2>{{ 'home.tickets.title' | t(c) }}</h2>
         <p>{{ 'home.tickets.text' | t(c) }}</p>
         <div class="card-visual">
-          {#- Played by home-page.ts: an option is picked, the private
-              channel opens, Moddy greets, a moderator claims it. -#}
-          <div class="panel ticket-demo" data-demo="tickets" aria-hidden="true">
-            <div class="ticket-options">
-              <strong>{{ 'home.tickets.panel' | t(c) }}</strong>
-              <div class="ticket-chips">
-                <span class="chip picked" data-pick-at="1"><span class="material-symbols-outlined">flag</span>{{ 'home.tickets.report' | t(c) }}</span>
-                <span class="chip"><span class="material-symbols-outlined">handshake</span>{{ 'home.tickets.partnership' | t(c) }}</span>
-                <span class="chip"><span class="material-symbols-outlined">help</span>{{ 'home.tickets.other' | t(c) }}</span>
-              </div>
-            </div>
-            <div class="ticket-channel" data-at="2">
+          {#- A still exchange in a ticket. -#}
+          <div class="panel ticket-thread" aria-hidden="true">
+            <div class="ticket-channel">
               <span class="material-symbols-outlined">lock</span>
               <span class="ticket-channel-name">{{ 'home.tickets.demo.channel' | t(c) }}</span>
-              <span class="status strong">{{ 'home.tickets.demo.new' | t(c) }}</span>
+              <span class="ticket-claim"><span class="material-symbols-outlined">front_hand</span>{{ 'home.tickets.demo.claimed' | t(c) }}</span>
             </div>
-            <div class="ticket-message" data-at="3">
-              <span class="shape small shape-octagon tone-solid"><svg viewBox="27 55 191 191" fill="currentColor"><path d="M170.21 55.7626H122.754L75.2768 103.219H27.8203V150.675H122.754L170.21 103.219V55.7626Z" /><path d="M122.754 150.675L75.2771 198.152V245.609H122.754L170.211 198.152H217.667V150.675L122.754 150.675Z" /></svg></span>
-              <span class="bubble">{{ 'home.tickets.demo.welcome' | t(c) }}</span>
+            <div class="ticket-msg">
+              <span class="ticket-avatar bot"><svg viewBox="27 55 191 191" fill="currentColor"><path d="M170.21 55.7626H122.754L75.2768 103.219H27.8203V150.675H122.754L170.21 103.219V55.7626Z" /><path d="M122.754 150.675L75.2771 198.152V245.609H122.754L170.211 198.152H217.667V150.675L122.754 150.675Z" /></svg></span>
+              <span class="ticket-body"><span class="ticket-author">Moddy</span>{{ 'home.tickets.demo.welcome' | t(c) }}</span>
             </div>
-            <span class="ticket-claim" data-at="4"><span class="material-symbols-outlined">front_hand</span>{{ 'home.tickets.demo.claimed' | t(c) }}</span>
+            <div class="ticket-msg">
+              <span class="ticket-avatar">A</span>
+              <span class="ticket-body"><span class="ticket-author">alex</span>{{ 'home.tickets.demo.user' | t(c) }}</span>
+            </div>
+            <div class="ticket-msg">
+              <span class="ticket-avatar staff">S</span>
+              <span class="ticket-body"><span class="ticket-author">sam <span class="ticket-tag">{{ 'home.tickets.demo.staffTag' | t(c) }}</span></span>{{ 'home.tickets.demo.staff' | t(c) }}</span>
+            </div>
           </div>
         </div>
       </section>
