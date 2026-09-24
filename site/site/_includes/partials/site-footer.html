@@ -1,57 +1,68 @@
+{#- Site footer. The card runs off the bottom of the page: the big wordmark
+    at its foot is cut by the edge of the window. -#}
 <footer class="site-footer">
   <div class="site-footer-card">
-    <nav class="site-footer-columns" aria-label="{{ 'footer.navLabel' | t(loc.code) }}">
-      <div class="site-footer-column">
-        <h2>{{ 'footer.product' | t(loc.code) }}</h2>
-        <a href="/install" target="_blank">{{ 'footer.addToDiscord' | t(loc.code) }}</a>
-        <a href="https://dashboard.moddy.app" target="_blank">{{ 'footer.dashboard' | t(loc.code) }}</a>
-        <a href="{{ loc.prefix }}/navigation/subscriptions/">{{ 'footer.moddyMax' | t(loc.code) }}</a>
-        <a href="https://status.moddy.app" target="_blank">{{ 'footer.status' | t(loc.code) }}</a>
-      </div>
-      <div class="site-footer-column">
-        <h2>{{ 'footer.resources' | t(loc.code) }}</h2>
-        <a href="{{ '/introduction' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.documentation' | t(loc.code) }}</a>
-        <a href="{{ '/commands/overview' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.commands' | t(loc.code) }}</a>
-        <a href="{{ '/changelog' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.changelog' | t(loc.code) }}</a>
-        <a href="/support" target="_blank">{{ 'footer.supportServer' | t(loc.code) }}</a>
-      </div>
-      <div class="site-footer-column">
-        <h2>{{ 'footer.legal' | t(loc.code) }}</h2>
-        <a href="{{ '/legal/tos' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.terms' | t(loc.code) }}</a>
-        <a href="{{ '/legal/privacy' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.privacy' | t(loc.code) }}</a>
-        <a href="{{ '/legal/license' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.license' | t(loc.code) }}</a>
-      </div>
-    </nav>
-
-    <nav class="site-footer-languages" aria-label="{{ 'footer.language' | t(loc.code) }}">
-      <span class="material-symbols-outlined" aria-hidden="true">translate</span>
-      {% for l in locales %}
-        <a
-          href="{{ l.prefix }}{{ pagePath }}"
-          hreflang="{{ l.lang }}"
-          lang="{{ l.lang }}"
-          data-locale="{{ l.code }}"
-          {% if l.code == loc.code %}aria-current="page"{% endif %}
-        >{{ l.label }}</a>
-      {% endfor %}
-    </nav>
-
-    <div class="site-footer-bottom">
-      <a href="{{ loc.prefix }}/" class="site-footer-logo" aria-label="{{ 'footer.logoLabel' | t(loc.code) }}">
-        <svg viewBox="0 0 929 311" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <g clip-path="url(#clip0_50_38)">
+    <div class="site-footer-top">
+      <div class="site-footer-brand">
+        <a href="{{ loc.prefix }}/" class="site-footer-logo" aria-label="{{ 'footer.logoLabel' | t(loc.code) }}">
+          <svg viewBox="0 0 929 311" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <g clip-path="url(#clip-footer-logo)">
     <path d="M170.21 55.7626H122.754L75.2768 103.219H27.8203V150.675H122.754L170.21 103.219V55.7626Z" fill="currentColor"/>
     <path d="M122.754 150.675L75.2771 198.152V245.609H122.754L170.211 198.152H217.667V150.675L122.754 150.675Z" fill="currentColor"/>
     <path d="M276.853 224.457V79.7469H311.717L353.755 183.631L395.693 79.7469H429.85V224.457H402.868V131.184L402.969 126.636L363.861 224.457H342.841L304.441 127.647L304.542 132.093V224.457H276.853ZM498.562 226.478C483.404 226.478 470.806 221.392 460.768 211.219C450.797 200.979 445.811 188.448 445.811 173.627V168.776C445.811 154.022 450.797 141.559 460.768 131.386C470.806 121.146 483.404 116.026 498.562 116.026C513.653 116.026 526.217 121.146 536.255 131.386C546.361 141.559 551.414 154.022 551.414 168.776V173.627C551.414 188.448 546.361 200.979 536.255 211.219C526.217 221.392 513.653 226.478 498.562 226.478ZM498.562 202.023C506.04 202.023 512.474 199.396 517.863 194.141C523.32 188.819 526.049 182.183 526.049 174.233V168.372C526.049 160.355 523.32 153.719 517.863 148.464C512.474 143.142 506.04 140.481 498.562 140.481C491.017 140.481 484.549 143.142 479.159 148.464C473.837 153.719 471.176 160.321 471.176 168.271V174.233C471.176 182.183 473.837 188.819 479.159 194.141C484.549 199.396 491.017 202.023 498.562 202.023ZM606.594 226.478C593.255 226.478 582.038 221.594 572.943 211.825C563.848 202.057 559.301 189.492 559.301 174.132V168.776C559.301 153.348 563.915 140.717 573.145 130.881C582.375 120.977 593.828 116.026 607.504 116.026C614.51 116.026 621.045 117.44 627.108 120.27C633.239 123.099 637.955 127.041 641.256 132.093L640.245 131.285V79.7469H666.419V224.457H641.761V206.571L643.58 207.076L642.772 208.693C639.538 214.217 634.687 218.562 628.22 221.729C621.82 224.895 614.611 226.478 606.594 226.478ZM613.163 203.438C621.382 203.438 628.085 200.676 633.273 195.151C638.527 189.56 641.155 182.621 641.155 174.334V168.776C641.155 160.153 638.494 153.146 633.172 147.757C627.849 142.367 621.18 139.672 613.163 139.672C604.876 139.672 598.038 142.333 592.649 147.656C587.326 152.911 584.665 159.951 584.665 168.776V174.334C584.665 183.227 587.36 190.301 592.75 195.556C598.139 200.81 604.944 203.438 613.163 203.438ZM727.781 226.478C714.442 226.478 703.225 221.594 694.13 211.825C685.035 202.057 680.487 189.492 680.487 174.132V168.776C680.487 153.348 685.102 140.717 694.332 130.881C703.561 120.977 715.014 116.026 728.69 116.026C735.697 116.026 742.232 117.44 748.295 120.27C754.426 123.099 759.142 127.041 762.443 132.093L761.432 131.285V79.7469H787.605V224.457H762.948V206.571L764.767 207.076L763.958 208.693C760.725 214.217 755.874 218.562 749.407 221.729C743.006 224.895 735.798 226.478 727.781 226.478ZM734.349 203.438C742.569 203.438 749.272 200.676 754.459 195.151C759.714 189.56 762.342 182.621 762.342 174.334V168.776C762.342 160.153 759.68 153.146 754.358 147.757C749.036 142.367 742.366 139.672 734.349 139.672C726.063 139.672 719.225 142.333 713.835 147.656C708.513 152.911 705.852 159.951 705.852 168.776V174.334C705.852 183.227 708.547 190.301 713.936 195.556C719.326 200.81 726.13 203.438 734.349 203.438ZM817.54 262.858C817.54 262.858 817.439 262.858 817.236 262.858C817.034 262.858 817.135 262.858 817.54 262.858L836.942 218.293L836.336 227.388L795.712 118.047H822.794C822.862 118.047 822.862 118.047 822.794 118.047L847.149 186.966L848.664 192.221L850.18 187.067L874.433 118.047C874.366 118.047 874.332 118.047 874.332 118.047C874.4 118.047 874.433 118.047 874.433 118.047H901.415L845.229 262.858C845.363 262.858 845.397 262.858 845.33 262.858C845.262 262.858 845.229 262.858 845.229 262.858H817.54Z" fill="currentColor"/>
   </g>
   <defs>
-    <clipPath id="clip0_50_38">
+    <clipPath id="clip-footer-logo">
       <rect width="929" height="311" fill="white"/>
     </clipPath>
   </defs>
 </svg>
-        <span>Moddy</span>
-      </a>
+        </a>
+        <p class="site-footer-baseline">{{ brand.baseline }}</p>
+        <p class="site-footer-made">{{ 'footer.made' | t(loc.code) }}</p>
+        <div class="site-footer-actions">
+          <md-filled-button href="/install" target="_blank">{{ 'footer.addToDiscord' | t(loc.code) }}</md-filled-button>
+          <md-outlined-button href="/support" target="_blank">{{ 'footer.supportServer' | t(loc.code) }}</md-outlined-button>
+        </div>
+      </div>
+
+      <nav class="site-footer-columns" aria-label="{{ 'footer.navLabel' | t(loc.code) }}">
+        <div class="site-footer-column">
+          <h2>{{ 'footer.product' | t(loc.code) }}</h2>
+          <a href="/install" target="_blank">{{ 'footer.addToDiscord' | t(loc.code) }}</a>
+          <a href="https://dashboard.moddy.app" target="_blank">{{ 'footer.dashboard' | t(loc.code) }}</a>
+          <a href="{{ loc.prefix }}/premium/">{{ 'footer.moddyMax' | t(loc.code) }}</a>
+          <a href="https://status.moddy.app" target="_blank">{{ 'footer.status' | t(loc.code) }}</a>
+        </div>
+        <div class="site-footer-column">
+          <h2>{{ 'footer.resources' | t(loc.code) }}</h2>
+          <a href="{{ '/introduction' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.documentation' | t(loc.code) }}</a>
+          <a href="{{ '/commands/overview' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.commands' | t(loc.code) }}</a>
+          <a href="{{ '/changelog' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.changelog' | t(loc.code) }}</a>
+          <a href="/support" target="_blank">{{ 'footer.supportServer' | t(loc.code) }}</a>
+        </div>
+        <div class="site-footer-column">
+          <h2>{{ 'footer.legal' | t(loc.code) }}</h2>
+          <a href="{{ '/legal/tos' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.terms' | t(loc.code) }}</a>
+          <a href="{{ '/legal/privacy' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.privacy' | t(loc.code) }}</a>
+          <a href="{{ '/legal/license' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.license' | t(loc.code) }}</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="site-footer-bar">
+      <nav class="site-footer-languages" aria-label="{{ 'footer.language' | t(loc.code) }}">
+        <span class="material-symbols-outlined" aria-hidden="true">translate</span>
+        {% for l in locales %}
+          <a
+            href="{{ l.prefix }}{{ pagePath }}"
+            hreflang="{{ l.lang }}"
+            lang="{{ l.lang }}"
+            data-locale="{{ l.code }}"
+            {% if l.code == loc.code %}aria-current="page"{% endif %}
+          >{{ l.label }}</a>
+        {% endfor %}
+      </nav>
       <div class="site-footer-meta">
         <lit-island
           on:interaction="pointerenter,focusin,pointerdown"
@@ -74,13 +85,28 @@
             <theme-changer labels="{{ 'theme' | tObject(loc.code) | dump }}"></theme-changer>
           </md-menu>
         </lit-island>
-        <span>© {% year %} Moddy</span>
-        <a href="https://github.com/moddy-app" target="_blank" aria-label="{{ 'footer.github' | t(loc.code) }}" title="GitHub">
+        <a class="site-footer-icon-link" href="https://github.com/moddy-app" target="_blank" aria-label="{{ 'footer.github' | t(loc.code) }}" title="GitHub">
           <svg viewBox="0 0 98 96" aria-hidden="true">
             <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" />
           </svg>
         </a>
+        <span class="site-footer-copyright">© {% year %} Moddy</span>
       </div>
+    </div>
+
+    <div class="site-footer-wordmark-wrap" aria-hidden="true">
+      <svg class="site-footer-wordmark" viewBox="0 0 929 311" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <g clip-path="url(#clip-footer-wordmark)">
+    <path d="M170.21 55.7626H122.754L75.2768 103.219H27.8203V150.675H122.754L170.21 103.219V55.7626Z" fill="currentColor"/>
+    <path d="M122.754 150.675L75.2771 198.152V245.609H122.754L170.211 198.152H217.667V150.675L122.754 150.675Z" fill="currentColor"/>
+    <path d="M276.853 224.457V79.7469H311.717L353.755 183.631L395.693 79.7469H429.85V224.457H402.868V131.184L402.969 126.636L363.861 224.457H342.841L304.441 127.647L304.542 132.093V224.457H276.853ZM498.562 226.478C483.404 226.478 470.806 221.392 460.768 211.219C450.797 200.979 445.811 188.448 445.811 173.627V168.776C445.811 154.022 450.797 141.559 460.768 131.386C470.806 121.146 483.404 116.026 498.562 116.026C513.653 116.026 526.217 121.146 536.255 131.386C546.361 141.559 551.414 154.022 551.414 168.776V173.627C551.414 188.448 546.361 200.979 536.255 211.219C526.217 221.392 513.653 226.478 498.562 226.478ZM498.562 202.023C506.04 202.023 512.474 199.396 517.863 194.141C523.32 188.819 526.049 182.183 526.049 174.233V168.372C526.049 160.355 523.32 153.719 517.863 148.464C512.474 143.142 506.04 140.481 498.562 140.481C491.017 140.481 484.549 143.142 479.159 148.464C473.837 153.719 471.176 160.321 471.176 168.271V174.233C471.176 182.183 473.837 188.819 479.159 194.141C484.549 199.396 491.017 202.023 498.562 202.023ZM606.594 226.478C593.255 226.478 582.038 221.594 572.943 211.825C563.848 202.057 559.301 189.492 559.301 174.132V168.776C559.301 153.348 563.915 140.717 573.145 130.881C582.375 120.977 593.828 116.026 607.504 116.026C614.51 116.026 621.045 117.44 627.108 120.27C633.239 123.099 637.955 127.041 641.256 132.093L640.245 131.285V79.7469H666.419V224.457H641.761V206.571L643.58 207.076L642.772 208.693C639.538 214.217 634.687 218.562 628.22 221.729C621.82 224.895 614.611 226.478 606.594 226.478ZM613.163 203.438C621.382 203.438 628.085 200.676 633.273 195.151C638.527 189.56 641.155 182.621 641.155 174.334V168.776C641.155 160.153 638.494 153.146 633.172 147.757C627.849 142.367 621.18 139.672 613.163 139.672C604.876 139.672 598.038 142.333 592.649 147.656C587.326 152.911 584.665 159.951 584.665 168.776V174.334C584.665 183.227 587.36 190.301 592.75 195.556C598.139 200.81 604.944 203.438 613.163 203.438ZM727.781 226.478C714.442 226.478 703.225 221.594 694.13 211.825C685.035 202.057 680.487 189.492 680.487 174.132V168.776C680.487 153.348 685.102 140.717 694.332 130.881C703.561 120.977 715.014 116.026 728.69 116.026C735.697 116.026 742.232 117.44 748.295 120.27C754.426 123.099 759.142 127.041 762.443 132.093L761.432 131.285V79.7469H787.605V224.457H762.948V206.571L764.767 207.076L763.958 208.693C760.725 214.217 755.874 218.562 749.407 221.729C743.006 224.895 735.798 226.478 727.781 226.478ZM734.349 203.438C742.569 203.438 749.272 200.676 754.459 195.151C759.714 189.56 762.342 182.621 762.342 174.334V168.776C762.342 160.153 759.68 153.146 754.358 147.757C749.036 142.367 742.366 139.672 734.349 139.672C726.063 139.672 719.225 142.333 713.835 147.656C708.513 152.911 705.852 159.951 705.852 168.776V174.334C705.852 183.227 708.547 190.301 713.936 195.556C719.326 200.81 726.13 203.438 734.349 203.438ZM817.54 262.858C817.54 262.858 817.439 262.858 817.236 262.858C817.034 262.858 817.135 262.858 817.54 262.858L836.942 218.293L836.336 227.388L795.712 118.047H822.794C822.862 118.047 822.862 118.047 822.794 118.047L847.149 186.966L848.664 192.221L850.18 187.067L874.433 118.047C874.366 118.047 874.332 118.047 874.332 118.047C874.4 118.047 874.433 118.047 874.433 118.047H901.415L845.229 262.858C845.363 262.858 845.397 262.858 845.33 262.858C845.262 262.858 845.229 262.858 845.229 262.858H817.54Z" fill="currentColor"/>
+  </g>
+  <defs>
+    <clipPath id="clip-footer-wordmark">
+      <rect width="929" height="311" fill="white"/>
+    </clipPath>
+  </defs>
+</svg>
     </div>
   </div>
 </footer>
@@ -98,86 +124,40 @@
 </script>
 
 <style>
-  /* The footer card runs off the bottom of the page: no bottom padding, no
-     bottom corners. */
   .site-footer {
+    --footer-ease: cubic-bezier(0.2, 0, 0, 1);
     box-sizing: border-box;
     width: 100%;
-    padding: 48px var(--catalog-spacing-xl) 0;
+    padding: 56px var(--catalog-spacing-xl) 0;
   }
 
   .site-footer-card {
-    max-width: 1200px;
+    position: relative;
+    max-width: 1240px;
     margin: 0 auto;
     box-sizing: border-box;
-    padding: 32px 32px 40px;
+    padding: 48px 48px 0;
     border-radius: 32px 32px 0 0;
     background-color: var(--md-sys-color-surface-container-lowest);
     color: var(--md-sys-color-on-surface);
+    overflow: hidden;
   }
 
-  .site-footer-columns {
+  .site-footer-top {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px;
-    padding-bottom: 32px;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 48px;
+    padding-bottom: 40px;
   }
 
-  .site-footer-column {
+  .site-footer-brand {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
-  }
-
-  .site-footer-column h2 {
-    margin: 0 0 8px;
-    font-size: var(--catalog-body-m-font-size);
-    font-weight: 600;
-    color: var(--md-sys-color-on-surface-variant);
-  }
-
-  .site-footer-column a {
-    font-size: var(--catalog-body-l-font-size);
-    color: var(--md-sys-color-on-surface);
-  }
-
-  .site-footer-languages {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 6px 16px;
-    padding-bottom: 24px;
-    font-size: var(--catalog-body-m-font-size);
-  }
-
-  .site-footer-languages .material-symbols-outlined {
-    font-size: 20px;
-    color: var(--md-sys-color-on-surface-variant);
-  }
-
-  .site-footer-languages a {
-    color: var(--md-sys-color-on-surface-variant);
-  }
-
-  .site-footer-languages a[aria-current] {
-    color: var(--md-sys-color-primary);
-    font-weight: 600;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .site-footer-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding-top: 24px;
-    border-top: 1px solid var(--md-sys-color-outline-variant);
   }
 
   .site-footer-logo {
     display: inline-flex;
-    align-items: center;
     color: var(--md-sys-color-primary);
   }
 
@@ -185,30 +165,133 @@
     text-decoration: none;
   }
 
-  /* The logo already reads "Moddy"; the span is for screen readers only. */
-  .site-footer-logo span {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
+  .site-footer-logo svg {
+    height: 36px;
+    width: auto;
   }
 
-  .site-footer-logo svg {
-    height: 32px;
-    width: auto;
+  .site-footer-baseline {
+    margin: 20px 0 6px;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.25;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .site-footer-made {
+    margin: 0;
+    font-size: var(--catalog-body-m-font-size);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  .site-footer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .site-footer-columns {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .site-footer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .site-footer-column h2 {
+    margin: 0 0 6px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  .site-footer-column a {
+    position: relative;
+    font-size: var(--catalog-body-l-font-size);
+    color: var(--md-sys-color-on-surface);
+    text-decoration: none;
+  }
+
+  /* A line that draws itself under the link. */
+  .site-footer-column a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: var(--md-sys-color-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .site-footer-column a:hover,
+  .site-footer-column a:focus-visible {
+    color: var(--md-sys-color-primary);
+    text-decoration: none;
+  }
+
+  .site-footer-column a:hover::after,
+  .site-footer-column a:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  .site-footer-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 0;
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+  }
+
+  .site-footer-languages {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .site-footer-languages .material-symbols-outlined {
+    margin-right: 6px;
+    font-size: 20px;
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  .site-footer-languages a {
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: var(--catalog-body-m-font-size);
+    color: var(--md-sys-color-on-surface-variant);
+    text-decoration: none;
+  }
+
+  .site-footer-languages a:hover {
+    background-color: var(--md-sys-color-surface-container);
+    color: var(--md-sys-color-on-surface);
+    text-decoration: none;
+  }
+
+  .site-footer-languages a[aria-current] {
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+    font-weight: 600;
   }
 
   .site-footer-meta {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 4px;
     font-size: var(--catalog-body-m-font-size);
-    color: var(--md-sys-color-on-surface-variant);
-  }
-
-  .site-footer-meta a {
-    display: inline-flex;
     color: var(--md-sys-color-on-surface-variant);
   }
 
@@ -229,9 +312,78 @@
     --md-menu-container-shape: var(--catalog-shape-xl);
   }
 
-  .site-footer-meta svg {
-    width: 22px;
-    height: 22px;
+  .site-footer-icon-link {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  .site-footer-icon-link:hover {
+    background-color: var(--md-sys-color-surface-container);
+    color: var(--md-sys-color-on-surface);
+  }
+
+  .site-footer-icon-link svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .site-footer-copyright {
+    margin-left: 8px;
+  }
+
+  /* The big wordmark, cut by the bottom of the page. */
+  .site-footer-wordmark-wrap {
+    margin: 8px -8px 0;
+    height: clamp(80px, 17vw, 230px);
+    overflow: hidden;
+  }
+
+  .site-footer-wordmark {
+    display: block;
+    width: 100%;
+    height: auto;
+    color: var(--md-sys-color-surface-container-high);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .site-footer-column a,
+    .site-footer-languages a,
+    .site-footer-icon-link {
+      transition:
+        color 200ms var(--footer-ease),
+        background-color 200ms var(--footer-ease);
+    }
+
+    .site-footer-column a::after {
+      transition: transform 350ms var(--footer-ease);
+    }
+
+    .site-footer-logo svg,
+    .site-footer-wordmark {
+      transition:
+        transform 600ms var(--footer-ease),
+        color 400ms var(--footer-ease);
+    }
+
+    .site-footer-logo:hover svg {
+      transform: rotate(-4deg) scale(1.04);
+    }
+
+    .site-footer-card:hover .site-footer-wordmark {
+      color: var(--md-sys-color-primary-container);
+      transform: translateY(-6%);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .site-footer-top {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 36px;
+    }
   }
 
   @media (max-width: 600px) {
@@ -240,12 +392,17 @@
     }
 
     .site-footer-card {
-      padding: 24px 20px 32px;
+      padding: 28px 20px 0;
       border-radius: 24px 24px 0 0;
     }
 
     .site-footer-columns {
-      grid-template-columns: minmax(0, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .site-footer-bar {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 </style>

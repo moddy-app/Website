@@ -33,36 +33,17 @@
     "logoLabel": "Início do Moddy",
     "github": "Moddy no GitHub",
     "language": "Idioma",
-    "theme": "Mudar as cores"
+    "theme": "Mudar as cores",
+    "made": "Feito para as comunidades do Discord"
   },
   "notFound": {
     "title": "Página não encontrada",
     "description": "A página que você procura não existe.",
     "home": "Voltar ao início"
   },
-  "subscriptions": {
-    "pageTitle": "Assinatura",
-    "title": "Escolha seu plano",
-    "subtitle": "Desbloqueie recursos premium e leve seu servidor do Discord a outro nível",
-    "monthly": "Mensal",
-    "yearly": "Anual",
-    "save": "Economize 58%",
-    "perYear": "por ano",
-    "perMonth": "por mês",
-    "features": {
-      "servers": "Aproveite os recursos premium em até 5 servidores",
-      "options": "Acesse as opções premium direto no app do Moddy",
-      "ai": "Tenha limites de uso maiores nas ferramentas de IA",
-      "earlyAccess": "Ganhe acesso antecipado a alguns recursos novos",
-      "badge": "Receba um emblema premium no Discord",
-      "role": "Ganhe um cargo premium no servidor do Discord"
-    },
-    "subscribe": "Assinar agora"
-  },
   "home": {
     "pageTitle": "Início",
     "hero": {
-      "title": "Feito para você focar na sua comunidade",
       "text": "Moderação com IA, notificações sociais, mensagens de boas-vindas e utilidades do dia a dia para o seu servidor do Discord, tudo em um só bot.",
       "add": "Adicionar ao Discord",
       "dashboard": "Abrir o painel",
@@ -93,7 +74,8 @@
           "sub": "Lembrete de bump · #bump",
           "time": "há 12 min"
         }
-      }
+      },
+      "activity": "Atividade ao vivo"
     },
     "stats": {
       "title": "Comunidades já confiam no Moddy",
@@ -106,15 +88,21 @@
       "members": "{count} membros"
     },
     "ai": {
-      "title": "É só dizer o que você quer",
-      "text": "Descreva a configuração que você imagina e o assistente de IA do Moddy configura o servidor para você: módulos, canais, cargos, mensagens. Mudanças sensíveis aguardam sua confirmação.",
-      "cta": "Testar no painel",
-      "label": "Exemplo de conversa com o assistente de IA do Moddy",
+      "title": "É só pedir ao Brocoli",
+      "text": "O Brocoli é o assistente de IA do Moddy. Descreva a configuração que você imagina e ele configura o servidor para você: módulos, canais, cargos, mensagens. Mudanças sensíveis aguardam sua confirmação.",
+      "cta": "Testar o Brocoli no painel",
+      "label": "Exemplo de conversa com o Brocoli, o assistente de IA do Moddy",
       "you": "Você",
-      "assistant": "Moddy IA",
+      "assistant": "Brocoli",
+      "placeholder": "Pergunte ao Brocoli…",
       "prompt": "Dê boas-vindas aos novos membros em #boas-vindas e dê a eles o cargo Membro",
-      "thinking": "Lendo a configuração atual…",
-      "answer": "Pronto! As mensagens de boas-vindas estão ativas em #boas-vindas e os novos membros recebem o cargo Membro.",
+      "read": "Lendo a configuração atual",
+      "stepWelcome": "Mensagens de boas-vindas em #boas-vindas",
+      "stepRole": "Cargo Membro para quem chega",
+      "confirm": "Aplicar estas 2 mudanças?",
+      "apply": "Aplicar",
+      "cancel": "Cancelar",
+      "answer": "Pronto! Os novos membros são recebidos em #boas-vindas e ganham o cargo Membro.",
       "applied": "2 módulos configurados"
     },
     "automod": {
@@ -197,7 +185,13 @@
         "banner",
         "emoji",
         "ping"
-      ]
+      ],
+      "demo": {
+        "option": "texto",
+        "input": "Hello everyone, welcome!",
+        "output": "Olá a todos, sejam bem-vindos!",
+        "languages": "Inglês → Português"
+      }
     },
     "altguard": {
       "title": "Contas alternativas ficam de fora",
@@ -213,7 +207,15 @@
       "title": "Configure pelo navegador",
       "text": "Ative módulos, revise casos e personalize o bot pelo painel web, sem comando para decorar.",
       "cta": "Abrir o painel",
-      "asset": "Captura do painel"
+      "mock": {
+        "server": "Minha comunidade",
+        "overview": "Visão geral",
+        "modules": "Módulos",
+        "cases": "Casos",
+        "settings": "Configurações",
+        "saved": "Alterações salvas",
+        "search": "Buscar módulos"
+      }
     },
     "max": {
       "title": "Vá além com o Moddy Max",
@@ -253,5 +255,113 @@
     "dark": "Escuro",
     "auto": "Automático",
     "light": "Claro"
+  },
+  "max": {
+    "pageTitle": "Moddy Max",
+    "badge": "Premium",
+    "title": "Moddy Max",
+    "text": "Um upgrade focado nos servidores que mais importam: sua própria identidade de bot e notificações sociais mais rápidas e maiores. Moderação, AutoMod IA e todo o resto continuam gratuitos para todos.",
+    "compare": "Comparar planos",
+    "billing": "Cobrança",
+    "monthly": "Mensal",
+    "yearly": "Anual",
+    "save": "Economize 58%",
+    "perMonth": "por mês",
+    "perYear": "por ano",
+    "subscribe": "Assinar",
+    "note": "Use em até 5 servidores e troque-os quando quiser pelo painel.",
+    "servers": {
+      "title": "5 servidores premium",
+      "text": "Escolha pelo painel os servidores que recebem o Moddy Max. Mude a seleção quando quiser.",
+      "slot": "Servidor premium",
+      "free": "Vaga livre"
+    },
+    "custom": {
+      "title": "Sua própria identidade de bot",
+      "text": "Dê ao Moddy um apelido, avatar, banner e bio com a cara da sua comunidade. Os estilos de nome continuam gratuitos para todos.",
+      "botName": "Moddy",
+      "customName": "Guardião",
+      "bio": "Cuidando da nossa comunidade desde 2026",
+      "tag": "APP"
+    },
+    "notif": {
+      "title": "Notificações sociais mais rápidas",
+      "text": "Siga 5 contas por plataforma em vez de 1, com verificações muito mais frequentes de vídeos, lives e artigos novos.",
+      "free": "Grátis",
+      "max": "Max",
+      "realtime": "Tempo real",
+      "every": "a cada {time}",
+      "accounts": "Contas por plataforma"
+    },
+    "table": {
+      "title": "Comparar planos",
+      "feature": "Recurso",
+      "free": "Grátis",
+      "max": "Moddy Max",
+      "rows": {
+        "servers": "Servidores com recursos premium",
+        "identity": "Apelido, avatar, banner e bio do bot",
+        "style": "Estilo do nome do bot (fonte, efeito, cores)",
+        "accounts": "Notificações sociais: contas por plataforma",
+        "youtube": "Verificações do YouTube",
+        "twitch": "Verificações da Twitch",
+        "rss": "Verificações de RSS",
+        "bluesky": "Bluesky",
+        "automod": "AutoMod IA",
+        "cases": "Casos de moderação",
+        "welcome": "Mensagens de boas-vindas (até 5 canais)",
+        "others": "AltGuard, Interservidor e todos os comandos utilitários"
+      },
+      "same": "Igual em todos os planos",
+      "upTo5": "Até 5",
+      "min5": "5 min",
+      "min1": "1 min",
+      "min2": "2 min",
+      "s30": "30 s",
+      "min10": "10 min",
+      "realtime": "Tempo real"
+    },
+    "freeCard": {
+      "title": "Moderação nunca é paga",
+      "text": "Tudo o que protege sua comunidade funciona igual em todos os servidores, grátis ou premium.",
+      "automod": "AutoMod IA",
+      "cases": "Casos de moderação",
+      "welcome": "Mensagens de boas-vindas",
+      "altguard": "AltGuard",
+      "interserver": "Interservidor",
+      "utilities": "Comandos utilitários",
+      "logs": "Registros do servidor",
+      "tickets": "Tickets"
+    },
+    "steps": {
+      "title": "Pronto em um minuto",
+      "one": "Assine o Moddy Max",
+      "two": "Abra o painel",
+      "three": "Vá em Servidores premium",
+      "four": "Escolha até 5 servidores"
+    },
+    "final": {
+      "title": "Pronto para o Moddy Max?",
+      "text": "Escolha a cobrança mensal ou anual e ative agora mesmo nos seus servidores."
+    },
+    "status": {
+      "signin": "Você vai entrar com o Discord antes de pagar. O pagamento é feito pela Stripe.",
+      "loading": "Abrindo o pagamento seguro…",
+      "successTitle": "Boas-vindas ao Moddy Max!",
+      "successText": "Seu pagamento foi aprovado. Agora escolha os servidores que recebem o Moddy Max.",
+      "pendingText": "Sua assinatura está sendo ativada, isso leva alguns segundos.",
+      "chooseServers": "Escolher meus servidores",
+      "cancelTitle": "Pagamento cancelado",
+      "cancelText": "Você saiu da página de pagamento e nada foi cobrado. Assine quando quiser.",
+      "blockedTitle": "Assinatura indisponível",
+      "blockedText": "Esta conta do Discord não pode assinar agora. Se achar que é um erro, fale com a gente no servidor de suporte.",
+      "errorTitle": "Algo deu errado",
+      "errorText": "Não conseguimos abrir a página de pagamento. Tente de novo daqui a pouco.",
+      "activeTitle": "Você tem o Moddy Max",
+      "activeText": "{servers} de {max} servidores premium em uso. Renova em {date}.",
+      "activeTextNoDate": "{servers} de {max} servidores premium em uso.",
+      "manage": "Gerenciar assinatura",
+      "dismiss": "Fechar"
+    }
   }
 }

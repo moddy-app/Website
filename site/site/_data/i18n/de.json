@@ -33,36 +33,17 @@
     "logoLabel": "Moddy-Startseite",
     "github": "Moddy auf GitHub",
     "language": "Sprache",
-    "theme": "Farben ändern"
+    "theme": "Farben ändern",
+    "made": "Gemacht für Discord-Communities"
   },
   "notFound": {
     "title": "Seite nicht gefunden",
     "description": "Die gesuchte Seite existiert nicht.",
     "home": "Zur Startseite"
   },
-  "subscriptions": {
-    "pageTitle": "Abonnement",
-    "title": "Wähle deinen Plan",
-    "subtitle": "Schalte Premium-Funktionen frei und bring deinen Discord-Server aufs nächste Level",
-    "monthly": "Monatlich",
-    "yearly": "Jährlich",
-    "save": "58 % sparen",
-    "perYear": "pro Jahr",
-    "perMonth": "pro Monat",
-    "features": {
-      "servers": "Premium-Funktionen auf bis zu 5 Servern",
-      "options": "Premium-Optionen direkt in der Moddy-App",
-      "ai": "Höhere Nutzungslimits für die KI-Tools",
-      "earlyAccess": "Frühzugang zu ausgewählten neuen Funktionen",
-      "badge": "Ein Premium-Abzeichen auf Discord",
-      "role": "Eine Premium-Rolle auf dem Discord-Server"
-    },
-    "subscribe": "Jetzt abonnieren"
-  },
   "home": {
     "pageTitle": "Startseite",
     "hero": {
-      "title": "Gebaut, damit du dich auf deine Community konzentrieren kannst",
       "text": "KI-gestützte Moderation, Social-Benachrichtigungen, Willkommensnachrichten und praktische Tools für deinen Discord-Server, alles in einem Bot.",
       "add": "Zu Discord hinzufügen",
       "dashboard": "Dashboard öffnen",
@@ -93,7 +74,8 @@
           "sub": "Bump-Erinnerung · #bump",
           "time": "vor 12 Min."
         }
-      }
+      },
+      "activity": "Live-Aktivität"
     },
     "stats": {
       "title": "Communities vertrauen Moddy schon",
@@ -106,15 +88,21 @@
       "members": "{count} Mitglieder"
     },
     "ai": {
-      "title": "Sag einfach, was du willst",
-      "text": "Beschreib das Setup, das du dir vorstellst, und der KI-Assistent von Moddy richtet deinen Server für dich ein: Module, Kanäle, Rollen, Nachrichten. Heikle Änderungen warten auf deine Bestätigung.",
-      "cta": "Im Dashboard ausprobieren",
-      "label": "Beispielgespräch mit dem KI-Assistenten von Moddy",
+      "title": "Frag einfach Brocoli",
+      "text": "Brocoli ist der KI-Assistent von Moddy. Beschreib das Setup, das du dir vorstellst, und er richtet deinen Server für dich ein: Module, Kanäle, Rollen, Nachrichten. Heikle Änderungen warten auf deine Bestätigung.",
+      "cta": "Brocoli im Dashboard ausprobieren",
+      "label": "Beispielgespräch mit Brocoli, dem KI-Assistenten von Moddy",
       "you": "Du",
-      "assistant": "Moddy KI",
+      "assistant": "Brocoli",
+      "placeholder": "Frag Brocoli…",
       "prompt": "Begrüße neue Mitglieder in #willkommen und gib ihnen die Rolle Mitglied",
-      "thinking": "Ich lese die aktuelle Konfiguration…",
-      "answer": "Erledigt! Willkommensnachrichten sind in #willkommen aktiv, und neue Mitglieder bekommen die Rolle Mitglied.",
+      "read": "Aktuelle Konfiguration wird gelesen",
+      "stepWelcome": "Willkommensnachrichten in #willkommen",
+      "stepRole": "Rolle Mitglied für Neue",
+      "confirm": "Diese 2 Änderungen anwenden?",
+      "apply": "Anwenden",
+      "cancel": "Abbrechen",
+      "answer": "Erledigt! Neue Mitglieder werden in #willkommen begrüßt und bekommen die Rolle Mitglied.",
       "applied": "2 Module eingerichtet"
     },
     "automod": {
@@ -197,7 +185,13 @@
         "banner",
         "emoji",
         "ping"
-      ]
+      ],
+      "demo": {
+        "option": "text",
+        "input": "Hello everyone, welcome!",
+        "output": "Hallo zusammen, willkommen!",
+        "languages": "Englisch → Deutsch"
+      }
     },
     "altguard": {
       "title": "Zweitaccounts bleiben draußen",
@@ -213,7 +207,15 @@
       "title": "Konfiguration im Browser",
       "text": "Aktiviere Module, prüfe Fälle und passe den Bot im Web-Dashboard an, ganz ohne Befehle, die du dir merken musst.",
       "cta": "Dashboard öffnen",
-      "asset": "Screenshot des Dashboards"
+      "mock": {
+        "server": "Meine Community",
+        "overview": "Übersicht",
+        "modules": "Module",
+        "cases": "Fälle",
+        "settings": "Einstellungen",
+        "saved": "Änderungen gespeichert",
+        "search": "Module suchen"
+      }
     },
     "max": {
       "title": "Mehr drin mit Moddy Max",
@@ -253,5 +255,113 @@
     "dark": "Dunkel",
     "auto": "Automatisch",
     "light": "Hell"
+  },
+  "max": {
+    "pageTitle": "Moddy Max",
+    "badge": "Premium",
+    "title": "Moddy Max",
+    "text": "Ein gezieltes Upgrade für die Server, die dir am wichtigsten sind: eine eigene Bot-Identität und schnellere, größere Social-Benachrichtigungen. Moderation, AutoMod KI und alles andere bleiben für alle kostenlos.",
+    "compare": "Pläne vergleichen",
+    "billing": "Abrechnung",
+    "monthly": "Monatlich",
+    "yearly": "Jährlich",
+    "save": "58 % sparen",
+    "perMonth": "pro Monat",
+    "perYear": "pro Jahr",
+    "subscribe": "Abonnieren",
+    "note": "Auf bis zu 5 Servern nutzbar, jederzeit im Dashboard wechselbar.",
+    "servers": {
+      "title": "5 Premium-Server",
+      "text": "Wähle im Dashboard die Server, die Moddy Max bekommen. Ändere die Auswahl, wann immer du willst.",
+      "slot": "Premium-Server",
+      "free": "Freier Platz"
+    },
+    "custom": {
+      "title": "Deine eigene Bot-Identität",
+      "text": "Gib Moddy Nickname, Avatar, Banner und Bio passend zu deiner Community. Namensstile bleiben für alle kostenlos.",
+      "botName": "Moddy",
+      "customName": "Wächter",
+      "bio": "Passt seit 2026 auf unsere Community auf",
+      "tag": "APP"
+    },
+    "notif": {
+      "title": "Schnellere Social-Benachrichtigungen",
+      "text": "Folge 5 Konten pro Plattform statt 1, mit viel häufigeren Abfragen nach neuen Videos, Streams und Artikeln.",
+      "free": "Kostenlos",
+      "max": "Max",
+      "realtime": "Echtzeit",
+      "every": "alle {time}",
+      "accounts": "Konten pro Plattform"
+    },
+    "table": {
+      "title": "Pläne vergleichen",
+      "feature": "Funktion",
+      "free": "Kostenlos",
+      "max": "Moddy Max",
+      "rows": {
+        "servers": "Server mit Premium-Funktionen",
+        "identity": "Nickname, Avatar, Banner und Bio des Bots",
+        "style": "Namensstil des Bots (Schrift, Effekt, Farben)",
+        "accounts": "Social-Benachrichtigungen: Konten pro Plattform",
+        "youtube": "YouTube-Abfragen",
+        "twitch": "Twitch-Abfragen",
+        "rss": "RSS-Abfragen",
+        "bluesky": "Bluesky",
+        "automod": "AutoMod KI",
+        "cases": "Moderationsfälle",
+        "welcome": "Willkommensnachrichten (bis zu 5 Kanäle)",
+        "others": "AltGuard, Inter-Server und alle Utility-Befehle"
+      },
+      "same": "Auf allen Plänen gleich",
+      "upTo5": "Bis zu 5",
+      "min5": "5 Min.",
+      "min1": "1 Min.",
+      "min2": "2 Min.",
+      "s30": "30 Sek.",
+      "min10": "10 Min.",
+      "realtime": "Echtzeit"
+    },
+    "freeCard": {
+      "title": "Moderation kostet nie extra",
+      "text": "Alles, was deine Community schützt, funktioniert auf jedem Server gleich, kostenlos oder Premium.",
+      "automod": "AutoMod KI",
+      "cases": "Moderationsfälle",
+      "welcome": "Willkommensnachrichten",
+      "altguard": "AltGuard",
+      "interserver": "Inter-Server",
+      "utilities": "Utility-Befehle",
+      "logs": "Server-Logs",
+      "tickets": "Tickets"
+    },
+    "steps": {
+      "title": "In einer Minute startklar",
+      "one": "Moddy Max abonnieren",
+      "two": "Dashboard öffnen",
+      "three": "Zu Premium-Server gehen",
+      "four": "Bis zu 5 Server auswählen"
+    },
+    "final": {
+      "title": "Bereit für Moddy Max?",
+      "text": "Wähle monatliche oder jährliche Abrechnung und aktiviere es sofort auf deinen Servern."
+    },
+    "status": {
+      "signin": "Vor dem Bezahlen meldest du dich mit Discord an. Die Zahlung läuft über Stripe.",
+      "loading": "Sichere Zahlung wird geöffnet…",
+      "successTitle": "Willkommen bei Moddy Max!",
+      "successText": "Deine Zahlung ist durch. Wähle jetzt die Server, die Moddy Max bekommen.",
+      "pendingText": "Dein Abo wird aktiviert, das dauert ein paar Sekunden.",
+      "chooseServers": "Meine Server auswählen",
+      "cancelTitle": "Zahlung abgebrochen",
+      "cancelText": "Du hast die Zahlungsseite verlassen, es wurde nichts abgebucht. Du kannst jederzeit abonnieren.",
+      "blockedTitle": "Abo nicht verfügbar",
+      "blockedText": "Dieses Discord-Konto kann gerade kein Abo abschließen. Wenn du das für einen Fehler hältst, melde dich auf dem Support-Server.",
+      "errorTitle": "Etwas ist schiefgelaufen",
+      "errorText": "Die Zahlungsseite konnte nicht geöffnet werden. Versuch es gleich noch einmal.",
+      "activeTitle": "Du hast Moddy Max",
+      "activeText": "{servers} von {max} Premium-Servern genutzt. Verlängerung am {date}.",
+      "activeTextNoDate": "{servers} von {max} Premium-Servern genutzt.",
+      "manage": "Abo verwalten",
+      "dismiss": "Schließen"
+    }
   }
 }

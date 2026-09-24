@@ -16,6 +16,8 @@
  *   labels handed to <top-app-bar> as JSON).
  * - `docsUrl(path, locale)`: a docs.moddy.app link in that language when the
  *   docs have one, English otherwise.
+ * - `formatNumber(value, locale, compact)`: a number in the locale's format.
+ * - `formatPrice(value, locale)`: a price in euros in the locale's format.
  * - `i18nClient(prefixes)`: `{locale: {flatKey: string}}` for the given key
  *   prefixes, for the few pages that cannot be rendered per locale (404).
  */
@@ -112,6 +114,24 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter('docsUrl', (docsPath, code = SOURCE_LOCALE) => {
     const locale = locales.find((l) => l.code === code);
     return DOCS_ORIGIN + (locale ? locale.docs : '') + docsPath;
+  });
+
+  // Numbers written the way the locale writes them (11 211, 11,211, 11.211);
+  // `compact` gives 1,1 k / 1.1K.
+  eleventyConfig.addFilter('formatNumber', (value, code = SOURCE_LOCALE, compact) => {
+    const locale = locales.find((l) => l.code === code);
+    return new Intl.NumberFormat(locale ? locale.lang : 'en', {
+      notation: compact ? 'compact' : 'standard',
+    }).format(value);
+  });
+
+  // A price in euros, written the way the locale writes it (9,99 €, €9.99).
+  eleventyConfig.addFilter('formatPrice', (value, code = SOURCE_LOCALE) => {
+    const locale = locales.find((l) => l.code === code);
+    return new Intl.NumberFormat(locale ? locale.lang : 'en', {
+      style: 'currency',
+      currency: 'EUR',
+    }).format(value);
   });
 
   eleventyConfig.addFilter('i18nClient', (prefixes) => {

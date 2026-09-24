@@ -1,0 +1,250 @@
+---
+name: Moddy Max
+titleKey: max.pageTitle
+layout: default.html
+hasToc: false
+basePath: /premium/
+pagination:
+  data: locales
+  size: 1
+  alias: locale
+permalink: "{{ locale.prefix }}/premium/index.html"
+---
+
+{#- Moddy Max: what it adds (from docs.moddy.app/premium/features) and the
+    purchase. Buying goes through api.moddy.app (Stripe Checkout), see
+    src/pages/premium-page.ts. Every string is in site/_data/i18n. -#}
+{% set c = locale.code %}
+{% set prices = { monthly: 1.99, yearly: 9.99 } %}
+
+{% inlinecss "home-page.css" %}
+{% inlinecss "premium-page.css" %}
+
+<lit-island on:visible import="/js/hydration-entrypoints/form-controls.js">
+  <div class="home premium"
+    data-return-url="https://moddy.app{{ locale.prefix }}/premium/"
+    data-servers-url="https://dashboard.moddy.app/select-premium-servers">
+    <div class="bento">
+
+      <!-- Status (shown by premium-page.ts: back from Stripe, blocked account,
+           error, or an active subscription) -->
+      <section class="card status-card span-12" id="premium-status" role="status" hidden>
+        <span class="shape shape-octagon tone-solid" aria-hidden="true"><span class="material-symbols-outlined" data-status-icon>workspace_premium</span></span>
+        <div class="status-text">
+          <h2 data-status-title></h2>
+          <p data-status-text></p>
+        </div>
+        <div class="status-actions">
+          <md-filled-button data-status-action hidden></md-filled-button>
+          <md-text-button data-status-dismiss>{{ 'max.status.dismiss' | t(c) }}</md-text-button>
+        </div>
+      </section>
+      <script type="application/json" id="premium-strings">
+        {{ 'max.status' | tObject(c) | dump | safe }}
+      </script>
+
+      <!-- Hero -->
+      <section class="card hero span-7">
+        <span class="max-badge"><span class="material-symbols-outlined" aria-hidden="true">workspace_premium</span>{{ 'max.badge' | t(c) }}</span>
+        <h1>{{ 'max.title' | t(c) }}</h1>
+        <p>{{ 'max.text' | t(c) }}</p>
+        <div class="card-actions">
+          <md-outlined-button trailing-icon href="#compare">
+            {{ 'max.compare' | t(c) }}
+            <md-icon slot="icon">arrow_downward</md-icon>
+          </md-outlined-button>
+        </div>
+      </section>
+
+      <!-- Pricing -->
+      <section class="card pricing span-5" id="pricing">
+        <div class="plan-toggle" role="radiogroup" aria-label="{{ 'max.billing' | t(c) }}">
+          <button type="button" role="radio" aria-checked="false" data-plan="monthly">{{ 'max.monthly' | t(c) }}</button>
+          <button type="button" role="radio" aria-checked="true" data-plan="yearly">{{ 'max.yearly' | t(c) }} <span class="plan-save">-58%</span></button>
+        </div>
+        <div class="price">
+          <span class="price-amount" data-price-monthly="{{ prices.monthly | formatPrice(c) }}" data-price-yearly="{{ prices.yearly | formatPrice(c) }}">{{ prices.yearly | formatPrice(c) }}</span>
+          <span class="price-period" data-period-monthly="{{ 'max.perMonth' | t(c) }}" data-period-yearly="{{ 'max.perYear' | t(c) }}">{{ 'max.perYear' | t(c) }}</span>
+        </div>
+        <span class="save-badge">{{ 'max.save' | t(c) }}</span>
+        <ul class="price-points">
+          <li><span class="material-symbols-outlined" aria-hidden="true">check</span>{{ 'max.servers.title' | t(c) }}</li>
+          <li><span class="material-symbols-outlined" aria-hidden="true">check</span>{{ 'max.custom.title' | t(c) }}</li>
+          <li><span class="material-symbols-outlined" aria-hidden="true">check</span>{{ 'max.notif.title' | t(c) }}</li>
+        </ul>
+        <div class="card-actions">
+          <md-filled-button class="subscribe" data-subscribe data-loading-label="{{ 'max.status.loading' | t(c) }}">
+            {{ 'max.subscribe' | t(c) }}
+            <md-icon slot="icon">arrow_forward</md-icon>
+          </md-filled-button>
+        </div>
+        <p class="pricing-note">{{ 'max.status.signin' | t(c) }}</p>
+      </section>
+
+      <!-- 5 premium servers -->
+      <section class="card span-4">
+        <span class="shape shape-square" aria-hidden="true"><span class="material-symbols-outlined">dns</span></span>
+        <h2>{{ 'max.servers.title' | t(c) }}</h2>
+        <p>{{ 'max.servers.text' | t(c) }}</p>
+        <div class="card-visual">
+          <div class="slots" aria-hidden="true">
+            {% for slot in ['GC', 'AR', 'PX', 'MS', 'LF'] %}
+              <div class="slot" style="--i: {{ loop.index0 }}">
+                <span class="slot-icon">{{ slot }}</span>
+                <span class="material-symbols-outlined slot-check">workspace_premium</span>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="slots-caption" aria-hidden="true"><span class="slot-dot"></span>{{ 'max.servers.slot' | t(c) }}</div>
+        </div>
+      </section>
+
+      <!-- Bot identity -->
+      <section class="card span-4">
+        <span class="shape shape-hexagon tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">palette</span></span>
+        <h2>{{ 'max.custom.title' | t(c) }}</h2>
+        <p>{{ 'max.custom.text' | t(c) }}</p>
+        <div class="card-visual">
+          <div class="profile" aria-hidden="true">
+            <div class="profile-banner"></div>
+            <div class="profile-avatar">
+              <span class="avatar-default">
+                <svg viewBox="27 55 191 191" fill="currentColor"><path d="M170.21 55.7626H122.754L75.2768 103.219H27.8203V150.675H122.754L170.21 103.219V55.7626Z" /><path d="M122.754 150.675L75.2771 198.152V245.609H122.754L170.211 198.152H217.667V150.675L122.754 150.675Z" /></svg>
+              </span>
+              <span class="avatar-custom material-symbols-outlined">shield_person</span>
+            </div>
+            <div class="profile-body">
+              <div class="profile-name">
+                <span class="name-default">{{ 'max.custom.botName' | t(c) }}</span>
+                <span class="name-custom">{{ 'max.custom.customName' | t(c) }}</span>
+                <span class="profile-tag">{{ 'max.custom.tag' | t(c) }}</span>
+              </div>
+              <div class="profile-bio">{{ 'max.custom.bio' | t(c) }}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Faster notifications -->
+      <section class="card span-4">
+        <span class="shape shape-octagon tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">bolt</span></span>
+        <h2>{{ 'max.notif.title' | t(c) }}</h2>
+        <p>{{ 'max.notif.text' | t(c) }}</p>
+        <div class="card-visual">
+          {#- Each dot pings at the real polling rate, sped up 60x: one second
+              on screen is one minute of polling. -#}
+          <div class="speeds" aria-hidden="true">
+            <div class="speed-head"><span></span><span>{{ 'max.notif.free' | t(c) }}</span><span>{{ 'max.notif.max' | t(c) }}</span></div>
+            {% for p in [['YouTube', 'min5', 5, 'min1', 1], ['Twitch', 'min2', 2, 's30', 0.5], ['RSS', 'min10', 10, 'min2', 2]] %}
+              <div class="speed-row">
+                <span class="speed-name">{{ p[0] }}</span>
+                <span class="speed free"><span class="ping" style="--every: {{ p[2] }}s"></span>{{ 'max.notif.every' | t(c, { time: ('max.table.' + p[1]) | t(c) }) }}</span>
+                <span class="speed max"><span class="ping" style="--every: {{ p[4] }}s"></span>{{ 'max.notif.every' | t(c, { time: ('max.table.' + p[3]) | t(c) }) }}</span>
+              </div>
+            {% endfor %}
+            <div class="speed-row accounts">
+              <span class="speed-name">{{ 'max.notif.accounts' | t(c) }}</span>
+              <span class="speed free"><span class="dots"><i></i></span>1</span>
+              <span class="speed max"><span class="dots"><i></i><i></i><i></i><i></i><i></i></span>5</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comparison -->
+      <section class="card span-12" id="compare">
+        <span class="shape shape-pentagon" aria-hidden="true"><span class="material-symbols-outlined">compare_arrows</span></span>
+        <h2>{{ 'max.table.title' | t(c) }}</h2>
+        <div class="table-wrap">
+          <table class="compare">
+            <thead>
+              <tr>
+                <th scope="col">{{ 'max.table.feature' | t(c) }}</th>
+                <th scope="col">{{ 'max.table.free' | t(c) }}</th>
+                <th scope="col" class="col-max">{{ 'max.table.max' | t(c) }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {#- [row, free, max]; true / false become a check / a cross, a
+                  string is a key under max.table. From docs.moddy.app. -#}
+              {% for row in [
+                ['servers', '0', 'upTo5'],
+                ['identity', false, true],
+                ['style', true, true],
+                ['accounts', '1', '5'],
+                ['youtube', 'min5', 'min1'],
+                ['twitch', 'min2', 's30'],
+                ['rss', 'min10', 'min2'],
+                ['bluesky', 'realtime', 'realtime'],
+                ['automod', true, true],
+                ['cases', true, true],
+                ['welcome', true, true],
+                ['others', true, true]
+              ] %}
+                <tr>
+                  <th scope="row">{{ ('max.table.rows.' + row[0]) | t(c) }}</th>
+                  {% for value in [row[1], row[2]] %}
+                    <td{% if loop.index == 2 %} class="col-max"{% endif %}>
+                      {% if value === true %}
+                        <span class="material-symbols-outlined yes" aria-label="✓">check_circle</span>
+                      {% elif value === false %}
+                        <span class="material-symbols-outlined no" aria-label="✗">remove</span>
+                      {% elif value in ['0', '1', '5'] %}
+                        {{ value }}
+                      {% else %}
+                        {{ ('max.table.' + value) | t(c) }}
+                      {% endif %}
+                    </td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Free for everyone -->
+      <section class="card span-7">
+        <span class="shape shape-heptagon tone-tertiary" aria-hidden="true"><span class="material-symbols-outlined">shield</span></span>
+        <h2>{{ 'max.freeCard.title' | t(c) }}</h2>
+        <p>{{ 'max.freeCard.text' | t(c) }}</p>
+        <div class="card-visual">
+          <div class="free-chips">
+            {% for f in [['automod', 'smart_toy'], ['cases', 'gavel'], ['welcome', 'waving_hand'], ['altguard', 'verified_user'], ['interserver', 'hub'], ['utilities', 'construction'], ['logs', 'receipt_long'], ['tickets', 'confirmation_number']] %}
+              <span class="chip"><span class="material-symbols-outlined">{{ f[1] }}</span>{{ ('max.freeCard.' + f[0]) | t(c) }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <!-- Steps -->
+      <section class="card span-5">
+        <span class="shape shape-square tone-secondary" aria-hidden="true"><span class="material-symbols-outlined">route</span></span>
+        <h2>{{ 'max.steps.title' | t(c) }}</h2>
+        <ol class="steps">
+          {% for step in ['one', 'two', 'three', 'four'] %}
+            <li><span class="step-number">{{ loop.index }}</span>{{ ('max.steps.' + step) | t(c) }}</li>
+          {% endfor %}
+        </ol>
+      </section>
+
+      <!-- Final call to action -->
+      <section class="card cta">
+        <span class="shape shape-octagon tone-solid" aria-hidden="true"><span class="material-symbols-outlined">workspace_premium</span></span>
+        <h2>{{ 'max.final.title' | t(c) }}</h2>
+        <p>{{ 'max.final.text' | t(c) }}</p>
+        <div class="card-actions">
+          <md-filled-button data-subscribe data-plan-fixed="yearly" data-loading-label="{{ 'max.status.loading' | t(c) }}">
+            {{ 'max.yearly' | t(c) }} · {{ prices.yearly | formatPrice(c) }}
+          </md-filled-button>
+          <md-outlined-button data-subscribe data-plan-fixed="monthly" data-loading-label="{{ 'max.status.loading' | t(c) }}">
+            {{ 'max.monthly' | t(c) }} · {{ prices.monthly | formatPrice(c) }}
+          </md-outlined-button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</lit-island>
+
+<script type="module" src="/js/pages/premium-page.js"></script>

@@ -33,36 +33,17 @@
     "logoLabel": "Moddy home",
     "github": "Moddy on GitHub",
     "language": "Language",
-    "theme": "Change colors"
+    "theme": "Change colors",
+    "made": "Made for Discord communities"
   },
   "notFound": {
     "title": "Page not found",
     "description": "The page you're looking for doesn't exist.",
     "home": "Go home"
   },
-  "subscriptions": {
-    "pageTitle": "Subscription",
-    "title": "Choose Your Plan",
-    "subtitle": "Unlock premium features and take your Discord server to the next level",
-    "monthly": "Monthly",
-    "yearly": "Yearly",
-    "save": "Save 58%",
-    "perYear": "per year",
-    "perMonth": "per month",
-    "features": {
-      "servers": "Enjoy premium features on up to 5 servers",
-      "options": "Access premium options directly in the Moddy app",
-      "ai": "Benefit from higher usage limits for AI tools",
-      "earlyAccess": "Get early access to selected new features",
-      "badge": "Receive a premium badge on Discord",
-      "role": "Obtain a premium role on the Discord server"
-    },
-    "subscribe": "Subscribe Now"
-  },
   "home": {
     "pageTitle": "Home",
     "hero": {
-      "title": "Built to let you focus on your community",
       "text": "AI-powered moderation, social notifications, welcome messages and everyday utilities for your Discord server, all in one bot.",
       "add": "Add to Discord",
       "dashboard": "Open dashboard",
@@ -93,7 +74,8 @@
           "sub": "Bump reminder · #bump",
           "time": "12 min ago"
         }
-      }
+      },
+      "activity": "Live activity"
     },
     "stats": {
       "title": "Communities already trust Moddy",
@@ -106,15 +88,21 @@
       "members": "{count} members"
     },
     "ai": {
-      "title": "Just say what you want",
-      "text": "Describe the setup you have in mind and Moddy's AI assistant configures your server for you: modules, channels, roles, messages. Sensitive changes wait for your confirmation.",
-      "cta": "Try it in the dashboard",
-      "label": "Example conversation with Moddy's AI assistant",
+      "title": "Just ask Brocoli",
+      "text": "Brocoli is Moddy's AI assistant. Describe the setup you have in mind and it configures your server for you: modules, channels, roles, messages. Sensitive changes wait for your confirmation.",
+      "cta": "Try Brocoli in the dashboard",
+      "label": "Example conversation with Brocoli, Moddy's AI assistant",
       "you": "You",
-      "assistant": "Moddy AI",
+      "assistant": "Brocoli",
+      "placeholder": "Ask Brocoli…",
       "prompt": "Greet new members in #welcome and give them the Member role",
-      "thinking": "Reading the current configuration…",
-      "answer": "Done! Welcome messages are on in #welcome, and new members get the Member role.",
+      "read": "Reading the current configuration",
+      "stepWelcome": "Welcome messages in #welcome",
+      "stepRole": "Member role for newcomers",
+      "confirm": "Apply these 2 changes?",
+      "apply": "Apply",
+      "cancel": "Cancel",
+      "answer": "Done! New members are now greeted in #welcome and get the Member role.",
       "applied": "2 modules configured"
     },
     "automod": {
@@ -197,7 +185,13 @@
         "banner",
         "emoji",
         "ping"
-      ]
+      ],
+      "demo": {
+        "option": "text",
+        "input": "Hola a todos, ¡bienvenidos!",
+        "output": "Hello everyone, welcome!",
+        "languages": "Spanish → English"
+      }
     },
     "altguard": {
       "title": "Alt accounts stay out",
@@ -213,7 +207,15 @@
       "title": "Configure from your browser",
       "text": "Enable modules, review cases and customize the bot from the web dashboard, no command to remember.",
       "cta": "Open dashboard",
-      "asset": "Dashboard screenshot"
+      "mock": {
+        "server": "My community",
+        "overview": "Overview",
+        "modules": "Modules",
+        "cases": "Cases",
+        "settings": "Settings",
+        "saved": "Changes saved",
+        "search": "Search modules"
+      }
     },
     "max": {
       "title": "Go further with Moddy Max",
@@ -253,5 +255,113 @@
     "dark": "Dark",
     "auto": "Automatic",
     "light": "Light"
+  },
+  "max": {
+    "pageTitle": "Moddy Max",
+    "badge": "Premium",
+    "title": "Moddy Max",
+    "text": "A focused upgrade for the servers you care about most: your own bot identity and faster, bigger social notifications. Moderation, AutoMod AI and everything else stay free for everyone.",
+    "compare": "Compare plans",
+    "billing": "Billing",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "save": "Save 58%",
+    "perMonth": "per month",
+    "perYear": "per year",
+    "subscribe": "Subscribe",
+    "note": "Use it on up to 5 servers and switch them at any time from the dashboard.",
+    "servers": {
+      "title": "5 premium servers",
+      "text": "Pick the servers that get Moddy Max from your dashboard. Change your selection whenever you like.",
+      "slot": "Premium server",
+      "free": "Free slot"
+    },
+    "custom": {
+      "title": "Your own bot identity",
+      "text": "Give Moddy a nickname, avatar, banner and bio that match your community. Name styles stay free for everyone.",
+      "botName": "Moddy",
+      "customName": "Guardian",
+      "bio": "Keeping our community safe since 2026",
+      "tag": "APP"
+    },
+    "notif": {
+      "title": "Faster social notifications",
+      "text": "Follow 5 accounts per platform instead of 1, with much quicker checks for new videos, streams and articles.",
+      "free": "Free",
+      "max": "Max",
+      "realtime": "Realtime",
+      "every": "every {time}",
+      "accounts": "Accounts per platform"
+    },
+    "table": {
+      "title": "Compare plans",
+      "feature": "Feature",
+      "free": "Free",
+      "max": "Moddy Max",
+      "rows": {
+        "servers": "Servers with premium features",
+        "identity": "Bot nickname, avatar, banner and bio",
+        "style": "Bot name style (font, effect, colors)",
+        "accounts": "Social notifications: accounts per platform",
+        "youtube": "YouTube checks",
+        "twitch": "Twitch checks",
+        "rss": "RSS checks",
+        "bluesky": "Bluesky",
+        "automod": "AutoMod AI",
+        "cases": "Moderation cases",
+        "welcome": "Welcome messages (up to 5 channels)",
+        "others": "AltGuard, Inter-server and every utility command"
+      },
+      "same": "Same on every plan",
+      "upTo5": "Up to 5",
+      "min5": "5 min",
+      "min1": "1 min",
+      "min2": "2 min",
+      "s30": "30 s",
+      "min10": "10 min",
+      "realtime": "Realtime"
+    },
+    "freeCard": {
+      "title": "Moderation is never behind a paywall",
+      "text": "Everything that keeps your community safe works the same on every server, free or premium.",
+      "automod": "AutoMod AI",
+      "cases": "Moderation cases",
+      "welcome": "Welcome messages",
+      "altguard": "AltGuard",
+      "interserver": "Inter-server",
+      "utilities": "Utility commands",
+      "logs": "Server logs",
+      "tickets": "Tickets"
+    },
+    "steps": {
+      "title": "Up and running in a minute",
+      "one": "Subscribe to Moddy Max",
+      "two": "Open the dashboard",
+      "three": "Go to Premium Servers",
+      "four": "Pick up to 5 servers"
+    },
+    "final": {
+      "title": "Ready for Moddy Max?",
+      "text": "Choose monthly or yearly billing and turn it on for your servers right away."
+    },
+    "status": {
+      "signin": "You'll sign in with Discord before paying. Payment is handled by Stripe.",
+      "loading": "Opening secure checkout…",
+      "successTitle": "Welcome to Moddy Max!",
+      "successText": "Your payment went through. Now pick the servers that get Moddy Max.",
+      "pendingText": "Your subscription is being activated, this takes a few seconds.",
+      "chooseServers": "Choose my servers",
+      "cancelTitle": "Payment cancelled",
+      "cancelText": "You left the checkout page, nothing was charged. You can subscribe whenever you're ready.",
+      "blockedTitle": "Subscription unavailable",
+      "blockedText": "This Discord account can't subscribe right now. If you think this is a mistake, reach out on the support server.",
+      "errorTitle": "Something went wrong",
+      "errorText": "We couldn't open the checkout page. Please try again in a moment.",
+      "activeTitle": "You're on Moddy Max",
+      "activeText": "{servers} of {max} premium servers in use. Renews on {date}.",
+      "activeTextNoDate": "{servers} of {max} premium servers in use.",
+      "manage": "Manage subscription",
+      "dismiss": "Close"
+    }
   }
 }
