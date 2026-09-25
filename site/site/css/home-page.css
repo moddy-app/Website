@@ -1993,6 +1993,7 @@ img.ticket-avatar,
  * card's view timeline, so the card ends as a pill. transform runs on the
  * compositor, in step with the scroll: a custom-property version of this
  * was recomputed on the main thread and lagged on phones (random ogives).
+ * The pill runs only with a mouse (see below).
  * ------------------------------------------------------------------------- */
 
 .card:has(> .edge-caps) {
@@ -2053,22 +2054,27 @@ img.ticket-avatar,
 .edge-caps .br { bottom: 0; right: 0; transform-origin: 100% 100%;
   background-image: radial-gradient(circle at 0 0, transparent calc(var(--cap) - 0.5px), var(--cap-color) var(--cap)); }
 
-/* No fill: outside its few pixels every piece is at full size. */
+/* No fill: outside its few pixels every piece is at full size.
+ * Only with a mouse: on phones (Chrome Android) the pill did not hold up at
+ * the window's edges, so phones keep the plain pieces (a small, stable
+ * ogive on a card's last pixels). */
 @supports (view-timeline: --card) {
-  .cap-top b,
-  .own .bl,
-  .own .br {
-    animation: edge-shrink linear;
-    animation-timeline: --card;
-    animation-range: exit calc(100% - 2 * var(--cap)) exit 100%;
-  }
+  @media (hover: hover) and (pointer: fine) {
+    .cap-top b,
+    .own .bl,
+    .own .br {
+      animation: edge-shrink linear;
+      animation-timeline: --card;
+      animation-range: exit calc(100% - 2 * var(--cap)) exit 100%;
+    }
 
-  .cap-bottom b,
-  .own .tl,
-  .own .tr {
-    animation: edge-grow linear;
-    animation-timeline: --card;
-    animation-range: entry 0% entry calc(2 * var(--cap));
+    .cap-bottom b,
+    .own .tl,
+    .own .tr {
+      animation: edge-grow linear;
+      animation-timeline: --card;
+      animation-range: entry 0% entry calc(2 * var(--cap));
+    }
   }
 }
 
