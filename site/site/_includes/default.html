@@ -94,7 +94,8 @@
          Until then, hold their final size so nothing moves when they
          upgrade: the top bar takes its height, buttons their box (hidden,
          so their raw label never flashes). */
-      html.booting body {
+      html.booting body,
+      html.checking-redirect body {
         opacity: 0;
       }
 
@@ -157,7 +158,7 @@
     <div class="page-layout">
       <div class="page-topbar">
         <lit-island on:visible import="/js/hydration-entrypoints/navigation.js">
-          <top-app-bar baseURI="/" home-href="{{ loc.prefix }}/" labels="{{ 'topbar' | tObject(loc.code) | dump }}">
+          <top-app-bar baseURI="/" home-href="{{ loc.prefix }}/" premium-href="{{ loc.prefix }}/premium/" labels="{{ 'topbar' | tObject(loc.code) | dump }}">
             {% block topappbar %}{{ topappbar | safe }}{% endblock %}
           </top-app-bar>
         </lit-island>
@@ -168,8 +169,16 @@
         {% block content %}{{ content | safe }}{% endblock %}
       </main>
 
-      {% include "partials/site-footer.html" %}
+      {#- Special pages (404) stand alone, without the footer. #}
+      {% if not hideFooter %}
+        {% include "partials/site-footer.html" %}
+      {% endif %}
     </div>
+
+    {#- Pages that exist once for every language (404) translate themselves. #}
+    {% if clientI18n %}
+      {% include "partials/i18n-client.html" %}
+    {% endif %}
 
 
     <script>

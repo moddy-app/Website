@@ -1,8 +1,11 @@
+
 /**
  * @license
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
+
+import {mainColor} from '../utils/main-color.js';
 
 // Behaviour of the home page (/site/index.html): live numbers, and motion.
 // The page is complete without this script; with "reduce motion" on, the
@@ -189,35 +192,6 @@ function guildIconFallbacks() {
  * ----------------------------------------------------------------------- */
 
 const tileColors = new Map<string, Promise<[number, number, number] | null>>();
-
-/** A representative color: the average of the icon, weighted towards its
- *  most saturated pixels so a colorful logo on white does not turn grey. */
-function mainColor(img: HTMLImageElement): [number, number, number] | null {
-  const size = 24;
-  const canvas = document.createElement('canvas');
-  canvas.width = canvas.height = size;
-  const context = canvas.getContext('2d', {willReadFrequently: true});
-  if (!context) return null;
-  try {
-    context.drawImage(img, 0, 0, size, size);
-    const {data} = context.getImageData(0, 0, size, size);
-    let r = 0, g = 0, b = 0, total = 0;
-    for (let i = 0; i < data.length; i += 4) {
-      if (data[i + 3] < 128) continue;
-      const max = Math.max(data[i], data[i + 1], data[i + 2]);
-      const min = Math.min(data[i], data[i + 1], data[i + 2]);
-      const weight = 0.15 + (max === 0 ? 0 : (max - min) / max);
-      r += data[i] * weight;
-      g += data[i + 1] * weight;
-      b += data[i + 2] * weight;
-      total += weight;
-    }
-    if (!total) return null;
-    return [r / total, g / total, b / total];
-  } catch {
-    return null; // tainted canvas: keep the theme tint
-  }
-}
 
 function colorTiles() {
   document.querySelectorAll<HTMLElement>('.guild-tile').forEach((tile) => {

@@ -1,7 +1,7 @@
 {#-
   Client-side translation for the few pages that exist once for every
   language (the 404 page is served by Vercel for any unknown path, so it
-  cannot have a copy per locale).
+  cannot have a copy per locale). Such pages have no footer (`hideFooter`).
 
   The page is rendered in English with `data-i18n="key"` on each element
   (`data-i18n-html` when the string contains markup, `data-i18n-aria-label`
@@ -47,6 +47,13 @@
     document.querySelectorAll('[data-i18n-aria-label]').forEach(function (el) {
       el.setAttribute('aria-label', dict[el.dataset.i18nAriaLabel]);
     });
+    // Links to pages of the site and of the docs, in that language.
+    document.querySelectorAll('[data-locale-href]').forEach(function (el) {
+      el.setAttribute('href', locale.prefix + el.dataset.localeHref);
+    });
+    document.querySelectorAll('[data-docs-path]').forEach(function (el) {
+      el.setAttribute('href', 'https://docs.moddy.app' + locale.docs + el.dataset.docsPath);
+    });
 
     var labels = {};
     Object.keys(dict).forEach(function (key) {
@@ -55,7 +62,9 @@
     document.querySelectorAll('top-app-bar').forEach(function (bar) {
       bar.setAttribute('labels', JSON.stringify(labels));
       bar.setAttribute('home-href', locale.prefix + '/');
+      bar.setAttribute('premium-href', locale.prefix + '/premium/');
     });
+
     document.querySelectorAll('[data-i18n-home]').forEach(function (el) {
       el.setAttribute('href', locale.prefix + '/');
     });

@@ -25,6 +25,10 @@ export interface User {
   guilds: Guild[];
   is_staff: boolean;
   staff_roles: string[];
+  email?: string | null;
+  /** Strongest Moddy verification attribute (`users.attributes`), or null.
+   *  Moddy Team membership is `is_staff`, not part of this field. */
+  verification?: 'VERIFIED_ORG' | 'VERIFIED_ORG_MEMBER' | 'VERIFIED' | null;
 }
 
 /**

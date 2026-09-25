@@ -4,8 +4,12 @@
     "skipToMain": "Skip to main content",
     "signIn": "Sign In",
     "userMenu": "User menu",
-    "hello": "Hello @{username}!",
     "dashboard": "Dashboard",
+    "premium": "Moddy Max",
+    "verifiedOrg": "Verified organization",
+    "verifiedTeam": "Moddy Team member",
+    "verifiedOrgMember": "Member of a verified organization",
+    "verified": "Verified account",
     "signOut": "Sign out"
   },
   "footer": {
@@ -33,8 +37,12 @@
   },
   "notFound": {
     "title": "Page not found",
-    "description": "The page you're looking for doesn't exist.",
-    "home": "Go home"
+    "description": "This address leads nowhere. The link may be old, or a letter went missing along the way.",
+    "joke": "So you're not left standing there like a cow in front of a pair of pruning shears, here's where to go:",
+    "home": "Back to home",
+    "docs": "Documentation",
+    "support": "Support server",
+    "visual": "Error 404"
   },
   "home": {
     "pageTitle": "Home",

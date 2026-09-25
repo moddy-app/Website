@@ -4,8 +4,12 @@
     "skipToMain": "Ir para o conteúdo principal",
     "signIn": "Entrar",
     "userMenu": "Menu do usuário",
-    "hello": "Olá, @{username}!",
     "dashboard": "Painel",
+    "premium": "Moddy Max",
+    "verifiedOrg": "Organização verificada",
+    "verifiedTeam": "Membro da Moddy Team",
+    "verifiedOrgMember": "Membro de uma organização verificada",
+    "verified": "Conta verificada",
     "signOut": "Sair"
   },
   "footer": {
@@ -33,8 +37,12 @@
   },
   "notFound": {
     "title": "Página não encontrada",
-    "description": "A página que você procura não existe.",
-    "home": "Voltar ao início"
+    "description": "Este endereço não leva a lugar nenhum. O link pode ser antigo, ou falta alguma letra.",
+    "joke": "Para você não ficar parado como uma vaca diante de uma tesoura de poda, veja para onde ir:",
+    "home": "Voltar ao início",
+    "docs": "Documentação",
+    "support": "Servidor de suporte",
+    "visual": "Erro 404"
   },
   "home": {
     "pageTitle": "Início",

@@ -1,118 +1,235 @@
 ---
 name: Page Not Found
-title: 404
-layout: layouts/fullpage.html
+titleKey: notFound.title
+layout: default.html
+clientI18n: true
+hideFooter: true
 hasToc: false
 permalink: 404.html
 ---
 
-<script type="module" src="/js/hydration-entrypoints/circular-progress.js"></script>
+{#- Served by Vercel for every unknown path, in every language: rendered in
+    English, translated in the browser (partials/i18n-client.html, included
+    by default.html because of `clientI18n`). Before showing anything, the
+    path is looked up in the redirects table (api.moddy.app); the page stays
+    hidden while that answer is pending, 1.5 s at most. -#}
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    root.classList.add('checking-redirect');
+    var show = function () {
+      root.classList.remove('checking-redirect');
+    };
+    setTimeout(show, 1500);
+    fetch(
+      'https://api.moddy.app/redirects/lookup?domain=moddy.app&path=' +
+        encodeURIComponent(location.pathname),
+      {signal: AbortSignal.timeout(5000)},
+    )
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        if (data && typeof data.target === 'string' && data.target) {
+          location.replace(data.target);
+        } else {
+          show();
+        }
+      })
+      .catch(show);
+  })();
+</script>
+
+{% inlinecss "home-page.css" %}
 
 <style>
-  #redirect-checking {
-    display: flex;
+  /* Alone on the page (no footer): a narrower block, centred in the window
+     both ways, with the page margin all around. */
+  .not-found-page {
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    min-height: calc(100svh - var(--site-banner-height, 0px) - var(--catalog-top-app-bar-height) - var(--page-gap));
+    padding-bottom: var(--page-gap);
+  }
+
+  .not-found-page .home {
+    width: 100%;
+    max-width: 1040px;
+  }
+
+  .not-found .card {
+    min-height: 440px;
+  }
+
+  .not-found-text {
     justify-content: center;
+  }
+
+  .not-found-text h1 {
+    margin-bottom: 16px;
+  }
+
+  /* The address that was asked for, as the browser shows it. */
+  .card .not-found-path {
+    display: inline-flex;
     align-items: center;
-    position: fixed;
-    inset: 0;
+    gap: 8px;
+    align-self: flex-start;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-top: var(--space);
+    padding: 8px 14px 8px 10px;
+    border-radius: 999px;
+    background-color: var(--md-sys-color-surface-container);
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 14px;
   }
 
-  #redirect-checking md-circular-progress {
-    --md-circular-progress-size: 48px;
-    --md-circular-progress-active-indicator-color: var(--md-sys-color-primary);
+  .not-found-path .material-symbols-outlined {
+    flex-shrink: 0;
+    font-size: 18px;
+    color: var(--md-sys-color-error);
   }
 
-  #error-content {
+  .not-found-path code {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .card .not-found-path[hidden] {
     display: none;
   }
 
-  .error-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    text-align: center;
-    padding: 24px;
-  }
-
-  .error-code {
-    font-size: 96px;
-    font-weight: 600;
-    line-height: 1;
-    letter-spacing: -3px;
-    color: var(--md-sys-color-primary);
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .error-title {
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--md-sys-color-on-surface);
-    margin: 0;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .error-desc {
+  .card .not-found-joke {
+    margin-top: var(--space);
     font-size: 15px;
-    color: var(--md-sys-color-on-surface-variant);
-    margin: 0 0 8px;
-    line-height: 1.5;
   }
 
-  @media (max-width: 480px) {
-    .error-code {
-      font-size: 64px;
-      letter-spacing: -2px;
+  .not-found .card-actions {
+    margin-top: 0;
+    padding-top: 16px;
+  }
+
+  /* 404 written with the site's shapes: each digit in its own polygon, the
+     zero turning slowly, like a loader that lost its way. */
+  .not-found-visual {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .not-found-digits {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .not-found-digits .shape {
+    --shape-size: clamp(88px, 8.5vw, 112px);
+    font-size: calc(var(--shape-size) * 0.46);
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .not-found-digits .shape + .shape {
+    margin-left: calc(var(--shape-size) * -0.08);
+  }
+
+  .not-found-digits .shape > span {
+    position: relative;
+  }
+
+  .not-found-digits .shape:nth-child(1) {
+    transform: rotate(-8deg) translateY(10%);
+  }
+
+  .not-found-digits .shape:nth-child(2) {
+    z-index: 1;
+    transform: translateY(-12%);
+  }
+
+  .not-found-digits .shape:nth-child(3) {
+    transform: rotate(7deg) translateY(14%);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .not-found-digits .shape:nth-child(2)::before {
+      animation: not-found-turn 24s linear infinite;
+    }
+  }
+
+  @keyframes not-found-turn {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  @media (max-width: 1100px) {
+    /* Stacked: one column, as wide as a comfortable line of text. */
+    .not-found-page .home {
+      max-width: 640px;
     }
 
-    .error-title {
-      font-size: 20px;
+    .not-found .card {
+      min-height: 0;
+    }
+
+    .not-found .not-found-visual {
+      order: -1;
+      min-height: 220px;
     }
   }
 </style>
 
-<div id="redirect-checking">
-  <md-circular-progress indeterminate></md-circular-progress>
-</div>
+<lit-island on:visible import="/js/hydration-entrypoints/form-controls.js" class="not-found-page">
+  <div class="home">
+    <div class="bento not-found">
 
-<div id="error-content">
-  <lit-island on:visible import="/js/hydration-entrypoints/form-controls.js">
-    <div class="error-container">
-      <span class="error-code">404</span>
-      <h1 class="error-title" data-i18n="notFound.title">{{ 'notFound.title' | t }}</h1>
-      <p class="error-desc" data-i18n="notFound.description">{{ 'notFound.description' | t }}</p>
-      <md-filled-button href="/" data-i18n-home><span data-i18n="notFound.home">{{ 'notFound.home' | t }}</span></md-filled-button>
+      <section class="card span-7 not-found-text"><span class="edge-caps" aria-hidden="true"><i></i><i></i></span>
+        <h1 data-i18n="notFound.title">{{ 'notFound.title' | t }}</h1>
+        <p data-i18n="notFound.description">{{ 'notFound.description' | t }}</p>
+        <p class="not-found-path" id="not-found-path" hidden>
+          <span class="material-symbols-outlined" aria-hidden="true">link_off</span>
+          <code></code>
+        </p>
+        <p class="not-found-joke" data-i18n="notFound.joke">{{ 'notFound.joke' | t }}</p>
+        <div class="card-actions">
+          <md-filled-button href="/" data-i18n-home>
+            <span data-i18n="notFound.home">{{ 'notFound.home' | t }}</span>
+          </md-filled-button>
+          <md-outlined-button href="{{ '/introduction' | docsUrl }}" data-docs-path="/introduction" target="_blank">
+            <span data-i18n="notFound.docs">{{ 'notFound.docs' | t }}</span>
+          </md-outlined-button>
+          <md-outlined-button href="/support" target="_blank">
+            <span data-i18n="notFound.support">{{ 'notFound.support' | t }}</span>
+          </md-outlined-button>
+        </div>
+      </section>
+
+      <section class="card span-5 not-found-visual" role="img" aria-label="{{ 'notFound.visual' | t }}" data-i18n-aria-label="notFound.visual"><span class="edge-caps" aria-hidden="true"><i></i><i></i></span>
+        <div class="not-found-digits" aria-hidden="true">
+          <span class="shape shape-hexagon tone-solid"><span>4</span></span>
+          <span class="shape shape-octagon tone-tertiary"><span>0</span></span>
+          <span class="shape shape-pentagon tone-secondary"><span>4</span></span>
+        </div>
+      </section>
+
     </div>
-  </lit-island>
-</div>
+  </div>
+</lit-island>
 
 <script>
-(function() {
-  function show404() {
-    document.getElementById('redirect-checking').style.display = 'none';
-    document.getElementById('error-content').style.display = 'block';
-  }
-
-  var timeout = setTimeout(show404, 5000);
-
-  var path = window.location.pathname;
-
-  fetch(
-    'https://api.moddy.app/redirects/lookup?domain=moddy.app&path=' + encodeURIComponent(path),
-    { signal: AbortSignal.timeout(5000) }
-  )
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      clearTimeout(timeout);
-      if (data && typeof data.target === 'string' && data.target) {
-        window.location.replace(data.target);
-      } else {
-        show404();
-      }
-    })
-    .catch(function() {
-      clearTimeout(timeout);
-      show404();
-    });
-})();
+  (function () {
+    var path = location.pathname;
+    try {
+      path = decodeURIComponent(path);
+    } catch (e) {}
+    if (path === '/' || path === '/404' || path === '/404.html') return;
+    var chip = document.getElementById('not-found-path');
+    chip.querySelector('code').textContent = path;
+    chip.hidden = false;
+  })();
 </script>
