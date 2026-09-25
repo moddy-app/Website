@@ -107,23 +107,23 @@ Key files:
 ### 4. Cards
 
 ```html
-<section class="card span-7">
-  <span class="edge-caps" aria-hidden="true"><i></i><i></i></span>
+<section class="card span-7"><span class="edge-caps" aria-hidden="true"><i class="cap-top"><b class="tl"></b><b class="tr"></b></i><span class="own"><b class="tl"></b><b class="tr"></b><b class="bl"></b><b class="br"></b></span><i class="cap-bottom"><b class="bl"></b><b class="br"></b></i></span>
   …
 </section>
 ```
 
-- `.card` uses `overflow: clip` (not `hidden`) and **must** contain the
-  `edge-caps` span as its first child: it keeps the corners rounded where the card
-  meets the top bar and the bottom of the window, with no JS and nothing
-  recomputed while scrolling. At the bottom, cards leave one page margin above
-  the window's edge (a fixed band in the page color, `.bento::after`, mirrors
-  the space under the top bar); the footer is drawn over that band. The
-  radius that shrinks to a pill on a card's last pixels is scroll-driven, with
-  no fill (a card outside those pixels keeps its normal radius); at the bottom
-  edge it only runs with a mouse, because phone toolbars resize the window
-  mid-scroll and made it lag and jump. Never replace it with clip-path or scroll listeners:
-  both were tried and lagged. The footer has no caps (its bottom edge is square).
+- `.card` uses `overflow: clip` (not `hidden`) and **must** start with that
+  `edge-caps` span (copy it as is). A card with it has no `border-radius`: its
+  corners are drawn by small pieces in the page color (`.own`), and two sticky
+  pairs (`.cap-top`, `.cap-bottom`) keep the corners round where the card meets
+  the top bar and the bottom margin of the window (a fixed band,
+  `.bento::after`, one page margin high; the footer is drawn over it).
+- On a card's last two radii the pieces shrink with `transform: scale()` on the
+  card's view timeline, so it ends as a pill. Only `transform`: it runs on the
+  compositor in step with the scroll. Never animate `border-radius`, a custom
+  property, clip-path or anything else on scroll: all were tried and lagged or
+  flickered on phones. The bottom edge animates only with a mouse (phone
+  address bars move the bottom of the window mid-scroll).
 - A card heading is `h2` (`h1` only for the page's hero). Title → text →
   (visual) → actions, separated by `--space`.
 - Every card has a hover state **only** if the whole card is a link. Otherwise,
