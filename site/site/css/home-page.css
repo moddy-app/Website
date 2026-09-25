@@ -2077,11 +2077,11 @@ img.ticket-avatar,
     animation-range: exit calc(100% - 2 * var(--home-card-radius)) exit 100%;
   }
 
-  /* The bottom edge only with a mouse. On phones the browser's toolbar
-     (at the bottom on iPhone) grows and shrinks the window while scrolling,
-     and the timeline and the sticky caps disagree on where the bottom is
-     until it settles: the radius shrank late, went square, then jumped.
-     Phones keep the plain caps at the bottom. */
+  /* The bottom edge only with a mouse. On phones (seen on Chrome Android)
+     the address bar collapses and expands while scrolling, which moves the
+     bottom of the window; the timeline and the sticky caps disagree on where
+     it is until it settles: the radius shrank late, went square, then
+     jumped. Phones keep the plain caps at the bottom. */
   @media (hover: hover) and (pointer: fine) {
     .card:has(> .edge-caps) {
       animation: card-exit-r linear, card-enter-r linear;
