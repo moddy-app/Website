@@ -1993,9 +1993,6 @@ img.ticket-avatar,
  * card's view timeline, so the card ends as a pill. transform runs on the
  * compositor, in step with the scroll: a custom-property version of this
  * was recomputed on the main thread and lagged on phones (random ogives).
- * The bottom edge animates only with a mouse: phone address bars move the
- * bottom of the window mid-scroll and the timeline disagrees with the
- * sticky caps until it settles.
  * ------------------------------------------------------------------------- */
 
 .card:has(> .edge-caps) {
@@ -2066,14 +2063,12 @@ img.ticket-avatar,
     animation-range: exit calc(100% - 2 * var(--cap)) exit 100%;
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    .cap-bottom b,
-    .own .tl,
-    .own .tr {
-      animation: edge-grow linear;
-      animation-timeline: --card;
-      animation-range: entry 0% entry calc(2 * var(--cap));
-    }
+  .cap-bottom b,
+  .own .tl,
+  .own .tr {
+    animation: edge-grow linear;
+    animation-timeline: --card;
+    animation-range: entry 0% entry calc(2 * var(--cap));
   }
 }
 

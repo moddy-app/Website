@@ -122,8 +122,7 @@ Key files:
   card's view timeline, so it ends as a pill. Only `transform`: it runs on the
   compositor in step with the scroll. Never animate `border-radius`, a custom
   property, clip-path or anything else on scroll: all were tried and lagged or
-  flickered on phones. The bottom edge animates only with a mouse (phone
-  address bars move the bottom of the window mid-scroll).
+  flickered on phones.
 - A card heading is `h2` (`h1` only for the page's hero). Title → text →
   (visual) → actions, separated by `--space`.
 - Every card has a hover state **only** if the whole card is a link. Otherwise,
