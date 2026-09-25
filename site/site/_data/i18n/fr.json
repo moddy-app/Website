@@ -6,8 +6,10 @@
     "userMenu": "Menu utilisateur",
     "dashboard": "Tableau de bord",
     "premium": "Moddy Max",
-    "planFree": "Offre gratuite",
-    "planMax": "Moddy Max actif",
+    "verifiedOrg": "Organisation vérifiée",
+    "verifiedTeam": "Membre de la Moddy Team",
+    "verifiedOrgMember": "Membre d'une organisation vérifiée",
+    "verified": "Compte vérifié",
     "signOut": "Se déconnecter"
   },
   "footer": {

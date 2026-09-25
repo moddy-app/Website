@@ -35,8 +35,10 @@ export interface TopAppBarLabels {
   userMenu: string;
   dashboard: string;
   premium: string;
-  planFree: string;
-  planMax: string;
+  verifiedOrg: string;
+  verifiedTeam: string;
+  verifiedOrgMember: string;
+  verified: string;
   signOut: string;
 }
 
@@ -47,8 +49,10 @@ const DEFAULT_LABELS: TopAppBarLabels = {
   userMenu: 'User menu',
   dashboard: 'Dashboard',
   premium: 'Moddy Max',
-  planFree: 'Free plan',
-  planMax: 'Moddy Max active',
+  verifiedOrg: 'Verified organization',
+  verifiedTeam: 'Moddy Team member',
+  verifiedOrgMember: 'Member of a verified organization',
+  verified: 'Verified account',
   signOut: 'Sign out',
 };
 
@@ -63,7 +67,7 @@ export class TopAppBar extends SignalElement(LitElement) {
   @state()
   private isLoading = true;
 
-  /** Whether the user has Moddy Max; null until known. */
+  /** Whether the user has Moddy Max (ring around the avatar button). */
   @state()
   private hasMax: boolean | null = null;
 
@@ -103,7 +107,7 @@ export class TopAppBar extends SignalElement(LitElement) {
   }
 
   /**
-   * Loads whether the user has Moddy Max, for the line under their name.
+   * Loads whether the user has Moddy Max, for the ring around the avatar.
    */
   private async checkSubscription() {
     try {
@@ -114,7 +118,7 @@ export class TopAppBar extends SignalElement(LitElement) {
       const subscription = await response.json();
       this.hasMax = Boolean(subscription?.is_active);
     } catch {
-      // The line stays empty; the menu works without it.
+      // No ring; everything else works without it.
     }
   }
 
@@ -180,10 +184,12 @@ export class TopAppBar extends SignalElement(LitElement) {
             aria-label=${this.text.userMenu}
             title="${this.userInfo.username}"
             @click=${this.toggleUserMenu}>
-            <img
-              src="${avatar}"
-              alt="${this.userInfo.username}"
-              class="user-avatar" />
+            <span class="avatar-ring ${this.hasMax ? 'max' : ''}">
+              <img
+                src="${avatar}"
+                alt="${this.userInfo.username}"
+                class="user-avatar" />
+            </span>
           </md-icon-button>
           <md-menu
             id="user-menu"
@@ -198,18 +204,18 @@ export class TopAppBar extends SignalElement(LitElement) {
                 alt=""
                 class="user-menu-avatar" />
               <div class="user-card-text">
-                <span class="user-name">${this.userInfo.username}</span>
-                ${this.hasMax === null
-                  ? html`<span class="user-plan">&nbsp;</span>`
-                  : html`<span class="user-plan ${this.hasMax ? 'max' : ''}">
-                      ${this.hasMax ? this.text.planMax : this.text.planFree}
-                    </span>`}
+                <span class="user-name">
+                  <span class="user-handle">@${this.userInfo.username}</span>
+                  ${this.renderVerifiedBadge()}
+                </span>
+                ${this.userInfo.email
+                  ? html`<span class="user-email">${this.userInfo.email}</span>`
+                  : ''}
               </div>
             </div>
             <md-menu-item href="https://dashboard.moddy.app" target="_blank">
               <md-icon slot="start">dashboard</md-icon>
               <div slot="headline">${this.text.dashboard}</div>
-              <md-icon slot="end" class="external">open_in_new</md-icon>
             </md-menu-item>
             <md-menu-item href=${this.premiumHref}>
               <md-icon slot="start">diamond</md-icon>
@@ -230,6 +236,33 @@ export class TopAppBar extends SignalElement(LitElement) {
         ${this.text.signIn}
       </md-filled-tonal-button>
     `;
+  }
+
+  /**
+   * The verified badge next to the name: one icon for every kind, the kind
+   * in a tooltip.
+   */
+  private renderVerifiedBadge() {
+    const user = this.userInfo;
+    if (!user) return '';
+    // Same priority as the bot: a verified organization first, then the
+    // Moddy Team (staff), then members of a verified organization, then a
+    // verified account.
+    const label =
+      user.verification === 'VERIFIED_ORG'
+        ? this.text.verifiedOrg
+        : user.is_staff
+          ? this.text.verifiedTeam
+          : user.verification === 'VERIFIED_ORG_MEMBER'
+            ? this.text.verifiedOrgMember
+            : user.verification === 'VERIFIED'
+              ? this.text.verified
+              : '';
+    if (!label) return '';
+    return html`<span class="verified" tabindex="0" role="img" aria-label=${label}>
+      <md-icon>verified</md-icon>
+      <span class="tooltip" aria-hidden="true">${label}</span>
+    </span>`;
   }
 
   /**
@@ -329,7 +362,7 @@ export class TopAppBar extends SignalElement(LitElement) {
     }
 
     #user-menu-button {
-      --md-icon-button-icon-size: 32px;
+      --md-icon-button-icon-size: 36px;
     }
 
     #user-menu {
@@ -351,8 +384,8 @@ export class TopAppBar extends SignalElement(LitElement) {
       overflow: hidden;
     }
 
-    #user-menu md-icon.external {
-      font-size: 18px;
+    #user-menu md-menu-item md-icon {
+      font-variation-settings: 'FILL' 1;
     }
 
     #user-menu .sign-out {
@@ -392,22 +425,102 @@ export class TopAppBar extends SignalElement(LitElement) {
     }
 
     .user-name {
-      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      min-width: 0;
       font-size: 16px;
       font-weight: 600;
-      text-overflow: ellipsis;
-      white-space: nowrap;
       color: var(--md-sys-color-on-surface);
     }
 
-    .user-plan {
+    .user-handle,
+    .user-email {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .user-email {
       font-size: 13px;
       color: var(--md-sys-color-on-surface-variant);
     }
 
-    .user-plan.max {
-      font-weight: 600;
+    .verified {
+      position: relative;
+      display: inline-flex;
+      flex-shrink: 0;
+      border-radius: 50%;
+      outline: none;
+    }
+
+    .verified md-icon {
+      --md-icon-size: 18px;
+      font-variation-settings: 'FILL' 1;
       color: var(--md-sys-color-primary);
+    }
+
+    .verified .tooltip {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 50%;
+      z-index: 1;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background-color: var(--md-sys-color-inverse-surface);
+      color: var(--md-sys-color-inverse-on-surface);
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateX(-50%);
+      transition: opacity 120ms;
+    }
+
+    .verified:hover .tooltip,
+    .verified:focus-visible .tooltip {
+      opacity: 1;
+    }
+
+    /* Moddy Max: a ring in the theme colors around the avatar button, with a
+       gap in the bar's color between the ring and the picture. */
+    .avatar-ring {
+      display: block;
+      box-sizing: border-box;
+      width: 36px;
+      height: 36px;
+      padding: 3px;
+      border-radius: 50%;
+    }
+
+    .avatar-ring.max {
+      background: conic-gradient(
+        from 200deg,
+        var(--md-sys-color-primary),
+        var(--md-sys-color-tertiary) 40%,
+        color-mix(in srgb, var(--md-sys-color-primary) 30%, var(--md-sys-color-surface-container)) 75%,
+        var(--md-sys-color-primary)
+      );
+    }
+
+    .avatar-ring .user-avatar {
+      display: block;
+      box-sizing: border-box;
+      width: 30px;
+      height: 30px;
+      border: 2px solid var(--md-sys-color-surface-container);
+    }
+
+    /* Without Moddy Max: the plain 32px picture, same footprint. */
+    .avatar-ring:not(.max) {
+      padding: 2px;
+    }
+
+    .avatar-ring:not(.max) .user-avatar {
+      width: 32px;
+      height: 32px;
+      border: 0;
     }
 
     #menu-island {
