@@ -50,7 +50,9 @@
   border-radius: var(--home-card-radius);
   background-color: var(--md-sys-color-surface-container-lowest);
   color: var(--md-sys-color-on-surface);
-  overflow: hidden;
+  /* clip, not hidden: hidden would make the card a scroll container and
+     stop its edge caps (below) from sticking. */
+  overflow: clip;
 }
 
 .card[hidden],
@@ -1973,35 +1975,52 @@ img.ticket-avatar,
 }
 
 /* ---------------------------------------------------------------------------
- * Cards leave the screen with rounded corners, each on its own. A card
- * passing under the top bar, or out of the bottom of the window, is clipped
- * at that line with its own radius, so what is left of it still looks like
- * a whole card. Driven by the scroll itself (scroll-driven animation), so
- * it is computed in the same frame as the scroll. Browsers without it cut
- * the cards straight, as before.
+ * Cards leave the screen with rounded corners, each on its own, at no cost
+ * while scrolling. Nothing is clipped or recomputed: every card holds two
+ * thin caps (.edge-caps, in the HTML) that paint two concave corners in the
+ * page color, at the card's radius. They are position: sticky inside the
+ * card, so the browser's scrolling alone keeps the top cap right under the
+ * top bar and the bottom cap on the window's bottom edge, never outside
+ * their card. When the card is fully in view they sit exactly over its own
+ * rounded corners, so nothing changes.
  * ------------------------------------------------------------------------- */
 
-@supports (animation-timeline: view()) {
-  .home .card {
-    animation: card-edges linear both;
-    /* The top edge is the bottom of the top bar, not the window's. */
-    animation-timeline: view(
-      block calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height)) 0px
-    );
-  }
+.edge-caps {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+  --cap: var(--home-card-radius);
+  --cap-color: var(--md-sys-color-surface-container);
+}
 
-  @keyframes card-edges {
-    entry 0% {
-      clip-path: inset(0 0 100% 0 round var(--home-card-radius));
-    }
-    entry 100%,
-    exit 0% {
-      clip-path: inset(0 0 0 0 round var(--home-card-radius));
-    }
-    exit 100% {
-      clip-path: inset(100% 0 0 0 round var(--home-card-radius));
-    }
-  }
+.edge-caps i {
+  position: sticky;
+  flex-shrink: 0;
+  height: var(--cap);
+  background-repeat: no-repeat;
+  background-size: var(--cap) var(--cap);
+}
+
+/* Top cap: concave top corners, stuck under the top bar. */
+.edge-caps i:first-child {
+  top: calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height));
+  background-image:
+    radial-gradient(circle at 100% 100%, transparent calc(var(--cap) - 0.5px), var(--cap-color) var(--cap)),
+    radial-gradient(circle at 0 100%, transparent calc(var(--cap) - 0.5px), var(--cap-color) var(--cap));
+  background-position: left top, right top;
+}
+
+/* Bottom cap: concave bottom corners, stuck on the window's bottom edge. */
+.edge-caps i:last-child {
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 100% 0, transparent calc(var(--cap) - 0.5px), var(--cap-color) var(--cap)),
+    radial-gradient(circle at 0 0, transparent calc(var(--cap) - 0.5px), var(--cap-color) var(--cap));
+  background-position: left bottom, right bottom;
 }
 
 /* ---------------------------------------------------------------------------
