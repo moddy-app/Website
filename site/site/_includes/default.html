@@ -85,32 +85,6 @@
         }
       }
 
-      .scroll-frame {
-        --frame-radius: 32px;
-        position: fixed;
-        top: calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height));
-        bottom: 0;
-        left: 50%;
-        z-index: 5;
-        width: min(1240px, 100% - 2 * var(--page-gap));
-        transform: translateX(-50%);
-        border-radius: var(--frame-radius);
-        box-shadow: 0 0 0 100vmax var(--md-sys-color-surface-container);
-        pointer-events: none;
-      }
-
-      @media (max-width: 600px) {
-        .scroll-frame {
-          --frame-radius: 24px;
-        }
-      }
-
-      /* The footer runs off the bottom of the page with square corners: while
-         it is on screen, the frame's bottom edge moves below the window. */
-      .scroll-frame.footer-in-view {
-        bottom: calc(-2 * var(--frame-radius));
-      }
-
       .page-content {
         flex: 1;
         box-sizing: border-box;
@@ -134,12 +108,6 @@
         </lit-island>
       </div>
 
-      {#- The scroll frame: a rounded rectangle the width of the content
-          column, between the top bar and the bottom of the window. Content
-          outside it is painted over in the page color, so cards scrolling
-          past the top bar or the window's edge leave with rounded corners.
-          It lets every click through. -#}
-      <div class="scroll-frame" aria-hidden="true"></div>
 
       <main class="page-content" id="main-content" tabindex="0">
         <!-- this is the content of the page -->
