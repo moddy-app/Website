@@ -2018,11 +2018,27 @@ img.ticket-avatar,
 
 /* Bottom cap: concave bottom corners, stuck on the window's bottom edge. */
 .edge-caps i:last-child {
-  bottom: 0;
+  bottom: var(--page-gap, 20px);
   background-image:
     radial-gradient(circle at 100% 0, transparent calc(var(--cap) - 0.5px), var(--cap-color) var(--cap)),
     radial-gradient(circle at 0 0, transparent calc(var(--cap) - 0.5px), var(--cap-color) var(--cap));
   background-position: left bottom, right bottom;
+}
+
+/* The bottom of the window mirrors the top bar: cards leave the screen one
+ * page margin above its edge, not at it. A fixed band in the page color
+ * covers that margin; the bottom caps stick right above it. The footer is
+ * drawn over the band (site-footer.html), it runs to the window's edge. */
+.bento::after {
+  content: '';
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  height: var(--page-gap, 20px);
+  background-color: var(--md-sys-color-surface-container);
+  pointer-events: none;
 }
 
 /* The last 2 radii of a card, where its own corners and the cap's corners
@@ -2055,8 +2071,8 @@ img.ticket-avatar,
     border-radius: var(--enter-r) var(--enter-r) var(--exit-r) var(--exit-r);
     animation: card-exit-r linear both, card-enter-r linear both;
     animation-timeline:
-      view(block calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height)) 0px),
-      view(block calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height)) 0px);
+      view(block calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height)) var(--page-gap, 20px)),
+      view(block calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height)) var(--page-gap, 20px));
     animation-range:
       exit calc(100% - 2 * var(--home-card-radius)) exit 100%,
       entry 0% entry calc(2 * var(--home-card-radius));

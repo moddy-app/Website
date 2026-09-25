@@ -116,7 +116,9 @@ Key files:
 - `.card` uses `overflow: clip` (not `hidden`) and **must** contain the
   `edge-caps` span as its first child: it keeps the corners rounded where the card
   meets the top bar and the bottom of the window, with no JS and nothing
-  recomputed while scrolling. Never replace it with clip-path or scroll listeners:
+  recomputed while scrolling. At the bottom, cards leave one page margin above
+  the window's edge (a fixed band in the page color, `.bento::after`, mirrors
+  the space under the top bar); the footer is drawn over that band. Never replace it with clip-path or scroll listeners:
   both were tried and lagged. The footer has no caps (its bottom edge is square).
 - A card heading is `h2` (`h1` only for the page's hero). Title → text →
   (visual) → actions, separated by `--space`.

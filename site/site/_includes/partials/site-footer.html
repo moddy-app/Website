@@ -115,6 +115,10 @@
 <style>
   .site-footer {
     --footer-ease: cubic-bezier(0.2, 0, 0, 1);
+    /* Above the band that keeps cards off the window's bottom edge
+       (home-page.css): the footer runs to the edge. */
+    position: relative;
+    z-index: 5;
     box-sizing: border-box;
     width: 100%;
     padding: var(--page-gap, 20px) var(--page-gap, 20px) 0;
