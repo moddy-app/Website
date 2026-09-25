@@ -20,6 +20,7 @@ import {SignalElement} from '../signals/signal-element.js';
 import {moddyLogo} from '../svg/moddy-logo.js';
 import {getMe, logout, getAvatarUrl, type User} from '../utils/auth.js';
 import {API_URL} from '../utils/config.js';
+import {dominantHue} from '../utils/main-color.js';
 
 /**
  * Top app bar of the catalog.
@@ -123,6 +124,19 @@ export class TopAppBar extends SignalElement(LitElement) {
   }
 
   /**
+   * Gives the Moddy Max ring the dominant hue of the avatar, as a vivid and
+   * a light shade. Grey or unreadable pictures keep the theme colors.
+   */
+  private tintRing(event: Event) {
+    const img = event.target as HTMLImageElement;
+    const hue = dominantHue(img);
+    const ring = img.parentElement;
+    if (hue === null || !ring) return;
+    ring.style.setProperty('--ring-a', `hsl(${hue} 70% 48%)`);
+    ring.style.setProperty('--ring-b', `hsl(${(hue + 25) % 360} 75% 66%)`);
+  }
+
+  /**
    * Toggle user menu
    */
   private toggleUserMenu() {
@@ -188,7 +202,9 @@ export class TopAppBar extends SignalElement(LitElement) {
               <img
                 src="${avatar}"
                 alt="${this.userInfo.username}"
-                class="user-avatar" />
+                crossorigin="anonymous"
+                class="user-avatar"
+                @load=${this.tintRing} />
             </span>
           </md-icon-button>
           <md-menu
@@ -260,7 +276,7 @@ export class TopAppBar extends SignalElement(LitElement) {
               : '';
     if (!label) return '';
     return html`<span class="verified" tabindex="0" role="img" aria-label=${label}>
-      <md-icon>verified</md-icon>
+      <md-icon>check_circle</md-icon>
       <span class="tooltip" aria-hidden="true">${label}</span>
     </span>`;
   }
@@ -396,6 +412,7 @@ export class TopAppBar extends SignalElement(LitElement) {
     }
 
     #user-menu md-divider {
+      width: auto;
       margin: 8px 16px;
     }
 
@@ -427,7 +444,7 @@ export class TopAppBar extends SignalElement(LitElement) {
     .user-name {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 2px;
       min-width: 0;
       font-size: 16px;
       font-weight: 600;
@@ -455,7 +472,10 @@ export class TopAppBar extends SignalElement(LitElement) {
     }
 
     .verified md-icon {
-      --md-icon-size: 18px;
+      --md-icon-size: 16px;
+      display: block;
+      /* Sits on the name's x-height rather than its full line box. */
+      transform: translateY(1px);
       font-variation-settings: 'FILL' 1;
       color: var(--md-sys-color-primary);
     }
@@ -495,12 +515,14 @@ export class TopAppBar extends SignalElement(LitElement) {
     }
 
     .avatar-ring.max {
+      /* --ring-a / --ring-b come from the avatar (tintRing), the theme
+         colors until then or when the picture has no clear color. */
       background: conic-gradient(
         from 200deg,
-        var(--md-sys-color-primary),
-        var(--md-sys-color-tertiary) 40%,
-        color-mix(in srgb, var(--md-sys-color-primary) 30%, var(--md-sys-color-surface-container)) 75%,
-        var(--md-sys-color-primary)
+        var(--ring-a, var(--md-sys-color-primary)),
+        var(--ring-b, var(--md-sys-color-tertiary)) 40%,
+        color-mix(in srgb, var(--ring-a, var(--md-sys-color-primary)) 30%, var(--md-sys-color-surface-container)) 75%,
+        var(--ring-a, var(--md-sys-color-primary))
       );
     }
 
