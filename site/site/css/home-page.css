@@ -2072,13 +2072,26 @@ img.ticket-avatar,
     /* No fill: outside its few pixels a card has its normal radius. With a
        fill, a card still below the window kept 0 (square top corners), and
        a phone scrolling fast showed them until the animation caught up. */
-    animation: card-exit-r linear, card-enter-r linear;
-    animation-timeline:
-      view(block calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height)) var(--page-gap, 20px)),
-      view(block calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height)) var(--page-gap, 20px));
-    animation-range:
-      exit calc(100% - 2 * var(--home-card-radius)) exit 100%,
-      entry 0% entry calc(2 * var(--home-card-radius));
+    animation: card-exit-r linear;
+    animation-timeline: view(block calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height)) var(--page-gap, 20px));
+    animation-range: exit calc(100% - 2 * var(--home-card-radius)) exit 100%;
+  }
+
+  /* The bottom edge only with a mouse. On phones the browser's toolbar
+     (at the bottom on iPhone) grows and shrinks the window while scrolling,
+     and the timeline and the sticky caps disagree on where the bottom is
+     until it settles: the radius shrank late, went square, then jumped.
+     Phones keep the plain caps at the bottom. */
+  @media (hover: hover) and (pointer: fine) {
+    .card:has(> .edge-caps) {
+      animation: card-exit-r linear, card-enter-r linear;
+      animation-timeline:
+        view(block calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height)) var(--page-gap, 20px)),
+        view(block calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height)) var(--page-gap, 20px));
+      animation-range:
+        exit calc(100% - 2 * var(--home-card-radius)) exit 100%,
+        entry 0% entry calc(2 * var(--home-card-radius));
+    }
   }
 
   .edge-caps i:first-child {

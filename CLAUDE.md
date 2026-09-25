@@ -118,7 +118,11 @@ Key files:
   meets the top bar and the bottom of the window, with no JS and nothing
   recomputed while scrolling. At the bottom, cards leave one page margin above
   the window's edge (a fixed band in the page color, `.bento::after`, mirrors
-  the space under the top bar); the footer is drawn over that band. Never replace it with clip-path or scroll listeners:
+  the space under the top bar); the footer is drawn over that band. The
+  radius that shrinks to a pill on a card's last pixels is scroll-driven, with
+  no fill (a card outside those pixels keeps its normal radius); at the bottom
+  edge it only runs with a mouse, because phone toolbars resize the window
+  mid-scroll and made it lag and jump. Never replace it with clip-path or scroll listeners:
   both were tried and lagged. The footer has no caps (its bottom edge is square).
 - A card heading is `h2` (`h1` only for the page's hero). Title → text →
   (visual) → actions, separated by `--space`.
