@@ -157,7 +157,7 @@
     <div class="page-layout">
       <div class="page-topbar">
         <lit-island on:visible import="/js/hydration-entrypoints/navigation.js">
-          <top-app-bar baseURI="/" home-href="{{ loc.prefix }}/" labels="{{ 'topbar' | tObject(loc.code) | dump }}">
+          <top-app-bar baseURI="/" home-href="{{ loc.prefix }}/" premium-href="{{ loc.prefix }}/premium/" labels="{{ 'topbar' | tObject(loc.code) | dump }}">
             {% block topappbar %}{{ topappbar | safe }}{% endblock %}
           </top-app-bar>
         </lit-island>

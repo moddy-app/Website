@@ -4,8 +4,10 @@
     "skipToMain": "Ir al contenido principal",
     "signIn": "Iniciar sesión",
     "userMenu": "Menú de usuario",
-    "hello": "¡Hola, @{username}!",
     "dashboard": "Panel",
+    "premium": "Moddy Max",
+    "planFree": "Plan gratuito",
+    "planMax": "Moddy Max activo",
     "signOut": "Cerrar sesión"
   },
   "footer": {
