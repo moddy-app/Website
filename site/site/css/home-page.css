@@ -1973,6 +1973,38 @@ img.ticket-avatar,
 }
 
 /* ---------------------------------------------------------------------------
+ * Cards leave the screen with rounded corners, each on its own. A card
+ * passing under the top bar, or out of the bottom of the window, is clipped
+ * at that line with its own radius, so what is left of it still looks like
+ * a whole card. Driven by the scroll itself (scroll-driven animation), so
+ * it is computed in the same frame as the scroll. Browsers without it cut
+ * the cards straight, as before.
+ * ------------------------------------------------------------------------- */
+
+@supports (animation-timeline: view()) {
+  .home .card {
+    animation: card-edges linear both;
+    /* The top edge is the bottom of the top bar, not the window's. */
+    animation-timeline: view(
+      block calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height)) 0px
+    );
+  }
+
+  @keyframes card-edges {
+    entry 0% {
+      clip-path: inset(0 0 100% 0 round var(--home-card-radius));
+    }
+    entry 100%,
+    exit 0% {
+      clip-path: inset(0 0 0 0 round var(--home-card-radius));
+    }
+    exit 100% {
+      clip-path: inset(100% 0 0 0 round var(--home-card-radius));
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
  * Motion. Everything below is decoration: with "reduce motion" on, the page
  * shows the final state of each illustration and nothing moves.
  * ------------------------------------------------------------------------- */

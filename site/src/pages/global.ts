@@ -134,58 +134,7 @@ function applySmoothScrolling() {
   });
 }
 
-/**
- * Cards leave the screen with rounded corners, each on its own: a card
- * passing under the top bar, or out of the bottom of the window, is clipped
- * at that line with its own corner radius, so what is left of it always
- * looks like a whole card. The footer is only clipped at the top; it runs
- * off the page with a square bottom edge.
- */
-function roundCardsAtScreenEdges() {
-  const bar = document.querySelector('.page-topbar');
-  const selector = '.card, .site-footer-card';
-  const radii = new WeakMap<HTMLElement, string>();
-  let scheduled = 0;
-
-  const update = () => {
-    scheduled = 0;
-    const top = bar ? bar.getBoundingClientRect().bottom : 0;
-    const bottom = window.innerHeight;
-    for (const card of document.querySelectorAll<HTMLElement>(selector)) {
-      const box = card.getBoundingClientRect();
-      const cutTop = Math.max(0, top - box.top);
-      const cutBottom = card.classList.contains('site-footer-card')
-        ? 0
-        : Math.max(0, box.bottom - bottom);
-      if ((!cutTop && !cutBottom) || cutTop >= box.height || cutBottom >= box.height) {
-        if (card.style.clipPath) card.style.clipPath = '';
-        continue;
-      }
-      let radius = radii.get(card);
-      if (!radius) {
-        radius = getComputedStyle(card).borderTopLeftRadius;
-        radii.set(card, radius);
-      }
-      card.style.clipPath = `inset(${cutTop}px 0 ${cutBottom}px 0 round ${radius})`;
-    }
-  };
-
-  const schedule = () => {
-    if (!scheduled) scheduled = requestAnimationFrame(update);
-  };
-  window.addEventListener('scroll', schedule, {passive: true});
-  window.addEventListener('resize', () => {
-    // Radii change with the breakpoint (32px, 24px on phones).
-    for (const card of document.querySelectorAll<HTMLElement>(selector)) {
-      radii.delete(card);
-    }
-    schedule();
-  });
-  schedule();
-}
-
 applyColorThemeListeners();
 initializeTheme();
 determinePageNavigationAutoMode();
 applySmoothScrolling();
-roundCardsAtScreenEdges();
