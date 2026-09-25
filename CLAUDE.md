@@ -29,7 +29,11 @@ Key files:
 - `site/src/pages/*.ts`: page scripts (esbuild). End a page module with `export {};` or
   an import so its names stay out of the global scope.
 - `site/_data/`: `locales.json`, `i18n/<locale>.json`, `brand.json` (baseline),
-  `palettes.js` (random themes), `publicStats.js` (stats fetched at build time).
+  `palettes.js` (random themes), `publicStats.js` (stats fetched at build time),
+  `build.js` (deployment id).
+- Script URLs in templates always end with `?v={{ build.version }}`: the entry
+  scripts keep their name between deployments and the CDN caches them for hours
+  in the browser, so without it a returning visitor runs old JS on new HTML.
 
 ### i18n (mandatory)
 
@@ -152,7 +156,12 @@ Key files:
   initials or stock photos.
 - User menu: `@username` + email, a round verified badge (`check_circle`, 16px,
   `primary`, one icon for every kind, the kind in its tooltip), and a ring around
-  the top bar avatar for Moddy Max (only in the bar, not in the menu).
+  the top bar avatar for Moddy Max (only in the bar, not in the menu). The ring
+  is drawn **outside** the picture: the avatar keeps its 32px either way.
+- Theme menu (footer): the site's colors as round swatches (the picked one turns
+  into a rounded square with a check) after a "random on every visit" swatch,
+  a custom color panel (picker + hex + HCT sliders), and the color mode as three
+  segments. Keep every one of these when changing it.
 
 ### 7. Motion
 

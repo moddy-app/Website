@@ -303,7 +303,12 @@
     "mode": "Color mode",
     "dark": "Dark",
     "auto": "Automatic",
-    "light": "Light"
+    "light": "Light",
+    "colors": "Colors",
+    "random": "Random",
+    "randomTitle": "A new color on every visit",
+    "custom": "Custom color",
+    "autoShort": "Auto"
   },
   "max": {
     "pageTitle": "Moddy Max",

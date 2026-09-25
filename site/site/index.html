@@ -18,7 +18,7 @@ permalink: "{{ locale.prefix }}/index.html"
 
 {% inlinecss "home-page.css" %}
 
-<lit-island on:visible import="/js/hydration-entrypoints/form-controls.js">
+<lit-island on:visible import="/js/hydration-entrypoints/form-controls.js?v={{ build.version }}">
   <div class="home">
     <div class="bento">
 
@@ -591,4 +591,4 @@ permalink: "{{ locale.prefix }}/index.html"
   </div>
 </lit-island>
 
-<script type="module" src="/js/pages/home-page.js"></script>
+<script type="module" src="/js/pages/home-page.js?v={{ build.version }}"></script>
