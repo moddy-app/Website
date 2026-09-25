@@ -3,6 +3,7 @@ name: Page Not Found
 titleKey: notFound.title
 layout: default.html
 clientI18n: true
+hideFooter: true
 hasToc: false
 permalink: 404.html
 ---
@@ -43,8 +44,13 @@ permalink: 404.html
 {% inlinecss "home-page.css" %}
 
 <style>
+  /* Alone on the page (no footer): the cards fill the window. */
+  .not-found {
+    margin-bottom: var(--page-gap);
+  }
+
   .not-found .card {
-    min-height: min(480px, calc(100vh - var(--catalog-top-app-bar-height) - 3 * var(--page-gap)));
+    min-height: max(420px, calc(100vh - var(--site-banner-height, 0px) - var(--catalog-top-app-bar-height) - 2 * var(--page-gap)));
   }
 
   .not-found-text {
@@ -152,6 +158,12 @@ permalink: 404.html
   }
 
   @media (max-width: 1100px) {
+    /* Stacked: the pair fills the window, the text card takes what is left. */
+    .not-found {
+      min-height: calc(100svh - var(--site-banner-height, 0px) - var(--catalog-top-app-bar-height) - 2 * var(--page-gap));
+      grid-template-rows: auto 1fr;
+    }
+
     .not-found .card {
       min-height: 0;
     }

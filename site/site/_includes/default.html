@@ -169,7 +169,10 @@
         {% block content %}{{ content | safe }}{% endblock %}
       </main>
 
-      {% include "partials/site-footer.html" %}
+      {#- Special pages (404) stand alone, without the footer. #}
+      {% if not hideFooter %}
+        {% include "partials/site-footer.html" %}
+      {% endif %}
     </div>
 
     {#- Pages that exist once for every language (404) translate themselves. #}

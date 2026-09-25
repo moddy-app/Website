@@ -1,8 +1,7 @@
 {#-
   Client-side translation for the few pages that exist once for every
   language (the 404 page is served by Vercel for any unknown path, so it
-  cannot have a copy per locale). Covers the page, the top bar and the
-  footer (see the data-* attributes in partials/site-footer.html).
+  cannot have a copy per locale). Such pages have no footer (`hideFooter`).
 
   The page is rendered in English with `data-i18n="key"` on each element
   (`data-i18n-html` when the string contains markup, `data-i18n-aria-label`
@@ -13,7 +12,7 @@
 <script>
   (function () {
     var locales = {{ locales | dump | safe }};
-    var strings = {{ ['topbar', 'notFound', 'footer', 'theme'] | i18nClient | dump | safe }};
+    var strings = {{ ['topbar', 'notFound'] | i18nClient | dump | safe }};
     var code = null;
 
     try {
@@ -48,19 +47,12 @@
     document.querySelectorAll('[data-i18n-aria-label]').forEach(function (el) {
       el.setAttribute('aria-label', dict[el.dataset.i18nAriaLabel]);
     });
-    document.querySelectorAll('[data-i18n-title]').forEach(function (el) {
-      el.setAttribute('title', dict[el.dataset.i18nTitle]);
-    });
     // Links to pages of the site and of the docs, in that language.
     document.querySelectorAll('[data-locale-href]').forEach(function (el) {
       el.setAttribute('href', locale.prefix + el.dataset.localeHref);
     });
     document.querySelectorAll('[data-docs-path]').forEach(function (el) {
       el.setAttribute('href', 'https://docs.moddy.app' + locale.docs + el.dataset.docsPath);
-    });
-    document.querySelectorAll('.site-footer-languages [data-locale]').forEach(function (el) {
-      if (el.dataset.locale === code) el.setAttribute('aria-current', 'page');
-      else el.removeAttribute('aria-current');
     });
 
     var labels = {};
@@ -73,13 +65,6 @@
       bar.setAttribute('premium-href', locale.prefix + '/premium/');
     });
 
-    var themeLabels = {};
-    Object.keys(dict).forEach(function (key) {
-      if (key.indexOf('theme.') === 0) themeLabels[key.slice(6)] = dict[key];
-    });
-    document.querySelectorAll('theme-changer').forEach(function (el) {
-      el.setAttribute('labels', JSON.stringify(themeLabels));
-    });
     document.querySelectorAll('[data-i18n-home]').forEach(function (el) {
       el.setAttribute('href', locale.prefix + '/');
     });
