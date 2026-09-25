@@ -94,7 +94,8 @@
          Until then, hold their final size so nothing moves when they
          upgrade: the top bar takes its height, buttons their box (hidden,
          so their raw label never flashes). */
-      html.booting body {
+      html.booting body,
+      html.checking-redirect body {
         opacity: 0;
       }
 
@@ -170,6 +171,11 @@
 
       {% include "partials/site-footer.html" %}
     </div>
+
+    {#- Pages that exist once for every language (404) translate themselves. #}
+    {% if clientI18n %}
+      {% include "partials/i18n-client.html" %}
+    {% endif %}
 
 
     <script>

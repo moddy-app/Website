@@ -37,8 +37,12 @@
   },
   "notFound": {
     "title": "Seite nicht gefunden",
-    "description": "Die gesuchte Seite existiert nicht.",
-    "home": "Zur Startseite"
+    "description": "Diese Adresse führt nirgendwohin. Vielleicht ist der Link alt, oder irgendwo fehlt ein Buchstabe.",
+    "joke": "Damit du nicht dastehst wie eine Kuh vor der Gartenschere, geht es hier weiter:",
+    "home": "Zur Startseite",
+    "docs": "Dokumentation",
+    "support": "Support-Server",
+    "visual": "Fehler 404"
   },
   "home": {
     "pageTitle": "Startseite",

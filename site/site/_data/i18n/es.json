@@ -37,8 +37,12 @@
   },
   "notFound": {
     "title": "Página no encontrada",
-    "description": "La página que buscas no existe.",
-    "home": "Volver al inicio"
+    "description": "Esta dirección no lleva a ninguna parte. Puede que el enlace sea antiguo o que falte alguna letra.",
+    "joke": "Para que no te quedes como una vaca delante de unas tijeras de podar, aquí tienes adónde ir:",
+    "home": "Volver al inicio",
+    "docs": "Documentación",
+    "support": "Servidor de soporte",
+    "visual": "Error 404"
   },
   "home": {
     "pageTitle": "Inicio",

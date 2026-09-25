@@ -4,7 +4,7 @@
   <div class="site-footer-card">
     <div class="site-footer-top">
       <div class="site-footer-brand">
-        <a href="{{ loc.prefix }}/" class="site-footer-logo" aria-label="{{ 'footer.logoLabel' | t(loc.code) }}">
+        <a href="{{ loc.prefix }}/" data-locale-href="/" class="site-footer-logo" aria-label="{{ 'footer.logoLabel' | t(loc.code) }}" data-i18n-aria-label="footer.logoLabel">
           <svg viewBox="0 0 929 311" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
   <g clip-path="url(#clip-footer-logo)">
     <path d="M170.21 55.7626H122.754L75.2768 103.219H27.8203V150.675H122.754L170.21 103.219V55.7626Z" fill="currentColor"/>
@@ -19,39 +19,39 @@
 </svg>
         </a>
         <p class="site-footer-baseline">{{ brand.baseline }}</p>
-        <p class="site-footer-made">{{ 'footer.made' | t(loc.code) }}</p>
+        <p class="site-footer-made" data-i18n="footer.made">{{ 'footer.made' | t(loc.code) }}</p>
         <div class="site-footer-actions">
-          <md-filled-button href="/install" target="_blank">{{ 'footer.addToDiscord' | t(loc.code) }}</md-filled-button>
-          <md-outlined-button href="/support" target="_blank">{{ 'footer.supportServer' | t(loc.code) }}</md-outlined-button>
+          <md-filled-button href="/install" target="_blank" data-i18n="footer.addToDiscord">{{ 'footer.addToDiscord' | t(loc.code) }}</md-filled-button>
+          <md-outlined-button href="/support" target="_blank" data-i18n="footer.supportServer">{{ 'footer.supportServer' | t(loc.code) }}</md-outlined-button>
         </div>
       </div>
 
-      <nav class="site-footer-columns" aria-label="{{ 'footer.navLabel' | t(loc.code) }}">
+      <nav class="site-footer-columns" aria-label="{{ 'footer.navLabel' | t(loc.code) }}" data-i18n-aria-label="footer.navLabel">
         <div class="site-footer-column">
-          <h2>{{ 'footer.product' | t(loc.code) }}</h2>
-          <a href="/install" target="_blank">{{ 'footer.addToDiscord' | t(loc.code) }}</a>
-          <a href="https://dashboard.moddy.app" target="_blank">{{ 'footer.dashboard' | t(loc.code) }}</a>
-          <a href="{{ loc.prefix }}/premium/">{{ 'footer.moddyMax' | t(loc.code) }}</a>
-          <a href="https://status.moddy.app" target="_blank">{{ 'footer.status' | t(loc.code) }}</a>
+          <h2 data-i18n="footer.product">{{ 'footer.product' | t(loc.code) }}</h2>
+          <a href="/install" target="_blank" data-i18n="footer.addToDiscord">{{ 'footer.addToDiscord' | t(loc.code) }}</a>
+          <a href="https://dashboard.moddy.app" target="_blank" data-i18n="footer.dashboard">{{ 'footer.dashboard' | t(loc.code) }}</a>
+          <a href="{{ loc.prefix }}/premium/" data-locale-href="/premium/" data-i18n="footer.moddyMax">{{ 'footer.moddyMax' | t(loc.code) }}</a>
+          <a href="https://status.moddy.app" target="_blank" data-i18n="footer.status">{{ 'footer.status' | t(loc.code) }}</a>
         </div>
         <div class="site-footer-column">
-          <h2>{{ 'footer.resources' | t(loc.code) }}</h2>
-          <a href="{{ '/introduction' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.documentation' | t(loc.code) }}</a>
-          <a href="{{ '/commands/overview' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.commands' | t(loc.code) }}</a>
-          <a href="{{ '/changelog' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.changelog' | t(loc.code) }}</a>
-          <a href="/support" target="_blank">{{ 'footer.supportServer' | t(loc.code) }}</a>
+          <h2 data-i18n="footer.resources">{{ 'footer.resources' | t(loc.code) }}</h2>
+          <a href="{{ '/introduction' | docsUrl(loc.code) }}" data-docs-path="/introduction" target="_blank" data-i18n="footer.documentation">{{ 'footer.documentation' | t(loc.code) }}</a>
+          <a href="{{ '/commands/overview' | docsUrl(loc.code) }}" data-docs-path="/commands/overview" target="_blank" data-i18n="footer.commands">{{ 'footer.commands' | t(loc.code) }}</a>
+          <a href="{{ '/changelog' | docsUrl(loc.code) }}" data-docs-path="/changelog" target="_blank" data-i18n="footer.changelog">{{ 'footer.changelog' | t(loc.code) }}</a>
+          <a href="/support" target="_blank" data-i18n="footer.supportServer">{{ 'footer.supportServer' | t(loc.code) }}</a>
         </div>
         <div class="site-footer-column">
-          <h2>{{ 'footer.legal' | t(loc.code) }}</h2>
-          <a href="{{ '/legal/tos' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.terms' | t(loc.code) }}</a>
-          <a href="{{ '/legal/privacy' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.privacy' | t(loc.code) }}</a>
-          <a href="{{ '/legal/license' | docsUrl(loc.code) }}" target="_blank">{{ 'footer.license' | t(loc.code) }}</a>
+          <h2 data-i18n="footer.legal">{{ 'footer.legal' | t(loc.code) }}</h2>
+          <a href="{{ '/legal/tos' | docsUrl(loc.code) }}" data-docs-path="/legal/tos" target="_blank" data-i18n="footer.terms">{{ 'footer.terms' | t(loc.code) }}</a>
+          <a href="{{ '/legal/privacy' | docsUrl(loc.code) }}" data-docs-path="/legal/privacy" target="_blank" data-i18n="footer.privacy">{{ 'footer.privacy' | t(loc.code) }}</a>
+          <a href="{{ '/legal/license' | docsUrl(loc.code) }}" data-docs-path="/legal/license" target="_blank" data-i18n="footer.license">{{ 'footer.license' | t(loc.code) }}</a>
         </div>
       </nav>
     </div>
 
     <div class="site-footer-bar">
-      <nav class="site-footer-languages" aria-label="{{ 'footer.language' | t(loc.code) }}">
+      <nav class="site-footer-languages" aria-label="{{ 'footer.language' | t(loc.code) }}" data-i18n-aria-label="footer.language">
         <span class="material-symbols-outlined" aria-hidden="true">translate</span>
         {% for l in locales %}
           <a
@@ -71,7 +71,9 @@
           <md-icon-button
             id="footer-theme-button"
             title="{{ 'footer.theme' | t(loc.code) }}"
-            aria-label="{{ 'footer.theme' | t(loc.code) }}">
+            aria-label="{{ 'footer.theme' | t(loc.code) }}"
+            data-i18n-title="footer.theme"
+            data-i18n-aria-label="footer.theme">
             <md-icon class="filled">palette</md-icon>
           </md-icon-button>
           <md-menu
@@ -82,16 +84,17 @@
             anchor-corner="start-end"
             default-focus="none"
             role="dialog"
-            aria-label="{{ 'footer.theme' | t(loc.code) }}">
+            aria-label="{{ 'footer.theme' | t(loc.code) }}"
+            data-i18n-aria-label="footer.theme">
             <theme-changer labels="{{ 'theme' | tObject(loc.code) | dump }}"></theme-changer>
           </md-menu>
         </lit-island>
-        <a class="site-footer-icon-link" href="https://github.com/moddy-app" target="_blank" aria-label="{{ 'footer.github' | t(loc.code) }}" title="GitHub">
+        <a class="site-footer-icon-link" href="https://github.com/moddy-app" target="_blank" aria-label="{{ 'footer.github' | t(loc.code) }}" data-i18n-aria-label="footer.github" title="GitHub">
           <svg viewBox="0 0 98 96" aria-hidden="true">
             <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" />
           </svg>
         </a>
-        <span class="site-footer-copyright">{{ 'footer.madeBy' | t(loc.code) }} <a href="https://github.com/juthing" target="_blank">@<strong>juthing</strong></a></span>
+        <span class="site-footer-copyright"><span data-i18n="footer.madeBy">{{ 'footer.madeBy' | t(loc.code) }}</span> <a href="https://github.com/juthing" target="_blank">@<strong>juthing</strong></a></span>
       </div>
     </div>
 
