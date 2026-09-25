@@ -44,13 +44,23 @@ permalink: 404.html
 {% inlinecss "home-page.css" %}
 
 <style>
-  /* Alone on the page (no footer): the cards fill the window. */
-  .not-found {
-    margin-bottom: var(--page-gap);
+  /* Alone on the page (no footer): a narrower block, centred in the window
+     both ways, with the page margin all around. */
+  .not-found-page {
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    min-height: calc(100svh - var(--site-banner-height, 0px) - var(--catalog-top-app-bar-height) - var(--page-gap));
+    padding-bottom: var(--page-gap);
+  }
+
+  .not-found-page .home {
+    width: 100%;
+    max-width: 1040px;
   }
 
   .not-found .card {
-    min-height: max(420px, calc(100vh - var(--site-banner-height, 0px) - var(--catalog-top-app-bar-height) - 2 * var(--page-gap)));
+    min-height: 440px;
   }
 
   .not-found-text {
@@ -117,7 +127,7 @@ permalink: 404.html
   }
 
   .not-found-digits .shape {
-    --shape-size: clamp(96px, 11vw, 136px);
+    --shape-size: clamp(88px, 8.5vw, 112px);
     font-size: calc(var(--shape-size) * 0.46);
     font-weight: 700;
     line-height: 1;
@@ -158,24 +168,23 @@ permalink: 404.html
   }
 
   @media (max-width: 1100px) {
-    /* Stacked: the pair fills the window, the text card takes what is left. */
-    .not-found {
-      min-height: calc(100svh - var(--site-banner-height, 0px) - var(--catalog-top-app-bar-height) - 2 * var(--page-gap));
-      grid-template-rows: auto 1fr;
+    /* Stacked: one column, as wide as a comfortable line of text. */
+    .not-found-page .home {
+      max-width: 640px;
     }
 
     .not-found .card {
       min-height: 0;
     }
 
-    .not-found-visual {
+    .not-found .not-found-visual {
       order: -1;
-      min-height: 240px;
+      min-height: 220px;
     }
   }
 </style>
 
-<lit-island on:visible import="/js/hydration-entrypoints/form-controls.js">
+<lit-island on:visible import="/js/hydration-entrypoints/form-controls.js" class="not-found-page">
   <div class="home">
     <div class="bento not-found">
 
