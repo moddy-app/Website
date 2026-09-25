@@ -1980,14 +1980,16 @@ img.ticket-avatar,
  * thin caps (.edge-caps, in the HTML) that paint two concave corners in the
  * page color, at the card's radius. They are position: sticky inside the
  * card, so the browser's scrolling alone keeps the top cap right under the
- * top bar and the bottom cap on the window's bottom edge, never outside
- * their card. When the card is fully in view they sit exactly over its own
- * rounded corners, so nothing changes.
+ * top bar and the bottom cap on the window's bottom edge. Their track
+ * overhangs the card by one radius at each end (clipped by the card's
+ * overflow: clip), so a cap keeps sticking until the card's last pixel is
+ * gone instead of stopping one radius early. When the card is fully in view
+ * they sit exactly over its own rounded corners, so nothing changes.
  * ------------------------------------------------------------------------- */
 
 .edge-caps {
   position: absolute;
-  inset: 0;
+  inset: calc(-1 * var(--cap)) 0;
   z-index: 3;
   display: flex;
   flex-direction: column;
