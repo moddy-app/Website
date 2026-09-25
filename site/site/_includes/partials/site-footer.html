@@ -99,6 +99,17 @@
 </footer>
 
 <script>
+  // The scroll frame (default.html) rounds whatever leaves the screen, but
+  // not the footer: its bottom edge steps aside while the footer is visible.
+  (function () {
+    var frame = document.querySelector('.scroll-frame');
+    var footer = document.querySelector('.site-footer');
+    if (!frame || !footer || !window.IntersectionObserver) return;
+    new IntersectionObserver(function (entries) {
+      frame.classList.toggle('footer-in-view', entries[0].isIntersecting);
+    }).observe(footer);
+  })();
+
   // Remember the language picked here so the redirect in the <head> of the
   // next page respects it (see partials/locale-redirect.html).
   document.querySelectorAll('.site-footer-languages [data-locale]').forEach(function (link) {

@@ -105,6 +105,12 @@
         }
       }
 
+      /* The footer runs off the bottom of the page with square corners: while
+         it is on screen, the frame's bottom edge moves below the window. */
+      .scroll-frame.footer-in-view {
+        bottom: calc(-2 * var(--frame-radius));
+      }
+
       .page-content {
         flex: 1;
         box-sizing: border-box;
