@@ -96,17 +96,19 @@ permalink: "{{ locale.prefix }}/index.html"
             {% for part in [guilds.slice(0, half), guilds.slice(half)] %}
               {% if part.length %}
                 {#- Each row holds its tiles twice so the marquee loops; the
-                    copy is hidden from screen readers. -#}
+                    copy is hidden from screen readers. The icons are not
+                    lazy: in a strip that moves sideways, a lazy image only
+                    starts loading once its tile is already on screen. -#}
                 <div class="guild-lane"><div class="chip-row">
                   {% for copy in [false, true] %}
                     {% for guild in part %}
                       <span class="guild-tile tone-{{ loop.index0 % 4 }}" style="--tile-width: {{ guild.width }}px"{% if copy %} aria-hidden="true"{% endif %}>
                         {% if guild.icon %}
-                          <img class="guild-bg" src="{{ guild.icon }}" alt="" loading="lazy" crossorigin="anonymous" />
+                          <img class="guild-bg" src="{{ guild.icon }}" alt="" fetchpriority="low" decoding="async" crossorigin="anonymous" />
                         {% endif %}
                         <span class="guild-top">
                           {% if guild.icon %}
-                            <img class="guild-icon" src="{{ guild.icon }}" alt="" width="22" height="22" loading="lazy" crossorigin="anonymous" />
+                            <img class="guild-icon" src="{{ guild.icon }}" alt="" width="22" height="22" fetchpriority="low" decoding="async" crossorigin="anonymous" />
                           {% else %}
                             <span class="guild-icon" aria-hidden="true">{{ guild.initials }}</span>
                           {% endif %}
