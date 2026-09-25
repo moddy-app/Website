@@ -2069,7 +2069,10 @@ img.ticket-avatar,
 @supports (animation-timeline: view()) {
   .card:has(> .edge-caps) {
     border-radius: var(--enter-r) var(--enter-r) var(--exit-r) var(--exit-r);
-    animation: card-exit-r linear both, card-enter-r linear both;
+    /* No fill: outside its few pixels a card has its normal radius. With a
+       fill, a card still below the window kept 0 (square top corners), and
+       a phone scrolling fast showed them until the animation caught up. */
+    animation: card-exit-r linear, card-enter-r linear;
     animation-timeline:
       view(block calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height)) var(--page-gap, 20px)),
       view(block calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height)) var(--page-gap, 20px));
