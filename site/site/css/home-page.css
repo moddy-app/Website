@@ -1993,8 +1993,9 @@ img.ticket-avatar,
  * card's view timeline, so the card ends as a pill. transform runs on the
  * compositor, in step with the scroll: a custom-property version of this
  * was recomputed on the main thread and lagged on phones (random ogives).
- * This animation runs only with a mouse: on phones the address bar shifts
- * the timeline against the screen (see below).
+ * The bottom edge animates only with a mouse: phone address bars move the
+ * bottom of the window mid-scroll and the timeline disagrees with the
+ * sticky caps until it settles.
  * ------------------------------------------------------------------------- */
 
 .card:has(> .edge-caps) {
@@ -2055,22 +2056,17 @@ img.ticket-avatar,
 .edge-caps .br { bottom: 0; right: 0; transform-origin: 100% 100%;
   background-image: radial-gradient(circle at 0 0, transparent calc(var(--cap) - 0.5px), var(--cap-color) var(--cap)); }
 
-/* No fill: outside its few pixels every piece is at full size.
- * Only with a mouse. On phones (Chrome Android) the address bar shifts the
- * scroll timeline against what is on screen by its own height, so the pill
- * happened a centimetre away from the edge and the edge showed an ogive or
- * square corners anyway. Phones keep the plain pieces: a small ogive on a
- * card's last pixels, always in the same place. */
+/* No fill: outside its few pixels every piece is at full size. */
 @supports (view-timeline: --card) {
-  @media (hover: hover) and (pointer: fine) {
-    .cap-top b,
-    .own .bl,
-    .own .br {
-      animation: edge-shrink linear;
-      animation-timeline: --card;
-      animation-range: exit calc(100% - 2 * var(--cap)) exit 100%;
-    }
+  .cap-top b,
+  .own .bl,
+  .own .br {
+    animation: edge-shrink linear;
+    animation-timeline: --card;
+    animation-range: exit calc(100% - 2 * var(--cap)) exit 100%;
+  }
 
+  @media (hover: hover) and (pointer: fine) {
     .cap-bottom b,
     .own .tl,
     .own .tr {
