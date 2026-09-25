@@ -2025,6 +2025,68 @@ img.ticket-avatar,
   background-position: left bottom, right bottom;
 }
 
+/* The last 2 radii of a card, where its own corners and the cap's corners
+ * would meet in a point: both shrink together to half of what is left, so
+ * the card ends as a pill (as border-radius does on a box too short for it).
+ * --exit-r drives the bottom corners + top cap while a card leaves under the
+ * top bar, --enter-r the top corners + bottom cap while one comes in at the
+ * bottom. Scroll-driven, but only these few pixels of one card at a time
+ * change and repaint; everywhere else the values sit still at the radius.
+ * Browsers without scroll-driven animations keep the full radius. */
+@property --exit-r {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 32px;
+}
+
+@property --enter-r {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 32px;
+}
+
+.card {
+  --exit-r: var(--home-card-radius);
+  --enter-r: var(--home-card-radius);
+}
+
+@supports (animation-timeline: view()) {
+  .card:has(> .edge-caps) {
+    border-radius: var(--enter-r) var(--enter-r) var(--exit-r) var(--exit-r);
+    animation: card-exit-r linear both, card-enter-r linear both;
+    animation-timeline:
+      view(block calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height)) 0px),
+      view(block calc(var(--site-banner-height, 0px) + var(--catalog-top-app-bar-height)) 0px);
+    animation-range:
+      exit calc(100% - 2 * var(--home-card-radius)) exit 100%,
+      entry 0% entry calc(2 * var(--home-card-radius));
+  }
+
+  .edge-caps i:first-child {
+    background-size: var(--exit-r) var(--exit-r);
+    background-image:
+      radial-gradient(circle at 100% 100%, transparent calc(var(--exit-r) - 0.5px), var(--cap-color) var(--exit-r)),
+      radial-gradient(circle at 0 100%, transparent calc(var(--exit-r) - 0.5px), var(--cap-color) var(--exit-r));
+  }
+
+  .edge-caps i:last-child {
+    background-size: var(--enter-r) var(--enter-r);
+    background-image:
+      radial-gradient(circle at 100% 0, transparent calc(var(--enter-r) - 0.5px), var(--cap-color) var(--enter-r)),
+      radial-gradient(circle at 0 0, transparent calc(var(--enter-r) - 0.5px), var(--cap-color) var(--enter-r));
+  }
+}
+
+@keyframes card-exit-r {
+  from { --exit-r: var(--home-card-radius); }
+  to { --exit-r: 0px; }
+}
+
+@keyframes card-enter-r {
+  from { --enter-r: 0px; }
+  to { --enter-r: var(--home-card-radius); }
+}
+
 /* ---------------------------------------------------------------------------
  * Motion. Everything below is decoration: with "reduce motion" on, the page
  * shows the final state of each illustration and nothing moves.
