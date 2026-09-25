@@ -522,6 +522,8 @@ export class TopAppBar extends SignalElement(LitElement) {
       height: 32px;
     }
 
+    /* Ring: 3px wide, 2px away from the picture (radius 16 → gap to 18 →
+       ring to 21). */
     .avatar-ring.max::before {
       content: '';
       position: absolute;
@@ -534,8 +536,8 @@ export class TopAppBar extends SignalElement(LitElement) {
         color-mix(in srgb, var(--ring-a, var(--md-sys-color-primary)) 30%, var(--md-sys-color-surface-container)) 75%,
         var(--ring-a, var(--md-sys-color-primary))
       );
-      -webkit-mask: radial-gradient(circle, transparent 18.5px, #000 19px);
-      mask: radial-gradient(circle, transparent 18.5px, #000 19px);
+      -webkit-mask: radial-gradient(circle, transparent 17.5px, #000 18px);
+      mask: radial-gradient(circle, transparent 17.5px, #000 18px);
       pointer-events: none;
     }
 
