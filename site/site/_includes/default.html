@@ -38,13 +38,36 @@
     <!-- Inlines the material theming logic since we want to prevent FOUC -->
     {% include "partials/random-theme.html" %}
     {% inlinejs "inline/apply-saved-theme.js" %}
+    <!-- Show the page once it is complete, not while it assembles: the
+         components, the text font and the icon font on screen arrive after
+         the first paint. Revealed as soon as they are ready, 1.5 s at most. -->
+    <script>
+      (() => {
+        const root = document.documentElement;
+        root.classList.add('booting');
+        const reveal = () => root.classList.remove('booting');
+        setTimeout(reveal, 1500);
+        addEventListener('DOMContentLoaded', () => {
+          const tags = new Set();
+          for (const el of document.querySelectorAll(':not(:defined)')) {
+            if (el.getBoundingClientRect().top < innerHeight) tags.add(el.localName);
+          }
+          Promise.all([document.fonts.ready, ...[...tags].map((tag) => customElements.whenDefined(tag))])
+            .then(() => requestAnimationFrame(reveal));
+        });
+      })();
+    </script>
     <script type="module" src="/js/pages/global.js"></script>
     <noscript>
       <link rel="stylesheet" href="/css/no-js.css" />
     </noscript>
+    <link rel="preload" href="/fonts/google-sans/variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- display=block: an icon stays blank until its font arrives, instead of
+         showing its ligature name ("group", "gavel"…) for a moment. -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
     />
     <!-- dsd-pending hides body until the polyfill has run on browsers that do not support DSD -->
     <style>
@@ -65,6 +88,38 @@
         min-height: 100vh;
         display: flex;
         flex-direction: column;
+      }
+
+      /* Web components are defined by the page's JS, after the first paint.
+         Until then, hold their final size so nothing moves when they
+         upgrade: the top bar takes its height, buttons their box (hidden,
+         so their raw label never flashes). */
+      html.booting body {
+        opacity: 0;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        body {
+          transition: opacity 150ms ease-out;
+        }
+      }
+
+      top-app-bar:not(:defined) {
+        display: block;
+        height: var(--catalog-top-app-bar-height);
+      }
+
+      :is(md-filled-button, md-filled-tonal-button, md-outlined-button, md-text-button):not(:defined) {
+        display: inline-flex;
+        align-items: center;
+        box-sizing: border-box;
+        height: 40px;
+        padding-inline: 24px;
+        visibility: hidden;
+      }
+
+      :is(md-icon-button, md-icon):not(:defined) {
+        visibility: hidden;
       }
 
       .page-topbar {
