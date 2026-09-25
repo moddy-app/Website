@@ -1978,8 +1978,7 @@ img.ticket-avatar,
  * Cards leave the screen with rounded corners, each on its own, at no cost
  * while scrolling. Nothing is clipped or recomputed: every card holds two
  * thin caps (.edge-caps, in the HTML) that paint two concave corners in the
- * page color (16px: smaller than the card radius, so the last sliver of a
- * card ends in a soft bowl, not a pointed ogive). They are sticky inside the
+ * page color, at the card's radius. They are position: sticky inside the
  * card, so the browser's scrolling alone keeps the top cap right under the
  * top bar and the bottom cap on the window's bottom edge. Their track
  * overhangs the card by one radius at each end (clipped by the card's
@@ -1996,7 +1995,7 @@ img.ticket-avatar,
   flex-direction: column;
   justify-content: space-between;
   pointer-events: none;
-  --cap: 16px;
+  --cap: var(--home-card-radius);
   --cap-color: var(--md-sys-color-surface-container);
 }
 
