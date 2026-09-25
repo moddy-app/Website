@@ -6,20 +6,19 @@
 
 import '@material/web/focus/md-focus-ring.js';
 import '@material/web/icon/icon.js';
-import '@material/web/labs/segmentedbutton/outlined-segmented-button.js';
-import '@material/web/labs/segmentedbuttonset/outlined-segmented-button-set.js';
 import './copy-code-button.js';
 import './hct-slider.js';
 
-import type {MdOutlinedSegmentedButton} from '@material/web/labs/segmentedbutton/outlined-segmented-button.js';
 import {css, html, LitElement} from 'lit';
 import {customElement, property, query, queryAll, state} from 'lit/decorators.js';
+import {classMap} from 'lit/directives/class-map.js';
 import {live} from 'lit/directives/live.js';
 
 import {ChangeColorEvent, ChangeDarkModeEvent} from '../types/color-events.js';
 import {hctFromHex, hexFromHct} from '../utils/material-color-helpers.js';
 import type {ColorMode} from '../utils/theme.js';
 import {
+  changeColor,
   getCurrentMode,
   getCurrentSeedColor,
   getCurrentThemeString,
@@ -28,18 +27,21 @@ import {
 import type {HCTSlider} from './hct-slider.js';
 
 /**
- * A small set of controls that allows the user to change the theme and preview
- * color values.
- */
-/**
- * Text shown by the theme menu. The page passes the translated strings as a
- * JSON `labels` attribute (see site/_data/i18n); English is the fallback.
+ * The theme menu of the footer: the site's colors (or a random one on every
+ * visit), a custom color (color picker + HCT sliders), and the color mode.
+ * The page passes the translated strings as a JSON `labels` attribute (see
+ * site/_data/i18n) and the site's colors as `seeds` (site/_data/palettes.js);
+ * English and the Moddy blue are the fallbacks.
  */
 export interface ThemeChangerLabels {
   title: string;
   copy: string;
   copyTitle: string;
   copied: string;
+  colors: string;
+  random: string;
+  randomTitle: string;
+  custom: string;
   source: string;
   hue: string;
   chroma: string;
@@ -47,23 +49,41 @@ export interface ThemeChangerLabels {
   mode: string;
   dark: string;
   auto: string;
+  autoShort: string;
   light: string;
 }
 
 const DEFAULT_LABELS: ThemeChangerLabels = {
-  title: 'Theme Controls',
+  title: 'Theme',
   copy: 'Copy current theme',
   copyTitle: 'Copy current theme to clipboard',
-  copied: 'Copy successful',
-  source: 'Hex Source Color',
+  copied: 'Copied',
+  colors: 'Colors',
+  random: 'Random',
+  randomTitle: 'A new color on every visit',
+  custom: 'Custom color',
+  source: 'Source color',
   hue: 'Hue',
   chroma: 'Chroma',
   tone: 'Tone',
   mode: 'Color mode',
   dark: 'Dark',
   auto: 'Automatic',
+  autoShort: 'Auto',
   light: 'Light',
 };
+
+/** Set by src/pages/global.ts when a color is picked by hand; while it is
+ *  absent, partials/random-theme.html picks a new color on every load. */
+const LOCK_KEY = 'moddy-color-locked';
+
+function isLocked() {
+  try {
+    return Boolean(localStorage.getItem(LOCK_KEY));
+  } catch {
+    return false;
+  }
+}
 
 @customElement('theme-changer')
 export class ThemeChanger extends LitElement {
@@ -72,9 +92,7 @@ export class ThemeChanger extends LitElement {
     delegatesFocus: true,
   };
 
-  /**
-   * The currently selected color mode.
-   */
+  /** The currently selected color mode. */
   @state() selectedColorMode: ColorMode | null = null;
 
   /**
@@ -85,25 +103,28 @@ export class ThemeChanger extends LitElement {
    */
   @state() hexColor = '';
 
-  /**
-   * The current hue value of the hue slider.
-   */
+  /** The current values of the hue, chroma and tone sliders. */
   @state() hue = 0;
-
-  /**
-   * The crrent value of the chroma slider.
-   */
   @state() chroma = 0;
-
-  /**
-   * The current value of the tone slider.
-   */
   @state() tone = 0;
+
+  /** Whether the color was picked by hand (else: random on every visit). */
+  @state() private locked = true;
 
   @property({type: Object}) labels: Partial<ThemeChangerLabels> = {};
 
+  /** The site's colors, comma-separated hex values. */
+  @property() seeds = '#003BCC';
+
   private get text(): ThemeChangerLabels {
     return {...DEFAULT_LABELS, ...this.labels};
+  }
+
+  private get seedList() {
+    return this.seeds
+      .split(',')
+      .map((seed) => seed.trim())
+      .filter((seed) => /^#[0-9a-f]{6}$/i.test(seed));
   }
 
   @query('input') private inputEl!: HTMLInputElement;
@@ -111,7 +132,7 @@ export class ThemeChanger extends LitElement {
 
   render() {
     return html`
-      <div id="head-wrapper">
+      <header>
         <h2>${this.text.title}</h2>
         <copy-code-button
           button-title=${this.text.copyTitle}
@@ -119,88 +140,149 @@ export class ThemeChanger extends LitElement {
           success-label=${this.text.copied}
           .getCopyText=${getCurrentThemeString}>
         </copy-code-button>
-      </div>
-      ${this.renderHexPicker()} ${this.renderHctPicker()}
+      </header>
+      ${this.renderSwatches()} ${this.renderCustom()}
       ${this.renderColorModePicker()}
     `;
   }
 
   /**
-   * Renders a circular native color picker with a focus ring.
+   * The site's colors as round swatches, after a "random" one.
    */
-  protected renderHexPicker() {
-    return html`<div>
+  private renderSwatches() {
+    const current = this.hexColor.toLowerCase();
+    const swatch = (seed: string) => {
+      const selected = this.locked && seed.toLowerCase() === current;
+      return html`<button
+        class=${classMap({swatch: true, selected})}
+        role="radio"
+        aria-checked=${selected ? 'true' : 'false'}
+        aria-label=${seed}
+        title=${seed}
+        style="--swatch: ${seed}"
+        @click=${() => this.pickSeed(seed)}>
+        <md-icon aria-hidden="true">check</md-icon>
+      </button>`;
+    };
+    return html`<section>
+      <h3 id="colors-label">${this.text.colors}</h3>
+      <div class="swatches" role="radiogroup" aria-labelledby="colors-label">
+        <button
+          class=${classMap({swatch: true, random: true, selected: !this.locked})}
+          role="radio"
+          aria-checked=${this.locked ? 'false' : 'true'}
+          aria-label=${`${this.text.random}: ${this.text.randomTitle}`}
+          title=${this.text.randomTitle}
+          @click=${this.pickRandom}>
+          <md-icon aria-hidden="true">shuffle</md-icon>
+        </button>
+        ${this.seedList.map(swatch)}
+      </div>
+    </section>`;
+  }
+
+  /**
+   * A custom color: the native color picker behind a round swatch, its hex
+   * value, and the three HCT sliders.
+   */
+  private renderCustom() {
+    return html`<section class="panel">
       <label id="hex" for="color-input">
-        <span class="label">${this.text.source}</span>
         <span class="input-wrapper">
-          <div class="overflow">
+          <span class="overflow">
             <input
               id="color-input"
+              aria-label=${this.text.source}
               @input=${this.onHexPickerInput}
               type="color"
               .value=${live(this.hexColor)} />
-          </div>
+          </span>
           <md-focus-ring for="color-input"></md-focus-ring>
         </span>
+        <span class="hex-text">
+          <span class="label">${this.text.custom}</span>
+          <code>${this.hexColor.toUpperCase()}</code>
+        </span>
+        <md-icon aria-hidden="true">colorize</md-icon>
       </label>
-    </div>`;
+      <div class="sliders">
+        <hct-slider
+          .value=${live(this.hue)}
+          type="hue"
+          label=${this.text.hue}
+          max="360"
+          @input=${this.onSliderInput}></hct-slider>
+        <hct-slider
+          .value=${live(this.chroma)}
+          .color=${this.hexColor}
+          type="chroma"
+          label=${this.text.chroma}
+          max="150"
+          @input=${this.onSliderInput}></hct-slider>
+        <hct-slider
+          .value=${live(this.tone)}
+          type="tone"
+          label=${this.text.tone}
+          max="100"
+          @input=${this.onSliderInput}></hct-slider>
+      </div>
+    </section>`;
   }
 
   /**
-   * Renders the three hct color pickers.
-   */
-  private renderHctPicker() {
-    return html`<div class="sliders">
-      <hct-slider
-        .value=${live(this.hue)}
-        type="hue"
-        label=${this.text.hue}
-        max="360"
-        @input=${this.onSliderInput}></hct-slider>
-      <hct-slider
-        .value=${live(this.chroma)}
-        .color=${this.hexColor}
-        type="chroma"
-        label=${this.text.chroma}
-        max="150"
-        @input=${this.onSliderInput}></hct-slider>
-      <hct-slider
-        .value=${live(this.tone)}
-        type="tone"
-        label=${this.text.tone}
-        max="100"
-        @input=${this.onSliderInput}></hct-slider>
-    </div>`;
-  }
-
-  /**
-   * Renders the color mode segmented button set picker.
+   * The color mode as three segments (a radio group): dark, auto, light.
    */
   private renderColorModePicker() {
-    return html`<md-outlined-segmented-button-set
-      @segmented-button-set-selection=${this.onColorModeSelection}
-      aria-label=${this.text.mode}>
-      ${this.renderModeButton('dark', 'dark_mode')}
-      ${this.renderModeButton('auto', 'brightness_medium')}
-      ${this.renderModeButton('light', 'light_mode')}
-    </md-outlined-segmented-button-set>`;
+    const modes: Array<[ColorMode, string, string]> = [
+      ['dark', 'dark_mode', this.text.dark],
+      ['auto', 'brightness_medium', this.text.autoShort],
+      ['light', 'light_mode', this.text.light],
+    ];
+    return html`<div class="modes" role="radiogroup" aria-label=${this.text.mode}>
+      ${modes.map(([mode, icon, label]) => {
+        const selected = this.selectedColorMode === mode;
+        return html`<button
+          class=${classMap({selected})}
+          role="radio"
+          aria-checked=${selected ? 'true' : 'false'}
+          title=${this.text[mode]}
+          @click=${() => this.pickMode(mode)}>
+          <md-icon aria-hidden="true">${icon}</md-icon>
+          <span>${label}</span>
+        </button>`;
+      })}
+    </div>`;
+  }
+
+  /** A color picked by hand: applied and kept (global.ts locks it). */
+  private pickColor(hex: string) {
+    this.hexColor = hex;
+    this.locked = true;
+    this.dispatchEvent(new ChangeColorEvent(hex));
+  }
+
+  private pickSeed(seed: string) {
+    this.updateHctFromHex(seed);
+    this.pickColor(seed);
   }
 
   /**
-   * Renders a color mode segmented button.
-   *
-   * @param mode Sets the value and the title of the button to the given color
-   *     mode.
-   * @param icon The icon to display in the button.
+   * Back to a random color on every visit: unlock, and show one right away
+   * (never the current one).
    */
-  private renderModeButton(mode: ColorMode, icon: string) {
-    return html`<md-outlined-segmented-button
-      data-value=${mode}
-      title=${this.text[mode]}
-      aria-label=${this.text[mode]}
-      .selected=${this.selectedColorMode === mode}>
-      <md-icon slot="icon">${icon}</md-icon>
-    </md-outlined-segmented-button>`;
+  private pickRandom() {
+    const current = this.hexColor.toLowerCase();
+    const pool = this.seedList.filter((seed) => seed.toLowerCase() !== current);
+    const seed = pool[Math.floor(Math.random() * pool.length)] ?? this.seedList[0];
+    try {
+      localStorage.removeItem(LOCK_KEY);
+    } catch {
+      // No storage: the color still changes for this page.
+    }
+    this.locked = false;
+    changeColor(seed);
+    this.hexColor = seed;
+    this.updateHctFromHex(seed);
   }
 
   private onSliderInput() {
@@ -208,8 +290,7 @@ export class ThemeChanger extends LitElement {
       this[slider.type] = slider.value;
     }
 
-    this.hexColor = hexFromHct(this.hue, this.chroma, this.tone);
-    this.dispatchEvent(new ChangeColorEvent(this.hexColor));
+    this.pickColor(hexFromHct(this.hue, this.chroma, this.tone));
   }
 
   /**
@@ -225,9 +306,8 @@ export class ThemeChanger extends LitElement {
   }
 
   private onHexPickerInput() {
-    this.hexColor = this.inputEl.value;
-    this.updateHctFromHex(this.hexColor);
-    this.dispatchEvent(new ChangeColorEvent(this.hexColor));
+    this.updateHctFromHex(this.inputEl.value);
+    this.pickColor(this.inputEl.value);
   }
 
   async firstUpdated() {
@@ -241,134 +321,282 @@ export class ThemeChanger extends LitElement {
       this.hexColor = getCurrentSeedColor()!;
     }
 
+    this.locked = isLocked();
     this.updateHctFromHex(this.hexColor);
   }
 
-  private onColorModeSelection(
-    e: CustomEvent<{
-      button: MdOutlinedSegmentedButton;
-      selected: boolean;
-      index: number;
-    }>,
-  ) {
-    const {button} = e.detail;
-    const value = button.dataset.value as ColorMode;
-    this.selectedColorMode = value;
-    this.dispatchEvent(new ChangeDarkModeEvent(value));
+  private pickMode(mode: ColorMode) {
+    if (this.selectedColorMode === mode) return;
+    this.selectedColorMode = mode;
+    this.dispatchEvent(new ChangeDarkModeEvent(mode));
   }
 
   static styles = css`
     :host {
-      /* These are the default values, but we don't want the alignment to break
-       * in case the token values are updated.
-       */
       --_copy-button-button-size: 40px;
-      --_copy-button-icon-size: 24px;
+      --_copy-button-icon-size: 22px;
       position: relative;
       display: flex;
       flex-direction: column;
-      margin: var(--catalog-spacing-m) var(--catalog-spacing-l);
+      gap: 20px;
+      box-sizing: border-box;
+      width: 320px;
+      max-width: calc(100vw - 32px);
+      padding: 8px 20px 20px;
+      color: var(--md-sys-color-on-surface);
     }
 
-    :host > * {
-      margin-block-end: var(--catalog-spacing-l);
-    }
-
-    :host > *:last-child {
-      margin-block-end: 0;
-    }
-
-    #head-wrapper {
+    header {
       display: flex;
-      align-items: space-between;
-    }
-
-    input {
-      border: none;
-      background: none;
-    }
-
-    .sliders,
-    #hex {
-      padding-inline: var(--catalog-spacing-m);
-      border-radius: var(--catalog-shape-l);
-      background-color: var(--md-sys-color-surface-variant);
-      color: var(--md-sys-color-on-surface-variant);
-
-      /* Default track color is inaccessible in a surface-variant */
-      --md-slider-inactive-track-color: var(--md-sys-color-on-surface-variant);
-    }
-
-    hct-slider {
-      display: block;
-      margin-block: 24px;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 40px;
     }
 
     h2 {
       margin: 0;
-      text-align: center;
-      position: relative;
-      height: var(--_copy-button-icon-size);
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    h3 {
+      margin: 0 0 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--md-sys-color-on-surface-variant);
     }
 
     copy-code-button {
       --md-icon-button-icon-size: var(--_copy-button-icon-size);
       --md-icon-button-state-layer-width: var(--_copy-button-button-size);
       --md-icon-button-state-layer-height: var(--_copy-button-button-size);
-      /*
-       * Center the copy icon with the h2 text
-       * -(icon button size - intrinsic icon size) / 2
-       */
-      --_inline-block-inset: calc(
-        -1 * (var(--_copy-button-button-size) - var(--_copy-button-icon-size)) /
-          2
-      );
-      --catalog-copy-code-button-inset: var(--_inline-block-inset) 0 auto auto;
-      position: static;
+      --catalog-copy-code-button-inset: 0;
+      position: relative;
+      width: var(--_copy-button-button-size);
+      height: var(--_copy-button-button-size);
+      margin-inline-end: -8px;
+    }
+
+    /* ---- Swatches --------------------------------------------------------- */
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .swatch {
+      position: relative;
+      display: grid;
+      place-items: center;
+      aspect-ratio: 1;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background-color: var(--swatch);
+      color: #fff;
+      cursor: pointer;
+      outline: none;
+      transition: border-radius 200ms cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    /* The picked color turns into a rounded square, with a check. */
+    .swatch.selected {
+      border-radius: 30%;
+    }
+
+    .swatch md-icon {
+      --md-icon-size: 20px;
+      opacity: 0;
+      font-variation-settings: 'FILL' 1, 'wght' 600;
+      transition: opacity 150ms;
+    }
+
+    .swatch.selected md-icon {
+      opacity: 1;
+    }
+
+    .swatch:focus-visible {
+      box-shadow:
+        0 0 0 2px var(--md-sys-color-surface-container-lowest),
+        0 0 0 4px var(--md-sys-color-secondary);
+    }
+
+    .swatch.random {
+      background-color: var(--md-sys-color-surface-container-high);
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .swatch.random md-icon {
+      opacity: 1;
+    }
+
+    .swatch.random.selected {
+      background-color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+    }
+
+    @media (hover: hover) {
+      .swatch:not(.selected):hover {
+        border-radius: 38%;
+      }
+    }
+
+    /* ---- Custom color ----------------------------------------------------- */
+
+    .panel {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px 12px 16px;
+      border-radius: 20px;
+      background-color: var(--md-sys-color-surface-container);
+      color: var(--md-sys-color-on-surface-variant);
+      --md-slider-inactive-track-color: var(--md-sys-color-outline-variant);
     }
 
     #hex {
       display: flex;
-      padding: 12px;
       align-items: center;
+      gap: 12px;
+      padding: 4px;
+      border-radius: 14px;
+      cursor: pointer;
     }
 
-    #hex .label {
+    #hex > md-icon {
+      --md-icon-size: 20px;
+      margin-inline-end: 4px;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .hex-text {
+      display: flex;
+      flex-direction: column;
       flex-grow: 1;
+      gap: 2px;
+      min-width: 0;
     }
 
-    #hex .input-wrapper {
-      box-sizing: border-box;
-      width: 48px;
-      height: 48px;
-      box-sizing: border-box;
-      border: 1px solid var(--md-sys-color-on-secondary-container);
+    .hex-text .label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .hex-text code {
+      font-family: 'Google Sans Mono', monospace;
+      font-size: 13px;
+    }
+
+    .input-wrapper {
       position: relative;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 1px var(--md-sys-color-outline-variant);
     }
 
-    #hex .input-wrapper,
-    #hex md-focus-ring {
+    .input-wrapper md-focus-ring {
       border-radius: 50%;
     }
 
     .overflow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
       height: 100%;
       overflow: hidden;
       border-radius: inherit;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    #hex input {
+    input {
       min-width: 200%;
       min-height: 200%;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    .sliders {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-top: 8px;
+    }
+
+    /* ---- Color mode ------------------------------------------------------- */
+
+    .modes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 4px;
+      padding: 4px;
+      border-radius: 999px;
+      background-color: var(--md-sys-color-surface-container);
+    }
+
+    .modes button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-width: 0;
+      height: 40px;
+      padding: 0 4px;
+      border: 0;
+      border-radius: 999px;
+      background: none;
+      color: var(--md-sys-color-on-surface-variant);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      outline: none;
+      transition:
+        background-color 200ms cubic-bezier(0.2, 0, 0, 1),
+        color 200ms cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    .modes button md-icon {
+      --md-icon-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .modes button span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .modes button.selected {
+      background-color: var(--md-sys-color-surface-container-lowest);
+      color: var(--md-sys-color-on-surface);
+      box-shadow: 0 1px 2px color-mix(in srgb, var(--md-sys-color-shadow) 18%, transparent);
+    }
+
+    .modes button.selected md-icon {
+      font-variation-settings: 'FILL' 1;
+      color: var(--md-sys-color-primary);
+    }
+
+    .modes button:focus-visible {
+      box-shadow: 0 0 0 2px var(--md-sys-color-secondary);
+    }
+
+    @media (hover: hover) {
+      .modes button:not(.selected):hover {
+        color: var(--md-sys-color-on-surface);
+      }
     }
 
     @media (forced-colors: active) {
-      #hex,
-      .sliders {
+      .panel,
+      .swatch {
         box-sizing: border-box;
         border: 1px solid CanvasText;
       }

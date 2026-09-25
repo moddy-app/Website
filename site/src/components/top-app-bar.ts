@@ -378,7 +378,7 @@ export class TopAppBar extends SignalElement(LitElement) {
     }
 
     #user-menu-button {
-      --md-icon-button-icon-size: 36px;
+      --md-icon-button-icon-size: 32px;
     }
 
     #user-menu {
@@ -503,20 +503,32 @@ export class TopAppBar extends SignalElement(LitElement) {
       opacity: 1;
     }
 
-    /* Moddy Max: a ring in the theme colors around the avatar button, with a
-       gap in the bar's color between the ring and the picture. */
+    /* Moddy Max: a ring around the avatar, outside it: the picture keeps
+       its 32px, the ring is drawn around it with a small gap (a masked
+       pseudo-element, so nothing moves). --ring-a / --ring-b come from the
+       avatar (tintRing), the theme colors until then or when the picture
+       has no clear color. */
     .avatar-ring {
+      position: relative;
       display: block;
-      box-sizing: border-box;
-      width: 36px;
-      height: 36px;
-      padding: 3px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
     }
 
-    .avatar-ring.max {
-      /* --ring-a / --ring-b come from the avatar (tintRing), the theme
-         colors until then or when the picture has no clear color. */
+    .avatar-ring .user-avatar {
+      display: block;
+      width: 32px;
+      height: 32px;
+    }
+
+    /* Ring: 3px wide, 2px away from the picture (radius 16 → gap to 18 →
+       ring to 21). */
+    .avatar-ring.max::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
       background: conic-gradient(
         from 200deg,
         var(--ring-a, var(--md-sys-color-primary)),
@@ -524,25 +536,9 @@ export class TopAppBar extends SignalElement(LitElement) {
         color-mix(in srgb, var(--ring-a, var(--md-sys-color-primary)) 30%, var(--md-sys-color-surface-container)) 75%,
         var(--ring-a, var(--md-sys-color-primary))
       );
-    }
-
-    .avatar-ring .user-avatar {
-      display: block;
-      box-sizing: border-box;
-      width: 30px;
-      height: 30px;
-      border: 2px solid var(--md-sys-color-surface-container);
-    }
-
-    /* Without Moddy Max: the plain 32px picture, same footprint. */
-    .avatar-ring:not(.max) {
-      padding: 2px;
-    }
-
-    .avatar-ring:not(.max) .user-avatar {
-      width: 32px;
-      height: 32px;
-      border: 0;
+      -webkit-mask: radial-gradient(circle, transparent 17.5px, #000 18px);
+      mask: radial-gradient(circle, transparent 17.5px, #000 18px);
+      pointer-events: none;
     }
 
     #menu-island {

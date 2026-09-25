@@ -20,7 +20,7 @@ permalink: "{{ locale.prefix }}/premium/index.html"
 {% inlinecss "home-page.css" %}
 {% inlinecss "premium-page.css" %}
 
-<lit-island on:visible import="/js/hydration-entrypoints/form-controls.js">
+<lit-island on:visible import="/js/hydration-entrypoints/form-controls.js?v={{ build.version }}">
   <div class="home premium"
     data-return-url="https://moddy.app{{ locale.prefix }}/premium/"
     data-servers-url="https://dashboard.moddy.app/select-premium-servers">
@@ -277,4 +277,4 @@ permalink: "{{ locale.prefix }}/premium/index.html"
   </div>
 </lit-island>
 
-<script type="module" src="/js/pages/premium-page.js"></script>
+<script type="module" src="/js/pages/premium-page.js?v={{ build.version }}"></script>

@@ -16,11 +16,11 @@
     <meta name="theme-color" content="#251f16" />
     <link href="/images/favicon.svg" rel="icon" sizes="any" type="image/svg+xml">
     {% inlinecss "global.css" %}
-    <script type="module" src="/js/ssr-utils/lit-hydrate-support.js"></script>
-    <script type="module" src="/js/ssr-utils/lit-island.js"></script>
+    <script type="module" src="/js/ssr-utils/lit-hydrate-support.js?v={{ build.version }}"></script>
+    <script type="module" src="/js/ssr-utils/lit-island.js?v={{ build.version }}"></script>
     {% include "partials/random-theme.html" %}
     {% inlinejs "inline/apply-saved-theme.js" %}
-    <script type="module" src="/js/pages/global.js"></script>
+    <script type="module" src="/js/pages/global.js?v={{ build.version }}"></script>
     <noscript>
       <link rel="stylesheet" href="/css/no-js.css" />
     </noscript>
@@ -81,7 +81,7 @@
     {% include "partials/site-banner.html" %}
     <div class="fullpage-layout">
       <div class="fullpage-topbar">
-        <lit-island on:visible import="/js/hydration-entrypoints/navigation.js">
+        <lit-island on:visible import="/js/hydration-entrypoints/navigation.js?v={{ build.version }}">
           <top-app-bar baseURI="/">
             {% block topappbar %}{{ topappbar | safe }}{% endblock %}
           </top-app-bar>

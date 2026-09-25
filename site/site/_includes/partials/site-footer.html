@@ -66,7 +66,7 @@
       <div class="site-footer-meta">
         <lit-island
           on:interaction="pointerenter,focusin,pointerdown"
-          import="/js/hydration-entrypoints/footer-theme.js"
+          import="/js/hydration-entrypoints/footer-theme.js?v={{ build.version }}"
           class="site-footer-theme">
           <md-icon-button
             id="footer-theme-button"
@@ -83,7 +83,9 @@
             default-focus="none"
             role="dialog"
             aria-label="{{ 'footer.theme' | t(loc.code) }}">
-            <theme-changer labels="{{ 'theme' | tObject(loc.code) | dump }}"></theme-changer>
+            <theme-changer
+              labels="{{ 'theme' | tObject(loc.code) | dump }}"
+              seeds="{% for p in palettes %}{{ p.seed }}{% if not loop.last %},{% endif %}{% endfor %}"></theme-changer>
           </md-menu>
         </lit-island>
         <a class="site-footer-icon-link" href="https://github.com/moddy-app" target="_blank" aria-label="{{ 'footer.github' | t(loc.code) }}" title="GitHub">
@@ -295,7 +297,8 @@
   }
 
   #footer-theme-menu {
-    --md-menu-container-shape: var(--catalog-shape-xl);
+    --md-menu-container-color: var(--md-sys-color-surface-container-lowest);
+    --md-menu-container-shape: 24px;
   }
 
   .site-footer-icon-link {

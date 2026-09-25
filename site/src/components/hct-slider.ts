@@ -60,7 +60,10 @@ export class HCTSlider extends LitElement {
     }
 
     return html`<section>
-      <span id="label" class="color-on-surface-text">${this.label}</span>
+      <span id="label" class="color-on-surface-text">
+        <span>${this.label}</span>
+        <span class="value">${Math.round(this.value)}</span>
+      </span>
       <md-slider
         id="source"
         labeled
@@ -136,11 +139,26 @@ export class HCTSlider extends LitElement {
       flex-direction: column;
     }
 
+    #label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .value {
+      font-variant-numeric: tabular-nums;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    md-slider {
+      margin-block: -4px;
+    }
+
     #gradient {
-      height: 24px;
-      border-radius: 12px;
-      border: 1px solid currentColor;
-      box-sizing: border-box;
+      height: 10px;
+      border-radius: 5px;
+      box-shadow: inset 0 0 0 1px var(--md-sys-color-outline-variant);
     }
 
     #gradient.chroma {

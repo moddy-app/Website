@@ -303,7 +303,12 @@
     "mode": "Farbmodus",
     "dark": "Dunkel",
     "auto": "Automatisch",
-    "light": "Hell"
+    "light": "Hell",
+    "colors": "Farben",
+    "random": "Zufällig",
+    "randomTitle": "Bei jedem Besuch eine neue Farbe",
+    "custom": "Eigene Farbe",
+    "autoShort": "Auto"
   },
   "max": {
     "pageTitle": "Moddy Max",

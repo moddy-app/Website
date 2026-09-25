@@ -32,9 +32,9 @@
     <!-- Inlines the global css in site/css/global.css -->
     {% inlinecss "global.css" %}
     <!-- MUST be loaded before any lit bundle. allows hydration of SSRd components -->
-    <script type="module" src="/js/ssr-utils/lit-hydrate-support.js"></script>
+    <script type="module" src="/js/ssr-utils/lit-hydrate-support.js?v={{ build.version }}"></script>
     <!-- Loads definition for <lit-island>. See docs for @11ty/is-land for usage -->
-    <script type="module" src="/js/ssr-utils/lit-island.js"></script>
+    <script type="module" src="/js/ssr-utils/lit-island.js?v={{ build.version }}"></script>
     <!-- Inlines the material theming logic since we want to prevent FOUC -->
     {% include "partials/random-theme.html" %}
     {% inlinejs "inline/apply-saved-theme.js" %}
@@ -57,7 +57,7 @@
         });
       })();
     </script>
-    <script type="module" src="/js/pages/global.js"></script>
+    <script type="module" src="/js/pages/global.js?v={{ build.version }}"></script>
     <noscript>
       <link rel="stylesheet" href="/css/no-js.css" />
     </noscript>
@@ -157,7 +157,7 @@
     {% include "partials/site-banner.html" %}
     <div class="page-layout">
       <div class="page-topbar">
-        <lit-island on:visible import="/js/hydration-entrypoints/navigation.js">
+        <lit-island on:visible import="/js/hydration-entrypoints/navigation.js?v={{ build.version }}">
           <top-app-bar baseURI="/" home-href="{{ loc.prefix }}/" premium-href="{{ loc.prefix }}/premium/" labels="{{ 'topbar' | tObject(loc.code) | dump }}">
             {% block topappbar %}{{ topappbar | safe }}{% endblock %}
           </top-app-bar>
