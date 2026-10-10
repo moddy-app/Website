@@ -19,6 +19,7 @@
     {% endif %}
     <!-- Use the 11ty data system to set the title -->
     <title>Moddy App{% if pageTitle %} - {{ pageTitle }}{% endif %}</title>
+    {% include "partials/google-analytics.html" %}
     <!-- Set the color of the url bar on mobile to match theme -->
     <meta name="theme-color" content="#251f16" />
     <link href="/images/favicon.svg" rel="icon" sizes="any" type="image/svg+xml">
