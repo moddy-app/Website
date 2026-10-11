@@ -147,6 +147,11 @@ const icon = (name, extra = '') =>
 const avatar = (name, size = 36, extra = '') =>
   `<img class="${extra} avatar-3d" src="/images/avatars/${name}.webp" alt="" width="${size}" height="${size}" />`;
 
+/** A Twemoji (Discord's emoji set), from ads/emoji. Stands in for the
+ * explicit pictures, which are never shown. */
+const emoji = (code, size) =>
+  `<img class="ad-emoji" src="/emoji/${code}.svg" alt="" width="${size}" height="${size}" />`;
+
 /** A message in a channel, like the ticket thread of the home page. */
 const message = (who, body, {bot = false, time = '', attrs = ''} = {}) => `
   <div class="ticket-msg" ${attrs}>
@@ -169,7 +174,7 @@ const fill = (text, values) => text.replace(/\{(\w+)\}/g, (_, name) => values[na
 const scenes = {};
 
 /* AutoMod AI, images: the same hacked account posts a crypto scam, then an
- * explicit picture, in two servers side by side. Without Moddy it stays
+ * explicit picture (a peach stands in for it), in two servers side by side. Without Moddy it stays
  * and members fall for it; with Moddy it is gone at once and the chat goes
  * on. */
 const VS_VARIANTS = ['scam', 'nsfw'];
@@ -193,7 +198,7 @@ scenes['automod-images'] = {
             <span class="ad-phone-sub">${t('automodImages.phone.value')}</span>
             <span class="ad-phone-row"><span>${t('automodImages.phone.status')}</span><b>${t('automodImages.phone.done')}</b></span>
           </span>
-          <span class="ad-picture ad-picture-hidden only-nsfw">${icon('visibility_off')}<span>${t('automodImages.sensitive')}</span></span>
+          <span class="ad-picture ad-picture-emoji only-nsfw">${emoji('1f351', 64)}</span>
         </span></span>
       </span>`;
     const replies = (variant) =>
@@ -340,7 +345,7 @@ scenes['automod-context'] = {
 };
 
 /* AutoMod AI, profile pictures: a member joins with an explicit avatar
- * (never shown: an empty picture), it is checked on arrival, the moderators get the
+ * (a banana stands in for it), it is checked on arrival, the moderators get the
  * alert. */
 scenes['automod-avatar'] = {
   html: () => `
@@ -351,8 +356,8 @@ scenes['automod-avatar'] = {
         <span class="status">${t('automodAvatar.member')}</span>
       </div>
       <div class="ag-member ad-newcomer" data-at="1" data-state="arrived">
-        <span class="ad-blurred">
-          ${icon('visibility_off')}
+        <span class="ad-emoji-avatar">
+          ${emoji('1f34c', 22)}
           <svg class="ad-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20.5" /></svg>
         </span>
         <span class="ag-who"><strong>nyx_77</strong><span>${t('automodAvatar.joined')}</span></span>

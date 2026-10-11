@@ -8,9 +8,9 @@ Moddy blue theme, dark mode.
 
 | File | Module | What it shows |
 |---|---|---|
-| `automod-images.gif` | AutoMod AI | A hacked account posts a crypto scam, then an NSFW picture: without Moddy it stays, with Moddy it is removed at once |
+| `automod-images.gif` | AutoMod AI | A hacked account posts a crypto scam, then an NSFW picture (a peach): without Moddy it stays, with Moddy it is removed at once |
 | `automod-context.gif` | AutoMod AI | Same word in a joke and in a threat: a word filter blocks both, AutoMod AI only the threat |
-| `automod-avatar.gif` | AutoMod AI | A member joins with an explicit profile picture, caught on arrival |
+| `automod-avatar.gif` | AutoMod AI | A member joins with an explicit profile picture (a banana), caught on arrival |
 | `brocoli.gif` | Brocoli | The home page's conversation |
 | `altguard.gif` | AltGuard | The home page's demo: a member passes, a second account is blocked |
 | `bump-reminder.gif` | Bump Reminder | Reminders for DISBOARD, DiscordL and French.gg in one channel |
@@ -34,6 +34,8 @@ node render.mjs --serve                 # preview: http://localhost:8100/ad.html
 - `ads.js`: the scenes (markup + timeline), one per ad.
 - `ads.css`: only what `home-page.css` doesn't already draw.
 - `i18n/fr.json`, `i18n/en.json`: every visible string.
+- `emoji/`: Twemoji, Discord's emoji set (CC-BY 4.0, https://github.com/jdecked/twemoji),
+  standing in for the explicit pictures.
 - `render.mjs`: serves the page, steps a virtual clock one frame at a time
   (25 fps) and turns the frames into a GIF with ffmpeg. The frames are exact
   whatever the machine's speed.

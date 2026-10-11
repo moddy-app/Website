@@ -340,20 +340,11 @@ body {
   color: var(--md-sys-color-primary);
 }
 
-.ad-picture-hidden {
+.ad-picture-emoji {
+  align-items: center;
   width: 150px;
   height: 118px;
-  align-items: center;
-  background-color: var(--md-sys-color-surface-container-high);
-}
-
-.ad-picture-hidden > span:not(.material-symbols-outlined) {
-  font-size: 11px;
-}
-
-.ad-picture-hidden .material-symbols-outlined {
-  font-size: 24px;
-  color: var(--md-sys-color-on-surface-variant);
+  background-color: var(--tint-tertiary);
 }
 
 /* The post folds away and the sanction takes its place. */
@@ -536,7 +527,7 @@ body {
   padding: 12px 14px;
 }
 
-.ad-blurred {
+.ad-emoji-avatar {
   position: relative;
   display: grid;
   place-items: center;
@@ -545,11 +536,6 @@ body {
   flex-shrink: 0;
   border-radius: 50%;
   background-color: var(--md-sys-color-surface-container-high);
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-.ad-blurred > .material-symbols-outlined {
-  font-size: 18px;
 }
 
 .ad-ring {

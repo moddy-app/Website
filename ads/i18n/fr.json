@@ -33,8 +33,7 @@
       "value": "≈ 2,499 $",
       "status": "Status",
       "done": "Completed"
-    },
-    "sensitive": "Contenu sensible"
+    }
   },
   "automodContext": {
     "filter": "Filtre de mots",
