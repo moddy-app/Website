@@ -86,7 +86,20 @@
   "bump": {
     "ready": "{role} vous pouvez de nouveau bumper sur {name} : {command}",
     "laterMin": "{m} min plus tard",
-    "laterHours": "{h} h plus tard"
+    "laterHours": "{h} h plus tard",
+    "used": "{who} a utilisé {command}",
+    "disboard": {
+      "title": "DISBOARD : La liste des serveurs publics",
+      "text": "Bump effectué !"
+    },
+    "discordl": {
+      "title": "Ton Bump a été effectué",
+      "text": "{server} vient d'être propulsé par {who}"
+    },
+    "frenchgg": {
+      "title": "NOUVEAU BUMP",
+      "text": "Le serveur {server} a été bumpé !"
+    }
   },
   "restore": {
     "in": "sur le serveur",

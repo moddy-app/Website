@@ -13,7 +13,7 @@ Moddy blue theme, dark mode.
 | `automod-avatar.gif` | AutoMod AI | A member joins with an explicit profile picture (a banana), caught on arrival |
 | `brocoli.gif` | Brocoli | The home page's conversation |
 | `altguard.gif` | AltGuard | The home page's demo: a member passes, a second account is blocked |
-| `bump-reminder.gif` | Bump Reminder | Reminders for DISBOARD, DiscordL and French.gg in one channel |
+| `bump-reminder.gif` | Bump Reminder | Moddy's reminders for DISBOARD, DiscordL and French.gg in one channel; each time someone bumps and the directory answers |
 | `auto-restore-roles.gif` | Auto-Restore Roles | A member leaves, comes back, gets their roles again (except the excluded one) |
 | `social-notifications.gif` | Social Notifications | Twitch, YouTube, Bluesky and RSS posts arriving in #announcements |
 | `voice-transcription.gif` | Voice Transcription | A voice message turned into text with the Transcribe button |
@@ -36,6 +36,7 @@ node render.mjs --serve                 # preview: http://localhost:8100/ad.html
 - `i18n/fr.json`, `i18n/en.json`: every visible string.
 - `emoji/`: Twemoji, Discord's emoji set (CC-BY 4.0, https://github.com/jdecked/twemoji),
   standing in for the explicit pictures.
+- `bots/`: the directories' avatars (DISBOARD, DiscordL, French.gg), cropped round.
 - `render.mjs`: serves the page, steps a virtual clock one frame at a time
   (25 fps) and turns the frames into a GIF with ffmpeg. The frames are exact
   whatever the machine's speed.

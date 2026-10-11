@@ -153,11 +153,12 @@ const emoji = (code, size) =>
   `<img class="ad-emoji" src="/emoji/${code}.svg" alt="" width="${size}" height="${size}" />`;
 
 /** A message in a channel, like the ticket thread of the home page. */
-const message = (who, body, {bot = false, time = '', attrs = ''} = {}) => `
-  <div class="ticket-msg" ${attrs}>
-    ${who === 'moddy' ? avatar('moddy', 32, 'ticket-avatar') : avatar(who, 32, 'ticket-avatar')}
+const message = (who, body, {bot = false, name = who === 'moddy' ? 'Moddy' : who, picture = '', time = '', attrs = '', before = ''} = {}) => `
+  <div class="ticket-msg${before ? ' ad-reply' : ''}" ${attrs}>
+    ${before}
+    ${picture ? `<img class="ticket-avatar avatar-3d ad-bot-avatar" src="${picture}" alt="" width="32" height="32" />` : avatar(who, 32, 'ticket-avatar')}
     <span class="ticket-body">
-      <span class="ticket-author">${who === 'moddy' ? 'Moddy' : who}${bot ? ` <span class="ticket-tag">${t('common.app')}</span>` : ''}${time ? ` <span class="ad-time">${time}</span>` : ''}</span>
+      <span class="ticket-author">${name}${bot ? ` <span class="ticket-tag">${t('common.app')}</span>` : ''}${time ? ` <span class="ad-time">${time}</span>` : ''}</span>
       ${body}
     </span>
   </div>`;
@@ -553,12 +554,13 @@ scenes['altguard'] = {
 };
 
 /* Bump Reminder: the #bump channel over an afternoon. Moddy calls the
- * channel back for each directory the moment its bump opens again. */
+ * channel back for each directory the moment its bump opens again, someone
+ * bumps, and the directory's bot answers (its embed, simplified). */
 const REMINDERS = [
-  // [directory, minutes after 16:00]
-  ['DISBOARD', 0],
-  ['DiscordL', 45],
-  ['French.gg', 105],
+  // [directory, bot avatar in ads/bots, embed tone, who bumps, minutes after 16:00]
+  ['DISBOARD', 'disboard', 'tone-tertiary', 'leo', 0],
+  ['DiscordL', 'discordl', 'tone-primary', 'mia', 45],
+  ['French.gg', 'frenchgg', 'tone-outline', 'sam', 105],
 ];
 
 scenes['bump-reminder'] = {
@@ -567,14 +569,34 @@ scenes['bump-reminder'] = {
     const at = (minutes) => time.format(new Date((16 * 60 + minutes) * 60000));
     const later = (minutes) =>
       minutes % 60 ? fill(t('bump.laterMin'), {m: minutes}) : fill(t('bump.laterHours'), {h: minutes / 60});
+    const embeds = {
+      disboard: () => `
+        <strong class="ad-embed-link">${t('bump.disboard.title')}</strong>
+        <span>${t('bump.disboard.text')}</span>`,
+      discordl: (who) => `
+        <strong>${emoji('1f680', 16)} ${t('bump.discordl.title')}</strong>
+        <span>${fill(t('bump.discordl.text'), {server: '<b>Pixel Café</b>', who: mention('@' + who)})}</span>`,
+      frenchgg: () => `
+        <strong class="ad-embed-link">${t('bump.frenchgg.title')}</strong>
+        <span>${fill(t('bump.frenchgg.text'), {server: 'Pixel Café'})}</span>`,
+    };
+    let step = 0;
     return `
     <div class="panel ad-bump" data-demo>
       <div class="ad-channel">${icon('tag')}<span>bump</span></div>
       <div class="ad-scroll">
         <div class="ad-log">
-          ${REMINDERS.map(([name, minutes], index) => `
-            ${index ? `<div class="ad-divider" data-at="${index * 2 - 1}"><span>${later(minutes - REMINDERS[index - 1][1])}</span></div>` : ''}
-            ${message('moddy', `<span class="ad-text">${fill(t('bump.ready'), {role: mention('@Bumpers'), name: `<strong>${name}</strong>`, command: mention('/bump')})}</span>`, {bot: true, time: at(minutes), attrs: `data-at="${index * 2}"`})}`).join('')}
+          ${REMINDERS.map(([name, bot, tone, who, minutes], index) => `
+            ${index ? `<div class="ad-divider" data-at="${step++}"><span>${later(minutes - REMINDERS[index - 1][4])}</span></div>` : ''}
+            ${message('moddy', `<span class="ad-text">${fill(t('bump.ready'), {role: mention('@Bumpers'), name: `<strong>${name}</strong>`, command: mention('/bump')})}</span>`, {bot: true, time: at(minutes), attrs: `data-at="${step++}"`})}
+            ${message(bot, `<span class="command-reply ad-embed ${tone}">${embeds[bot](who)}</span>`, {
+              bot: true,
+              name,
+              picture: `/bots/${bot}.png`,
+              time: at(minutes + 2),
+              attrs: `data-at="${step++}"`,
+              before: `<span class="ad-used">${avatar(who, 16)}<span>${fill(t('bump.used'), {who: `<strong>${who}</strong>`, command: mention('/bump')})}</span></span>`,
+            })}`).join('')}
         </div>
       </div>
     </div>`;
@@ -589,11 +611,14 @@ scenes['bump-reminder'] = {
     root.classList.add('playing');
     restore();
     const timeline = [
-      [0, 1800], // DISBOARD
-      [1, 600], // 45 min later
-      [2, 1700], // DiscordL
-      [3, 600], // 1 h later
-      [4, 3200], // French.gg
+      [0, 1500], // DISBOARD is open again
+      [1, 1800], // leo bumps, DISBOARD answers
+      [2, 600], // 45 min later
+      [3, 1400], // DiscordL
+      [4, 1800], // mia bumps
+      [5, 600], // 1 h later
+      [6, 1400], // French.gg
+      [7, 3000], // sam bumps
     ];
     for (const [step, pause] of timeline) {
       show(step);

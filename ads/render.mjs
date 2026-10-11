@@ -86,7 +86,7 @@ function themeCss(seed, dark) {
 }
 
 /* -------------------------------------------------------------------------
- * A small static server: /ad.html, /ads.*, /i18n/* and /emoji/* from this folder,
+ * A small static server: /ad.html, /ads.*, /i18n/*, /emoji/* and /bots/* from this folder,
  * everything else from the built site.
  * ----------------------------------------------------------------------- */
 
@@ -105,7 +105,7 @@ function startServer(port) {
   const server = createServer(async (request, response) => {
     const url = new URL(request.url, 'http://localhost');
     const path = normalize(decodeURIComponent(url.pathname)).replace(/^(\.\.[/\\])+/, '');
-    const local = /^\/(ad\.html|ads\.(css|js)|i18n\/|emoji\/)/.test(path);
+    const local = /^\/(ad\.html|ads\.(css|js)|i18n\/|emoji\/|bots\/)/.test(path);
     const file = join(local ? here : prod, path);
     try {
       if (!(await stat(file)).isFile()) throw new Error('not a file');
