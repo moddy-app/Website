@@ -208,6 +208,15 @@ body {
   padding-top: 16px;
 }
 
+/* Room for the sanction, which overhangs the messages by 6px each side. */
+.ad-vs .ad-scroll {
+  margin-inline: -6px;
+}
+
+.ad-vs .ad-scroll > * {
+  padding-inline: 6px;
+}
+
 /* A small chat message: 24px avatar, name, text. */
 .ad-mini-msg {
   display: flex;
