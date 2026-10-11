@@ -1,0 +1,148 @@
+{
+  "common": {
+    "app": "APP"
+  },
+  "automodImages": {
+    "without": "Without Moddy",
+    "with": "With Moddy",
+    "scamText": "withdrawal received, hurry!",
+    "nsfwText": "look at this",
+    "replies": {
+      "scam": [
+        "is this real??",
+        "I clicked, it wants my wallet",
+        "leo were you hacked?"
+      ],
+      "nsfw": [
+        "uh ???",
+        "there are minors here",
+        "mods where are you?"
+      ]
+    },
+    "verdictScam": "Scam removed",
+    "verdictNsfw": "NSFW image removed",
+    "detail": "leo muted · likely hacked",
+    "calm": {
+      "scam": "anyone up for a game tonight?",
+      "nsfw": "gg everyone, that was fun"
+    },
+    "before": "we start at 9 pm?",
+    "phone": {
+      "title": "Receive USDT",
+      "amount": "+2,500 USDT",
+      "value": "≈ 2,499 $",
+      "status": "Status",
+      "done": "Completed"
+    },
+    "sensitive": "Sensitive content"
+  },
+  "automodContext": {
+    "filter": "Word filter",
+    "ai": "AutoMod AI",
+    "word": "destroy",
+    "m1": "gg, another win for me",
+    "jokeText": "wait for the rematch, I'm gonna {word} you lol",
+    "threatText": "I know where you live, I'm gonna {word} you",
+    "blocked": "Blocked",
+    "analyzing": "Analyzing…",
+    "joke": "Friendly joke",
+    "threat": "Threat · Mute"
+  },
+  "automodAvatar": {
+    "joined": "joined the server",
+    "member": "Member",
+    "new": "New",
+    "analyzing": "Checking the avatar…",
+    "caught": "Mute applied",
+    "modChannel": "moderation",
+    "alert": "Explicit profile picture",
+    "alertMeta": "nyx_77 · caught on arrival, case L9D4RW opened"
+  },
+  "brocoli": {
+    "you": "You",
+    "assistant": "Brocoli",
+    "placeholder": "Ask Brocoli…",
+    "prompt": "Greet new members in #welcome and give them the Member role",
+    "read": "Reading the current configuration",
+    "stepWelcome": "Welcome messages in #welcome",
+    "stepRole": "Member role for newcomers",
+    "confirm": "Apply these 2 changes?",
+    "apply": "Apply",
+    "cancel": "Cancel",
+    "answer": "Done! New members are now greeted in #welcome and get the Member role.",
+    "applied": "2 modules configured"
+  },
+  "altguard": {
+    "joined": "joined the server",
+    "unverified": "Unverified",
+    "verified": "Verified",
+    "blockedChip": "Blocked",
+    "device": "Device",
+    "email": "Email",
+    "network": "Network",
+    "servers": "Servers",
+    "passed": "Passed · Verified role given",
+    "blocked": "Blocked · Same device as a banned account"
+  },
+  "bump": {
+    "ready": "{role} you can bump on {name} again: {command}",
+    "laterMin": "{m} min later",
+    "laterHours": "{h} h later"
+  },
+  "restore": {
+    "in": "on the server",
+    "left": "left the server",
+    "back": "is back on the server",
+    "inChip": "Member",
+    "leftChip": "Left",
+    "backChip": "Back",
+    "later": "2 weeks later",
+    "vault": "Roles kept by Moddy",
+    "restored": "3 roles given back",
+    "excluded": "Moderator excluded",
+    "roles": {
+      "level": "Level 20",
+      "artist": "Artist",
+      "vip": "VIP",
+      "mod": "Moderator"
+    }
+  },
+  "social": {
+    "channel": "announcements",
+    "posts": {
+      "twitch": {
+        "role": "@Streamers",
+        "text": "{role} leo is live!",
+        "author": "leo",
+        "title": "Minecraft speedrun, going for the record"
+      },
+      "youtube": {
+        "role": "@Videos",
+        "text": "{role} new video from mia",
+        "author": "mia",
+        "title": "I built a whole city in 24 hours"
+      },
+      "bluesky": {
+        "role": "@News",
+        "text": "{role} sam posted on Bluesky",
+        "author": "sam",
+        "title": "Saturday's tournament is full, thank you all"
+      },
+      "rss": {
+        "role": "@Patchnotes",
+        "text": "{role} new article",
+        "author": "Game blog",
+        "title": "Patch 4.2: new maps and balance changes"
+      }
+    }
+  },
+  "voice": {
+    "channel": "general",
+    "m1": "in a meeting, no sound for me",
+    "button": "Transcribe",
+    "loading": "Transcribing…",
+    "language": "English",
+    "requested": "requested by leo",
+    "text": "Hey! The game starts at 9 pm, bring your mics and be on time."
+  }
+}

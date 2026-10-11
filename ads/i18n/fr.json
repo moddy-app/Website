@@ -1,0 +1,148 @@
+{
+  "common": {
+    "app": "APP"
+  },
+  "automodImages": {
+    "without": "Sans Moddy",
+    "with": "Avec Moddy",
+    "scamText": "retrait reçu, foncez !",
+    "nsfwText": "regardez ça",
+    "replies": {
+      "scam": [
+        "c'est vrai ??",
+        "j'ai cliqué, ça demande mon wallet",
+        "leo t'es piraté ?"
+      ],
+      "nsfw": [
+        "euh ???",
+        "il y a des mineurs ici",
+        "les modos vous êtes où ?"
+      ]
+    },
+    "verdictScam": "Arnaque supprimée",
+    "verdictNsfw": "Image NSFW supprimée",
+    "detail": "leo mute · compte piraté ?",
+    "calm": {
+      "scam": "quelqu'un pour une partie ce soir ?",
+      "nsfw": "gg tout le monde, c'était cool"
+    },
+    "before": "on lance à 21 h ?",
+    "phone": {
+      "title": "Receive USDT",
+      "amount": "+2,500 USDT",
+      "value": "≈ 2,499 $",
+      "status": "Status",
+      "done": "Completed"
+    },
+    "sensitive": "Contenu sensible"
+  },
+  "automodContext": {
+    "filter": "Filtre de mots",
+    "ai": "AutoMod IA",
+    "word": "détruire",
+    "m1": "gg, encore une victoire pour moi",
+    "jokeText": "attends la revanche, je vais te {word} mdr",
+    "threatText": "je sais où tu habites, je vais te {word}",
+    "blocked": "Bloqué",
+    "analyzing": "Analyse…",
+    "joke": "Blague entre amis",
+    "threat": "Menace · Mute"
+  },
+  "automodAvatar": {
+    "joined": "a rejoint le serveur",
+    "member": "Membre",
+    "new": "Nouveau",
+    "analyzing": "Analyse de l'avatar…",
+    "caught": "Mute appliqué",
+    "modChannel": "modération",
+    "alert": "Photo de profil explicite",
+    "alertMeta": "nyx_77 · détectée à l'arrivée, dossier L9D4RW ouvert"
+  },
+  "brocoli": {
+    "you": "Vous",
+    "assistant": "Brocoli",
+    "placeholder": "Demandez à Brocoli…",
+    "prompt": "Accueille les nouveaux membres dans #bienvenue et donne-leur le rôle Membre",
+    "read": "Lecture de la configuration actuelle",
+    "stepWelcome": "Messages de bienvenue dans #bienvenue",
+    "stepRole": "Rôle Membre pour les nouveaux",
+    "confirm": "Appliquer ces 2 changements ?",
+    "apply": "Appliquer",
+    "cancel": "Annuler",
+    "answer": "C'est fait ! Les nouveaux membres sont accueillis dans #bienvenue et reçoivent le rôle Membre.",
+    "applied": "2 modules configurés"
+  },
+  "altguard": {
+    "joined": "a rejoint le serveur",
+    "unverified": "Non vérifié",
+    "verified": "Vérifié",
+    "blockedChip": "Bloqué",
+    "device": "Appareil",
+    "email": "E-mail",
+    "network": "Réseau",
+    "servers": "Serveurs",
+    "passed": "Validé · Rôle vérifié attribué",
+    "blocked": "Bloqué · Même appareil qu'un compte banni"
+  },
+  "bump": {
+    "ready": "{role} vous pouvez de nouveau bumper sur {name} : {command}",
+    "laterMin": "{m} min plus tard",
+    "laterHours": "{h} h plus tard"
+  },
+  "restore": {
+    "in": "sur le serveur",
+    "left": "a quitté le serveur",
+    "back": "est revenue sur le serveur",
+    "inChip": "Membre",
+    "leftChip": "Partie",
+    "backChip": "De retour",
+    "later": "2 semaines plus tard",
+    "vault": "Rôles gardés par Moddy",
+    "restored": "3 rôles rendus",
+    "excluded": "Modérateur exclu",
+    "roles": {
+      "level": "Niveau 20",
+      "artist": "Artiste",
+      "vip": "VIP",
+      "mod": "Modérateur"
+    }
+  },
+  "social": {
+    "channel": "annonces",
+    "posts": {
+      "twitch": {
+        "role": "@Streamers",
+        "text": "{role} leo est en live !",
+        "author": "leo",
+        "title": "Speedrun Minecraft, tentative de record"
+      },
+      "youtube": {
+        "role": "@Vidéos",
+        "text": "{role} nouvelle vidéo de mia",
+        "author": "mia",
+        "title": "J'ai construit une ville entière en 24 h"
+      },
+      "bluesky": {
+        "role": "@News",
+        "text": "{role} sam a publié sur Bluesky",
+        "author": "sam",
+        "title": "Le tournoi de samedi est complet, merci à tous"
+      },
+      "rss": {
+        "role": "@Patchnotes",
+        "text": "{role} nouvel article",
+        "author": "Blog du jeu",
+        "title": "Patch 4.2 : nouvelles cartes et équilibrage"
+      }
+    }
+  },
+  "voice": {
+    "channel": "général",
+    "m1": "je suis en réunion, pas de son pour moi",
+    "button": "Transcrire",
+    "loading": "Transcription…",
+    "language": "Français",
+    "requested": "demandé par leo",
+    "text": "Salut ! La partie commence à 21 h, ramenez vos micros et soyez à l'heure."
+  }
+}
