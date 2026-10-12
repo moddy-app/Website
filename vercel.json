@@ -4,7 +4,18 @@
   "installCommand": "cd site && npm install --legacy-peer-deps",
   "framework": null,
   "proxy": {
-    "entrypoint": "site/proxy.ts"
+    "entrypoint": "site/proxy.js",
+    "matcher": [
+      "/",
+      "/fr",
+      "/fr/",
+      "/es",
+      "/es/",
+      "/pt-br",
+      "/pt-br/",
+      "/de",
+      "/de/"
+    ]
   },
   "redirects": [
     {

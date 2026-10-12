@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#251f16" />
     <link href="/images/favicon.svg" rel="icon" sizes="any" type="image/svg+xml">
     {#- Discord link preview (eleventy-helpers/discord-embed.cjs). On the
-        home pages, proxy.ts swaps it for one built from the query string. #}
+        home pages, proxy.js swaps it for one built from the query string. #}
     {% if discordEmbed %}
       {{ loc.code | discordEmbedHead | safe }}
     {% endif %}

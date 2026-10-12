@@ -1,6 +1,6 @@
 /**
  * Vercel Routing Middleware (`proxy` in vercel.json), run on the home pages
- * only.
+ * only (`proxy.matcher` in vercel.json).
  *
  * When Discord fetches a home page with a query string, it gets a preview
  * built from that query string: `?lang=` picks the language of the component
@@ -8,30 +8,24 @@
  * every button keeps the query string of the link. Without a query string, or
  * for anyone but Discord, the static page is served as is: it already carries
  * the preview in its own language (eleventy-helpers/discord-embed.cjs).
+ *
+ * CommonJS on purpose: Vercel loads this file with require(), and package.json
+ * has no "type": "module", so ES module syntax here takes the site down.
  */
 
-import discordEmbed from './eleventy-helpers/discord-embed.cjs';
+const discordEmbed = require('./eleventy-helpers/discord-embed.cjs');
 
-export const config = {
-  matcher: [
-    '/',
-    '/fr',
-    '/fr/',
-    '/es',
-    '/es/',
-    '/pt-br',
-    '/pt-br/',
-    '/de',
-    '/de/',
-  ],
-};
+// What `next()` from @vercel/functions returns: serve the page as usual.
+function next() {
+  return new Response(null, {headers: {'x-middleware-next': '1'}});
+}
 
-export default function proxy(request: Request): Response | undefined {
+function proxy(request) {
   const url = new URL(request.url);
-  const userAgent = request.headers.get('user-agent') ?? '';
-  if (!url.search || !/discordbot/i.test(userAgent)) return undefined;
-  if (request.method !== 'GET' && request.method !== 'HEAD') return undefined;
-  if (!discordEmbed.localeForPath(url.pathname)) return undefined;
+  const userAgent = request.headers.get('user-agent') || '';
+  if (!url.search || !/discordbot/i.test(userAgent)) return next();
+  if (request.method !== 'GET' && request.method !== 'HEAD') return next();
+  if (!discordEmbed.localeForPath(url.pathname)) return next();
 
   const html = discordEmbed.homePreviewPage(url.pathname, url.searchParams);
   return new Response(request.method === 'HEAD' ? null : html, {
@@ -43,3 +37,6 @@ export default function proxy(request: Request): Response | undefined {
     },
   });
 }
+
+module.exports = proxy;
+module.exports.default = proxy;
