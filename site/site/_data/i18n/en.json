@@ -429,5 +429,13 @@
       "manage": "Manage subscription",
       "dismiss": "Close"
     }
+  },
+  "discordEmbed": {
+    "intro": "Moddy brings everything a **Discord** server needs into a single bot: **AutoMod AI**, **sanctions and appeals**, **AltGuard**, **role restore**, **tickets**, **bump reminders**, **YouTube/Twitch/Bluesky/RSS notifications**, **voice transcription** and many more modules.",
+    "setup": "Set up Moddy right in **Discord**, from the **dashboard** or simply with **AI**: describe what you need, and Moddy's AI configures everything for you!",
+    "add": "Add Moddy",
+    "website": "Website",
+    "support": "Support",
+    "dashboard": "Dashboard"
   }
 }

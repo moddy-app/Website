@@ -3,6 +3,9 @@
   "outputDirectory": "_prod",
   "installCommand": "npm install --legacy-peer-deps",
   "framework": null,
+  "proxy": {
+    "entrypoint": "proxy.ts"
+  },
   "devCommand": "npm run dev",
   "redirects": [
     {

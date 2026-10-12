@@ -16,6 +16,7 @@ const filterToc = require('./eleventy-helpers/filters/filter-toc.cjs');
 const filterSort = require('./eleventy-helpers/filters/filter-sort.cjs');
 const mdMarkdown = require('./eleventy-helpers/filters/md-markdown.cjs');
 const i18n = require('./eleventy-helpers/filters/i18n.cjs');
+const discordEmbed = require('./eleventy-helpers/discord-embed.cjs');
 const copyCodeButtonPlugin = require('./eleventy-helpers/plugins/copy-code-button.cjs');
 const markdownIt = require('markdown-it');
 const { compress } = require('eleventy-plugin-compress');
@@ -56,6 +57,10 @@ module.exports = function (eleventyConfig) {
   filterSort(eleventyConfig);
   filterToc(eleventyConfig);
   i18n(eleventyConfig);
+  // Discord link preview of a home page, in that page's language
+  eleventyConfig.addFilter('discordEmbedHead', (code) =>
+    discordEmbed.homeEmbedHead(code, discordEmbed.homeUrl(code)),
+  );
   // list of our transforms that we want to apply to markdown links.
   mdMarkdown(eleventyConfig, []);
 

@@ -23,6 +23,11 @@
     <!-- Set the color of the url bar on mobile to match theme -->
     <meta name="theme-color" content="#251f16" />
     <link href="/images/favicon.svg" rel="icon" sizes="any" type="image/svg+xml">
+    {#- Discord link preview (eleventy-helpers/discord-embed.cjs). On the
+        home pages, proxy.ts swaps it for one built from the query string. #}
+    {% if discordEmbed %}
+      {{ loc.code | discordEmbedHead | safe }}
+    {% endif %}
     {% if basePath %}
       {% for l in locales %}
         <link rel="alternate" hreflang="{{ l.lang }}" href="https://moddy.app{{ l.prefix }}{{ basePath }}" />

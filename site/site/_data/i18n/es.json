@@ -429,5 +429,13 @@
       "manage": "Gestionar la suscripción",
       "dismiss": "Cerrar"
     }
+  },
+  "discordEmbed": {
+    "intro": "Moddy reúne todo lo que necesita un servidor de **Discord** en un solo bot: **AutoMod IA**, **sanciones y apelaciones**, **AltGuard**, **restauración de roles**, **tickets**, **recordatorios de bump**, **notificaciones de YouTube/Twitch/Bluesky/RSS**, **transcripción de voz** y muchos otros módulos.",
+    "setup": "Configura Moddy directamente en **Discord**, desde el **panel** o simplemente con la **IA**: describe lo que necesitas y ¡la IA de Moddy se encarga de configurarlo todo por ti!",
+    "add": "Añadir Moddy",
+    "website": "Sitio web",
+    "support": "Soporte",
+    "dashboard": "Panel"
   }
 }
