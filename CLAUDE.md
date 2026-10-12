@@ -34,7 +34,7 @@ Key files:
 - `site/eleventy-helpers/discord-embed.cjs`: the Discord link preview of the home
   pages (component embed + Open Graph fallback, text in `discordEmbed` of the i18n
   files). Built into the page (`discordEmbed: true`) and, when Discord fetches a home
-  page with a query string, served by `site/proxy.ts` (Vercel Routing Middleware,
+  page with a query string, served by `site/proxy.js` (Vercel Routing Middleware,
   `proxy` in both `vercel.json`): `?lang=` picks the language, the buttons keep the
   query string.
 - Script URLs in templates always end with `?v={{ build.version }}`: the entry

@@ -7,7 +7,7 @@
  * Used in two places, so both always send the same preview:
  * - at build time, by the `discordEmbedHead` filter (default.html, pages with
  *   `discordEmbed: true`): the preview in the page's own language;
- * - at request time, by proxy.ts, when Discord fetches a home page with a query
+ * - at request time, by proxy.js, when Discord fetches a home page with a query
  *   string: `?lang=` picks the language, and every button keeps the query
  *   string of the shared link (`?lang=fr&ref=x` → `/install?lang=fr&ref=x`).
  *
@@ -174,7 +174,7 @@ function homeUrl(code) {
 }
 
 /**
- * The page proxy.ts sends Discord for a home page with a query string. Only
+ * The page proxy.js sends Discord for a home page with a query string. Only
  * the <head> matters to Discord, which does not run scripts or show the body.
  */
 function homePreviewPage(pathname, params) {
