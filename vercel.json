@@ -3,6 +3,9 @@
   "outputDirectory": "site/_prod",
   "installCommand": "cd site && npm install --legacy-peer-deps",
   "framework": null,
+  "proxy": {
+    "entrypoint": "site/proxy.ts"
+  },
   "redirects": [
     {
       "source": "/install",

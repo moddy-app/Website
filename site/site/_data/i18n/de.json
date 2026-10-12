@@ -429,5 +429,13 @@
       "manage": "Abo verwalten",
       "dismiss": "Schließen"
     }
+  },
+  "discordEmbed": {
+    "intro": "Moddy vereint alles, was ein **Discord**-Server braucht, in einem einzigen Bot: **AutoMod KI**, **Sanktionen und Einsprüche**, **AltGuard**, **Wiederherstellung von Rollen**, **Tickets**, **Bump-Erinnerungen**, **Benachrichtigungen für YouTube/Twitch/Bluesky/RSS**, **Sprachtranskription** und viele weitere Module.",
+    "setup": "Richte Moddy direkt in **Discord** ein, im **Dashboard** oder einfach mit der **KI**: Beschreib, was du brauchst, und die KI von Moddy richtet alles für dich ein!",
+    "add": "Moddy hinzufügen",
+    "website": "Website",
+    "support": "Support",
+    "dashboard": "Dashboard"
   }
 }
