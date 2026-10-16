@@ -830,6 +830,496 @@ scenes['voice-transcription'] = {
 };
 
 /* -------------------------------------------------------------------------
+ * AutoMod sanctions: five takes on the new Sanctions screen
+ * ----------------------------------------------------------------------- */
+
+const INFRACTIONS = [
+  ['spam', 'content_copy'],
+  ['insults', 'sentiment_extremely_dissatisfied'],
+  ['images', 'image'],
+  ['profiles', 'account_circle'],
+];
+const ACTIONS = [
+  ['delete', 'delete'],
+  ['warn', 'warning'],
+  ['mute', 'volume_off'],
+  ['kick', 'person_remove'],
+  ['ban', 'gavel'],
+];
+
+/** A small Material 3 switch. */
+const miniSwitch = (on, extra = '') =>
+  `<span class="sx-switch${extra ? ' ' + extra : ''}" aria-checked="${on}"></span>`;
+
+/** An action as a filter chip; selected ones fill in. */
+const actionChip = ([key, symbol], extra = '') =>
+  `<span class="sx-act${extra ? ' ' + extra : ''}" data-action="${key}">${icon(symbol)}<span>${t('sanctions.actions.' + key)}</span></span>`;
+
+const durationPill = (text, extra = '') =>
+  `<span class="sx-dur${extra ? ' ' + extra : ''}">${text}</span>`;
+
+/** Types `text` into `el`, one character at a time. */
+async function typeText(el, text, random, from = '') {
+  el.classList.add('typing');
+  for (let i = 1; i <= text.length; i++) {
+    el.textContent = from + text.slice(0, i);
+    await wait(70 + random() * 70);
+  }
+  await wait(250);
+  el.classList.remove('typing');
+}
+
+/* 1. The Sanctions screen itself: an infraction turned off, Insults given
+ * three actions with a mute duration and escalation, then a custom
+ * infraction created and set to ban after a moderator's approval. */
+scenes['sanctions-dashboard'] = {
+  html: () => `
+    <div class="panel ad-sx" data-demo data-target="insults">
+      <div class="sx-side">
+        <div class="sx-head">
+          <span class="shape small shape-hexagon tone-tertiary">${icon('gavel')}</span>
+          <span class="sx-head-text"><span>${t('sanctions.module')}</span><strong>${t('sanctions.title')}</strong></span>
+        </div>
+        <div class="sx-list">
+          ${INFRACTIONS.map(([key, symbol]) => `
+            <div class="sx-item" data-key="${key}">${icon(symbol)}<span class="sx-name">${t('sanctions.infractions.' + key)}</span>${miniSwitch(true)}</div>`).join('')}
+        </div>
+        <div class="sx-sub"><span>${t('sanctions.custom')}</span><span class="sx-count">0/10</span></div>
+        <div class="sx-slot">
+          <div class="sx-item sx-new" data-press-at="1">${icon('add')}<span class="sx-name">${t('sanctions.create')}</span></div>
+          <div class="sx-item sx-custom" data-key="ads">${icon('campaign')}<span class="sx-name">${t('sanctions.infractions.ads')}</span>${miniSwitch(true)}</div>
+        </div>
+      </div>
+      <div class="sx-main">
+        <div class="sx-editor">
+          <div class="sx-editor-head">
+            <strong class="only-insults">${t('sanctions.infractions.insults')}</strong>
+            <strong class="only-ads">${t('sanctions.infractions.ads')}</strong>
+            <span class="sx-tag only-ads">${t('sanctions.customTag')}</span>
+            <span class="ad-chip ad-chip-ok sx-saved">${icon('check_circle')}${t('sanctions.saved')}</span>
+          </div>
+          <span class="sx-label">${t('sanctions.actionsLabel')}</span>
+          <div class="sx-actions">${ACTIONS.map((action) => actionChip(action)).join('')}</div>
+          <div class="sx-setting sx-duration"><span>${t('sanctions.duration')}</span><span class="sx-field"></span></div>
+          <div class="sx-setting sx-escalation"><span>${t('sanctions.escalation')}</span><span class="sx-ladder">2h › 12h › 3d</span>${miniSwitch(false)}</div>
+          <div class="sx-setting sx-validation"><span>${t('sanctions.validation')}</span>${miniSwitch(false)}</div>
+        </div>
+      </div>
+    </div>`,
+  async play(root) {
+    const random = seeded(3);
+    const show = stepper(root);
+    const item = (key) => root.querySelector(`.sx-item[data-key="${key}"]`);
+    const chip = (key) => root.querySelector(`.sx-act[data-action="${key}"]`);
+    const field = root.querySelector('.sx-field');
+    const count = root.querySelector('.sx-count');
+    const escalation = root.querySelector('.sx-escalation .sx-switch');
+    const validation = root.querySelector('.sx-validation .sx-switch');
+    const select = (key) => root.querySelectorAll('.sx-item').forEach((el) =>
+      el.classList.toggle('active', el.dataset.key === key));
+    const editor = (actions) => {
+      root.querySelectorAll('.sx-act').forEach((el) =>
+        el.classList.toggle('on', actions.includes(el.dataset.action)));
+      root.classList.toggle('muting', actions.includes('mute'));
+    };
+    const tap = async (el, change) => {
+      el.classList.add('pressed');
+      await wait(160);
+      change();
+      el.classList.remove('pressed');
+    };
+    const restore = () => {
+      show(0);
+      root.dataset.target = 'insults';
+      root.classList.remove('created');
+      select('insults');
+      editor(['delete']);
+      field.textContent = '';
+      count.textContent = '0/10';
+      escalation.setAttribute('aria-checked', 'false');
+      validation.setAttribute('aria-checked', 'false');
+      item('profiles').classList.remove('off');
+      item('profiles').querySelector('.sx-switch').setAttribute('aria-checked', 'true');
+      root.classList.remove('saved');
+    };
+    root.classList.add('playing');
+    restore();
+    await wait(900);
+    // Profiles: not watched any more.
+    item('profiles').classList.add('changing');
+    await wait(350);
+    item('profiles').querySelector('.sx-switch').setAttribute('aria-checked', 'false');
+    item('profiles').classList.add('off');
+    await wait(500);
+    item('profiles').classList.remove('changing');
+    await wait(500);
+    // Insults: warn and mute too, for 2h, harder each time.
+    await tap(chip('warn'), () => editor(['delete', 'warn']));
+    await wait(500);
+    await tap(chip('mute'), () => editor(['delete', 'warn', 'mute']));
+    await wait(400);
+    await typeText(field, '2h', random);
+    await wait(300);
+    escalation.setAttribute('aria-checked', 'true');
+    await wait(1300);
+    // A custom infraction, from the Advertising template.
+    show(1);
+    await wait(200);
+    show(2);
+    root.classList.add('created');
+    count.textContent = '1/10';
+    await wait(300);
+    select('ads');
+    root.classList.add('swapping');
+    await wait(250);
+    root.dataset.target = 'ads';
+    editor(['delete']);
+    field.textContent = '';
+    escalation.setAttribute('aria-checked', 'false');
+    root.classList.remove('swapping');
+    await wait(800);
+    await tap(chip('ban'), () => editor(['delete', 'ban']));
+    await wait(500);
+    validation.setAttribute('aria-checked', 'true');
+    await wait(600);
+    root.classList.add('saved');
+    await wait(2600);
+    await resetDemo(root, restore);
+  },
+};
+
+/* 2. Wiring: each infraction is wired to the actions it triggers, several at
+ * once; one goes unwatched, a custom one has its own. */
+const WIRING = [
+  // [infraction, actions, mute duration, validation before ban]
+  ['spam', ['delete', 'mute'], '10m'],
+  ['insults', ['delete', 'warn', 'mute'], '2h'],
+  ['images', ['delete', 'ban'], '', true],
+  ['ads', ['delete', 'kick']],
+  ['profiles', []],
+];
+
+scenes['sanctions-wiring'] = {
+  html: () => `
+    <div class="panel ad-wr" data-demo>
+      <svg class="wr-wires" aria-hidden="true"></svg>
+      <div class="wr-col wr-left">
+        ${[...INFRACTIONS, ['ads', 'campaign']].map(([key, symbol]) => `
+          <div class="wr-item" data-key="${key}">${icon(symbol)}<span class="sx-name">${t('sanctions.infractions.' + key)}</span>${key === 'ads' ? `<span class="sx-tag">${t('sanctions.customTag')}</span>` : ''}${miniSwitch(true)}</div>`).join('')}
+      </div>
+      <div class="wr-col wr-right">
+        ${ACTIONS.map(([key, symbol]) => `
+          <div class="wr-act" data-action="${key}">${icon(symbol)}<span>${t('sanctions.actions.' + key)}</span>${key === 'mute' ? durationPill('', 'wr-dur') : ''}${key === 'ban' ? `<span class="wr-check">${icon('verified_user')}${t('sanctions.modCheck')}</span>` : ''}</div>`).join('')}
+      </div>
+      <span class="ad-chip wr-off">${icon('visibility_off')}${t('sanctions.off')}</span>
+    </div>`,
+  async play(root) {
+    const svg = root.querySelector('.wr-wires');
+    const base = root.getBoundingClientRect();
+    const items = Object.fromEntries([...root.querySelectorAll('.wr-item')].map((el) => [el.dataset.key, el]));
+    const acts = Object.fromEntries([...root.querySelectorAll('.wr-act')].map((el) => [el.dataset.action, el]));
+    const dur = root.querySelector('.wr-dur');
+    // One wire per infraction and action, drawn when switched on.
+    let paths = '';
+    for (const [key, el] of Object.entries(items)) {
+      const a = el.getBoundingClientRect();
+      for (const [action, target] of Object.entries(acts)) {
+        const b = target.getBoundingClientRect();
+        const x1 = a.right - base.left + 2;
+        const y1 = a.top + a.height / 2 - base.top;
+        const x2 = b.left - base.left - 2;
+        const y2 = b.top + b.height / 2 - base.top;
+        const mid = (x1 + x2) / 2;
+        paths += `<path data-from="${key}" data-to="${action}" pathLength="1" d="M${x1} ${y1} C${mid} ${y1} ${mid} ${y2} ${x2} ${y2}" />`;
+      }
+    }
+    svg.innerHTML = paths;
+    const off = root.querySelector('.wr-off');
+    const profiles = items.profiles.getBoundingClientRect();
+    const right = acts.delete.getBoundingClientRect();
+    off.style.left = `${(profiles.right + right.left) / 2 - base.left}px`;
+    off.style.top = `${profiles.top + profiles.height / 2 - base.top}px`;
+    const set = ([key, actions, duration = '', check = false]) => {
+      for (const [k, el] of Object.entries(items)) el.classList.toggle('active', k === key);
+      for (const [action, el] of Object.entries(acts)) el.classList.toggle('on', actions.includes(action));
+      for (const path of svg.querySelectorAll('path')) {
+        path.classList.toggle('on', path.dataset.from === key && actions.includes(path.dataset.to));
+      }
+      if (duration) dur.textContent = duration;
+      root.classList.toggle('timed', Boolean(duration));
+      root.classList.toggle('checked', check);
+      root.classList.remove('unwatched');
+    };
+    const restore = () => {
+      set(['', []]);
+      items.profiles.classList.remove('off');
+      items.profiles.querySelector('.sx-switch').setAttribute('aria-checked', 'true');
+    };
+    restore();
+    await wait(700);
+    for (const entry of WIRING) {
+      if (entry[0] === 'profiles') {
+        set(['profiles', []]);
+        await wait(500);
+        items.profiles.querySelector('.sx-switch').setAttribute('aria-checked', 'false');
+        items.profiles.classList.add('off');
+        root.classList.add('unwatched');
+        await wait(2400);
+      } else {
+        set(entry);
+        await wait(2100);
+      }
+    }
+    await resetDemo(root, restore);
+  },
+};
+
+/* 3. Escalation: the same member insults three times, each sanction is
+ * harder than the last, climbing a staircase. */
+const STAIRS = [
+  ['warning', 'sanctions.actions.warn', ''],
+  ['volume_off', 'sanctions.actions.mute', '2h'],
+  ['volume_off', 'sanctions.actions.mute', '3d'],
+];
+
+scenes['sanctions-escalade'] = {
+  html: () => {
+    const msg = (who, text, extra = '') => `
+      <div class="ad-mini-msg" ${extra}>
+        ${avatar(who, 24)}
+        <span class="ad-mini-body"><span class="ad-mini-author">${who}</span><span>${text}</span></span>
+      </div>`;
+    const offence = (i) => `
+      <div class="ad-mini-msg ad-mini-target es-target" data-at="${i < 2 ? i + 1 : 4}" data-state="posted">
+        ${avatar('troublemaker', 24)}
+        <span class="ad-mini-body"><span class="ad-mini-author">troublemaker</span><span>${t('sanctionsEscalade.insults')[i]}</span></span>
+        <span class="ad-mini-verdict">
+          <span class="guard-verdict-icon">${icon('shield')}</span>
+          <span class="ad-mini-body">
+            <strong>${icon(STAIRS[i][0])}${t(STAIRS[i][1])}${STAIRS[i][2] ? ' ' + durationPill(STAIRS[i][2]) : ''}</strong>
+            <span>${t('sanctionsEscalade.verdict')} · ${t('sanctionsEscalade.steps')[i]}</span>
+          </span>
+        </span>
+      </div>`;
+    return `
+    <div class="panel ad-vs ad-es" data-demo>
+      <div class="ad-vs-col">
+        <div class="ad-channel">${icon('tag')}<span>${t('sanctionsEscalade.channel')}</span></div>
+        <div class="ad-scroll"><div class="ad-vs-log">
+          ${msg('mia', t('sanctionsEscalade.calm'))}
+          ${offence(0)}
+          ${offence(1)}
+          <div class="ad-divider" data-at="3"><span>${t('sanctionsEscalade.later')}</span></div>
+          ${offence(2)}
+        </div></div>
+      </div>
+      <div class="ad-vs-col es-card">
+        <span class="es-title">${icon('trending_up')}${t('sanctionsEscalade.title')}</span>
+        <div class="es-stairs">
+          ${STAIRS.map(([symbol, key, duration], i) => `
+            <div class="es-step" style="--h: ${0.42 + i * 0.29}">
+              <span class="es-bar">${icon(symbol)}<b>${duration || t(key)}</b></span>
+              <span class="es-when">${t('sanctionsEscalade.steps')[i]}</span>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  },
+  async play(root) {
+    const show = stepper(root);
+    const targets = [...root.querySelectorAll('.es-target')];
+    const steps = [...root.querySelectorAll('.es-step')];
+    const scroll = root.querySelector('.ad-scroll');
+    const follow = followBottom(scroll, scroll.firstElementChild);
+    const reach = (n) => steps.forEach((el, i) => {
+      el.classList.toggle('reached', i < n);
+      el.classList.toggle('current', i === n - 1);
+    });
+    const restore = () => {
+      targets.forEach((el) => (el.dataset.state = 'posted'));
+      reach(0);
+      show(0);
+      follow();
+    };
+    root.classList.add('playing');
+    restore();
+    await wait(900);
+    for (let i = 0; i < 3; i++) {
+      if (i === 2) {
+        show(3);
+        follow();
+        await wait(700);
+      }
+      show(i + 1 + (i === 2 ? 1 : 0));
+      follow();
+      await wait(1100);
+      targets[i].dataset.state = 'removed';
+      reach(i + 1);
+      await wait(1500);
+    }
+    await wait(1800);
+    await resetDemo(root, restore);
+  },
+};
+
+/* 4. Moderator approval: the custom Advertising infraction asks for a ban,
+ * the message is already gone, a moderator approves the ban. */
+scenes['sanctions-validation'] = {
+  html: () => `
+    <div class="panel ad-va" data-demo data-state="pending">
+      <div class="ad-channel">${icon('tag')}<span>${t('sanctionsValidation.channel')}</span></div>
+      ${message('moddy', `
+        <span class="command-reply va-card">
+          <span class="va-head">
+            <strong>${t('sanctionsValidation.title')}</strong>
+            <span class="ad-chip va-state">
+              <span class="v-pending">${icon('hourglass_top')}${t('sanctionsValidation.pending')}</span>
+              <span class="v-approved">${icon('check_circle')}${t('sanctionsValidation.approved')}</span>
+            </span>
+          </span>
+          <span class="va-who">${avatar('alex2', 20)}<strong>nyx_77</strong><span>·</span>${icon('campaign')}${t('sanctions.infractions.ads')}<span class="sx-tag">${t('sanctions.customTag')}</span></span>
+          <span class="va-quote">${t('sanctionsValidation.message')}</span>
+          <span class="va-actions">
+            <span class="sx-act on">${icon('delete')}<span>${t('sanctions.actions.delete')}</span><em>${t('sanctionsValidation.applied')}</em></span>
+            <span class="sx-act va-ban">${icon('gavel')}<span>${t('sanctions.actions.ban')}</span><em class="v-pending">${t('sanctionsValidation.waiting')}</em><em class="v-approved">${t('sanctionsValidation.applied')}</em></span>
+          </span>
+          <span class="va-bottom">
+            <span class="ad-buttons v-pending">
+              <span class="fake-button filled" data-press-at="2">${icon('check')}${t('sanctionsValidation.approve')}</span>
+              <span class="fake-button">${icon('close')}${t('sanctionsValidation.reject')}</span>
+            </span>
+            <span class="va-done v-approved">${avatar('mia', 18)}${fill(t('sanctionsValidation.done'), {who: '<strong>mia</strong>'})}</span>
+          </span>
+        </span>`, {bot: true, attrs: 'data-at="1"'})}
+    </div>`,
+  async play(root) {
+    const show = stepper(root);
+    const restore = () => {
+      show(0);
+      root.dataset.state = 'pending';
+    };
+    root.classList.add('playing');
+    restore();
+    await wait(600);
+    show(1);
+    await wait(2600);
+    show(2); // mia approves
+    await wait(220);
+    show(3);
+    root.dataset.state = 'approved';
+    await wait(3400);
+    await resetDemo(root, restore);
+  },
+};
+
+/* 5. A custom infraction: picked from a template, a keyword added, its own
+ * sanctions; then it catches its first message. */
+scenes['sanctions-custom'] = {
+  html: () => {
+    const msg = (who, text, extra = '') => `
+      <div class="ad-mini-msg" ${extra}>
+        ${avatar(who, 24)}
+        <span class="ad-mini-body"><span class="ad-mini-author">${who}</span><span>${text}</span></span>
+      </div>`;
+    return `
+    <div class="panel ad-cu" data-demo data-phase="form">
+      <div class="cu-form">
+        <div class="cu-head">
+          <span class="shape small shape-pentagon">${icon('edit_note')}</span>
+          <strong>${t('sanctionsCustom.title')}</strong>
+          <span class="sx-count cu-count">0/10</span>
+        </div>
+        <div class="cu-row"><span class="sx-label">${t('sanctionsCustom.template')}</span>
+          <span class="cu-values">${t('sanctionsCustom.templates').map((name, i) => `<span class="sx-act${i === 0 ? ' cu-template' : ''}">${name}</span>`).join('')}</span></div>
+        <div class="cu-row"><span class="sx-label">${t('sanctionsCustom.name')}</span>
+          <span class="cu-values"><span class="sx-field cu-name"></span></span></div>
+        <div class="cu-row"><span class="sx-label">${t('sanctionsCustom.keywords')}</span>
+          <span class="cu-values">${t('sanctionsCustom.keywordList').map((word) => durationPill(word, 'cu-word')).join('')}<span class="sx-dur cu-word cu-typed"></span></span></div>
+        <div class="cu-row"><span class="sx-label">${t('sanctionsCustom.sanctions')}</span>
+          <span class="cu-values">${actionChip(ACTIONS[0])}${actionChip(ACTIONS[2], 'cu-mute')}<span class="sx-field cu-dur"></span></span></div>
+        <div class="cu-foot"><span class="fake-button filled cu-create">${icon('add')}${t('sanctionsCustom.create')}</span></div>
+      </div>
+      <div class="cu-chat">
+        <div class="ad-channel">${icon('tag')}<span>${t('sanctionsCustom.channel')}</span></div>
+        <div class="ad-vs-log">
+          ${msg('sam', t('sanctionsCustom.before'))}
+          <div class="ad-mini-msg ad-mini-target cu-target" data-state="posted">
+            ${avatar('alex2', 24)}
+            <span class="ad-mini-body"><span class="ad-mini-author">spark_88</span><span>${t('sanctionsCustom.post')}</span></span>
+            <span class="ad-mini-verdict">
+              <span class="guard-verdict-icon">${icon('campaign')}</span>
+              <span class="ad-mini-body">
+                <strong>${t('sanctionsCustom.verdict')} <span class="sx-tag">${t('sanctionsCustom.customTag')}</span></strong>
+                <span>${t('sanctionsCustom.detail')}</span>
+              </span>
+            </span>
+          </div>
+          ${msg('mia', t('sanctionsCustom.after'), 'data-at="1"')}
+        </div>
+      </div>
+    </div>`;
+  },
+  async play(root) {
+    const random = seeded(11);
+    const show = stepper(root);
+    const template = root.querySelector('.cu-template');
+    const name = root.querySelector('.cu-name');
+    const words = [...root.querySelectorAll('.cu-word:not(.cu-typed)')];
+    const typed = root.querySelector('.cu-typed');
+    const mute = root.querySelector('.cu-mute');
+    const dur = root.querySelector('.cu-dur');
+    const create = root.querySelector('.cu-create');
+    const count = root.querySelector('.cu-count');
+    const target = root.querySelector('.cu-target');
+    const restore = () => {
+      show(0);
+      root.dataset.phase = 'form';
+      template.classList.remove('on');
+      root.querySelector('.ad-cu .sx-act[data-action="delete"]').classList.remove('on');
+      mute.classList.remove('on');
+      name.textContent = '';
+      typed.textContent = '';
+      dur.textContent = '';
+      root.classList.remove('filled', 'typed-word', 'muting');
+      count.textContent = '0/10';
+      target.dataset.state = 'posted';
+    };
+    root.classList.add('playing');
+    restore();
+    await wait(800);
+    // The Advertising template fills in the name, keywords and a sanction.
+    template.classList.add('on');
+    await wait(300);
+    name.textContent = t('sanctionsCustom.templates')[0];
+    root.classList.add('filled');
+    root.querySelector('.ad-cu .sx-act[data-action="delete"]').classList.add('on');
+    await wait(1000);
+    // One more keyword, a one-day mute.
+    root.classList.add('typed-word');
+    await typeText(typed, t('sanctionsCustom.typed'), random);
+    await wait(300);
+    mute.classList.add('on');
+    root.classList.add('muting');
+    await wait(300);
+    await typeText(dur, '1d', random);
+    await wait(500);
+    create.classList.add('pressed');
+    await wait(160);
+    create.classList.remove('pressed');
+    count.textContent = '1/10';
+    await wait(500);
+    // Its first catch.
+    root.dataset.phase = 'chat';
+    await wait(1600);
+    target.dataset.state = 'removed';
+    await wait(1100);
+    show(1);
+    await wait(2800);
+    await resetDemo(root, restore);
+  },
+};
+
+/* -------------------------------------------------------------------------
  * The page: the illustration alone
  * ----------------------------------------------------------------------- */
 

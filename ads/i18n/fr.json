@@ -156,5 +156,88 @@
     "language": "Français",
     "requested": "demandé par leo",
     "text": "Salut ! La partie commence à 21 h, ramenez vos micros et soyez à l'heure."
+  },
+  "sanctions": {
+    "module": "Automod",
+    "title": "Sanctions",
+    "infractions": {
+      "spam": "Spam",
+      "insults": "Insultes",
+      "images": "Images",
+      "profiles": "Profils",
+      "ads": "Publicité"
+    },
+    "actions": {
+      "delete": "Supprimer",
+      "warn": "Avertir",
+      "mute": "Sourdine",
+      "kick": "Expulser",
+      "ban": "Bannir"
+    },
+    "actionsLabel": "Actions",
+    "duration": "Durée de la sourdine",
+    "escalation": "Escalade si récidive",
+    "validation": "Validation d'un modérateur",
+    "custom": "Personnalisées",
+    "create": "Nouvelle infraction",
+    "customTag": "Perso",
+    "off": "Non surveillé",
+    "saved": "Enregistré",
+    "afterValidation": "après validation",
+    "modCheck": "modo"
+  },
+  "sanctionsEscalade": {
+    "channel": "général",
+    "title": "Escalade · Insultes",
+    "calm": "gg pour hier soir, c'était serré",
+    "insults": [
+      "t'es vraiment nul",
+      "personne t'a demandé ton avis",
+      "bande de nuls"
+    ],
+    "verdict": "Insulte supprimée",
+    "steps": [
+      "1re fois",
+      "2e fois",
+      "3e fois"
+    ],
+    "later": "2 h plus tard"
+  },
+  "sanctionsValidation": {
+    "channel": "modération",
+    "title": "Validation requise",
+    "pending": "En attente",
+    "approved": "Approuvé",
+    "message": "rejoins mon serveur, nitro offert : discord.gg/n1tro",
+    "applied": "fait",
+    "waiting": "à valider",
+    "approve": "Approuver",
+    "reject": "Refuser",
+    "done": "{who} a approuvé · nyx_77 banni"
+  },
+  "sanctionsCustom": {
+    "title": "Infraction personnalisée",
+    "template": "Modèle",
+    "templates": [
+      "Publicité",
+      "Spoilers",
+      "Arnaque"
+    ],
+    "name": "Nom",
+    "keywords": "Mots-clés",
+    "keywordList": [
+      "discord.gg",
+      "rejoins mon serveur"
+    ],
+    "typed": "nitro offert",
+    "sanctions": "Sanctions",
+    "create": "Créer",
+    "channel": "général",
+    "before": "quelqu'un pour une partie ?",
+    "post": "rejoins mon serveur, nitro offert : discord.gg/n1tro",
+    "verdict": "Publicité supprimée",
+    "detail": "spark_88 · sourdine 1d",
+    "after": "on lance dans 5 min ?",
+    "customTag": "Perso"
   }
 }
