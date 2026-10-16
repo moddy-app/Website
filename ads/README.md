@@ -11,6 +11,7 @@ Moddy blue theme, dark mode.
 | `automod-images.gif` | AutoMod AI | A hacked account posts a crypto scam, then an NSFW picture (a peach): without Moddy it stays, with Moddy it is removed at once |
 | `automod-context.gif` | AutoMod AI | Same word in a joke and in a threat: a word filter blocks both, AutoMod AI only the threat |
 | `automod-avatar.gif` | AutoMod AI | A member joins with an explicit profile picture (a banana), caught on arrival |
+| `automod-sanctions.gif` | AutoMod Sanctions | Each infraction wired to the actions it triggers: spam mutes for 10m, insults escalate, images are banned after a moderator's approval, a custom infraction is created, profiles are no longer watched |
 | `brocoli.gif` | Brocoli | The home page's conversation |
 | `altguard.gif` | AltGuard | The home page's demo: a member passes, a second account is blocked |
 | `bump-reminder.gif` | Bump Reminder | Moddy's reminders for DISBOARD, DiscordL and French.gg in one channel; each time someone bumps and the directory answers |

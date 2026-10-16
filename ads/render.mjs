@@ -36,6 +36,7 @@ export const ADS = [
   'automod-images',
   'automod-context',
   'automod-avatar',
+  'automod-sanctions',
   'brocoli',
   'altguard',
   'bump-reminder',

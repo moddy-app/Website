@@ -57,6 +57,28 @@
     "alert": "Explicit profile picture",
     "alertMeta": "nyx_77 · caught on arrival, case L9D4RW opened"
   },
+  "sanctions": {
+    "infractions": {
+      "title": "Infractions",
+      "spam": "Spam",
+      "insults": "Insults",
+      "images": "Images",
+      "profiles": "Profiles",
+      "ads": "Ads"
+    },
+    "actions": {
+      "title": "Actions",
+      "delete": "Delete",
+      "warn": "Warn",
+      "mute": "Mute",
+      "kick": "Kick",
+      "ban": "Ban"
+    },
+    "create": "New infraction",
+    "custom": "Custom",
+    "approval": "approval",
+    "off": "Not watched"
+  },
   "brocoli": {
     "you": "You",
     "assistant": "Brocoli",

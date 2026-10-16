@@ -955,10 +955,138 @@ body {
   opacity: 1;
 }
 
-/* ---- AutoMod sanctions: shared pieces --------------------------------------- */
+/* ---- AutoMod sanctions ------------------------------------------------------ */
+
+.ad > .ad-sanctions {
+  display: grid;
+  grid-template-columns: 196px minmax(0, 1fr) 186px;
+  align-items: center;
+  padding: 20px 24px;
+}
+
+/* The wires, drawn over the whole frame (positions from ads.js). */
+.sn-wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sn-wires path {
+  fill: none;
+  stroke: var(--md-sys-color-primary);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+}
+
+.sn-wires path.on {
+  stroke-dashoffset: 0;
+  opacity: 1;
+}
+
+.sn-col {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sn-infractions {
+  grid-column: 1;
+}
+
+.sn-actions {
+  grid-column: 3;
+}
+
+.sn-head {
+  padding-left: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.sn-item,
+.sn-act {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  box-sizing: border-box;
+  padding: 0 8px 0 10px;
+  border-radius: 14px;
+  font-size: 13px;
+  white-space: nowrap;
+  background-color: var(--md-sys-color-surface-container-lowest);
+}
+
+.sn-item > .material-symbols-outlined,
+.sn-act > .material-symbols-outlined {
+  font-size: 17px;
+}
+
+.sn-item > .material-symbols-outlined {
+  color: var(--md-sys-color-primary);
+  font-variation-settings: 'FILL' 1;
+}
+
+.sn-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sn-item.active {
+  font-weight: 600;
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.sn-item.off > .material-symbols-outlined,
+.sn-item.off .sn-name {
+  opacity: 0.45;
+}
+
+/* "+ New infraction" turns into the custom one, in the same spot. */
+.sn-slot {
+  display: grid;
+}
+
+.sn-slot > * {
+  grid-area: 1 / 1;
+}
+
+.sn-new {
+  border: 1px dashed var(--md-sys-color-outline);
+  background-color: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.sn-item.sn-new > .material-symbols-outlined {
+  color: inherit;
+}
+
+.ad-sanctions:not(.created) .sn-item[data-key='ads'],
+.ad-sanctions.created .sn-new {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.sn-tag {
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
 
 /* A small Material 3 switch (the site's .switch, at 32 x 20). */
-.sx-switch {
+.sn-switch {
   position: relative;
   flex-shrink: 0;
   width: 32px;
@@ -969,7 +1097,7 @@ body {
   background-color: var(--md-sys-color-surface-container-highest);
 }
 
-.sx-switch::after {
+.sn-switch::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -981,829 +1109,82 @@ body {
   translate: 0 -50%;
 }
 
-.sx-switch[aria-checked='true'] {
+.sn-switch[aria-checked='true'] {
   border-color: var(--md-sys-color-primary);
   background-color: var(--md-sys-color-primary);
 }
 
-.sx-switch[aria-checked='true']::after {
+.sn-switch[aria-checked='true']::after {
   left: 14px;
   width: 12px;
   height: 12px;
   background-color: var(--md-sys-color-on-primary);
 }
 
-/* An action as a filter chip. */
-.sx-act {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  height: 28px;
-  box-sizing: border-box;
-  padding: 0 10px 0 8px;
-  border: 1px solid var(--md-sys-color-outline-variant);
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 500;
-  white-space: nowrap;
+.sn-act {
+  padding-right: 6px;
   color: var(--md-sys-color-on-surface-variant);
-  background-color: var(--md-sys-color-surface-container-lowest);
 }
 
-.sx-act .material-symbols-outlined {
-  font-size: 15px;
+.sn-act.on {
+  font-weight: 600;
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
 }
 
-.sx-act.on {
-  border-color: transparent;
-  background-color: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
-}
-
-.sx-act.on .material-symbols-outlined {
+.sn-act.on > .material-symbols-outlined {
   font-variation-settings: 'FILL' 1;
 }
 
-.sx-act.pressed {
-  scale: 0.92;
-}
-
-/* Durations, keywords and counters: values in a mono pill. */
-.sx-dur,
-.sx-count,
-.sx-ladder,
-.sx-field {
+/* The mute's duration and the ban's approval, on the action they set. */
+.sn-pill {
   display: inline-flex;
   align-items: center;
+  gap: 3px;
   height: 22px;
   box-sizing: border-box;
   padding: 0 8px;
   border-radius: 999px;
-  font-family: 'Google Sans Mono', monospace;
-  font-size: 12px;
-  white-space: nowrap;
-  background-color: var(--md-sys-color-surface-container);
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-.sx-field {
-  min-width: 44px;
-  height: 26px;
-  border-radius: 8px;
-  border: 1px solid var(--md-sys-color-outline-variant);
-  background-color: var(--md-sys-color-surface-container-lowest);
-  color: var(--md-sys-color-on-surface);
-}
-
-.sx-field.typing::after,
-.cu-typed.typing::after {
-  content: '';
-  width: 2px;
-  height: 14px;
-  margin-left: 1px;
-  background-color: var(--md-sys-color-primary);
-}
-
-.sx-tag {
-  padding: 1px 6px;
-  border-radius: 4px;
-  font-size: 10px;
-  font-weight: 600;
-  background-color: var(--md-sys-color-tertiary-container);
-  color: var(--md-sys-color-on-tertiary-container);
-}
-
-.sx-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-.sx-name {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* ---- AutoMod sanctions 1: the screen ------------------------------------------ */
-
-.ad > .ad-sx {
-  display: grid;
-  grid-template-columns: 196px minmax(0, 1fr);
-  gap: 0;
-  padding: 0;
-}
-
-.sx-side {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding: 14px 10px 14px 14px;
-}
-
-.sx-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 4px 8px;
-}
-
-.sx-head-text {
-  display: flex;
-  flex-direction: column;
-  font-size: 11px;
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-.sx-head-text strong {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--md-sys-color-on-surface);
-}
-
-.sx-list {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.sx-item,
-.wr-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 34px;
-  box-sizing: border-box;
-  padding: 0 8px 0 10px;
-  border-radius: 999px;
-  font-size: 13px;
-  color: var(--md-sys-color-on-surface);
-}
-
-.sx-item > .material-symbols-outlined,
-.wr-item > .material-symbols-outlined {
-  font-size: 17px;
-  color: var(--md-sys-color-primary);
-  font-variation-settings: 'FILL' 1;
-}
-
-.sx-item.active {
-  font-weight: 600;
-  background-color: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
-}
-
-.sx-item.changing {
-  background-color: var(--md-sys-color-surface-container-highest);
-}
-
-.sx-item.off .sx-name,
-.sx-item.off > .material-symbols-outlined,
-.wr-item.off .sx-name,
-.wr-item.off > .material-symbols-outlined {
-  opacity: 0.45;
-}
-
-.sx-sub {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 8px;
-  padding: 0 4px 2px 10px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-.sx-slot {
-  display: grid;
-}
-
-.sx-slot > * {
-  grid-area: 1 / 1;
-}
-
-.sx-new {
-  border: 1px dashed var(--md-sys-color-outline);
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-.sx-new > .material-symbols-outlined {
-  color: inherit;
-}
-
-.ad-sx:not(.created) .sx-custom,
-.ad-sx.created .sx-new {
-  visibility: hidden;
-  opacity: 0;
-}
-
-.sx-new.pressed {
-  scale: 0.95;
-}
-
-.sx-main {
-  display: flex;
-  margin: 10px 10px 10px 0;
-  padding: 16px 18px;
-  border-radius: 20px;
-  background-color: var(--md-sys-color-surface-container-lowest);
-}
-
-.sx-editor {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex: 1;
-  min-width: 0;
-}
-
-.sx-editor-head {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 26px;
-  font-size: 17px;
-  font-weight: 600;
-}
-
-.ad-sx[data-target='insults'] .only-ads,
-.ad-sx[data-target='ads'] .only-insults {
-  display: none;
-}
-
-.sx-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 6px;
-}
-
-.sx-setting {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 30px;
-  font-size: 13px;
-}
-
-.sx-setting > span:first-child {
-  flex: 1;
-  min-width: 0;
-}
-
-.sx-setting + .sx-setting {
-  padding-top: 6px;
-  border-top: 1px solid var(--md-sys-color-outline-variant);
-}
-
-.ad-sx:not(.muting) .sx-duration > *,
-.ad-sx:not(.muting) .sx-escalation > * {
-  opacity: 0.4;
-}
-
-.sx-escalation .sx-switch[aria-checked='false'] ~ *,
-.sx-ladder {
-  font-size: 11px;
-}
-
-.sx-escalation:has(.sx-switch[aria-checked='false']) .sx-ladder {
-  visibility: hidden;
-  opacity: 0;
-}
-
-.sx-ladder {
-  color: var(--md-sys-color-primary);
-  background-color: var(--md-sys-color-surface-container);
-}
-
-.ad-sx.swapping .sx-editor {
-  opacity: 0;
-}
-
-.sx-saved {
-  margin-left: auto;
-}
-
-.ad-sx:not(.saved) .sx-saved {
-  visibility: hidden;
-  opacity: 0;
-}
-
-/* ---- AutoMod sanctions 2: wiring ---------------------------------------------- */
-
-.ad > .ad-wr {
-  display: grid;
-  grid-template-columns: 200px minmax(0, 1fr) 176px;
-  align-items: center;
-  padding: 20px 24px;
-}
-
-.wr-wires {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.wr-wires path {
-  fill: none;
-  stroke: var(--md-sys-color-primary);
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-dasharray: 1 1;
-  stroke-dashoffset: 1;
-  opacity: 0;
-}
-
-.wr-wires path.on {
-  stroke-dashoffset: 0;
-  opacity: 1;
-}
-
-.wr-col {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-}
-
-.wr-left {
-  grid-column: 1;
-}
-
-.wr-right {
-  grid-column: 3;
-}
-
-.wr-item {
-  height: 40px;
-  border-radius: 14px;
-  background-color: var(--md-sys-color-surface-container-lowest);
-}
-
-.wr-item.active {
-  font-weight: 600;
-  background-color: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
-}
-
-.wr-act {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  height: 40px;
-  box-sizing: border-box;
-  padding: 0 10px;
-  border-radius: 14px;
-  font-size: 13px;
-  background-color: var(--md-sys-color-surface-container-lowest);
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-.wr-act > .material-symbols-outlined {
-  font-size: 17px;
-}
-
-.wr-act.on {
-  font-weight: 600;
-  background-color: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
-}
-
-.wr-act.on > .material-symbols-outlined {
-  font-variation-settings: 'FILL' 1;
-}
-
-.wr-dur {
-  margin-left: auto;
-  height: 20px;
-  font-weight: 400;
-  background-color: var(--md-sys-color-surface-container-lowest);
-  color: var(--md-sys-color-primary);
-}
-
-.ad-wr:not(.timed) .wr-dur,
-.wr-act:not(.on) .wr-dur {
-  visibility: hidden;
-  opacity: 0;
-}
-
-.wr-check {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  margin-left: auto;
-  padding: 2px 7px 2px 5px;
-  border-radius: 999px;
   font-size: 11px;
   font-weight: 500;
   background-color: var(--md-sys-color-surface-container-lowest);
   color: var(--md-sys-color-primary);
 }
 
-.wr-check .material-symbols-outlined {
+.sn-pill .material-symbols-outlined {
   font-size: 13px;
   font-variation-settings: 'FILL' 1;
 }
 
-/* "Not watched", where the wires would be. */
-.wr-off {
+.sn-mute {
+  font-family: 'Google Sans Mono', monospace;
+  font-weight: 400;
+}
+
+.sn-up {
+  display: none;
+}
+
+.escalate .sn-up {
+  display: inline;
+}
+
+.sn-act:not(.on) .sn-pill,
+.ad-sanctions:not(.approval) .sn-approval {
+  visibility: hidden;
+  opacity: 0;
+  scale: 0.6;
+}
+
+/* "Not watched", where the wires would leave from. */
+.sn-off {
   position: absolute;
   translate: -50% -50%;
 }
 
-.ad-wr:not(.unwatched) .wr-off {
+.ad-sanctions:not(.unwatched) .sn-off {
   visibility: hidden;
   opacity: 0;
-}
-
-.ad-wr:not(.checked) .wr-check {
-  visibility: hidden;
-  opacity: 0;
-  scale: 0.5;
-}
-
-/* ---- AutoMod sanctions 3: escalation ------------------------------------------ */
-
-.ad-es {
-  grid-template-columns: minmax(0, 1fr) 170px;
-}
-
-.ad-es .ad-mini-verdict strong {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.ad-es .ad-mini-verdict .material-symbols-outlined:not(.guard-verdict-icon *) {
-  font-size: 13px;
-}
-
-.ad-es .ad-mini-verdict .sx-dur {
-  height: 18px;
-  padding: 0 6px;
-  font-size: 11px;
-  background-color: var(--md-sys-color-surface-container-lowest);
-  color: var(--md-sys-color-on-surface);
-}
-
-.es-title {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.es-title .material-symbols-outlined {
-  font-size: 18px;
-  color: var(--md-sys-color-primary);
-}
-
-.es-stairs {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: end;
-  gap: 6px;
-  flex: 1;
-}
-
-.es-step {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 6px;
-  height: 100%;
-  justify-content: flex-end;
-}
-
-.es-bar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  height: calc(var(--h) * (100% - 24px));
-  box-sizing: border-box;
-  padding-top: 10px;
-  border-radius: 12px;
-  font-size: 11px;
-  background-color: var(--md-sys-color-surface-container-high);
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-.es-bar .material-symbols-outlined {
-  font-size: 18px;
-  font-variation-settings: 'FILL' 1;
-}
-
-.es-bar b {
-  font-family: 'Google Sans Mono', monospace;
-  font-weight: 500;
-}
-
-.es-step:first-child .es-bar b {
-  font-family: inherit;
-  font-weight: 600;
-}
-
-.es-step.reached .es-bar {
-  background-color: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
-}
-
-.es-step.current .es-bar {
-  background-color: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-}
-
-.es-when {
-  font-size: 11px;
-  text-align: center;
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-.es-step.current .es-when {
-  font-weight: 600;
-  color: var(--md-sys-color-primary);
-}
-
-/* ---- AutoMod sanctions 4: moderator approval ---------------------------------- */
-
-.ad-va {
-  gap: 10px;
-}
-
-.ad-va .ticket-msg {
-  align-self: stretch;
-}
-
-.ad-va .ticket-body {
-  flex: 1;
-}
-
-.va-card {
-  gap: 8px;
-  padding: 12px 14px;
-  border-left-color: var(--md-sys-color-tertiary);
-  font-size: 13px;
-}
-
-.ad-va[data-state='approved'] .va-card {
-  border-left-color: var(--md-sys-color-primary);
-}
-
-.va-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 14px;
-}
-
-.va-head strong {
-  font-weight: 600;
-}
-
-.va-state {
-  display: grid;
-}
-
-.va-state > span {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.ad-va[data-state='approved'] .va-state {
-  background-color: var(--md-sys-color-tertiary-container);
-  color: var(--md-sys-color-on-tertiary-container);
-}
-
-.va-who {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-.va-who img {
-  width: 20px;
-  height: 20px;
-}
-
-.va-who strong {
-  font-weight: 600;
-  color: var(--md-sys-color-on-surface);
-}
-
-.va-who .material-symbols-outlined {
-  font-size: 15px;
-  color: var(--md-sys-color-primary);
-  font-variation-settings: 'FILL' 1;
-}
-
-.va-quote {
-  padding: 2px 0 2px 10px;
-  border-left: 3px solid var(--md-sys-color-outline-variant);
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-.va-actions {
-  display: flex;
-  gap: 6px;
-}
-
-.va-actions em {
-  font-style: normal;
-  font-weight: 400;
-  opacity: 0.75;
-}
-
-.va-ban:not(.on) {
-  border-style: dashed;
-  border-color: var(--md-sys-color-outline);
-}
-
-.ad-va[data-state='approved'] .va-ban {
-  border-color: transparent;
-  background-color: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
-}
-
-.ad-va[data-state='approved'] .va-ban .material-symbols-outlined {
-  font-variation-settings: 'FILL' 1;
-}
-
-.va-bottom {
-  display: grid;
-  align-items: center;
-  min-height: 32px;
-}
-
-.va-bottom > * {
-  grid-area: 1 / 1;
-}
-
-.va-bottom .ad-buttons {
-  margin-top: 0;
-}
-
-.va-done {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-.va-done img {
-  width: 18px;
-  height: 18px;
-}
-
-.va-done strong {
-  font-weight: 600;
-  color: var(--md-sys-color-on-surface);
-}
-
-/* The pending and approved halves share their spots. */
-.va-state > *,
-.va-ban em {
-  grid-area: 1 / 1;
-}
-
-.ad-va[data-state='pending'] .v-approved,
-.ad-va[data-state='approved'] .v-pending {
-  visibility: hidden;
-  opacity: 0;
-}
-
-.ad-va[data-state='approved'] .va-ban em.v-pending,
-.ad-va[data-state='pending'] .va-ban em.v-approved {
-  display: none;
-}
-
-/* ---- AutoMod sanctions 5: a custom infraction --------------------------------- */
-
-.ad > .ad-cu {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr);
-  padding: 20px 24px;
-}
-
-.cu-form,
-.cu-chat {
-  grid-area: 1 / 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.cu-form {
-  gap: 10px;
-  padding: 14px 18px;
-  border-radius: 20px;
-  background-color: var(--md-sys-color-surface-container-lowest);
-}
-
-.cu-chat {
-  justify-content: center;
-  gap: 14px;
-  padding: 18px 22px;
-  border-radius: 20px;
-  background-color: var(--md-sys-color-surface-container-lowest);
-}
-
-.ad-cu[data-phase='form'] .cu-chat,
-.ad-cu[data-phase='chat'] .cu-form {
-  visibility: hidden;
-  opacity: 0;
-}
-
-.cu-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 15px;
-}
-
-.cu-head strong {
-  flex: 1;
-  font-weight: 600;
-}
-
-.cu-count {
-  color: var(--md-sys-color-primary);
-}
-
-.cu-row {
-  display: grid;
-  grid-template-columns: 80px minmax(0, 1fr);
-  align-items: center;
-  min-height: 28px;
-}
-
-.cu-values {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
-}
-
-.cu-name {
-  min-width: 160px;
-  font-family: inherit;
-  font-size: 13px;
-}
-
-.cu-word {
-  height: 26px;
-  border-radius: 8px;
-  background-color: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
-}
-
-.ad-cu:not(.filled) .cu-word:not(.cu-typed),
-.ad-cu:not(.typed-word) .cu-typed {
-  visibility: hidden;
-  opacity: 0;
-  scale: 0.8;
-}
-
-.ad-cu:not(.muting) .cu-dur {
-  visibility: hidden;
-  opacity: 0;
-}
-
-.cu-foot {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.cu-foot .fake-button {
-  gap: 6px;
-}
-
-.cu-foot .fake-button .material-symbols-outlined {
-  font-size: 18px;
-}
-
-.ad-cu .ad-mini-body {
-  font-size: 14px;
-}
-
-.ad-cu .ad-mini-msg > img {
-  width: 28px;
-  height: 28px;
-}
-
-.ad-cu .ad-mini-verdict .sx-tag {
-  margin-left: 4px;
-  vertical-align: 1px;
 }
 
 /* ---- Motion ------------------------------------------------------------------ */
@@ -1900,92 +1281,53 @@ body {
     transition: background-color 200ms var(--ease);
   }
 
-  /* AutoMod sanctions */
-  .sx-switch,
-  .sx-switch::after {
-    transition: all 250ms var(--ease);
+  /* AutoMod sanctions: a wire is drawn, then its action lights up. */
+  .sn-wires path {
+    transition:
+      stroke-dashoffset 550ms var(--ease),
+      opacity 0s 550ms; /* gone once retracted, or its round cap would stay */
   }
 
-  .sx-act,
-  .sx-item,
-  .wr-item,
-  .wr-act,
-  .sx-new,
-  .sx-custom,
-  .sx-editor,
-  .sx-ladder,
-  .sx-setting > *,
-  .sx-name,
-  .sx-item > .material-symbols-outlined,
-  .wr-item > .material-symbols-outlined {
+  .sn-wires path.on {
+    transition:
+      stroke-dashoffset 550ms var(--ease),
+      opacity 0s;
+  }
+
+  .sn-item,
+  .sn-act,
+  .sn-item > *,
+  .sn-name,
+  .sn-off {
     transition:
       background-color 300ms var(--ease),
-      border-color 300ms var(--ease),
       color 300ms var(--ease),
       opacity 300ms var(--ease),
       visibility 300ms,
       scale 150ms var(--ease);
   }
 
-  /* A wire disappears once it has retracted (its round cap would stay). */
-  .wr-wires path {
-    transition:
-      stroke-dashoffset 550ms var(--ease),
-      opacity 0s 550ms;
+  .sn-act.on {
+    transition-delay: 250ms;
   }
 
-  .wr-wires path.on {
-    transition:
-      stroke-dashoffset 550ms var(--ease),
-      opacity 0s;
-  }
-
-  .wr-dur,
-  .wr-check,
-  .wr-off,
-  .sx-saved {
+  .sn-pill {
     transition:
       opacity 300ms var(--ease),
       visibility 300ms,
       scale 300ms var(--ease);
   }
 
-  .es-bar,
-  .es-when {
-    transition:
-      background-color 400ms var(--ease),
-      color 400ms var(--ease);
+  .sn-act.on .sn-pill {
+    transition-delay: 400ms;
   }
 
-  .es-step.current .es-bar {
-    animation: pop 400ms var(--ease);
+  .sn-switch,
+  .sn-switch::after {
+    transition: all 250ms var(--ease);
   }
 
-  .va-card,
-  .va-state,
-  .va-ban,
-  .va-state > *,
-  .va-bottom > * {
-    transition:
-      background-color 300ms var(--ease),
-      border-color 300ms var(--ease),
-      color 300ms var(--ease),
-      opacity 300ms var(--ease),
-      visibility 300ms;
-  }
-
-  .cu-form,
-  .cu-chat,
-  .cu-word,
-  .cu-dur {
-    transition:
-      opacity 400ms var(--ease),
-      visibility 400ms,
-      scale 300ms var(--ease);
-  }
-
-  .sx-field.typing::after,
-  .cu-typed.typing::after {
-    animation: blink 1s steps(1) infinite;
+  .sn-new.pressed {
+    scale: 0.94;
   }
 }
