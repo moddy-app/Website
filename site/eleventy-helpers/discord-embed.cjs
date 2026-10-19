@@ -9,7 +9,8 @@
  *   `discordEmbed: true`): the preview in the page's own language;
  * - at request time, by proxy.js, when Discord fetches a home page with a query
  *   string: `?lang=` picks the language, and every button keeps the query
- *   string of the shared link (`?lang=fr&ref=x` → `/install?lang=fr&ref=x`).
+ *   string of the shared link (`?lang=fr&ref=x` → `/install?lang=fr&ref=x`);
+ *   only the install button renames `utm_source` to `source`.
  *
  * Text comes from `discordEmbed` in site/_data/i18n/<locale>.json. Required
  * (not read from disk) so Vercel bundles the JSON with the proxy.
@@ -35,8 +36,11 @@ const MODDY_EMOJI = '<:ModdyIcon:1515765478411206666>';
 const MAX_PAYLOAD_BYTES = 3000;
 const MAX_URL_LENGTH = 512;
 
+// `params` rewrites the shared link's query string for one button. The install
+// page reads the campaign as `source`, not `utm_source`; the other buttons keep
+// the query string untouched.
 const BUTTONS = [
-  {key: 'add', url: `${ORIGIN}/install`},
+  {key: 'add', url: `${ORIGIN}/install`, params: utmSourceToSource},
   {key: 'website', url: ORIGIN},
   {key: 'support', url: `${ORIGIN}/support`},
   {key: 'dashboard', url: 'https://dashboard.moddy.app'},
@@ -81,6 +85,14 @@ function withParams(url, params) {
   return target.href;
 }
 
+/** `?utm_source=x&utm_medium=y` → `?source=x&utm_medium=y` (order kept). */
+function utmSourceToSource(params) {
+  if (params.has('source')) return params;
+  const renamed = new URLSearchParams();
+  for (const [key, value] of params) renamed.append(key === 'utm_source' ? 'source' : key, value);
+  return renamed;
+}
+
 function buildPayload(code, params) {
   const text = strings(code);
   return {
@@ -97,7 +109,7 @@ function buildPayload(code, params) {
             type: 2,
             style: 5,
             label: text[button.key],
-            url: withParams(button.url, params),
+            url: withParams(button.url, button.params ? button.params(params) : params),
           })),
         },
       ],
