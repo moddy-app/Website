@@ -1187,6 +1187,101 @@ body {
   opacity: 0;
 }
 
+/* ---- AI image detector ------------------------------------------------------ */
+
+.ad-ai {
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+/* The posted picture: a Twemoji on a soft tile. */
+.ai-picture {
+  display: grid;
+  place-items: center;
+  width: 200px;
+  height: 112px;
+  margin-top: 4px;
+  border-radius: 8px;
+  background-color: var(--tint-tertiary);
+}
+
+.ai-picture.tone-primary { background-color: var(--tint-primary); }
+.ai-picture.tone-secondary { background-color: var(--tint-secondary); }
+
+/* Moddy's answer takes the whole width under the reply line. */
+.ad-ai .ad-reply .ticket-body {
+  flex: 1 1 0;
+}
+
+/* "↱ mia Click to see attachment", the reply's link to the picture. */
+.ai-replied {
+  position: relative;
+  gap: 5px;
+}
+
+.ai-replied::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 15px;
+  width: 20px;
+  height: 14px;
+  box-sizing: border-box;
+  border-top: 2px solid var(--md-sys-color-outline-variant);
+  border-left: 2px solid var(--md-sys-color-outline-variant);
+  border-top-left-radius: 6px;
+}
+
+.ai-replied em {
+  font-style: italic;
+}
+
+.ai-replied .material-symbols-outlined {
+  font-size: 15px;
+  font-variation-settings: 'FILL' 1;
+}
+
+.ai-embed {
+  gap: 4px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.ai-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+/* The ai_shield emoji, in the theme's color. */
+.ai-shield {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  background-color: var(--md-sys-color-primary);
+  -webkit-mask: url(/emoji/ai-shield.png) center / contain no-repeat;
+  mask: url(/emoji/ai-shield.png) center / contain no-repeat;
+}
+
+.ai-date {
+  padding: 0 4px;
+  border-radius: 4px;
+  font-weight: 600;
+  white-space: nowrap;
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+/* The small print under Discord's separator. */
+.ai-note {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
 /* ---- Motion ------------------------------------------------------------------ */
 
 @media (prefers-reduced-motion: no-preference) {

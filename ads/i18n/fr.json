@@ -178,5 +178,32 @@
     "language": "Français",
     "requested": "demandé par leo",
     "text": "Salut ! La partie commence à 21 h, ramenez vos micros et soyez à l'heure."
+  },
+  "aiDetector": {
+    "channel": "concours-photo",
+    "intro": "le concours photo est ouvert, postez vos plus belles photos",
+    "posts": {
+      "mia": "ma participation",
+      "sam": "le coucher de soleil d'hier soir",
+      "alex": "prise pendant mes vacances"
+    },
+    "attachment": "Cliquez pour voir la pièce jointe",
+    "more": "Plus d'informations",
+    "learnMore": "En savoir plus",
+    "generated": {
+      "title": "Contenu généré par intelligence artificielle",
+      "text": "Cette image a été entièrement générée par {tool} ({issuer}) le {date}.",
+      "note": "Cette information provient de la signature C2PA d'{issuer} intégrée au fichier, vérifiée cryptographiquement et impossible à falsifier."
+    },
+    "photo": {
+      "title": "Photographie authentifiée",
+      "text": "Cette photo a été prise avec un {device} le {date} et n'a pas été modifiée par IA.",
+      "note": "La signature C2PA appliquée par {issuer} lors de la prise de vue a été vérifiée, ce qui certifie l'origine de l'image mais pas l'authenticité de la scène photographiée."
+    },
+    "partial": {
+      "title": "Contenu partiellement généré par intelligence artificielle",
+      "text": "Cette image a été modifiée avec des outils d'IA générative via {tool} ({issuer}).",
+      "note": "Cette information provient de l'historique C2PA signé du fichier, vérifié cryptographiquement, qui atteste d'une modification par IA sans toujours préciser la zone concernée."
+    }
   }
 }
