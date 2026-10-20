@@ -18,6 +18,10 @@ look, and every new page or card must look like it was always there.
 
 Key files:
 
+- `design-kit/`: this design system extracted for the other Moddy services (CSS,
+  theme, fonts, web components, demo; rules in `design-kit/DESIGN-SYSTEM.md`). Not
+  used by the site's build. When you change the look here (tokens, cards, shapes,
+  theme, top bar, theme menu), make the same change there.
 - `site/_includes/default.html`: the layout (top bar, content, footer). Front matter it reads:
   `titleKey` (i18n key of the `<title>`), `basePath` (enables hreflang + the locale redirect),
   `clientI18n: true` (page rendered once for every language, translated in the browser:
