@@ -44,6 +44,28 @@
     "support": "Support-Server",
     "visual": "Fehler 404"
   },
+  "down": {
+    "pageTitle": "Dienste nicht verfügbar",
+    "title": "Unsere Dienste sind derzeit nicht verfügbar",
+    "titleMaintenance": "Moddy wird gerade gewartet",
+    "description": "Ein Vorfall beeinträchtigt derzeit Moddy. Unser Team arbeitet daran, den Dienst so schnell wie möglich wiederherzustellen.",
+    "descriptionMaintenance": "Gerade läuft eine geplante Wartung. Der Dienst steht wieder zur Verfügung, sobald sie abgeschlossen ist.",
+    "incident": "Vorfall verfolgen",
+    "support": "Support-Server",
+    "window": "{start} bis {end}",
+    "labelIncident": "Vorfall",
+    "labelLevel": "Schweregrad",
+    "labelStarted": "Beginn",
+    "labelWindow": "Zeitraum",
+    "labelReference": "Referenz",
+    "autoRefresh": "Diese Seite aktualisiert sich automatisch.",
+    "level": {
+      "degraded_performance": "Eingeschränkte Leistung",
+      "partial_outage": "Teilausfall",
+      "major_outage": "Großer Ausfall",
+      "maintenance": "Wartung"
+    }
+  },
   "home": {
     "pageTitle": "Startseite",
     "hero": {

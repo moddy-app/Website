@@ -42,8 +42,31 @@
     <!-- Loads definition for <lit-island>. See docs for @11ty/is-land for usage -->
     <script type="module" src="/js/ssr-utils/lit-island.js?v={{ build.version }}"></script>
     <!-- Inlines the material theming logic since we want to prevent FOUC -->
+    {% if fixedTheme %}
+    {#- /down is always red (_data/alertTheme.js), in the visitor's color
+        mode, without touching the theme they keep on the rest of the site. #}
+    <script>
+      (function () {
+        var mode = 'auto';
+        try {
+          mode = localStorage.getItem('color-mode') || 'auto';
+        } catch (e) {}
+        var light = {{ alertTheme.light | dump | safe }};
+        var dark = {{ alertTheme.dark | dump | safe }};
+        var style = document.createElement('style');
+        style.textContent =
+          mode === 'dark' ? dark :
+          mode === 'light' ? light :
+          light + '@media (prefers-color-scheme: dark){' + dark + '}';
+        document.head.appendChild(style);
+        // src/pages/global.ts leaves the theme alone on such a page.
+        document.documentElement.dataset.fixedTheme = '';
+      })();
+    </script>
+    {% else %}
     {% include "partials/random-theme.html" %}
     {% inlinejs "inline/apply-saved-theme.js" %}
+    {% endif %}
     <!-- Show the page once it is complete, not while it assembles: the
          components, the text font and the icon font on screen arrive after
          the first paint. Revealed as soon as they are ready, 1.5 s at most. -->
@@ -160,8 +183,14 @@
   <body dsd-pending>
     <!-- Inlines the declarative shadow dom polyfill for FF since it's performance sensitive -->
     {% inlinejs "ssr-utils/dsd-polyfill.js" %}
-    {% include "partials/site-banner.html" %}
+    {#- Pages that show the status themselves (/down) skip the status banner. #}
+    {% if not hideBanner %}
+      {% include "partials/site-banner.html" %}
+    {% endif %}
     <div class="page-layout">
+      {#- Pages shown inside the dashboard (/down) have no top bar: its links
+          and user menu belong to the site, not to the frame. #}
+      {% if not hideTopBar %}
       <div class="page-topbar">
         <lit-island on:visible import="/js/hydration-entrypoints/navigation.js?v={{ build.version }}">
           <top-app-bar baseURI="/" home-href="{{ loc.prefix }}/" premium-href="{{ loc.prefix }}/premium/" labels="{{ 'topbar' | tObject(loc.code) | dump }}">
@@ -169,6 +198,7 @@
           </top-app-bar>
         </lit-island>
       </div>
+      {% endif %}
 
       <main class="page-content" id="main-content" tabindex="0">
         <!-- this is the content of the page -->
@@ -187,6 +217,8 @@
     {% endif %}
 
 
+    {#- /down is meant to be framed by the dashboard (`allowFraming`). #}
+    {% if not allowFraming %}
     <script>
       // Prevent pages from being loaded inside iframes (e.g., from status page)
       // This fixes the issue where clicking the logo in the Instatus iframe
@@ -203,5 +235,6 @@
       })();
 
     </script>
+    {% endif %}
   </body>
 </html>

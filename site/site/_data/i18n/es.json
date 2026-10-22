@@ -44,6 +44,28 @@
     "support": "Servidor de soporte",
     "visual": "Error 404"
   },
+  "down": {
+    "pageTitle": "Servicios no disponibles",
+    "title": "Nuestros servicios no están disponibles en este momento",
+    "titleMaintenance": "Moddy está en mantenimiento",
+    "description": "Un incidente afecta actualmente a Moddy. Nuestro equipo trabaja para restablecer el servicio lo antes posible.",
+    "descriptionMaintenance": "Hay un mantenimiento programado en curso. El servicio se restablecerá en cuanto termine.",
+    "incident": "Seguir el incidente",
+    "support": "Servidor de soporte",
+    "window": "Del {start} al {end}",
+    "labelIncident": "Incidente",
+    "labelLevel": "Gravedad",
+    "labelStarted": "Inicio",
+    "labelWindow": "Horario",
+    "labelReference": "Referencia",
+    "autoRefresh": "Esta página se actualiza automáticamente.",
+    "level": {
+      "degraded_performance": "Rendimiento degradado",
+      "partial_outage": "Interrupción parcial",
+      "major_outage": "Interrupción grave",
+      "maintenance": "Mantenimiento"
+    }
+  },
   "home": {
     "pageTitle": "Inicio",
     "hero": {
