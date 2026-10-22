@@ -134,7 +134,10 @@ function applySmoothScrolling() {
   });
 }
 
-applyColorThemeListeners();
-initializeTheme();
-determinePageNavigationAutoMode();
+// Pages with a theme of their own (/down, `fixedTheme`) keep it.
+if (!document.documentElement.hasAttribute('data-fixed-theme')) {
+  applyColorThemeListeners();
+  initializeTheme();
+  determinePageNavigationAutoMode();
+}
 applySmoothScrolling();

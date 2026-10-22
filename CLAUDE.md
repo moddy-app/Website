@@ -151,6 +151,9 @@ Key files:
 
 - Icons: **Material Symbols Outlined**, **filled** (`'FILL' 1`) in shapes, menus
   and badges. No emoji anywhere.
+- The icon font only holds the icons found in `site/` and `src/` at build time
+  (`_data/iconFont.js`): write each icon name out in full, as element text or a
+  quoted string. A name assembled at runtime shows as text.
 - A feature icon sits in a **polygon shape**, not a circle or a clover:
   `<span class="shape shape-hexagon tone-tertiary"><span class="material-symbols-outlined">…</span></span>`.
   Shapes: `square`, `diamond`, `pentagon`, `hexagon`, `heptagon`, `octagon`;

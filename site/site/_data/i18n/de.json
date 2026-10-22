@@ -3,6 +3,7 @@
     "home": "Startseite",
     "skipToMain": "Zum Hauptinhalt springen",
     "signIn": "Anmelden",
+    "signInUnavailable": "Anmeldung vorübergehend nicht verfügbar",
     "userMenu": "Benutzermenü",
     "dashboard": "Dashboard",
     "premium": "Moddy Max",
@@ -43,6 +44,34 @@
     "docs": "Dokumentation",
     "support": "Support-Server",
     "visual": "Fehler 404"
+  },
+  "down": {
+    "pageTitle": "Dienste nicht verfügbar",
+    "title": "Unsere Dienste sind derzeit nicht verfügbar",
+    "titleMaintenance": "Moddy wird gerade gewartet",
+    "description": "Ein Vorfall beeinträchtigt derzeit Moddy. Unser Team arbeitet daran, den Dienst so schnell wie möglich wiederherzustellen.",
+    "descriptionMaintenance": "Gerade läuft eine geplante Wartung. Der Dienst steht wieder zur Verfügung, sobald sie abgeschlossen ist.",
+    "incident": "Vorfall verfolgen",
+    "support": "Support-Server",
+    "window": "{start} bis {end}",
+    "labelIncident": "Vorfall",
+    "labelLevel": "Schweregrad",
+    "labelStarted": "Beginn",
+    "labelWindow": "Zeitraum",
+    "labelReference": "Referenz",
+    "autoRefresh": "Diese Seite aktualisiert sich automatisch.",
+    "labelMaintenance": "Wartung",
+    "maintenanceLink": "Wartung verfolgen",
+    "descriptionGeneric": "Unser Team wurde alarmiert und arbeitet daran, den Dienst so schnell wie möglich wiederherzustellen.",
+    "statusPage": "Statusseite",
+    "titleRetry": "Ein Problem ist aufgetreten",
+    "descriptionRetry": "Unsere Dienste laufen normal. Bitte versuche es in ein paar Augenblicken erneut.",
+    "level": {
+      "degraded_performance": "Eingeschränkte Leistung",
+      "partial_outage": "Teilausfall",
+      "major_outage": "Großer Ausfall",
+      "maintenance": "Wartung"
+    }
   },
   "home": {
     "pageTitle": "Startseite",

@@ -9,7 +9,7 @@
  */
 
 import '@material/web/progress/circular-progress.js';
-import { signInWithDiscord, getMe } from '../utils/auth.js';
+import { signInWithDiscord, getSession } from '../utils/auth.js';
 
 /**
  * Initialize the sign-in page
@@ -21,7 +21,13 @@ async function initSignIn() {
     const redirectUrl = params.get('url');
 
     // Check if user is already authenticated
-    const user = await getMe();
+    const {user, reachable} = await getSession();
+
+    if (!reachable) {
+      // The API is down: the OAuth redirect would land on an error page.
+      window.location.replace('/down/');
+      return;
+    }
 
     if (user) {
       // Already logged in — go to the requested URL or home

@@ -57,27 +57,40 @@ export function getGuildIconUrl(
 }
 
 /**
+ * The current user from the session cookie (null if not logged in), and
+ * whether the API answered at all: `reachable` is false when it is down
+ * (network error, timeout, 5xx, or Railway's 404 when the app is gone), so
+ * callers can tell "signed out" from "cannot sign in right now".
+ */
+export async function getSession(
+  timeoutMs = 8000,
+): Promise<{user: User | null; reachable: boolean}> {
+  try {
+    const response = await fetch(`${API_URL}/auth/me`, {
+      credentials: 'include',
+      signal: AbortSignal.timeout(timeoutMs),
+    });
+
+    if (response.status === 401) return {user: null, reachable: true};
+
+    if (!response.ok) {
+      console.error('Failed to fetch /auth/me:', response.status);
+      return {user: null, reachable: response.status < 500 && response.status !== 404};
+    }
+
+    return {user: (await response.json()) as User, reachable: true};
+  } catch (error) {
+    console.error('Error fetching /auth/me:', error);
+    return {user: null, reachable: false};
+  }
+}
+
+/**
  * Returns the current user from the session cookie, or null if not logged in.
  * This is the single source of truth for auth state — call it at app startup.
  */
 export async function getMe(): Promise<User | null> {
-  try {
-    const response = await fetch(`${API_URL}/auth/me`, {
-      credentials: 'include',
-    });
-
-    if (response.status === 401) return null;
-
-    if (!response.ok) {
-      console.error('Failed to fetch /auth/me:', response.status);
-      return null;
-    }
-
-    return (await response.json()) as User;
-  } catch (error) {
-    console.error('Error fetching /auth/me:', error);
-    return null;
-  }
+  return (await getSession()).user;
 }
 
 /**

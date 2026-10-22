@@ -3,6 +3,7 @@
     "home": "Home",
     "skipToMain": "Skip to main content",
     "signIn": "Sign In",
+    "signInUnavailable": "Sign-in is temporarily unavailable",
     "userMenu": "User menu",
     "dashboard": "Dashboard",
     "premium": "Moddy Max",
@@ -43,6 +44,34 @@
     "docs": "Documentation",
     "support": "Support server",
     "visual": "Error 404"
+  },
+  "down": {
+    "pageTitle": "Services unavailable",
+    "title": "Our services are currently unavailable",
+    "titleMaintenance": "Moddy is under maintenance",
+    "description": "An incident is currently affecting Moddy. Our team is working to restore service as quickly as possible.",
+    "descriptionMaintenance": "Scheduled maintenance is in progress. Service will be restored as soon as it is complete.",
+    "incident": "Follow the incident",
+    "support": "Support server",
+    "window": "{start} to {end}",
+    "labelIncident": "Incident",
+    "labelLevel": "Severity",
+    "labelStarted": "Started",
+    "labelWindow": "Window",
+    "labelReference": "Reference",
+    "autoRefresh": "This page updates automatically.",
+    "labelMaintenance": "Maintenance",
+    "maintenanceLink": "Follow the maintenance",
+    "descriptionGeneric": "Our team has been alerted and is working to restore service as quickly as possible.",
+    "statusPage": "Status page",
+    "titleRetry": "Something went wrong",
+    "descriptionRetry": "Our services are running normally. Please try again in a few moments.",
+    "level": {
+      "degraded_performance": "Degraded performance",
+      "partial_outage": "Partial outage",
+      "major_outage": "Major outage",
+      "maintenance": "Maintenance"
+    }
   },
   "home": {
     "pageTitle": "Home",

@@ -3,6 +3,7 @@
     "home": "Início",
     "skipToMain": "Ir para o conteúdo principal",
     "signIn": "Entrar",
+    "signInUnavailable": "Login temporariamente indisponível",
     "userMenu": "Menu do usuário",
     "dashboard": "Painel",
     "premium": "Moddy Max",
@@ -43,6 +44,34 @@
     "docs": "Documentação",
     "support": "Servidor de suporte",
     "visual": "Erro 404"
+  },
+  "down": {
+    "pageTitle": "Serviços indisponíveis",
+    "title": "Nossos serviços estão indisponíveis no momento",
+    "titleMaintenance": "O Moddy está em manutenção",
+    "description": "Um incidente está afetando o Moddy no momento. Nossa equipe está trabalhando para restabelecer o serviço o quanto antes.",
+    "descriptionMaintenance": "Uma manutenção programada está em andamento. O serviço será restabelecido assim que ela terminar.",
+    "incident": "Acompanhar o incidente",
+    "support": "Servidor de suporte",
+    "window": "De {start} a {end}",
+    "labelIncident": "Incidente",
+    "labelLevel": "Gravidade",
+    "labelStarted": "Início",
+    "labelWindow": "Janela",
+    "labelReference": "Referência",
+    "autoRefresh": "Esta página é atualizada automaticamente.",
+    "labelMaintenance": "Manutenção",
+    "maintenanceLink": "Acompanhar a manutenção",
+    "descriptionGeneric": "Nossa equipe já foi alertada e está trabalhando para restabelecer o serviço o quanto antes.",
+    "statusPage": "Página de status",
+    "titleRetry": "Ocorreu um problema",
+    "descriptionRetry": "Nossos serviços estão funcionando normalmente. Tente novamente em alguns instantes.",
+    "level": {
+      "degraded_performance": "Desempenho degradado",
+      "partial_outage": "Interrupção parcial",
+      "major_outage": "Interrupção grave",
+      "maintenance": "Manutenção"
+    }
   },
   "home": {
     "pageTitle": "Início",
