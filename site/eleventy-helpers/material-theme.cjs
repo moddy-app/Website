@@ -19,15 +19,30 @@ const ROLES = [
 /** onSurfaceVariant -> on-surface-variant, the token names the site uses. */
 const kebab = (name) => name.replace(/[A-Z]/g, (c) => '-' + c.toLowerCase());
 
-module.exports = async function themeFromSeed(seed) {
+/**
+ * `vivid`: primary and error take the seed's own hue and chroma at tone 48
+ * in both modes, with white text, instead of the scheme's darker tone 40
+ * (light) or pastel tone 80 (dark). For /down, whose red must not read as
+ * burgundy or pink.
+ */
+module.exports = async function themeFromSeed(seed, {vivid = false} = {}) {
   const {argbFromHex, hexFromArgb, Hct, MaterialDynamicColors, SchemeContent} =
     await import('@material/material-color-utilities');
 
   const themeString = (isDark) => {
     const scheme = new SchemeContent(Hct.fromInt(argbFromHex(seed)), isDark, 0);
     let css = ':root,:host{';
+    const colors = Object.fromEntries(
+      ROLES.map((role) => [role, hexFromArgb(MaterialDynamicColors[role].getArgb(scheme))]),
+    );
+    if (vivid) {
+      const source = Hct.fromInt(argbFromHex(seed));
+      const strong = hexFromArgb(Hct.from(source.hue, source.chroma, 48).toInt());
+      const white = hexFromArgb(Hct.from(source.hue, 0, 100).toInt());
+      Object.assign(colors, {primary: strong, onPrimary: white, error: strong, onError: white});
+    }
     for (const role of ROLES) {
-      css += `--md-sys-color-${kebab(role)}:${hexFromArgb(MaterialDynamicColors[role].getArgb(scheme))};`;
+      css += `--md-sys-color-${kebab(role)}:${colors[role]};`;
     }
     return css + '}';
   };

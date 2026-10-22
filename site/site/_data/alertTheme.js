@@ -4,4 +4,4 @@
  */
 const themeFromSeed = require('../../eleventy-helpers/material-theme.cjs');
 
-module.exports = () => themeFromSeed('#C62828');
+module.exports = () => themeFromSeed('#E62117', {vivid: true});
