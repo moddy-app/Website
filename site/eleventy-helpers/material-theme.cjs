@@ -20,10 +20,10 @@ const ROLES = [
 const kebab = (name) => name.replace(/[A-Z]/g, (c) => '-' + c.toLowerCase());
 
 /**
- * `vivid: {tone, onTone}`: primary and error take the seed's own hue and
- * chroma at `tone` in both modes, with text at `onTone`, instead of the
- * scheme's darker tone 40 (light) or pastel tone 80 (dark). For /down,
- * whose red must not read as burgundy or pink.
+ * `vivid: {light: {tone, onTone}, dark: {tone, onTone}}`: primary and error
+ * take the seed's own hue and chroma at `tone`, with text at `onTone`,
+ * instead of the scheme's darker tone 40 (light) or pastel tone 80 (dark).
+ * For /down, whose red must not read as burgundy or pink.
  */
 module.exports = async function themeFromSeed(seed, {vivid} = {}) {
   const {argbFromHex, hexFromArgb, Hct, MaterialDynamicColors, SchemeContent} =
@@ -37,8 +37,9 @@ module.exports = async function themeFromSeed(seed, {vivid} = {}) {
     );
     if (vivid) {
       const source = Hct.fromInt(argbFromHex(seed));
-      const strong = hexFromArgb(Hct.from(source.hue, source.chroma, vivid.tone).toInt());
-      const on = hexFromArgb(Hct.from(source.hue, 0, vivid.onTone).toInt());
+      const {tone, onTone} = vivid[isDark ? 'dark' : 'light'];
+      const strong = hexFromArgb(Hct.from(source.hue, source.chroma, tone).toInt());
+      const on = hexFromArgb(Hct.from(source.hue, 0, onTone).toInt());
       Object.assign(colors, {primary: strong, onPrimary: on, error: strong, onError: on});
     }
     for (const role of ROLES) {
