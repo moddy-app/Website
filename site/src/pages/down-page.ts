@@ -6,6 +6,8 @@
  * can leave this page once everything is back.
  */
 
+import '@material/web/icon/icon.js';
+
 const STATUS_URL = 'https://health.moddy.app/v1/status';
 const STATUS_PAGE = 'https://status.moddy.app';
 const REFRESH_MS = 30_000;
@@ -55,6 +57,28 @@ function formatDate(value: string | null): string {
 
 const $ = (id: string) => document.getElementById(id) as HTMLElement;
 
+type Theme = {light: string; dark: string};
+const themes = JSON.parse($('down-themes').textContent!) as Record<
+  'incident' | 'maintenance',
+  Theme
+>;
+
+/** Red for an incident, orange for a maintenance, in the visitor's mode
+ * (same rule as the inline script of default.html). */
+function applyTheme(kind: 'incident' | 'maintenance') {
+  let mode = 'auto';
+  try {
+    mode = localStorage.getItem('color-mode') || 'auto';
+  } catch {}
+  const {light, dark} = themes[kind];
+  $('fixed-theme').textContent =
+    mode === 'dark'
+      ? dark
+      : mode === 'light'
+        ? light
+        : `${light}@media (prefers-color-scheme: dark){${dark}}`;
+}
+
 function render(data: Status) {
   const incidents =
     data.incidents ??
@@ -63,10 +87,14 @@ function render(data: Status) {
   const current = data.incident ?? incidents[0];
   const maintenance = current?.type === 'maintenance';
 
+  applyTheme(maintenance ? 'maintenance' : 'incident');
+  $('down-icon').textContent = maintenance ? 'build_circle' : 'error';
   $('down-title').textContent = t(maintenance ? 'titleMaintenance' : 'title');
   $('down-description').textContent = t(
     maintenance ? 'descriptionMaintenance' : 'description',
   );
+  $('down-label').textContent = t(maintenance ? 'labelMaintenance' : 'labelIncident');
+  $('down-link-label').textContent = t(maintenance ? 'maintenanceLink' : 'incident');
   $('down-incident-link').setAttribute('href', current?.url || STATUS_PAGE);
 
   const box = $('down-incident');

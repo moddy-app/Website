@@ -59,6 +59,8 @@
     "labelWindow": "Window",
     "labelReference": "Reference",
     "autoRefresh": "This page updates automatically.",
+    "labelMaintenance": "Maintenance",
+    "maintenanceLink": "Follow the maintenance",
     "level": {
       "degraded_performance": "Degraded performance",
       "partial_outage": "Partial outage",

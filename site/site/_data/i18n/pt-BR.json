@@ -59,6 +59,8 @@
     "labelWindow": "Janela",
     "labelReference": "Referência",
     "autoRefresh": "Esta página é atualizada automaticamente.",
+    "labelMaintenance": "Manutenção",
+    "maintenanceLink": "Acompanhar a manutenção",
     "level": {
       "degraded_performance": "Desempenho degradado",
       "partial_outage": "Interrupção parcial",

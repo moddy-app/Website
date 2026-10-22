@@ -59,6 +59,8 @@
     "labelWindow": "Horario",
     "labelReference": "Referencia",
     "autoRefresh": "Esta página se actualiza automáticamente.",
+    "labelMaintenance": "Mantenimiento",
+    "maintenanceLink": "Seguir el mantenimiento",
     "level": {
       "degraded_performance": "Rendimiento degradado",
       "partial_outage": "Interrupción parcial",

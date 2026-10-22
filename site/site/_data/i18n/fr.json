@@ -59,6 +59,8 @@
     "labelWindow": "Créneau",
     "labelReference": "Référence",
     "autoRefresh": "Cette page se met à jour automatiquement.",
+    "labelMaintenance": "Maintenance",
+    "maintenanceLink": "Suivre la maintenance",
     "level": {
       "degraded_performance": "Performances dégradées",
       "partial_outage": "Panne partielle",

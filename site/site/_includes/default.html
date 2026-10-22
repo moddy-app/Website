@@ -44,16 +44,18 @@
     <!-- Inlines the material theming logic since we want to prevent FOUC -->
     {% if fixedTheme %}
     {#- /down is always red (_data/alertTheme.js), in the visitor's color
-        mode, without touching the theme they keep on the rest of the site. #}
+        mode, without touching the theme they keep on the rest of the site.
+        The page can swap #fixed-theme (orange for a maintenance). #}
     <script>
       (function () {
         var mode = 'auto';
         try {
           mode = localStorage.getItem('color-mode') || 'auto';
         } catch (e) {}
-        var light = {{ alertTheme.light | dump | safe }};
-        var dark = {{ alertTheme.dark | dump | safe }};
+        var light = {{ alertTheme.incident.light | dump | safe }};
+        var dark = {{ alertTheme.incident.dark | dump | safe }};
         var style = document.createElement('style');
+        style.id = 'fixed-theme';
         style.textContent =
           mode === 'dark' ? dark :
           mode === 'light' ? light :

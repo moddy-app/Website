@@ -59,6 +59,8 @@
     "labelWindow": "Zeitraum",
     "labelReference": "Referenz",
     "autoRefresh": "Diese Seite aktualisiert sich automatisch.",
+    "labelMaintenance": "Wartung",
+    "maintenanceLink": "Wartung verfolgen",
     "level": {
       "degraded_performance": "Eingeschränkte Leistung",
       "partial_outage": "Teilausfall",
