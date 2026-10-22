@@ -61,6 +61,10 @@
     "autoRefresh": "This page updates automatically.",
     "labelMaintenance": "Maintenance",
     "maintenanceLink": "Follow the maintenance",
+    "descriptionGeneric": "Our team has been alerted and is working to restore service as quickly as possible.",
+    "statusPage": "Status page",
+    "titleRetry": "Something went wrong",
+    "descriptionRetry": "Our services are running normally. Please try again in a few moments.",
     "level": {
       "degraded_performance": "Degraded performance",
       "partial_outage": "Partial outage",

@@ -61,6 +61,10 @@
     "autoRefresh": "Esta página é atualizada automaticamente.",
     "labelMaintenance": "Manutenção",
     "maintenanceLink": "Acompanhar a manutenção",
+    "descriptionGeneric": "Nossa equipe já foi alertada e está trabalhando para restabelecer o serviço o quanto antes.",
+    "statusPage": "Página de status",
+    "titleRetry": "Ocorreu um problema",
+    "descriptionRetry": "Nossos serviços estão funcionando normalmente. Tente novamente em alguns instantes.",
     "level": {
       "degraded_performance": "Desempenho degradado",
       "partial_outage": "Interrupção parcial",

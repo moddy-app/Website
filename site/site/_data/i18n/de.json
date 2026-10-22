@@ -61,6 +61,10 @@
     "autoRefresh": "Diese Seite aktualisiert sich automatisch.",
     "labelMaintenance": "Wartung",
     "maintenanceLink": "Wartung verfolgen",
+    "descriptionGeneric": "Unser Team wurde alarmiert und arbeitet daran, den Dienst so schnell wie möglich wiederherzustellen.",
+    "statusPage": "Statusseite",
+    "titleRetry": "Ein Problem ist aufgetreten",
+    "descriptionRetry": "Unsere Dienste laufen normal. Bitte versuche es in ein paar Augenblicken erneut.",
     "level": {
       "degraded_performance": "Eingeschränkte Leistung",
       "partial_outage": "Teilausfall",
