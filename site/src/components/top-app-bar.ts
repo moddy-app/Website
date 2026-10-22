@@ -18,7 +18,7 @@ import {customElement, property, query, state} from 'lit/decorators.js';
 
 import {SignalElement} from '../signals/signal-element.js';
 import {moddyLogo} from '../svg/moddy-logo.js';
-import {getMe, logout, getAvatarUrl, type User} from '../utils/auth.js';
+import {getSession, logout, getAvatarUrl, type User} from '../utils/auth.js';
 import {API_URL} from '../utils/config.js';
 import {dominantHue} from '../utils/main-color.js';
 
@@ -33,6 +33,7 @@ export interface TopAppBarLabels {
   home: string;
   skipToMain: string;
   signIn: string;
+  signInUnavailable: string;
   userMenu: string;
   dashboard: string;
   premium: string;
@@ -47,6 +48,7 @@ const DEFAULT_LABELS: TopAppBarLabels = {
   home: 'Home',
   skipToMain: 'Skip to main content',
   signIn: 'Sign In',
+  signInUnavailable: 'Sign-in is temporarily unavailable',
   userMenu: 'User menu',
   dashboard: 'Dashboard',
   premium: 'Moddy Max',
@@ -67,6 +69,19 @@ export class TopAppBar extends SignalElement(LitElement) {
 
   @state()
   private isLoading = true;
+
+  /** Whether the API answered the last session check (false: it is down). */
+  private apiReachable = true;
+
+  /** Shown under the Sign In button when the API is down. */
+  @state()
+  private signInUnavailable = false;
+
+  /** Its text, kept until the fade-out is over. */
+  @state()
+  private signInNote = false;
+
+  private unavailableTimer?: ReturnType<typeof setTimeout>;
 
   /** Whether the user has Moddy Max (ring around the avatar button). */
   @state()
@@ -94,7 +109,8 @@ export class TopAppBar extends SignalElement(LitElement) {
    */
   private async checkAuthentication() {
     try {
-      const user = await getMe();
+      const {user, reachable} = await getSession();
+      this.apiReachable = reachable;
       if (user) {
         this.isAuthenticated = true;
         this.userInfo = user;
@@ -248,9 +264,19 @@ export class TopAppBar extends SignalElement(LitElement) {
     }
 
     return html`
-      <md-filled-tonal-button @click=${this.onSignInClick}>
-        ${this.text.signIn}
-      </md-filled-tonal-button>
+      <div class="sign-in">
+        <md-filled-tonal-button @click=${this.onSignInClick}>
+          ${this.text.signIn}
+        </md-filled-tonal-button>
+        <span
+          class="sign-in-unavailable ${this.signInUnavailable ? 'shown' : ''}"
+          role="status"
+          aria-live="polite">
+          ${this.signInNote
+            ? html`<md-icon aria-hidden="true">cloud_off</md-icon>${this.text.signInUnavailable}`
+            : ''}
+        </span>
+      </div>
     `;
   }
 
@@ -282,9 +308,27 @@ export class TopAppBar extends SignalElement(LitElement) {
   }
 
   /**
-   * Redirects to the sign in page with the current URL as a parameter.
+   * Redirects to the sign in page with the current URL as a parameter. When
+   * the API was down at load, asks it again first (it may be back); if it
+   * still does not answer, says so quietly under the button instead of
+   * sending the visitor to an error page.
    */
-  private onSignInClick() {
+  private async onSignInClick() {
+    if (!this.apiReachable) {
+      this.apiReachable = (await getSession(3000)).reachable;
+      if (!this.apiReachable) {
+        this.signInNote = true;
+        this.signInUnavailable = true;
+        clearTimeout(this.unavailableTimer);
+        this.unavailableTimer = setTimeout(() => {
+          this.signInUnavailable = false;
+          this.unavailableTimer = setTimeout(() => {
+            this.signInNote = false;
+          }, 200);
+        }, 5000);
+        return;
+      }
+    }
     const currentUrl = encodeURIComponent(window.location.href);
     window.location.href = `/sign-in?url=${currentUrl}`;
   }
@@ -364,6 +408,58 @@ export class TopAppBar extends SignalElement(LitElement) {
       display: flex;
       justify-content: flex-end;
       align-items: center;
+    }
+
+    /* Sign-in unavailable: a small note under the button, styled like the
+       tooltips, that fades in and out on its own. */
+    .sign-in {
+      position: relative;
+    }
+
+    .sign-in-unavailable {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-sizing: border-box;
+      width: max-content;
+      max-width: calc(100vw - 32px);
+      padding: 6px 10px;
+      border-radius: 4px;
+      background-color: var(--md-sys-color-inverse-surface);
+      color: var(--md-sys-color-inverse-on-surface);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.4;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .sign-in-unavailable.shown {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .sign-in-unavailable md-icon {
+      flex-shrink: 0;
+      --md-icon-size: 16px;
+      font-variation-settings: 'FILL' 1;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .sign-in-unavailable {
+        transition:
+          opacity 150ms cubic-bezier(0.2, 0, 0, 1),
+          visibility 0s 150ms;
+      }
+
+      .sign-in-unavailable.shown {
+        transition: opacity 150ms cubic-bezier(0.2, 0, 0, 1);
+      }
     }
 
     .user-menu-container {
