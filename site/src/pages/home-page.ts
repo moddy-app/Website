@@ -162,6 +162,103 @@ async function liveStats() {
   });
 }
 
+/** The same width the build gives a server (hash of its name). */
+function tileWidth(name: string) {
+  let hash = 0;
+  for (const char of name) hash = (hash * 31 + char.codePointAt(0)!) >>> 0;
+  return 200 + (hash % 5) * 15;
+}
+
+/**
+ * The server tiles come with the list of the last build, which can be days
+ * old. On moddy.app the list is fetched again and the tiles are rebuilt, with
+ * the same markup as the template in index.html. An error or an empty list
+ * keeps what is on the page.
+ */
+async function liveGuilds() {
+  const card = document.querySelector<HTMLElement>('#guilds');
+  const rows = card?.querySelector<HTMLElement>('.guild-rows');
+  if (!card || !rows) return;
+
+  let guilds: Array<{name: string; icon_url?: string; member_count?: number}>;
+  try {
+    const response = await fetch('https://api.moddy.app/public/stats/top-guilds');
+    if (!response.ok) return;
+    guilds = (await response.json()).guilds;
+  } catch {
+    return;
+  }
+  if (!Array.isArray(guilds) || !guilds.length) return;
+
+  const label = card.dataset.membersLabel ?? '{count}';
+  const compact = new Intl.NumberFormat(lang, {notation: 'compact'});
+  const half = Math.floor((guilds.length + 1) / 2);
+  rows.replaceChildren();
+  for (const part of [guilds.slice(0, half), guilds.slice(half)]) {
+    if (!part.length) continue;
+    const lane = document.createElement('div');
+    lane.className = 'guild-lane';
+    const row = document.createElement('div');
+    row.className = 'chip-row';
+    for (const copy of [false, true]) {
+      part.forEach((guild, index) => {
+        const name = String(guild.name);
+        const icon =
+          typeof guild.icon_url === 'string' &&
+          guild.icon_url.startsWith('https://cdn.discordapp.com/')
+            ? guild.icon_url.replace(/size=\d+/, 'size=64')
+            : null;
+        const tile = document.createElement('span');
+        tile.className = `guild-tile tone-${index % 4}`;
+        tile.style.setProperty('--tile-width', `${tileWidth(name)}px`);
+        if (copy) tile.setAttribute('aria-hidden', 'true');
+
+        const image = (className: string) => {
+          const img = document.createElement('img');
+          img.className = className;
+          img.src = icon!;
+          img.alt = '';
+          img.fetchPriority = 'low';
+          img.decoding = 'async';
+          img.crossOrigin = 'anonymous';
+          return img;
+        };
+        if (icon) tile.append(image('guild-bg'));
+
+        const top = document.createElement('span');
+        top.className = 'guild-top';
+        if (icon) {
+          const img = image('guild-icon');
+          img.width = img.height = 22;
+          top.append(img);
+        } else {
+          const initials = document.createElement('span');
+          initials.className = 'guild-icon';
+          initials.setAttribute('aria-hidden', 'true');
+          initials.textContent =
+            name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => [...w][0]).join('').toUpperCase() || '?';
+          top.append(initials);
+        }
+        const members = document.createElement('span');
+        members.className = 'guild-members';
+        members.textContent = label.replace('{count}', compact.format(Number(guild.member_count) || 0));
+        top.append(members);
+
+        const title = document.createElement('span');
+        title.className = 'guild-name';
+        title.textContent = name;
+        tile.append(top, title);
+        row.append(tile);
+      });
+    }
+    lane.append(row);
+    rows.append(lane);
+  }
+  card.hidden = false;
+  guildIconFallbacks();
+  colorTiles();
+}
+
 /** Server icons that fail to load: initials instead, or just the color. */
 function guildIconFallbacks() {
   const fallback = (img: HTMLImageElement) => {
@@ -519,6 +616,7 @@ function dashboardReplica() {
 guildIconFallbacks();
 colorTiles();
 liveStats();
+liveGuilds();
 dashboardReplica();
 
 if (!reduceMotion) {
