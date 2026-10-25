@@ -1,0 +1,21 @@
+# The server list of the home page is fetched from the API at build time
+# (site/site/_data/publicStats.js), and the API recomputes it once a day.
+# Redeploying daily keeps the HTML fresh for visitors whose browser cannot
+# refresh it (previews, no JavaScript).
+name: Daily rebuild
+
+on:
+  schedule:
+    - cron: '30 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger the Vercel deploy hook
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          test -n "$HOOK" || { echo "VERCEL_DEPLOY_HOOK secret is not set"; exit 1; }
+          curl -fsS -X POST "$HOOK"
